@@ -71,6 +71,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "home", :action => "index"
   map.admin 'admin', :controller => :admin, :action => :index
   map.namespace(:admin) do |admin|
+    admin.do_job '/jobs/do/:job_type/:id', :controller => 'jobs', :action => 'do'
     admin.block '/block.:format', :controller => 'misc', :action => 'block'
     admin.flag_item '/flag_item.:format', :controller => 'misc', :action => 'flag'
     admin.feature '/feature.:format', :controller => 'misc', :action => 'feature'

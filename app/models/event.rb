@@ -82,5 +82,10 @@ class Event < ActiveRecord::Base
       :url => "http://www.zvents.com/"+zvent.zurl)
     end
   end
+  
+  def self.process(param)
+   
+  end
+  
 end
 
