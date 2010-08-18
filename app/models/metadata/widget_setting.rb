@@ -39,7 +39,7 @@ class Metadata::WidgetSetting < Metadata
   end
 
   def kommand_chain
-    self.kommands.inject(self.klass_name.constantize) {|klass,kommand| klass.send(kommand[:method_name], kommand[:args].first, kommand[:options]) }
+    self.kommands.inject(self.klass_name.constantize) {|klass,kommand| klass.send(kommand[:method_name], *([kommand[:args], kommand[:options]].flatten)) }
   end
 
   def add_kommand *args
