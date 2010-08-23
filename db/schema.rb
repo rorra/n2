@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100715214727) do
+ActiveRecord::Schema.define(:version => 20100717231853) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -277,6 +277,29 @@ ActiveRecord::Schema.define(:version => 20100715214727) do
     t.integer  "topics_count",   :default => 0
     t.integer  "comments_count", :default => 0
     t.integer  "position",       :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "galleries", :force => true do |t|
+    t.string   "name"
+    t.string   "section"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gallery_items", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "caption"
+    t.integer  "votes_tally",    :default => 0
+    t.integer  "comments_count", :default => 0
+    t.boolean  "is_featured",    :default => false
+    t.datetime "featured_at"
+    t.integer  "flags_count",    :default => 0
+    t.boolean  "is_blocked",     :default => false
+    t.integer  "gallery_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

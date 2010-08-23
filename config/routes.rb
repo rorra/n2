@@ -68,6 +68,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :newswires, :member => { :quick_post => [:get, :post] }
   map.resources :ideas, :member => { :like => [:get, :post],:my_ideas => [:get, :post] },:collection => { :index => [:get, :post] }, :has_many => [:comments, :flags, :related_items ]
   map.resources :idea_boards, :has_many => :ideas
+  map.resources :galleries, :has_many => :gallery_items
+  map.resources :gallery_items, :member => { :like => [:get, :post],:my_gallery_items => [:get, :post] },:collection => { :index => [:get, :post] }, :has_many => [:comments, :flags ]
   map.resources :resources, :member => { :like => [:get, :post], :my_resources => [:get, :post] }, :collection => { :index => [:get, :post] }, :has_many => [:comments, :flags, :related_items]
   map.resources :resource_sections, :has_many => :resources
   map.resources :events, :member => { :like => [:get, :post],:my_events => [:get, :post] }, :collection => { :index => [:get, :post], :import_facebook => [:get, :post] },:has_many => [:comments, :flags, :related_items]
@@ -100,6 +102,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :activity_scores
     admin.resources :ideas
     admin.resources :idea_boards
+    admin.resources :galleries
+    admin.resources :gallery_items
     admin.resources :resources
     admin.resources :resource_sections
     admin.resources :events, :collection => { :import_zvents => [:get, :post]}

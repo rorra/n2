@@ -1,0 +1,24 @@
+- content_for :sub_nav do
+  - if @gallery.present?
+    = render :partial => 'shared/subnav/galleries_subnav'
+  - else
+    = render :partial => 'shared/subnav/gallery_items_subnav'
+
+#col_left
+  .panel_1
+    .panelBar
+      %h2 
+        t('gallery.add')
+    .formBox
+      - semantic_form_for @gallery_item do |form|
+        - form.inputs do
+          = form.input :title, :label => t('.title'), :hint => t('.hint_gallery_item_title')
+          = form.input :caption, :input_html => { :rows => 5 }, :hint => t('.hint_gallery_item_details') 
+          = form.input :tags_string, :label => t('tags'), :required => false, :hint => t('tags_hint')
+          = render :partial => 'shared/forms/media_items', :locals => { :form => form, :item => @gallery_item }
+          = render :partial => 'shared/forms/wall_postable', :locals => { :form => form, :item => @gallery_item }
+        - form.buttons do
+          = form.commit_button  :button_html => { :class => 'btn_1' } 
+
+#col_right
+  = render :partial => 'shared/ads_banner' ,:locals => { :slot_data => @ad_skyscraper }
