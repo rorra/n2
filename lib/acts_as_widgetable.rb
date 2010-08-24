@@ -2,33 +2,43 @@ require 'active_record'
 
 module Newscloud
   module Acts
-    module Refineable
+    module widgetable
 
       def self.included(base)
         base.extend ClassMethods
       end
 
       module ClassMethods
-        def acts_as_refineable
+        def acts_as_widgetable
 
-          include Newscloud::Acts::Refineable::InstanceMethods
-          extend Newscloud::Acts::Refineable::RefineClassMethods
+          include Newscloud::Acts::widgetable::InstanceMethods
+          extend Newscloud::Acts::widgetable::RefineClassMethods
         end
       end
 
       module RefineClassMethods
 
-        def refineable?
+        def widgetable?
           true
         end
 
+        def widget_methods
+          []
+        end
+
+        def valid_method? method_name
+          self.widget_methods.include? method_name
+        end
+
+        def valid
+
         def refine(params)
-          refineable_params = ['sort_by', 'category', 'section']
+          widgetable_params = ['sort_by', 'category', 'section']
           
           chains = []
           params.each do |key, value|
             value = self.filtered_value value
-            next unless refineable_params.index(key)
+            next unless widgetable_params.index(key)
             if key == 'sort_by'
             	value = value.downcase
               chains << value if self.respond_to?(value) and self.valid_refine_type?(value)
@@ -64,7 +74,7 @@ module Newscloud
           ['newest', 'top'].include? value.downcase
         end
 
-        def self.refineable_select_options
+        def self.widgetable_select_options
           ['Newest', 'Top'].collect { |k| [k, k] }
         end
 
@@ -72,7 +82,7 @@ module Newscloud
 
       module InstanceMethods
 
-        def refineable?
+        def widgetable?
           true
         end
 
