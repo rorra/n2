@@ -10,6 +10,7 @@ class Content < ActiveRecord::Base
   acts_as_wall_postable
   acts_as_relatable
   acts_as_scorable
+  acts_as_widgetable
 
   belongs_to :user
   belongs_to :article
@@ -121,6 +122,53 @@ class Content < ActiveRecord::Base
 
   def scoreable_user
     is_article? ? article.author : user
+  end
+
+  def self.widget_methods
+    {
+      :published => {
+      	:args => []
+      },
+      :newest => {
+      	:args => [
+      	  Newscloud::Acts::Widgetable.default_args_count
+      	]
+      },
+      :top => {
+      	:args => [
+      	  Newscloud::Acts::Widgetable.default_args_count
+      	]
+      },
+      :newest_stories => {
+      	:args => [
+      	  Newscloud::Acts::Widgetable.default_args_count
+      	]
+      },
+      :newest_articles => {
+      	:args => [
+      	  Newscloud::Acts::Widgetable.default_args_count
+      	]
+      },
+      :articles => {
+      	:args => []
+      },
+      :draft_articles => {
+      	:args => []
+      },
+      :top_articles => {
+      	:args => [
+      	  Newscloud::Acts::Widgetable.default_args_count
+      	]
+      },
+      :stories => {
+      	:args => []
+      },
+      :featured => {
+      	:args => [
+      	  Newscloud::Acts::Widgetable.default_args_count
+      	]
+      }
+    }
   end
   
   private

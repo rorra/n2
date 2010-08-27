@@ -26,6 +26,10 @@ ActiveRecord::Base.send :include, Newscloud::Acts::Refineable
 require "#{RAILS_ROOT}/lib/acts_as_wall_postable.rb"
 ActiveRecord::Base.send :include, Newscloud::Acts::WallPostable
 
+# Load acts_as_widgetable mixin
+require "#{RAILS_ROOT}/lib/acts_as_widgetable.rb"
+ActiveRecord::Base.send :include, Newscloud::Acts::Widgetable
+
 # Load acts_as_scorable mixin
 require "#{RAILS_ROOT}/lib/acts_as_scorable.rb"
 ActiveRecord::Base.send :include, Newscloud::Acts::Scorable

@@ -2,80 +2,79 @@ require 'active_record'
 
 module Newscloud
   module Acts
-    module widgetable
+    module Widgetable
 
       def self.included(base)
         base.extend ClassMethods
       end
 
+      def self.default_args_count *args
+        options = args.extract_options!
+        required  = options[:required] || false
+        range     = options[:range] || (1..20)
+        label     = options[:label] || 'count'
+        return {
+          :label    => label,
+          :type     => Fixnum,
+          :required => required,
+          :range    => range.to_a
+        }
+      end
+
       module ClassMethods
         def acts_as_widgetable
 
-          include Newscloud::Acts::widgetable::InstanceMethods
-          extend Newscloud::Acts::widgetable::RefineClassMethods
+          include Newscloud::Acts::Widgetable::InstanceMethods
+          extend Newscloud::Acts::Widgetable::WidgetClassMethods
         end
       end
 
-      module RefineClassMethods
+      module WidgetClassMethods
 
         def widgetable?
           true
         end
 
         def widget_methods
-          []
+          {}
         end
 
-        def valid_method? method_name
-          self.widget_methods.include? method_name
+        def default_args_count *args
+          options = args.extract_options!
+          required  = options[:required] || false
+          range     = options[:range] || (1..20)
+          label     = options[:label] || 'count'
+      	  return {
+      	  	:label    => label,
+      	  	:type     => Fixnum,
+      	  	:required => required,
+      	  	:range    => range.to_a
+          }
         end
 
-        def valid
-
-        def refine(params)
-          widgetable_params = ['sort_by', 'category', 'section']
-          
-          chains = []
-          params.each do |key, value|
-            value = self.filtered_value value
-            next unless widgetable_params.index(key)
-            if key == 'sort_by'
-            	value = value.downcase
-              chains << value if self.respond_to?(value) and self.valid_refine_type?(value)
-            elsif key == 'category'
-            elsif key == 'section'
-            end
+        def valid_method? method_name, args = []
+          Rails.logger.debug "***Validating method"
+          wmethod = self.widget_methods[method_name.to_sym]
+          return false unless wmethod.present?
+          return false unless args.is_a? Array
+          return false if args.size > wmethod[:args].size
+          Rails.logger.debug "*** Method valid"
+          if wmethod[:args].any?
+            Rails.logger.debug "*** Validating args"
+          	wmethod[:args].each_with_index do |arg,index|
+              Rails.logger.debug "*** Validating arg(#{index}) #{arg.inspect}"
+          	  val = args[index]
+              Rails.logger.debug "*** Arg value is: (#{val})"
+          	  return false if val.nil? and arg[:required]
+          	  next if val.nil? and not arg[:required] 
+              Rails.logger.debug "*** Arg type is: (#{val.class.name})"
+          	  return false unless val.is_a? arg[:type]
+              Rails.logger.debug "*** Arg val(#{val}) in range #{arg[:range].inspect}?"
+              return false if arg[:range].present? and not arg[:range].include?(val)
+              Rails.logger.debug "*** Arg validated successfully!"
+          	end
           end
-
-          # TODO:: clean this up
-          if chains.empty?
-          	if self.respond_to? :active
-              result = self.active.all(:limit => 10, :order => "created_at desc")
-            else
-              result = self.all(:limit => 10, :order => "created_at desc")
-            end
-          else
-            chains.unshift 'active' if self.respond_to? :active
-            result = chains.inject(self) { |chain, scope| chain.send(scope) }
-          end
-          result
-        end
-
-        def filtered_value value
-          case value.downcase
-            when 'top_rated'
-              'top'
-            else
-            	value
-          end
-        end
-
-        def valid_refine_type? value
-          ['newest', 'top'].include? value.downcase
-        end
-
-        def self.widgetable_select_options
-          ['Newest', 'Top'].collect { |k| [k, k] }
+          return true
         end
 
       end
