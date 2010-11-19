@@ -3,6 +3,12 @@ ActionController::Routing::Routes.draw do |map|
 
   # Set locale and make pretty urls
   map.filter 'locale'
+  # Determine iframe or web origin of request
+  map.filter :iframe
+
+  # Mogli
+  map.resource :oauth, :controller=>"oauth"
+  map.oauth_callback "/oauth/create", :controller=>"oauth", :action=>"create"
 
   # TEST DESIGN ROUTE
   map.test_design '/test_design.:format', :controller => 'home', :action => 'test_design'
@@ -22,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.test_widgets '/test_widgets.:format', :controller => 'home', :action => 'test_widgets'
   map.contact_us '/contact_us.:format', :controller => 'home', :action => 'contact_us'
   map.app_tab '/app_tab.:format', :controller => 'home', :action => 'app_tab'
+  map.external_page '/external_page.:format', :controller => 'home', :action => 'external_page'
 
   map.paged_stories_with_format '/stories/page/:page.:format', :controller => 'stories', :action => 'index'
   map.paged_stories '/stories/page/:page.:format', :controller => 'stories', :action => 'index'
@@ -43,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
   map.paged_resources '/resources/page/:page.:format', :controller => 'resources', :action => 'index'
   map.paged_questions '/questions/page/:page.:format', :controller => 'questions', :action => 'index'
   map.paged_my_questions '/questions/:id/my_questions/page/:page.:format', :controller => 'questions', :action => 'my_questions'
+  map.paged_prediction_groups '/prediction_groups/page/:page.:format', :controller => 'prediction_groups', :action => 'index'
   map.tagged_stories_with_page '/stories/tag/:tag/page/:page.:format', :controller => 'stories', :action => 'tags'
   map.tagged_stories '/stories/tag/:tag.:format', :controller => 'stories', :action => 'tags'
   map.tagged_contents_with_page '/stories/tag/:tag/page/:page.:format', :controller => 'stories', :action => 'tags'
@@ -51,6 +59,14 @@ ActionController::Routing::Routes.draw do |map|
   map.tagged_articles '/articles/tag/:tag.:format', :controller => 'articles', :action => 'tags'
   map.tagged_forum_with_page '/forums/:forum_id/tag/:tag/page/:page.:format', :controller => 'topics', :action => 'tags'
   map.tagged_forum '/forums/:forum_id/tag/:tag.:format', :controller => 'topics', :action => 'tags'
+  map.tagged_ideas_with_page '/ideas/tag/:tag/page/:page.:format', :controller => 'ideas', :action => 'tags'
+  map.tagged_ideas '/ideas/tag/:tag.:format', :controller => 'ideas', :action => 'tags'
+  map.tagged_resources_with_page '/resources/tag/:tag/page/:page.:format', :controller => 'resources', :action => 'tags'
+  map.tagged_resources '/resources/tag/:tag.:format', :controller => 'resources', :action => 'tags'
+  map.tagged_questions_with_page '/questions/tag/:tag/page/:page.:format', :controller => 'questions', :action => 'tags'
+  map.tagged_questions '/questions/tag/:tag.:format', :controller => 'questions', :action => 'tags'
+  map.tagged_events_with_page '/events/tag/:tag/page/:page.:format', :controller => 'events', :action => 'tags'
+  map.tagged_events '/events/tag/:tag.:format', :controller => 'events', :action => 'tags'
   map.idea_tag_with_page '/ideas/tag/:tag/page/:page.:format', :controller => 'ideas', :action => 'tags'
   map.idea_tag '/ideas/tag/:tag.:format', :controller => 'ideas', :action => 'tags'
   map.resource_tag_with_page '/resources/tag/:tag/page/:page.:format', :controller => 'resources', :action => 'tags'
@@ -60,11 +76,11 @@ ActionController::Routing::Routes.draw do |map|
   map.top_users '/users/top/:top.:format', :controller => 'users', :action => 'index'
   map.resources :stories, :member => { :like => [:get, :post] },:collection => { :parse_page => [:get, :post], :index => [:get, :post] }, :has_many => :comments
   map.resources :contents, :controller => 'stories', :has_many => [:comments, :flags, :related_items], :as => 'stories'
-  map.resources :comments, :member => { :like => [:get, :post],:dislike => [:get, :post] },:has_many => [ :flags]
+  map.resources :comments, :member => { :like => [:get, :post],:dislike => [:get, :post] }, :has_many => [ :flags]
   map.resources :related_items
 
-  map.resources :users, :collection => {:link_user_accounts => :get, :dont_ask_me_for_email => :get, :feed => [:get], :invite => [:get, :post], :current => [:get, :post], :update_bio => [:get,:post] }
-  map.resources :articles, :collection => { :index => [:get, :post] }
+  map.resources :users, :collection => {:link_user_accounts => :get, :feed => [:get], :invite => [:get, :post], :current => [:get, :post], :update_bio => [:get,:post], :dont_ask_me_invite_friends => :get, :dont_ask_me_for_email => :get }
+  map.resources :articles, :collection => { :index => [:get, :post], :drafts => [:get] }
   map.resources :newswires, :member => { :quick_post => [:get, :post] }
   map.resources :ideas, :member => { :like => [:get, :post],:my_ideas => [:get, :post] },:collection => { :index => [:get, :post] }, :has_many => [:comments, :flags, :related_items ]
   map.resources :idea_boards, :has_many => :ideas
@@ -80,9 +96,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :forums, :has_many => [:topics]
   map.resources :topics, :has_many => [:comments]
   map.resource :session
-  map.resources :home, :collection => { :index => [:get, :post], :app_tab => [:get, :post], :google_ads => [:get],:helios_ads => [:get],:helios_alt2_ads => [:get],:helios_alt3_ads => [:get],:helios_alt4_ads => [:get], :bookmarklet_panel => [:get], :about => :get, :faq => :get, :terms => :get, :contact_us => [:get, :post] }, :member => { :render_widget => [:get, :post] }
-
-
+  map.resources :home, :collection => { :preview_widgets => :get, :index => [:get, :post], :app_tab => [:get, :post], :google_ads => [:get],:openx_ads => [:get],:helios_ads => [:get],:helios_alt2_ads => [:get],:helios_alt3_ads => [:get],:helios_alt4_ads => [:get], :about => :get, :faq => :get, :terms => :get, :contact_us => [:get, :post] }, :member => { :render_widget => [:get, :post] }
+  map.resources :predictions, :collection => { :index => [:get, :post],  :my_predictions => [:get, :post], :scores => [:get, :post] }
+  map.resources :prediction_groups, :member => { :like => [:get, :post] } , :collection => { :index => [:get, :post], :play => [:get, :post] }, :has_many => [:comments, :prediction_questions, :flags]
+  map.resources :prediction_questions, :member => { :like => [:get, :post] } , :collection => { :index => [:get, :post] }, :has_many => [ :prediction_guesses ]
+  map.prediction_question '/prediction_question/:id.:format', :controller => 'predictions', :action => 'show_question'
+  map.resources :prediction_guesses, :collection => { :create => [ :post] }
+  map.resources :widgets, :collection => { :newswires => [:get], :questions => [:get], :blog_roll => [:get], :blogger_profiles => [:get], :fan_application => [:get], :add_bookmark => [:get], :user_articles => [:get], :articles => [:get], :stories => [:get], :activities => [:get]  }, :layout => 'widgets'
+  
   map.root :controller => "home", :action => "index"
   map.admin 'admin', :controller => :admin, :action => :index
   map.namespace(:admin) do |admin|
@@ -93,12 +114,15 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :locales, :collection => { :refresh => [:get] }, :has_many => :translations
     admin.translations '/translations.:format', :controller => 'translations', :action => 'translations'
     admin.asset_translations '/asset_translations.:format', :controller => 'translations', :action => 'asset_translations'
-    admin.resources :widgets, :collection => { :save => :post }
+    admin.resources :widgets, :collection => { :save => :post, :new_widgets => :get }
     #admin.resources :custom_widgets
     #admin.resources :metadatas, :controller => 'custom_widgets'
     admin.resources :settings
     admin.resources :skip_images
+    admin.resources :ad_layouts
+    admin.resources :ads
     admin.resources :title_filters
+    admin.resources :sponsor_zones
     admin.resources :activity_scores
     admin.resources :ideas
     admin.resources :idea_boards
@@ -118,6 +142,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :related_items
     admin.resources :newswires
     admin.resources :feeds
+    admin.resources :images
     admin.resources :sources
     admin.resources :announcements
     admin.resources :dashboard_messages, :member => { :send_global => [:get, :post], :clear_global => [:get, :post] }, :collection => { :clear_global => [:get, :post] }
@@ -125,6 +150,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users,           :active_scaffold => true
     admin.resources :user_profiles,      :active_scaffold => true
     admin.resources :votes,           :active_scaffold => true
+    admin.resources :prediction_groups
+    admin.resources :prediction_questions
+    admin.resources :prediction_guesses
 
     admin.namespace(:metadata) do |metadata|
       metadata.resources :ads
@@ -132,7 +160,9 @@ ActionController::Routing::Routes.draw do |map|
       metadata.resources :activity_scores
       metadata.resources :skip_images
       metadata.resources :title_filters
+      metadata.resources :sponsor_zones
       metadata.resources :custom_widgets
+      metadata.resources :ad_layouts
     end
   end
 

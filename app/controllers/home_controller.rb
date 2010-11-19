@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  #caches_page :index, :google_ads, :helios_ads, :bookmarklet_panel
+  #caches_page :index, :google_ads, :helios_ads
   layout proc { |controller| controller.action_name == 'app_tab' ? 'app_tab' : 'application' }
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy, :like]
 
@@ -9,6 +9,16 @@ class HomeController < ApplicationController
   before_filter :load_newest_articles, :only => [:index, :app_tab]
 
   def test_design
+  end
+
+  def preview_widgets
+    @page = true
+    @page = WidgetPage.find_root_by_page_name('home')
+    if false and @page.present? and @page.children.present?
+      @main = @page.children.first.children
+    end
+    @main = params[:widget_ids].split(',').map {|wid| Widget.find(wid) }
+    @sidebar = []
   end
 
   def index
@@ -31,8 +41,6 @@ class HomeController < ApplicationController
         @main.each {|w| controller.send(w.widget.load_functions) if w.widget.load_functions.present? }
         @sidebar.each {|w| controller.send(w.widget.load_functions) if w.widget.load_functions.present? }
       end
-      render :template => 'home/test_widgets'
-      return
     end
     #expires_in 1.minutes, :private => false, :public => true
     @no_paginate = true
@@ -56,6 +64,11 @@ class HomeController < ApplicationController
     render :partial => 'shared/google_ads', :locals => { :slot_name => slot_name },:layout => false
   end
 
+  def openx_ads
+    slot_name = params[:slot_name] || get_setting('openx_slot_name').try(:value)
+    render :partial => 'shared/ads/openx_ads', :locals => { :slot_name => slot_name },:layout => false
+  end
+
   def helios_ads
     slot_name = params[:slot_name] || APP_CONFIG['helios_slot_name']
     render :partial => 'shared/ads/helios_ads', :locals => { :slot_name => slot_name },:layout => false
@@ -76,10 +89,6 @@ class HomeController < ApplicationController
     render :partial => 'shared/ads/helios_alt4_ads', :locals => { :slot_name => slot_name },:layout => false
   end
 
-  def bookmarklet_panel
-    render :partial => 'shared/bookmarklet_panel.fbml.haml', :layout => false
-  end
-
   def about
   end
 
@@ -87,6 +96,10 @@ class HomeController < ApplicationController
   end
 
   def terms
+  end
+
+  def external_page
+    render(:layout => 'external_page', :template => 'home/external_page_header')
   end
 
   def contact_us

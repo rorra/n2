@@ -13,6 +13,8 @@ debug = Rails.env.development?
 IdeaBoard.create!({:name => 'General', :section =>'general',:description=>'General ideas.'}) unless IdeaBoard.find_by_name_and_section('General', 'general')
 ResourceSection.create!({:name => 'General', :section =>'general',:description=>'General links.'}) unless ResourceSection.find_by_name_and_section('General', 'general')
 Gallery.create!({:name => 'General', :section =>'general',:description=>'General multimedia'}) unless Gallery.find_by_name_and_section('General', 'general')
+#todo - fix (User.admins.last || nil) - creates fb user as nil, bombs out in fb helper for profilepic
+#PredictionGroup.create!({:title => 'Uncategorized', :section => 'uncategorized', :description => 'These questions are uncategorized'}) unless PredictionGroup.find_by_title_and_section('Uncategorized','uncategorized')
 
 # Populate Sources table with some commonly used sites
 Source.create!({:name => 'New York Times', :url =>'nytimes.com'}) unless Source.find_by_url('nytimes.com')
@@ -75,6 +77,14 @@ custom_widgets.each do |custom_widget|
 end
 
 settings = [
+ { :key_sub_type => 'options', :key_name => 'animation_speed_features',  :value => "300" },
+ { :key_sub_type => 'options', :key_name => 'animation_speed_newswires',  :value => "750" },
+ { :key_sub_type => 'options', :key_name => 'animation_speed_widgets',  :value => "1000" },
+ { :key_sub_type => 'options', :key_name => 'exclude_articles_from_news',  :value => "false" },
+ { :key_sub_type => 'options', :key_name => 'outbrain_enabled',  :value => "false", :hint => "Enable Outbrain(http://outbrain.com) support" },
+ { :key_sub_type => 'options', :key_name => 'outbrain_template_name',  :value => "my_template_name", :hint => "Outbrain template name" },
+ { :key_sub_type => 'options', :key_name => 'outbrain_account_id',  :value => "1234567890", :hint => "Outbrain account id" },
+ { :key_sub_type => 'options', :key_name => 'outbrain_verification_html',  :value => "false", :hint => "Outbrain verification html, copy paste this from Outbrain." },
  { :key_sub_type => 'options', :key_name => 'site_notification_user',  :value => (User.admins.last || nil) },
  { :key_sub_type => 'options', :key_name => 'enable_activity_popups',  :value => "true" },
  { :key_sub_type => 'options', :key_name => 'allow_web_auth',  :value => (APP_CONFIG['allow_web_auth'] || "false" ) },
@@ -83,13 +93,13 @@ settings = [
  { :key_sub_type => 'options', :key_name => 'contact_us',  :value => (APP_CONFIG['contact_us_recipient'] || "admin@email.com,me@email.com,support@email.com" ) },
  { :key_sub_type => 'options', :key_name => 'firstnameonly', :value => (APP_CONFIG['firstnameonly'] || "false" ) },
  { :key_sub_type => 'options', :key_name => 'site_video_url', :value => APP_CONFIG['base_url'].gsub("http://","").gsub("www",""), :hint => "used by some sites with custom video URLs e.g. boston.com"},
+ { :key_sub_type => 'options', :key_name => 'predictions_max_daily_guesses', :value => 25, :hint => "maximum number of guesses allowed per day"},
  { :key_sub_type => 'design', :key_name => 'typekit', :value => (APP_CONFIG['typekit'] || "000000" ) },
  { :key_sub_type => 'twitter', :key_name => 'account', :value =>(APP_CONFIG['twitter_account'] || "userkey_name" ) },
- { :key_sub_type => 'twitter', :key_name => 'connect_key', :value => (APP_CONFIG['twitter_connect_key'] || "U6qjcn193333331AuA" ) },
  { :key_sub_type => 'twitter', :key_name => 'oauth_key', :value => (APP_CONFIG['twitter_oauth_key'] || "U6qjcn193333331AuA" ) },
  { :key_sub_type => 'twitter', :key_name => 'oauth_secret', :value => (APP_CONFIG['twitter_oauth_secret'] || "Heu0GGaRuzn762323gg0qFGWCp923viG8Haw" ) },
- { :key_sub_type => 'twitter', :key_name => 'oauth_consumer_key', :value => (APP_CONFIG['twitter_oauth_consumer_key'] || "U6qjcn193333331AuA" ) },
- { :key_sub_type => 'twitter', :key_name => 'oauth_consumer_secret', :value => (APP_CONFIG['twitter_oauth_consumer_secret'] || "Heu0GGaRuzn762323gg0qFGWCp923viG8Haw" ) },
+ { :key_sub_type => 'twitter', :key_name => 'oauth_consumer_key', :value => (APP_CONFIG['twitter_oauth_key'] || "U6qjcn193333331AuA" ) },
+ { :key_sub_type => 'twitter', :key_name => 'oauth_consumer_secret', :value => (APP_CONFIG['twitter_oauth_secret'] || "Heu0GGaRuzn762323gg0qFGWCp923viG8Haw" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_events_min_votes', :value => (APP_CONFIG['tweet_events_min_votes'] || "15" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_events_limit', :value => (APP_CONFIG['tweet_events_limit'] || "3" ) }, 
  { :key_sub_type => 'twitter', :key_name => 'tweet_stories_min_votes', :value => (APP_CONFIG['tweet_stories_min_votes'] || "15" ) },
@@ -106,17 +116,36 @@ settings = [
  { :key_sub_type => 'welcome_panel', :key_name => 'welcome_layout', :value => "default", :hint => 'e.g. default, thumb, host, banner' },
  { :key_sub_type => 'welcome_panel', :key_name => 'welcome_image_url', :value => APP_CONFIG['base_url']+"/images/default/icon-fan-app.gif", :hint => "Full (absolute) URL to image, e.g. #{APP_CONFIG['base_url']}/images/default/icon-fan-app.gif, recommended sizes: thumb 50 x 50 or banner = 300 x 90"},
  { :key_sub_type => 'welcome_panel', :key_name => 'welcome_host', :value => "0", :hint => 'userid of host profile image to use'},
+ { :key_sub_type => 'options', :key_name => 'limit_daily_member_posts',  :value => "25" },
  { :key_sub_type => 'stats', :key_name => 'google_analytics_account_id', :value => (APP_CONFIG['google_analytics_account_id'] || "UF-123456890-7" ) },
  { :key_sub_type => 'stats', :key_name => 'google_analytics_site_id', :value => (APP_CONFIG['google_analytics_site_id'] || "1231232" ) },
  { :key_sub_type => 'sitemap', :key_name => 'google-site-verification', :value => "WS8kMC8-Ds77777777777Xy6QcmRpWAfY" },
  { :key_sub_type => 'sitemap', :key_name => 'yahoo-site-verification', :value => "WS87ds77" },
+ { :key_sub_type => 'ads', :key_name => 'sponsor_zones_enabled', :value => "false" },
+ { :key_sub_type => 'ads', :key_name => 'sponsor_zones_store_url', :value => "http://newscloud.trafficspaces.com", :hint => "The website URL used to sell your sponsored ad zones"  },
  { :key_sub_type => 'ads', :key_name => 'platform', :value => (APP_CONFIG['ad_platform'] || "google" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_sitepage', :value => (APP_CONFIG['helios_sitepage'] || "youraddomain.com/yourfacebookproject.htm" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_url', :value => (APP_CONFIG['helios_url'] || "http://subdomain.xxx.com" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_script_url', :value => (APP_CONFIG['helios_script_url'] || "http://scriptsubdomain.xxx.com" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_list_pos', :value => (APP_CONFIG['helios_list_pos'] || "728x90_1,468x60_1,300x250_1,160x600_1,250x250_1,200x200_1,336x280_1" ) },
+ { :key_sub_type => 'ads', :key_name => 'helios_slot_name', :value => (APP_CONFIG['helios_slot_name'] || "default" ) },
+ { :key_sub_type => 'ads', :key_name => 'openx_slot_name', :value => (APP_CONFIG['openx_slot_name'] || "default" ) },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_banner', :value => "1" },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_leaderboard', :value => "2" },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_small_square', :value => "3" },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_skyscraper', :value => "4" },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_square', :value => "5" },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_medium_rectangle', :value => "6" },
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_large_rectangle', :value => "7" }, 
+ { :key_sub_type => 'ads', :key_name => 'openx_url_m3_u', :value => (APP_CONFIG['openx_slot_url'] || "http://openx.com/m3_u_address" ) },
+ { :key_sub_type => 'ads', :key_name => 'openx_noscript_href', :value => "http://openx.com/ns_href_address" },
+ { :key_sub_type => 'ads', :key_name => 'openx_noscript_imgsrc', :value => "http://openx.com/ns_imgsrc_address" },
+ { :key_sub_type => 'ads', :key_name => 'google_adsense_slot_name', :value => ( APP_CONFIG['google_adsense_slot_name'] || "default") },
  { :key_sub_type => 'ads', :key_name => 'google_adsense_account_id', :value => (APP_CONFIG['google_adsense_account_id'] || "ca-pub-9975156792632579" ) },
- { :key_sub_type => 'ads', :key_name => 'google_adsense_slot_name', :value => (APP_CONFIG['google_adsense_slot_name'] || "Needle_Small") }
+ { :key_sub_type => 'ads', :key_name => 'google_adsense_slot_name', :value => (APP_CONFIG['google_adsense_slot_name'] || "Needle_Small") },
+ { :key_sub_type => 'options', :key_name => 'google_search_engine_id', :value => ("your-google-search-engine-id") },
+ { :key_sub_type => 'options', :key_name => 'widget_stories_short_max', :value => "3" },
+ { :key_sub_type => 'zvents', :key_name => 'zvents_replacement_url', :value => ("www.zvents.com") }
 ]
 
 settings.each do |setting|
@@ -134,8 +163,8 @@ settings.each do |setting|
 end
 
 activity_scores = [
- { :key_sub_type => 'importance', :key_name => 'karma',  :value => 1, :hint => "Multiple used when calculating karma actions. High setting maximizes impact of quality of posts as judged by other readers" },
- { :key_sub_type => 'importance', :key_name => 'participation',  :value => 0, :hint => "Multiple used when calculating participation actions. Low setting minimizes impact of posting on user scores." },
+ { :key_sub_type => 'importance', :key_name => 'karma',  :value => 3, :hint => "Multiple used when calculating karma actions. High setting maximizes impact of quality of posts as judged by other readers" },
+ { :key_sub_type => 'importance', :key_name => 'participation',  :value => 1, :hint => "Multiple used when calculating participation actions. Low setting minimizes impact of posting on user scores." },
  { :key_sub_type => 'participation', :key_name => 'story',  :value => 1, :hint => "Points awarded when user creates a story" },
  { :key_sub_type => 'participation', :key_name => 'article',  :value => 1, :hint => "Points awarded when user creates a article" },
  { :key_sub_type => 'participation', :key_name => 'idea',  :value => 1, :hint => "Points awarded when user creates a idea" },
@@ -163,6 +192,70 @@ activity_scores.each do |activity_score|
 		  :activity_score_name => activity_score[:key_name], 
 		  :activity_score_value => activity_score[:value],
 		  :activity_score_hint => (activity_score[:hint] || "")
+		  }
+  })
+end
+
+ad_layouts = [
+ { :key_sub_type => 'ad_layouts', :key_name => 'default', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'stories_index', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'articles_index', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'resources_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'resource_sections_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'ideas_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'idea_boards_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'events_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'forums_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'topics_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'questions_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'users_index', :layout => "Leader_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'stories_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'articles_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'resources_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'ideas_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'resource_sections_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'idea_boards_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'events_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'forums_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'topics_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'questions_item', :layout => "Banner_A" },
+ { :key_sub_type => 'ad_layouts', :key_name => 'users_item', :layout => "Banner_A" }
+]
+
+ad_layouts.each do |ad_layout|
+  next if Metadata::AdLayout.get(ad_layout[:key_name])
+  puts "Creating ad layout #{ad_layout[:key_name]} -- #{ad_layout[:layout]}" if debug
+
+  Metadata::AdLayout.create!({
+		:data => {
+		  :ad_layout_sub_type_name => ad_layout[:key_sub_type],
+		  :ad_layout_name => ad_layout[:key_name], 
+		  :ad_layout_layout => ad_layout[:layout],
+		  :ad_layout_hint => (ad_layout[:hint] || "")
+		  }
+  })
+end
+
+sponsor_zones = [
+ { :sponsor_zone_name => 'home', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'stories', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'articles', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'questions', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'ideas', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'forums', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'resources', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" },
+ { :sponsor_zone_name => 'events', :sponsor_zone_topic => 'default',  :sponsor_zone_code => "xxxxxxxxx" }
+]
+
+sponsor_zones.each do |sponsor_zone|
+  next if Metadata::SponsorZone.get(sponsor_zone[:sponsor_zone_name], sponsor_zone[:sponsor_zone_topic])
+  puts "Creating sponsor_zone #{sponsor_zone[:sponsor_zone_name]} -- #{sponsor_zone[:sponsor_zone_topic]}" if debug
+
+  Metadata::SponsorZone.create!({
+		:data => {
+		  :sponsor_zone_name => sponsor_zone[:sponsor_zone_name], 
+		  :sponsor_zone_topic => sponsor_zone[:sponsor_zone_topic],
+		  :sponsor_zone_code => sponsor_zone[:sponsor_zone_code]
 		  }
   })
 end

@@ -4,6 +4,7 @@ class IdeasController < ApplicationController
   cache_sweeper :idea_sweeper, :only => [:create, :update, :destroy]
 
   before_filter :set_current_tab
+  before_filter :set_ad_layout, :only => [:index, :show, :my_ideas]
   before_filter :login_required, :only => [:new, :create, :update, :my_ideas]
   before_filter :load_top_ideas
   before_filter :load_newest_ideas
@@ -15,6 +16,7 @@ class IdeasController < ApplicationController
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
     @current_sub_tab = 'Browse Ideas'
     @ideas = Idea.active.paginate :page => params[:page], :per_page => Idea.per_page, :order => "created_at desc"
+    set_sponsor_zone('ideas')
     respond_to do |format|
       format.html { @paginate = true }
       format.fbml { @paginate = true }
@@ -55,6 +57,8 @@ class IdeasController < ApplicationController
   def show
     @idea = Idea.find(params[:id])
     tag_cloud @idea
+    set_outbrain_item @idea
+    set_sponsor_zone('ideas', @idea.item_title.underscore)
   end
 
   def my_ideas
@@ -64,10 +68,11 @@ class IdeasController < ApplicationController
     @ideas = @user.ideas.active.paginate :page => params[:page], :per_page => Idea.per_page, :order => "created_at desc"
   end
 
-  def set_slot_data
-    @ad_banner = Metadata.get_ad_slot('banner', 'ideas')
-    @ad_leaderboard = Metadata.get_ad_slot('leaderboard', 'ideas')
-    @ad_skyscraper = Metadata.get_ad_slot('skyscraper', 'ideas')
+  def tags
+    tag_name = CGI.unescape(params[:tag])
+    @paginate = true
+    @ideas = Idea.tagged_with(tag_name, :on => 'tags').active.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    render :template => 'ideas/index'
   end
 
   private

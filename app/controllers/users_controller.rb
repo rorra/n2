@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   before_filter :login_required, :only => [:update_bio, :feed, :edit, :update, :dont_ask_me_for_email]
   before_filter :load_top_stories, :only => [:show]
   before_filter :ensure_authenticated_to_facebook, :only => :link_user_accounts
+  before_filter :set_ad_layout, :only => [:index, :show]
+  before_filter :enable_iframe_urls, :only => [:current]
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
@@ -93,7 +95,7 @@ class UsersController < ApplicationController
       self.current_user.link_fb_connect(facebook_session.user.id) unless self.current_user.fb_user_id == facebook_session.user.id
     end
     if canvas?
-      redirect_back_or_default(home_index_path(:only_path => false, :canvas => false))
+      redirect_top home_index_path(:only_path => false, :canvas => true)
     else
       redirect_back_or_default(home_index_path)
     end
@@ -101,7 +103,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @activities = @user.activities.paginate :page => params[:page], :per_page => 10
+    @activities = @user.activities.find(:all, :limit => 7, :order => "created_at desc")
+    @articles = @user.articles.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
     @paginate = true
     @is_owner = current_user && (@user.id == current_user.id)
     respond_to do |format|
@@ -130,11 +133,21 @@ class UsersController < ApplicationController
   		redirect_to home_index_path
   	end
   end
+
+  def dont_ask_me_invite_friends
+    if current_user_profile.update_attribute( :dont_ask_me_invite_friends, true)
+  		flash[:success] = "We will no longer ask you to invite your friends."
+  		redirect_to home_index_path
+    else
+  		flash[:error] = "Could not update your reminder setting for invite friends"
+  		redirect_to home_index_path
+  	end
+  end
   
   def update_bio    
     if request.post?
       @profile = current_user_profile
-      @profile.bio = params['bio']
+      @profile.bio = @template.linkify @template.sanitize_user_content params['bio']
       if @profile.save
     		flash[:success] = "Successfully edited your bio."
     		redirect_to user_path(@profile.user)    	
@@ -148,6 +161,7 @@ class UsersController < ApplicationController
   def account_menu
     respond_to do |format|
       format.js
+      format.html { redirect_to current_user }
     end     
   end
   
@@ -161,6 +175,15 @@ class UsersController < ApplicationController
 
   def link_twitter_account
     
+  end
+
+  def set_auto_discovery_rss
+    unless params[:id].nil?
+      @user = User.find(params[:id])
+      @auto_discovery_rss = user_path(@user, :format => :atom)
+    else
+      @auto_discovery_rss = stories_path(:format => :atom)
+    end
   end
   
   private

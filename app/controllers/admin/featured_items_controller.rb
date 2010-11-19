@@ -15,15 +15,15 @@ class Admin::FeaturedItemsController < AdminController
   def load_items
     case params[:id]
       when Content.name.tableize
-        @items = Content.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
+        @items = Content.active.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
       when Idea.name.tableize
-        @items = Idea.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
+        @items = Idea.active.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
       when Event.name.tableize
-        @items = Event.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
+        @items = Event.active.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
       when Resource.name.tableize
-        @items = Resource.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
+        @items = Resource.active.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
       when Question.name.tableize
-        @items = Question.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
+        @items = Question.active.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
       else
       	return false
     end
@@ -38,15 +38,17 @@ class Admin::FeaturedItemsController < AdminController
     @section2 = @template_name.children.create({:name => "section2", :featured_type => "section2"})
     @section3 = @template_name.children.create({:name => "section3", :featured_type => "section3"})
     @section4 = @template_name.children.create({:name => "section4", :featured_type => "section4"})
-    ['section1', 'section2','section3','section4'].each do |section|
+    @section5 = @template_name.children.create({:name => "section5", :featured_type => "section5"})
+    @section6 = @template_name.children.create({:name => "section6", :featured_type => "section6"})
+    ['section1', 'section2','section3','section4','section5','section6'].each do |section|
       section_data = instance_variable_get("@#{section}")
       ['primary', 'secondary1', 'secondary2'].each do |box|
         item_id = data[section][box]
         next unless item = get_item(item_id)
         item = get_item item_id
         section_data.children.create({:name => "item_#{item_id}", :featured_type => "featured_item", :featurable => item})
-        #tweet item
-        tweet(item) if Metadata::Setting.find_setting('tweet_featured_items').value == 'true'
+        #@tweet_features = Metadata::Setting.find_setting('tweet_featured_items')
+        #tweet(item) if (@tweet_features.present? and @tweet_features.value)
       end
     end
 
@@ -82,7 +84,7 @@ class Admin::FeaturedItemsController < AdminController
     @current_tab = 'featured-items';
   end
 
-  def tweet
+  def tweet item
     return if item.tweeted_item.present?
     
     if Metadata::Setting.find_setting('bitly_username').value

@@ -1,0 +1,29 @@
+-# @expects: local 'model_name, model_home, list_title, item_list'
+- cache "#{model_name}_featured_list_html", :expires_in => 60.minutes do
+  %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+    .panelBar
+      %h2= list_title
+    .list_items
+      - unless item_list.empty?
+        %ul
+          - item_list.each_with_index do |item, index|
+            - case item.class.name.underscore
+              - when "event"
+                %li
+                  = render :partial => 'shared/items/featured_event', :locals => { :item => item, :index => index }            
+              - when "comment"
+                %li
+                  = render :partial => 'shared/items/featured_comment', :locals => { :item => item }
+              - when "topic"
+                %li
+                  = render :partial => 'shared/items/featured_topic', :locals => { :item => item, :index => index }
+              - else
+                %li
+                  = render :partial => 'shared/items/featured_generic', :locals => { :item => item, :index => index }
+      - else
+        %ul
+          %li= t('no_features')
+    - unless item_list.empty? or model_name == 'comment'
+      .itemActions
+        %a{:href => model_home}= t('more_features') 
+          

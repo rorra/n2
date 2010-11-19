@@ -2,6 +2,11 @@
 module ApplicationHelper
   include TagsHelper
 
+  def timeago(date, options = {})
+    options[:class] ||= "timeago"
+    content_tag(:abbr, date.to_s, options.merge(:title => date.getutc.iso8601)) if date
+  end
+
   def pipe_spacer
     '<span class="pipe">|</span>'
   end
@@ -72,14 +77,14 @@ module ApplicationHelper
   end
 
   def linked_story_caption(story, length = 150, url = false, options = {})
-    caption = caption(story.caption.sanatize_standard, length)
+    caption = caption(story.caption.sanitize_standard, length)
     "#{caption} #{link_to 'More', (url ? url : story_path(story, options))}"
   end
 
   #remove this method when self.title methods created
   def linked_item_details(item, length = 150, url = false)
     return "" if item.details.nil?
-    caption = caption(item.details, length)
+    caption = caption(item.details.sanitize_standard, length)
     "#{caption} #{link_to 'More', (url ? url : item)}"
   end
 
@@ -97,11 +102,11 @@ module ApplicationHelper
   def caption(text, length = 150, truncate_string = "...")
     return "" if text.nil?    
     l = length - truncate_string.length
-    text.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
+    text.length > length ? text[/^.{0,#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
   end
 
   def pfeed_caption(text, length = 150)
-    caption(text, length)
+    caption(strip_tags(text), length)
   end
 
   def voteable_type_name(vote)
@@ -134,12 +139,16 @@ module ApplicationHelper
     link_options = {}
     # TODO:: separate this into a method
     destination = user
+    target = nil
     if options[:destination].present?
       destination = options.delete(:destination)
     end
     if options[:format].present?
     	link_options[:format] = options[:format]
     	options.delete(:format)
+    end
+    if options[:target].present?
+    	target = options.delete(:target)
     end
     unless options[:only_path].nil?
     	link_options[:only_path] = options[:only_path]
@@ -153,7 +162,11 @@ module ApplicationHelper
     if user.facebook_user?
       options.merge!(:linked => false)
       options[:size] = 'square' unless options[:size].present?
-      temp = link_to fb_profile_pic(user, options), destination
+      if target
+        temp = link_to fb_profile_pic(user, options), destination, :target => target
+      else
+        temp = link_to fb_profile_pic(user, options), destination
+      end
     else
       temp = link_to image_tag(default_image), user, link_options
       #link_to gravatar_image(user), user, link_options
@@ -196,7 +209,7 @@ module ApplicationHelper
     if user.facebook_user?      
       options.merge!(:linked => false)
       unless options[:useyou] == true
-        options.merge!(:capitalize => true)        
+        options.merge!(:capitalize => false)        
       end
       firstnameonly = APP_CONFIG['firstnameonly'] || false
       options.merge!(:firstnameonly => firstnameonly) if firstnameonly
@@ -207,35 +220,43 @@ module ApplicationHelper
   end
 
   def nl2br(string)
-    string.gsub("\n\r","<br>").gsub("\r", "").gsub("\n", "<br />")
+    string.gsub(/<.?br.*?>/i,"<br />").gsub("\n\r","<br />").gsub("\r", "").gsub("\n", "<br />")
   end
 
-  def profile_fb_name(user,linked = nil,use_you = true, possessive = false)
+  def profile_fb_name(user,linked = false,use_you = true, possessive = false)
     firstnameonly = APP_CONFIG['firstnameonly'] || false
     fb_name(user, :use_you => use_you, :possessive => possessive, :capitalize => true, :linked => linked, :firstnameonly => firstnameonly )
   end
   
-  def path_to_self(item)
-    canvas = iframe_facebook_request? ? true : false
+  def path_to_self(item, use_canvas = false)
+    canvas = (use_canvas and iframe_facebook_request?) ? true : false
     url_for(send("#{item.class.to_s.underscore}_url", item, :canvas => canvas, :only_path => false))
+  end
+
+  def path_to_self_no_canvas(item)
+    path_to_self(item, false)
   end
 
   def link_to_path_to_self(item)
     link_to url_for(send("#{item.class.to_s.underscore}_url", item)), url_for(send("#{item.class.to_s.underscore}_url", item))
   end
 
+  def path_to_self_with_anchor(item,anchor)
+    canvas = iframe_facebook_request? ? true : false
+    url_for(send("#{item.class.to_s.underscore}_url", item, :canvas => canvas, :only_path => false, :anchor => anchor))
+  end
+
   def twitter_share_item_link(item,caption,button=false)
-    is_bitly_configured = APP_CONFIG['twitter_connect_key'].present?
+    is_bitly_configured = get_setting('oauth_key').present?
     caption =  Rack::Utils.escape(strip_tags(caption))
-    
     if is_bitly_configured
       bitly = Bitly.new(APP_CONFIG['bitly_username'], APP_CONFIG['bitly_api_key'])
       url = bitly.shorten(path_to_self(item)).short_url
     else
       url =  Rack::Utils.escape(path_to_self(item))
     end
-    text = "#{caption}+#{url}"
-    twitter_url = "http://twitter.com/?status=#{text}"
+    # text = "#{caption}+#{url}"
+    twitter_url = "http://twitter.com/share?url=#{url}&text=#{caption}"
 
     if button == true
       link_text = image_tag('/images/default/tweet_button.gif')
@@ -244,9 +265,9 @@ module ApplicationHelper
     end
 
     if is_bitly_configured
-      link_to link_text, "#", :rel=>"#overlay", :link => overlay_tweet_url(:text=>caption, :link=>url), :burl=>twitter_url, :id=>"twitter-link", :target => "_tweet"
+      link_to link_text, "#", :rel=>"#overlay", :link => overlay_tweet_url(:text=>caption, :link=>url), :burl=>twitter_url, :id=>"twitter-link", :target => "_tweet", :class => "tweet-share"
     else
-      link_to link_text, twitter_url, :target => "_tweet"
+      link_to link_text, twitter_url, :target => "_tweet", :class => "tweet-share"
     end
 
   end
@@ -289,7 +310,7 @@ module ApplicationHelper
       tag_list << link_to(tag.name, tag_link(tag, item), :class => css_class)
     end
 
-    tag_list.size > 0 ? tag_list.join('&nbsp;') : ''
+    tag_list.size > 0 ? tag_list.join(', ') : ''
   end
 
   def tag_link(tag, item)
@@ -349,7 +370,17 @@ EMBED
 
   def embed_html_audio audio, options = {}
     <<EMBED
-<embed src= "http://www.odeo.com/flash/audio_player_standard_gray.swf" quality="high" width="300" height="52" allowScriptAccess="always" wmode="transparent"  type="application/x-shockwave-flash" flashvars= "valid_sample_rate=true&external_url=#{audio.url}" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>
+<div class="player"><p id="audioplayer_1">#{audio.artist}</p></div>
+<h3>#{audio.default_title}</h3>
+<script type="text/javascript">  
+$(function() {
+  AudioPlayer.embed("audioplayer_1", {  
+        soundFile: "#{audio.url}",  
+        titles: "#{audio.title}",  
+        artists: "#{audio.artist}"  
+  });  
+});
+</script>  
 EMBED
   end
 
@@ -382,7 +413,7 @@ EMBED
     link_text = item.is_a?(Comment) ? ' ' : 'Like'
     options.merge!(:class => css_class)
     format = options.delete(:format)
-    return '' unless item.respond_to? "votes_for"    
+    return '' unless item.respond_to? "votes_for"
     if format
       link_to(link_text, like_item_path(item.class.name.foreign_key.to_sym => item, :format => format), options)
     else
@@ -451,4 +482,42 @@ EMBED
       link_to_function("Remove", "$(this).parents('.image-fieldset').hide(); $(this).prev().value = '1'", :class=>"delete_image")
     end
   end
+
+  def add_image_simple(form_builder)
+    link_to_function "+", :id => "add_image" do |page|
+        form_builder.fields_for :images, Image.new, :child_index => 'NEW_RECORD' do |image_form|
+          html = render(:partial => 'shared/forms/image_simple', :locals => {:f => image_form })
+          page << "$('#{escape_javascript(html)}'.replace(/NEW_RECORD/g, new Date().getTime())).insertBefore($('#add_image').parent());" 
+        end
+      end
+  end
+
+  def delete_image_simple(form_builder)
+    if form_builder.object.new_record?
+      link_to_function("-", "$(this).parents('fieldset.inputs').remove()", :class=>"delete_image")
+    else 
+      form_builder.hidden_field(:_delete) +
+      link_to_function("-", "$(this).parents('fieldset.inputs').hide(); $(this).prev().value = '1'", :class=>"delete_image")
+    end
+  end
+  
+  def render_ad(ad_size, in_layout, ad_slot)
+    unless in_layout.nil?
+      case ad_size
+        when :leaderboard
+          render_ad_partial(ad_slot) if in_layout.include? "Leader"
+        when :banner
+          render_ad_partial(ad_slot) if in_layout.include? "Banner"
+        when :skyscraper
+          render_ad_partial(ad_slot) if ( in_layout.include? "Leader_B" or in_layout.include? "Banner_B" or in_layout.include? "Sky_A" )
+        when :small_square
+          render_ad_partial(ad_slot) if ( in_layout.include? "Leader_C" or in_layout.include? "Banner_C" or in_layout.include? "Square_A" )
+      end
+    end
+  end
+
+  def render_ad_partial(ad_slot)
+    render :partial => 'shared/ads_banner' ,:locals => { :slot_data => ad_slot }
+  end
+
 end

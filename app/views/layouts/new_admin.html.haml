@@ -5,18 +5,22 @@
     %meta{'http-equiv' => 'Content-Type', :content => 'application/xhtml+xml; charset=UTF-8'}/
     %title== N2 -- #{APP_CONFIG['site_topic']} Admin Interface
 
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', 'jquery.jcarousel.pack', 'jquery.quicksand.min', 'application'
+    =# javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', 'jquery.jcarousel.pack', 'jquery.quicksand.min', 'jquery.ThreeDots.min.js', 'application', 'jquery.masonry.js'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js', 'jquery.jcarousel.pack', 'jquery.quicksand.min', 'jquery.ThreeDots.min.js', 'jquery.masonry.js'
     = javascript_include_tag 'hoverIntent'
     = javascript_include_tag 'superfish'
     = javascript_include_tag 'jquery.tablesorter.min'
+    = javascript_include_tag 'admin.js'
 
     -# IE Debugging 
     =# javascript_include_tag 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'
 
     = stylesheet_link_tag 'compiled/grid.css', :media => 'screen, projection'
     = stylesheet_link_tag 'compiled/text.css', :media => 'print'
+    = stylesheet_link_tag 'compiled/admin'
     = stylesheet_link_tag 'superfish'
     = stylesheet_link_tag 'tablesorter'
+    = stylesheet_link_tag 'ui-lightness/jquery-ui-1.7.2.custom'
 
     :javascript
       $(function() {
@@ -36,23 +40,13 @@
 
       });
 
-    %style
-      :sass
-        form.formtastic
-          display: block
-          fieldset ol li
-            display: block
-        .admin-menu-content
-          padding-left: 30px
-          padding-bottom: 30px
-        .admin-blocked
-          background-color: red
+
 
     = yield :head
     = yield :extra_javascript
 
   %body
-    #admin-content.ui-tabs-panel.ui-widget-content.ui-corner-bottom
+    #admin-content.clearfix
       .admin-menu-content
         %ul#admin-menu.sf-menu.sf-js-enabled.sf-shadow
           %li= link_to 'Dashboard', admin_path
@@ -63,7 +57,7 @@
               %li
                 %a{:href => "#widgets"} Build Layout
                 %ul
-                  %li= link_to 'Choose Widgets', admin_widgets_path
+                  %li= link_to 'Choose Widgets', new_widgets_admin_widgets_path
                   %li= link_to 'Custom Widgets', admin_metadata_custom_widgets_path
               %li= link_to 'Announcements', admin_announcements_path
           %li
@@ -71,6 +65,7 @@
             %ul
               %li= link_to 'Flagged Items', admin_flags_path
               %li= link_to 'Stories', admin_contents_path
+              %li= link_to 'Images', admin_images_path
               %li= link_to 'Newswires', admin_newswires_path
               %li= link_to 'Comments', admin_comments_path
               %li= link_to 'RSS Feeds', admin_feeds_path
@@ -109,6 +104,11 @@
                 %ul
                   %li= link_to 'Galleries', admin_galleries_path
                   %li= link_to 'Gallery Items', admin_gallery_items_path
+              %li
+                %a{:href => "#predictions"} Predictions
+                  %li= link_to 'Groups', admin_prediction_groups_path
+                  %li= link_to 'Questions', admin_prediction_questions_path
+                  %li= link_to 'Guesses', admin_prediction_guesses_path
           %li
             %a{:href => "#members"} Members
             %ul
@@ -123,14 +123,19 @@
             %a{:href => "#module-settings"} Settings
             %ul
               %li
-                %a{:href => "#modules-metadata"} Custom Data
+                %a{:href => "#modules-metadata"} Configuration
                 %ul
-                  %li= link_to 'Ads', admin_metadata_ads_path
                   %li= link_to 'App settings', admin_metadata_settings_path
-                  %li= link_to 'Custom widgets', admin_metadata_custom_widgets_path
-                  %li= link_to 'Skip images', admin_metadata_skip_images_path
                   %li= link_to 'Headline filters', admin_metadata_title_filters_path
+                  %li= link_to 'Skip images', admin_metadata_skip_images_path
                   %li= link_to 'Activity scores', admin_metadata_activity_scores_path
+                  %li= link_to 'Custom widgets', admin_metadata_custom_widgets_path
+              %li
+                %a{:href => "#modules-metadata-advertising"} Advertising
+                %ul
+                  %li= link_to 'Ad layouts', admin_metadata_ad_layouts_path
+                  %li= link_to 'Ad banners', admin_metadata_ads_path
+                  %li= link_to 'Sponsor zones', admin_metadata_sponsor_zones_path
               %li
                 %a{:href => "#modules-settings-locales"} Languages
                 %ul
@@ -138,7 +143,7 @@
                   %li= link_to 'Default pages', admin_locale_translations_path(:locale_id => 'en',:type => 'static_pages')
                   %li= link_to 'Locales', admin_locales_path
                   %li= link_to 'Translations', admin_translations_path
-                  %li= link_to 'Reflect changes (use rarely)', refresh_admin_locales_path
+                  %li= link_to 'Clear cache (use rarely)', refresh_admin_locales_path
           %li
             %a{:href => "#home-page"} Links
             %ul
@@ -156,8 +161,6 @@
             %li= link_to 'Users', '#users'
             %li= link_to 'User Infos', '#user_infos'
             %li= link_to 'Votes', '#votes'
-      .main-content.clear
-        .div{:style => 'clear:both'}
-        %br
+      .main-content.clearfix
         = flash_messages
         = yield

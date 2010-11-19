@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   cache_sweeper :event_sweeper, :only => [:create, :update, :destroy, :import_facebook]
 
   before_filter :set_current_tab
+  before_filter :set_ad_layout, :only => [:index, :show, :my_events, :import_facebook]
   before_filter :login_required, :only => [:like, :new, :create, :update]
   before_filter :load_top_events
   before_filter :load_newest_events
@@ -13,8 +14,9 @@ class EventsController < ApplicationController
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
     @current_sub_tab = 'Browse Events'
-    @events = Event.upcoming.active.paginate :page => params[:page], :per_page => Event.per_page, :order => "created_at desc"
-   respond_to do |format|
+    @events = Event.upcoming.active.paginate :page => params[:page], :per_page => Event.per_page
+    set_sponsor_zone('events')
+    respond_to do |format|
       format.html { @paginate = true }
       format.fbml { @paginate = true }
       format.atom
@@ -49,6 +51,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     tag_cloud @event
+    set_sponsor_zone('events', @event.item_title.underscore)
+    set_outbrain_item @event
   end
 
   def my_events
@@ -56,12 +60,6 @@ class EventsController < ApplicationController
     @current_sub_tab = 'My Events'
     @user = User.find(params[:id])
     @events = @user.events.active.paginate :page => params[:page], :per_page => Event.per_page, :order => "created_at desc"
-  end
-
-  def set_slot_data
-    @ad_banner = Metadata.get_ad_slot('banner', 'events')
-    @ad_leaderboard = Metadata.get_ad_slot('leaderboard', 'events')
-    @ad_skyscraper = Metadata.get_ad_slot('skyscraper', 'events')
   end
 
   def import_facebook
@@ -74,6 +72,7 @@ class EventsController < ApplicationController
       redirect_to events_path
     else
       if current_facebook_user
+        @events_allowed = current_facebook_user.has_permission?('user_events')
         @event = Event.new
         @fb_events = current_facebook_user.events(:start_time => Time.now, :end_time => 1.month.from_now)
         current_events = Event.find(:all, :conditions=>["eid IN (?)", @fb_events.collect { |e| e.eid }]).collect { |e| e.eid }
@@ -83,6 +82,13 @@ class EventsController < ApplicationController
         redirect_to events_path
       end
     end
+  end
+
+  def tags
+    tag_name = CGI.unescape(params[:tag])
+    @paginate = true
+    @events = Event.tagged_with(tag_name, :on => 'tags').active.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    render :template => 'events/index'
   end
   
   private

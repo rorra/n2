@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100717231853) do
+ActiveRecord::Schema.define(:version => 20101027210809) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -44,9 +44,12 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "author_id"
-    t.boolean  "is_featured", :default => false
+    t.boolean  "is_featured",       :default => false
     t.datetime "featured_at"
-    t.boolean  "is_blocked",  :default => false
+    t.boolean  "is_blocked",        :default => false
+    t.boolean  "is_draft",          :default => false
+    t.text     "preamble"
+    t.boolean  "preamble_complete", :default => false
   end
 
   create_table "audios", :force => true do |t|
@@ -61,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "votes_tally",    :default => 0
+    t.integer  "source_id"
   end
 
   add_index "audios", ["audioable_type", "audioable_id"], :name => "index_audios_on_audioable_type_and_audioable_id"
@@ -258,7 +262,10 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "load_all",                     :default => false
+    t.datetime "deleted_at"
   end
+
+  add_index "feeds", ["deleted_at"], :name => "index_feeds_on_deleted_at"
 
   create_table "flags", :force => true do |t|
     t.string   "flag_type"
@@ -279,6 +286,9 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.integer  "position",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_blocked",     :default => false
+    t.boolean  "is_featured",    :default => false
+    t.datetime "featured_at"
   end
 
   create_table "galleries", :force => true do |t|
@@ -310,6 +320,7 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_blocked",  :default => false
   end
 
   create_table "ideas", :force => true do |t|
@@ -345,9 +356,12 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "votes_tally",        :default => 0
+    t.string   "title"
+    t.integer  "source_id"
   end
 
   add_index "images", ["imageable_type", "imageable_id"], :name => "index_images_on_imageable_type_and_imageable_id"
+  add_index "images", ["remote_image_url"], :name => "index_images_on_remote_image_url"
   add_index "images", ["user_id"], :name => "index_images_on_user_id"
 
   create_table "locales", :force => true do |t|
@@ -398,6 +412,7 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.integer  "feed_id",                   :default => 0
     t.datetime "updated_at"
     t.boolean  "published",                 :default => false
+    t.integer  "read_count"
   end
 
   add_index "newswires", ["feed_id"], :name => "feedid"
@@ -419,6 +434,63 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.string   "participant_type"
     t.text     "data"
     t.datetime "expiry"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prediction_groups", :force => true do |t|
+    t.string   "title"
+    t.string   "section"
+    t.text     "description"
+    t.string   "status",          :default => "open"
+    t.integer  "user_id"
+    t.boolean  "is_approved",     :default => true
+    t.integer  "votes_tally",     :default => 0
+    t.integer  "comments_count",  :default => 0
+    t.integer  "questions_count", :default => 0
+    t.boolean  "is_blocked",      :default => false
+    t.boolean  "is_featured",     :default => false
+    t.datetime "featured_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prediction_guesses", :force => true do |t|
+    t.integer  "prediction_question_id"
+    t.integer  "user_id"
+    t.string   "guess"
+    t.integer  "guess_numeric"
+    t.datetime "guess_date"
+    t.boolean  "is_blocked",             :default => false
+    t.boolean  "is_featured",            :default => false
+    t.datetime "featured_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prediction_questions", :force => true do |t|
+    t.integer  "prediction_group_id"
+    t.string   "title"
+    t.string   "prediction_type"
+    t.string   "choices"
+    t.string   "status",              :default => "open"
+    t.integer  "user_id"
+    t.boolean  "is_approved",         :default => true
+    t.integer  "votes_tally",         :default => 0
+    t.integer  "comments_count",      :default => 0
+    t.integer  "guesses_count",       :default => 0
+    t.boolean  "is_blocked",          :default => false
+    t.boolean  "is_featured",         :default => false
+    t.datetime "featured_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "prediction_scores", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "guess_count"
+    t.integer  "correct_count"
+    t.float    "accuracy"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -458,6 +530,7 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_blocked",  :default => false
   end
 
   create_table "resources", :force => true do |t|
@@ -572,6 +645,9 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_blocked",      :default => false
+    t.boolean  "is_featured",     :default => false
+    t.datetime "featured_at"
+    t.integer  "flags_count",     :default => 0
   end
 
   add_index "topics", ["forum_id", "replied_at"], :name => "index_topics_on_forum_id_and_replied_at"
@@ -608,6 +684,11 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.boolean   "receive_email_notifications",              :default => true
     t.boolean   "dont_ask_me_for_email",                    :default => false
     t.datetime  "email_last_ask"
+    t.boolean   "dont_ask_me_invite_friends",               :default => false
+    t.datetime  "invite_last_ask"
+    t.boolean   "post_comments",                            :default => true
+    t.boolean   "post_likes",                               :default => true
+    t.boolean   "post_items",                               :default => true
   end
 
   add_index "user_profiles", ["user_id"], :name => "index_user_infos_on_user_id", :unique => true
@@ -658,6 +739,8 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.integer  "last_delivered_feed_item_id"
     t.boolean  "is_host",                                   :default => false
     t.integer  "activity_score",                            :default => 0
+    t.string   "fb_oauth_key"
+    t.datetime "fb_oauth_denied_at"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
@@ -677,6 +760,8 @@ ActiveRecord::Schema.define(:version => 20100717231853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "votes_tally",       :default => 0
+    t.string   "title"
+    t.integer  "source_id"
   end
 
   add_index "videos", ["user_id"], :name => "index_videos_on_user_id"

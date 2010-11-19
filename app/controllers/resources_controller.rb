@@ -4,6 +4,7 @@ class ResourcesController < ApplicationController
   cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
   before_filter :set_current_tab
+  before_filter :set_ad_layout, :only => [:index, :show, :my_resources]
   before_filter :login_required, :only => [:like, :new, :create, :update]
   before_filter :load_top_resources
   before_filter :load_newest_resources
@@ -15,6 +16,7 @@ class ResourcesController < ApplicationController
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
     @current_sub_tab = 'Browse Resources'
     @resources = Resource.active.paginate :page => params[:page], :per_page => Resource.per_page, :order => "created_at desc"
+    set_sponsor_zone('resources')
     respond_to do |format|
       format.html { @paginate = true }
       format.fbml { @paginate = true }
@@ -52,6 +54,8 @@ class ResourcesController < ApplicationController
   def show
     @resource = Resource.find(params[:id])
     tag_cloud @resource
+    set_outbrain_item @resource
+    set_sponsor_zone('resources', @resource.item_title.underscore)
   end
 
   def my_resources
@@ -61,10 +65,11 @@ class ResourcesController < ApplicationController
     @resources = @user.resources.active.paginate :page => params[:page], :per_page => Resource.per_page, :order => "created_at desc"
   end
 
-  def set_slot_data
-    @ad_banner = Metadata.get_ad_slot('banner', 'resources')
-    @ad_leaderboard = Metadata.get_ad_slot('leaderboard', 'resources')
-    @ad_skyscraper = Metadata.get_ad_slot('skyscraper', 'resources')
+  def tags
+    tag_name = CGI.unescape(params[:tag])
+    @paginate = true
+    @resources = Resource.tagged_with(tag_name, :on => 'tags').active.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    render :template => 'resources/index'
   end
 
   private

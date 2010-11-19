@@ -1,5 +1,6 @@
 class ResourceSectionsController < ApplicationController
   before_filter :set_current_tab
+  before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :login_required, :only => [:new, :create, :update]
   before_filter :load_top_resources, :only => :index
   before_filter :load_newest_resources, :only => :index
@@ -7,7 +8,7 @@ class ResourceSectionsController < ApplicationController
 
   def index
     @current_sub_tab = 'Browse Resource Sections'
-    @resource_sections = ResourceSection.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
+    @resource_sections = ResourceSection.active.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
   end
 
   def show
@@ -19,6 +20,7 @@ class ResourceSectionsController < ApplicationController
     	:order    => "votes.count desc"
     })
     @newest_resources = @resource_section.resources.newest 5
+    set_sponsor_zone('resources', @resource_section.item_title.underscore)    
   end
 
   private

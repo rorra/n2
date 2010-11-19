@@ -15,14 +15,19 @@
 .float_right
   float: right
 
-// Header Container // /* -webkit-box-shadow: #999 0px 2px 12px */
-#header
+/* CLEAR WIDTH */
+.clear_width
+  width: auto
 
+/* HEADER */ /* -webkit-box-shadow: #999 0px 2px 12px */
+#header
   height: $headerHeight
+  background: $headerBG
   margin-bottom: 15px
   position: relative
-  background: $headerBG
   z-index: 10
+
+  /* Sponsor logo */
   .sponsor
     background: $sponsorBG
     display: $sponsordisplay
@@ -36,6 +41,10 @@
       display: block
       height: $sponsorheight
       width: $sponsorwidth
+      &:hover
+        text-decoration: none
+
+  /* Title logo */
   .headerTitle
     background: $headerTitleLogoImage
     height: $headerTitleLogoHeight
@@ -48,14 +57,18 @@
       display: block
       width: 100%
       height: 100%
+      &:hover
+        text-decoration: none
     h1
       visibility: $headerTitleDisplay
       display: block
       float: left
       font-size: $fontsize * 2.2
       color: $headerTitleColor
-  a
-    text-decoration: none
+      a
+        &:hover
+          text-decoration: none
+
   img.hdrpic
     position: absolute
     top: 2px
@@ -66,7 +79,7 @@
   .dh_links
     font-size: 12px
     position: absolute
-    top: 10px
+    top: $dhlinkspostop
     right: 0px
     float: right
     padding: 5px 20px 5px 10px
@@ -82,7 +95,7 @@
   position: relative
   z-index: 3
   padding-right: 10px
-  background: $TextDropDownArrow
+  background: $AccountArrow
 
 .account-links
   width: 180px
@@ -133,6 +146,7 @@
         padding: 0
 // Body containers //
 #bodyWrapper
+  position: relative
   background: $bodyWrapperBG
   display: inline-block
   border: 
@@ -143,7 +157,6 @@
 
 // Footer Container //
 #footer
-  margin-bottom: 10px
   border:
     top: $FooterBorder
   .dh_links
@@ -179,64 +192,33 @@ body
   color: $bodyColor
   background: $bodyBG
   font-size: $fontsize
-  margin: 0px
-  padding: 0px
 
-h1, h2, h3, h4, h5
-  margin: 0px
-  padding: 0px
+h1, h2, h4, h5
   a
     color: $headerColor
     &:hover
       color: $headerLinkHover
 
 h1, h2, h4
+  line-height: 130%
+  margin: 0 0 6px 0
   font-family: $headerFont
   color: $headerColor
-  line-height: 130%
   font-weight: $headerweight
 
-h3, h5 
-  font-family: $copyFont
-  color: $subheadColor
-  line-height: 120%
-  a
-    color: $linkColor
-    &:hover
-      color: $linkColor
-
-h1
-  font-size: $fontsize * 1.5
-  margin: 0 0 6px 0
-
-h2
-  font-size: $fontsize * 1.2
-  margin: 0 0 6px 0
-
-h4
-  font-size: $fontsize * 1.1
-  margin: 0 0 4px 0
-  padding: 0
-
 h3
-  font-size: 11px
-  margin: 0 5px 5px 0
-
-h5
-  font-family: $headerFont
+  line-height: 100%
+  margin: 0 0 4px 0
+  font-family: $copyFont
+  font-weight: normal
   color: $subheadColor
-  font-size: $fontsize * 0.9
-  margin: 0px 0px 10px 0
-  padding: 5px 0px
 
 p
   font-family: $copyFont
   color: $bodyColor
-  font-size: 12px
-  line-height: 130%
+  line-height: 140%
   text-align: left
-  margin: 0 0 8px 0
-  padding: 0px
+  margin: 0 0 6px 0
 
 a
   color: $linkColor
@@ -249,20 +231,13 @@ img
   border: none
 
 ul
-  list-style-type: none
   margin: 0
   padding: 0
 
 li
   list-style-type: none
   margin: 0
-  padding: 10px 0 4px 0
-
-.meta
-  color: $subheadColor
-
-.bold
-  font-weight: bold
+  padding: 0
 
 // top level menu page tabs //
 #pageTabs
@@ -279,7 +254,7 @@ li
     left: 0
     background: $tabsBG
     width: 100%
-    height: 24px
+    height: 23px
     .tab-float
       float: $pagetabFloat
       padding: 0 0 0 1px
@@ -287,7 +262,7 @@ li
       padding-right: 20px
     .toggle_tabs li
       margin-right: 1px
-      height: 23px
+      height: 24px
       width: $pageTabWidth
       float: left
       padding: 0
@@ -306,6 +281,8 @@ li
         color: $pageTablinkOff
         background: $pageTabOff
         &:hover
+          color: $pageTabLinkOffHover
+          text-decoration: none
           background: $pageTabOffHover
       &.first 
         width: 30px
@@ -355,10 +332,10 @@ li
       .dropdown
         z-index: 20
         display: none
-        margin-top: 1px
+        margin-top: 0
         ul
           padding: 1px 0 0 0
-          display: inline-block
+          display: block
           li
             width: $dropdownWidth
             height: 100%
@@ -412,13 +389,15 @@ li
     padding: 0px
     text-align: center
     li
+      position: relative
+      bottom: 0px
       display: block
       float: left
       padding: 0px
-      margin: 0 0 0 2px
+      margin: 0 0 0 1px
       a
         position: relative
-        bottom: $pageTabOffPOS
+        bottom: -1px
         margin: 0px
         padding: 4px 25px 1px 25px
         height: 14px
@@ -432,7 +411,7 @@ li
           background: $subnavTabOffHover
           text-decoration: none
         &.selected
-          bottom: $pageTabOnPOS
+          bottom: -1px
           margin: 0px
           background: $subnavTabOn
           border:
@@ -451,10 +430,64 @@ li
           &:hover
             text-decoration: none
 
-// Thumb class stylings
+/**********************************************************************************************/
+/* FEATURED ITEMS */
+.featured
+  background: $featureStoryBG
+  .btnComment
+    background: $btnCommentFeatureBG
 
+  .answer
+    background: image_url("default/icon-answer.png") center right no-repeat
+
+  .article
+    background: image_url("default/icon-article.png") center right no-repeat
+
+  .comment
+    background: image_url("default/icon-comment.png") center right no-repeat
+
+  .event
+    background: image_url("default/icon-event.png") center right no-repeat
+    h3 
+      color: $bodyColor
+
+  .idea
+    background: image_url("default/icon-idea.png") center right no-repeat
+
+  .resource
+    background: image_url("default/icon-resource.png") center right no-repeat
+
+  .question
+    background: image_url("default/icon-question.png") center right no-repeat
+
+
+/**********************************************************************************************/
+/* IMAGE STYLES */
+
+/* THUMB CAPTION STYLES */
 .thumb
-  margin: 10px
+  .caption-note
+    background: image_url("default/caption-bg.png") top left repeat
+    display: block
+    width: 100%
+    padding: 5px 0
+    position: absolute
+    bottom: -100px
+    left: 0px
+    z-index: 10
+    h5
+      font-size: 11px
+      color: #fff
+      line-height: 120%
+      margin: 0 5px
+      padding: 0
+  &:hover
+    .caption-note
+      bottom: 0px
+
+/* THUMB IMAGE CONTAINER */
+.thumb
+  margin: 5px
   position: relative
   overflow: hidden
   img
@@ -462,110 +495,228 @@ li
     background: $WaterMark
   a:hover
     text-decoration: none
-  &.welcome
-    float: left
-  &.banner
-    margin: 2px auto
-    max-width: 292px
-    padding: 0
-    display: block
-  &.threeFour
-    max-height: 190px
-    img
-      top: -10px
-  &.bio
-    overflow: visible
-  &.nineSixteen
-    max-height: 150px
-    img
-      top: -40px
-  &.story
-    width: 90px
-    max-height: 75px
-  &.user
-    max-height: 90px
-    .moderator
-      height: 18px
-      width: 18px
-  &.user-details
-    max-height: 210px
-    .moderator
-      height: 32px
-      width: 32px
-  &.user-bio
-    float: left
-    margin: 5px
-    .moderator
-      height: 16px
-      width: 16px
-  .moderator 
-    position: absolute
-    left: 2px
-    bottom: 2px
-    background: none
 
-// Moderator badge general styles
-.moderator 
-  position: absolute
-  left: 2px
-  bottom: 2px
-  background: none
+/* WELCOME PANEL IMAGE STYLES */
+.welcome
+  margin: 10px 10px 5px 10px
+  float: left
+  width: 70px
+  height: 70px
+  img 
+    width: 70px
+    height: 70px
 
-.feature_bg
-  .thumb
-    margin: 10px 15px 0
-    display: inline-block
-    overflow: hidden
-    img
-      width: 280px
-    &.wide
-      display: block
-      max-height: 160px
-      img
-        width: 590px
-
-#readArticle
-  .thumb
-    float: right
-    img
-      max-width: 280px
-
-.storyList
-  .thumb
-    margin: 0 6px
-    float: left
-    img
-      max-width: 90px
-  .storyBlockWrap
-    margin-left: 110px
-
-.featuredNewsList
-  margin: 10px 0 0 0
-  .thumb
-    background: black
-    margin: 0 8px 0 0
-    height: 34px
-    float: left
-    img
-      max-width: 48px
-
-// Profile Pic //
+/* PROFILE IMAGE */
 .profilePic
   position: relative
   float: left
-  margin: 0px 10px 0px 0px
+  margin: 0px 5px 0px 0px
+  width: 30px
+  height: 30px
   img
-    max-width: 30px
-    max-height: 30px
+    width: 30px
+    height: 30px
   a:hover
     text-decoration: none
-  .moderator
+  img.moderator 
+    position: absolute
+    left: 2px
+    bottom: 2px
+
+/**********************************************************************************************/
+/* MODERATOR BADGE STYLES */
+.thumb
+  img.moderator 
+    position: absolute
+    left: 2px
+    bottom: 2px
+    height: 18px
+    width: 18px
+
+.user-bio
+  float: left
+  margin: 5px
+  img.moderator
+    height: 16px
+    width: 16px
+
+.panel_2
+  .user
+    img.moderator
+      height: 32px
+      width: 32px
+      position: absolute
+      left: 2px
+      bottom: 2px
+
+.panel_1
+  .users
+    .thumb.user
+      img.moderator
+        height: 18px
+        width: 18px
+        position: absolute
+        left: 2px
+        bottom: 2px
+
+.half-panel
+  .user-details
+    img.moderator
+      height: 48px
+      width: 48px
+      position: absolute
+      left: 2px
+      bottom: 2px
+
+.profilePic
+  img.moderator
     height: 12px
     width: 12px
+  fb:profile-pic
+    width: 30px
+    height: 30px
 
-// Layout panels - should be used for all element containers //
+// left and right column backgrounds //
+$ColumnCorners: none
+#col_left
+  background: none
+  -moz-border-radius: $ColumnCorners
+  -webkit-border-radius: $ColumnCorners
+  border-radius: $ColumnCorners
+
+/**********************************************************************************************/
+/* UNIVERSAL LIST - CHECK GRID.SASS & FB_GRID.SASS FOR MORE IN-DEPTH STYLING */
+
+/* CONTENT BLOCK */
+.itemBlock
+  margin: 5px
+
+/* META DATA */
+.itemMeta
+  display: inline-block
+  width: 79%
+
+/* NO IMAGE META */
+.item_2, .event, .newswire
+  .itemMeta
+    width: 100%
+
+/* ACTIONS BAR FOR PANELS */
+.itemActions
+  display: block
+  width: 100%
+  background: $subTitleBG
+  border-bottom: 1px solid $subTitleBG - #333
+  text-align: right
+  a
+    display: inline-block
+    font-size: 11px
+    margin: 5px 10px
+
+/* LIST CLASSES - GLOBAL STYLES */
+.answer, .article, .comment, .content, .event, .idea, .media, .newswire, .question, .resource, .topic, .users, .item_1, .item_2
+  display: inline-block
+  width: 100%
+
+/* LIST CLASSES WITH IMAGE */
+.panel_2
+  .answer, .article, .comment, .content, .idea, .question, .resource, .topic, .users, .item_1
+    .itemBlock
+      float: left
+ 
+/* LIST CLASSES WITH NO IMAGE */
+.panel_2
+  .article, .newswire
+    margin: 5px 0 10px
+  .newswire, .item_2, .event
+    .itemBlock
+      display: block 
+
+/* UNVERSAL LIST STYLES - PANELS */
 .panel_1, .panel_2
+  .list_items
+    li
+      display: inline-block
+      position: relative
+      width: 100%
+      border:
+        bottom: $panelListBorder
+    .blog
+      h2
+        margin-bottom: 0 
+      .thumb
+        margin: 0 10px 5px 0
+        width: 120px
+        height: 90px
+        img
+          width: 120px
+      p
+        line-height: 140%
 
+/* CURRENT USER BADGE */
+.users
+  h4
+    margin-bottom: 3px
+  h3
+    color: $bodyColor
+  .loc
+    font-size: 12px
+    margin-bottom: 8px
+
+
+/**********************************************************************************************/
+/* INTERIOR PANELS */
+
+.full-panel
+  width: 100%
+  float: left
+
+.half-panel, .third-panel, .third-panel-small, .quarter-panel
+  float: left
+  display: block
+
+.half-panel
+  width: 50%
+
+.third-panel, .third-panel-small
+  width: 33%
+
+.quarter-panel
+  width: 25%
+
+.panel-shadow
+  width: 70%
+  padding:
+    right: 1px
+    bottom: 1px
+  background: #ccc
+    
+
+.empty-panel
+  width: 70%
+  margin: 15px auto 0
+  padding: 10px
+  background: #f1f1f1
+  border: 1px solid #ccc
+  text-align: center
+  p
+    text-align: center
+    font-size: 14px
+    color: #666
+/**********************************************************************************************/
+/* FEATURED STORY STYLES */
+
+.featureWrap
+  background: $featureStoryBG
+  .btnComment
+    background: $btnCommentFeatureBG
+   
+
+/**********************************************************************************************/
+/* LAYOUT PANELS - PANEL_1 & PANEL_2 CONTAINERS */
+
+.panel_1, .panel_2, .panel_3
+  margin: 0 0 15px 0
   .top-tags
     display: inline-block
     padding-top: 4px
@@ -584,33 +735,96 @@ li
           text-decoration: none
           background: $featureStoryBG
 
-  .storyBlockWrap
-    .featuredNewsList
-      ul
-        padding: 0
-      li
-        width: auto
-        display: block
-        border-bottom: none
-        margin: 0 0 4px 0
-        padding: 4px
-        &.selected, &:hover
-          background-color: white
-          .btnComment
-            background: $btnCommentBG
-      p
-        margin: 3px 0 4px 0
-
-.panel_1, .panel_2
-  margin-bottom: 10px
-
-.panel_3
-  margin-bottom: 5px
-
-.panel_1, .panel_2
-  &.textpage
+  /* PANEL BAR STYLES */
+  .panelBar
+    -moz-border-radius-topleft: $ColumnCorners
+    -moz-border-radius-topright: $ColumnCorners
+    -webkit-border-top-right-radius: $ColumnCorners
+    -webkit-border-top-left-radius: $ColumnCorners
+    position: relative
+    display: block
+    padding: 4px 0
+    border:
+      bottom: $panelBarBorder
+    background: $panelBarBG
     h2
-      font-size: $fontsize * 1.1
+      margin: 0 6px
+      display: inline
+      line-height: 100%
+      font-size: 11.5px
+      font-weight: $panelBarHeaderWeight
+      text-transform: $panelBarTextTransform
+      font-family: $headerFont
+      color: $panelBarHeader
+    a
+      color: $panelBarHeaderLink
+      font-weight: normal
+      text-transform: none
+      
+    .bar_link
+      float: right
+      margin: 0 8px
+
+  /* WELCOME PANEL STYLES */
+  .welcomePanel
+    background: $WelcomePanelBG
+    -moz-border-radius: $featureBorderRadius
+    -webkit-border-radius: $featureBorderRadius
+    border-radius: $featureBorderRadius
+    border:
+      top: $featureBorderTop
+      bottom: $featureBorderBot
+      left: $featureBorderLeft
+      right: $featureBorderRight
+    display: inline-block
+
+    .itemBlock
+      text-align: center
+      margin: 10px
+
+      h2
+        text-align: left
+        margin-bottom: 5px
+        color: $featureH2Text
+      p
+        text-align: left
+        
+        margin: 0 0 5px 0
+        color: $featureBodyText
+      .btn
+        font-size: $fontsize * 1.15
+        margin: 10px auto
+
+  /* MEDIA WIDGET STYLES */
+  .list_media
+    li
+      display: inline-block
+      float: left
+      overflow: hidden
+      padding: 0
+      margin: 2px
+      padding: 0px
+
+  /* ACTIVE USERS WIDGET */
+  .userList
+    li
+      padding: 0
+      margin: 4px 2px 0 2px
+      display: inline-block
+      width: 30px
+      height: 30px
+      float: left
+      border:
+        bottom: none
+      .profilePic
+        margin: 0
+
+
+
+
+
+.panel_2, .panel_1, .panel_3
+  /* SPONSORED ITEMS STYLES */
   &.sponsorbox
     background: $sponsorBoxBG
     ul
@@ -621,7 +835,7 @@ li
       h2
         color: $sponsorBoxPanelBarTextColor
         font-weight: bold
-    .storyBlockWrap
+    .itemBlock
       margin: 0 8px
   .listTags
     li
@@ -647,7 +861,7 @@ li
       float: left
       width: 75%
       padding: 4px 0 6px 0
-      .storyBlockWrap
+      .itemBlock
         padding-left: 6px
     .eventLocationBlock
       float: left
@@ -656,150 +870,22 @@ li
       ul
         margin: 4px 0 8px 0
         li
+          width: auto
           border: none
-          padding: 4px 0 0 8px
+          padding: 4px 8px 0 8px
           font-size: $fontsize * 0.9
           color: $subheadColor
           b
-            color: $headerColor
-  .houseFeatures
-    background: $featureBg
-    -moz-border-radius: $featureBorderRadius
-    -webkit-border-radius: $featureBorderRadius
-    border-radius: $featureBorderRadius
-    border:
-      top: $featureBorderTop
-      bottom: $featureBorderBot
-      left: $featureBorderLeft
-      right: $featureBorderRight
-    display: inline-block
+            color: $bodyColor
 
-    .featureAd
-      text-align: center
-      h2
-        font-size: $fontsize * 1.35
-        text-align: left
-        line-height: 150%
-        padding: 8px 10px
-        color: $featureH2Text
-        &.push-left
-          margin-right: 40%
-      p
-        text-align: left
-        padding: 0 10px
-        margin-bottom: 20px
-        color: $featureBodyText
-      .btn
-        font-size: $fontsize * 1.15
-        margin: 10px auto
-  .userBlockWrap
-    li
-      padding: 0
-      margin: 4px 4px 0 0
-      display: inline-block
-      width: 30px
-      height: 30px
-      float: left
-      border:
-        bottom: none
-      .profilePic
-        margin: 0
-  .videoBlockWrap
-    li
-      display: inline-block
-      float: left
-    .videoThumb
-      padding: 0
-      margin:
-        top: 2px
-        right: 2px
-      width: 72px
-      height: 48px
-      background: #cccccc
-      padding: 0px
+  /* FORM STYLES - (Outside of formtastic) */
   .formBox
-    padding: 10px 0px
-    background: $formBoxBG
-    p
-      margin: 0 10px
-    h4
-      font-weight: normal
-      margin-bottom: 10px
-    textarea
-      border: $formBoxTextArea
-  .panelBar
-    position: relative
-    display: block
-    padding: 6px 0 2px 0px
-    border:
-      bottom: $panelBarBorder
-    background: $panelBarBG
-    h2
-      margin: 0
-      font-weight: $panelBarHeaderWeight
-      font-size: $fontsize * 0.9
-      text-transform: $panelBarTextTransform
-      font-family: $headerFont
-      color: $panelBarHeader
-      display: inline
-      margin-left: 6px
-      a
-        color: $panelBarHeader
-        font-weight: normal
-        text-transform: none
-        font-size: $fontsize
-    .bar_link
-      float: right
-      margin: 0 8px
-  .storyBlockMeta
-    &.float_right
-      margin-right: 10px
-    h4
-      margin-bottom: 3px
-    h3
-      margin-bottom: 4px
-  .storyBlockWrap
-    .storyHead
-      margin: 0 0 8px 0
-      color: $headerColor
-    .eventMetaBlock
-      background: $subTitleBG
-      width: 60%
-      display: inline-block
-      padding: 4px
-      h3
-        display: inline-block
-      .eventMeta
-        float: left
-        display: inline-block
-        h4
-          margin: 0 6px 4px 
-        h3
-          color: $bodyColor
-          margin: 0 6px 4px
-          line-height: 150%
-        &.time
-          border-right: #fff 1px solid
-          margin-left: -1px
-          width: 50%
-        &.location
-          margin-left: -1px
-          border-left: #fff 1px solid
-          width: 50%
-        &.tags
-          border-top: #fff 1px solid
-          width: 100%
-          margin: 0
-    p
-      margin: 6px 0px
-      line-height: 120%
-  li
     display: inline-block
-    position: relative
     width: 100%
-    padding: 8px 0
-    border:
-      bottom: $panelListBorder
+    background: $subTitleBG
+
+
+  /* BULLETED LIST */
   .bullet_list
     margin: 0 10px
     ul
@@ -813,7 +899,9 @@ li
       list-style-type: disc
       list-style-position: outside
       border-bottom: none
-  .audio, .video, .image
+
+  /* Not sure what this is */
+  .audio, .image
     margin: 10px
   .userPoints
     text-align: right
@@ -821,6 +909,18 @@ li
     .pointsnote
       font-size: 90%
       font-weight: normal
+  .audio
+    h3 
+      text-align: center
+      color: #fff
+
+    .player
+      width: 290px
+      height: 24px
+      margin: 0 auto 10px
+      clear: both
+      float: none
+
 
 // Flag box styles //
 .flag-wrap
@@ -860,11 +960,12 @@ li
         margin-bottom: 5px
       .submit-box
         text-align: right
+
   .refine-toggle
     position: relative
     z-index: 10
     padding-right: 10px
-    background: $TextDropDownArrow
+    background: $RefineArrow
   .refine_link
     float: right
     position: relative
@@ -872,27 +973,13 @@ li
     padding: 0px 8px
     a
       font-size: 11px
-      color: $linkColor
-    .refine-tab
-      height: 32px
-      width: 99px
-      position: absolute
-      top: -33px
-      right: -1px
-      border:
-        top: $DropDownBorder
-        bottom: none
-        left: $DropDownBorder
-        right: $DropDownBorder
-      background-color: $DropDownBG
-      z-index: 9
     .refine-box
       z-index: 8
       display: none
       position: absolute
       padding: 8px
       width: 142px
-      top: 25px
+      top: 15px
       right: 0px
       border: $DropDownBorder
       background-color: $DropDownBG
@@ -919,7 +1006,23 @@ li
             color: $refineInputHoverText
             background: $refineInputHoverBG
 
-// hot topic bar //
+.curtain
+  position: relative
+  background: #000 image_url("default/curtain.png") top left repeat-x
+  border-top: 1px solid #000
+  border-bottom: 1px solid #535353
+
+.panel_2
+  .video
+    min-width: 200px
+    max-width: 480px
+    margin: 2px auto
+    z-index: 1
+    object
+      z-index: 1
+      
+
+/* HOT TOPIC BAR */
 #hotTopicBar
   float: left
   width: 100%
@@ -940,6 +1043,7 @@ li
         background: $HTBaseBG
         padding: 4px 15px 4px 0
         min-width: 10%
+        width: auto
         a
           margin-left: 5px
           padding-left: 8px
@@ -958,17 +1062,19 @@ li
         width: 10%
         background: $HTBaseBG
 
-// Article Style modifications //
-#readArticle
-  .thumb
-    margin-top: 0
+/* DETAILS/SHOW PAGE STYLES */
+#itemDetails
+  .tag-wrap
+    margin: 0 0 10px 0
+    font-size: 11px
   .topBar
-    margin-bottom: 15px
+    margin-bottom: 10px
     ul
       border-bottom: none
       display: inline-block
       width: 100%
       li
+        position: relative
         padding: 3px 0 4px 0
         text-align: center
         display: block
@@ -976,28 +1082,18 @@ li
         margin:
           bottom: 0
         margin-right: -1px
-        width: 25%
+        width: 20%
         border:
           left: $TopBarBorder
           bottom: none
         background: $TopBarBG
         &.nopad
           padding-bottom: 2px
-        a
+        a, span
           color: $linkColor
-  .bodyArticle
-    color: $bodyColor
-    margin: 8px 5px 14px 5px
-    line-height: 140%
-    font-size: $fontsize
-  .storyCaption
-    p
-      padding: 0
-      margin: 4px 0px
-    br
-      margin: 0
-      line-height: 0px
-      visibility: hidden
+       
+  .half-panel
+    float: right
 
 // Comment Style Modifications and Additions //
 .commentThread, #commentThread
@@ -1022,19 +1118,8 @@ li
         font-weight: bold
         font-size: $fontsize * 0.9
 
-.feature_bg
-  background: $featureStoryBG
-  .panel_2
-    margin-top: 10px
-  .storyBlockWrap
-    margin: 10px 15px
-    &.header-top
-      margin-top: 10px
-      margin-bottom: -10px
-  .btnComment
-    background: $btnCommentFeatureBG
 
-li.feature_bg
+li.featureWrap
   border-bottom: 1px solid white
 
 
@@ -1052,24 +1137,27 @@ blockquote
   color: $bodyColor
   font-size: $fontsize
   line-height: 130%
-  margin: 10px 0 10px 60px
+  margin: 0
   padding: 5px 10px
   .quotes
     padding: 4px 0
 
 // TODO add styles for reply quotes when its functional //
 
-// Universal Button Styles //
+/* GLOBAL BUTTON */
 h3.btn
   a
     color: white
     &:hover
       text-decoration: none
-.btn
+
+
+.btn, .form-btn
+  padding: 3px 10px 4px 10px
+  line-height: 100%
   display: inline-block
   color: $btnTextColor
   font-weight: bold
-  padding: 3px 10px 4px 10px
   -moz-border-radius: 4px
   -webkit-border-radius: 4px
   border-radius: 4px
@@ -1079,8 +1167,20 @@ h3.btn
     cursor: pointer
     text-decoration: none
     background: $btnBGHover
+  &.disabled
+    border: 1px solid #666
+    color: #f0f0f0
+    cursor: default
+    background: image_url("default/disabled-btn.gif") top left repeat-x
+    &:hover
+      background: image_url("default/disabled-btn.gif") top left repeat-x
 
-// Like, Share, Vote, Comment, and Rate Styles //
+.form-btn
+  background: image_url("default/form-btn-off.png") top left repeat-x
+  &:hover
+    background: image_url("default/form-btn-on.png") top left repeat-x
+
+/* ACTION LINKS */
 .btnComment
   display: inline-block
   margin: 0 1px
@@ -1091,6 +1191,14 @@ h3.btn
 .btnFBshare
   margin: 1px 1px 0 1px
 
+.facebook-share
+  background: image_url("default/icon_facebook.gif") left no-repeat
+  padding-left: 18px
+
+.tweet-share
+  background: image_url("default/icon_tweet.gif") left no-repeat
+  padding-left: 18px
+  
 .voteUp
   background: $voteUp
   padding-left: 15px
@@ -1133,6 +1241,10 @@ h3.btn
 
 // Extra styles for Login Page //
 .login
+  width: 90%
+  margin: 20px 5%
+  p
+    margin-bottom: 20px
   .desc
     display: inline-block
     margin-bottom: 10px
@@ -1153,7 +1265,7 @@ h3.btn
   .submit-btn
     text-align: center
 
-// Ad sizes and Layouts //
+/* AD LAYOUTS */
 #adspace
   margin-bottom: 15px
 
@@ -1185,7 +1297,7 @@ h3.btn
   width: 728px
   margin: 0 auto
 
-.ad_468, .ad_200, .ad_728, .ad_160, .ad_250, .ad_300, .ad_336
+.ad_468, .ad_200, .ad_728, .ad_160, .ad_250, .ad_300, .ad_336, .sponsor_250
   -moz-border-radius: 4px
   -webkit-border-radius: 4px
   border-radius: 4px
@@ -1209,6 +1321,17 @@ h3.btn
         margin: 0
         padding: 0
 
+.sponsor_250
+  width: 250px
+  margin: 0 auto
+  background: #ccc image_url("default/sponsor-bg-title.gif") top center no-repeat
+  div
+    background-color: #fff
+  
+.advertise_here
+  font-size: $fontsize * .9
+  text-align: center
+  
 // Bookmarklet Styles //
 .bookmarklet
   padding-bottom: 10px
@@ -1254,7 +1377,7 @@ h3.btn
     color: $paginationLinkOff
   span.disabled
     color: $paginationLinkDisabled
-    background: $paginationBgDisabled
+    background: none
     border: $paginationBdrDisabled
     &:hover
       text-decoration: none
@@ -1306,7 +1429,7 @@ h3.btn
   height: 35px
   width: 35px
 
-#overlay
+#overlay, #login-overlay
   background-image: url(/images/overlay/white.png)
   color: #efefef
   height: 450px
@@ -1315,30 +1438,34 @@ h3.btn
   height: 441px
   overflow-y: auto
 
+#login-overlay .contentWrap p
+  color: black
+
 /*
 /*	root element for the scrollable.
-/*	when scrolling occurs this element stays still.
+/*	when scrolling occurs this element stays still.*/
 
 .scrollable 
-
   /* required settings */
   position: relative
   overflow: hidden
-  width: 350px
-  height: 120px
+  width: 85%
+  height: 110px
+  margin: 2px auto
 
   /* custom decorations */
-  border: 1px solid #ccc
-  background: url(/images/h300.png) repeat-x
+  border: 1px solid #636363
+  background: #000
 
 
 #scrollbox
   display: none
-  height: 150px
+  position: relative
+  height: 110px
 /*	root element for scrollable items. Must be absolutely positioned
 /*	and it should have a extremely large width to accomodate scrollable items.
 /*	it's enough that you set the width and height for the root element and
-/*	not for this element.
+/*	not for this element.  */
 
 .scrollable .items 
   /* this cannot be too large */
@@ -1348,7 +1475,7 @@ h3.btn
 
 .items div 
   float: left
-  width: 350px
+  width: 100%
 
   /* single image */
 #images
@@ -1368,12 +1495,11 @@ h3.btn
 /* single scrollable item */
 .scrollable img 
   float: left
-  margin: 20px 5px 20px 21px
-  background-color: #fff
-  padding: 2px
+  margin: 15px 10px
+  background-color: #888
+  padding: 3px
   width: 100px
   height: 75px
-
   -moz-border-radius: 4px
   -webkit-border-radius: 4px
 
@@ -1384,41 +1510,45 @@ h3.btn
   cursor: default
 
 /* this makes it possible to add next button beside scrollable */
-.scrollable 
-  float: left
 
 
 /* prev, next, prevPage and nextPage buttons */
 a.browse 
   display: block
-  width: 30px
-  height: 20px
+  width: 20px
+  height: 40px
   float: left
-  margin: 60px 10px 60px 10px
   cursor: pointer
   font-size: 1px
 
 
 /* right */
 a.right_scroll
+  position: absolute
+  right: 10px
+  top: 40px
   background: url(/images/arrow/right.png) no-repeat
   clear: right
   margin-right: 0px
   
   &:hover
-    background-position: 0px -20px
+    background-position: 0px -40px
   
   &:active
-    background-position: 0px -30px
+    background-position: 0px -40px
 
 /* left */
 a.left_scroll
+  position: absolute
+  left: 10px
+  top: 40px
+
   background: url(/images/arrow/left.png) no-repeat
   margin-left: 0px
   &:hover
-    background-position: 0px -20px
+    background-position: 0px -40px
   &:active
-    background-position: 0px -20px
+    background-position: 0px -40px
 
 /* up and down */
 a.up_scroll		
@@ -1472,25 +1602,25 @@ a.disabled
       padding: 2px
       
 
-.navi
-  position: absolute
-  bottom: 33px
-  left: 50px
-  display: block
-  width: 30px
-  height: 20px
+  .navi
+    position: absolute
+    bottom: 33px
+    left: 50px
+    display: block
+    width: 30px
+    height: 20px
   
-.next
-  left: 450px
-  background: url(/images/arrow/right.png) no-repeat
+  .next
+    left: 450px
+    background: url(/images/arrow/right.png) no-repeat
   
-.prev
-  background: url(/images/arrow/left.png) no-repeat
+  .prev
+    background: url(/images/arrow/left.png) no-repeat
 
 
 // jgrowl styling //
 body div.jGrowl div.jGrowl-notification, body div.jGrowl div.jGrowl-closer
-  background: $featureBg
+  background: $WelcomePanelBG
   border: $featureBorder
   opacity: .90
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"
@@ -1522,9 +1652,14 @@ body div.jGrowl div.jGrowl-notification div.jGrowl-message
 body div.jGrowl div.jGrowl-notification div.user-wrapper
   background: #fff
   padding: 2px
+  width: 271px
+  display: inline-block
   .profilePic
     border: #ccc 1px solid
     margin: 0 5px 5px 0
+  p
+    font-size: $fontsize * 0.95
+    color: #666
   
 body div.jGrowl div.jGrowl-notification div.jGrowl-close
   z-index: 99
@@ -1542,3 +1677,80 @@ body div.jGrowl div.jGrowl-closer
   text-align: center
   &:hover
     color: $featureBodyText
+#wall_post_checkbox
+  clear: both
+  float: left
+  width: 100%
+#wall_post_label  
+  padding-left: 0
+#article_status
+  clear: both
+  float: left
+
+/**********************************************************************************************/
+/* FLASH ERROR STYLES */
+.flash
+  margin: 0 auto
+  clear: both
+  z-index: 900
+  position: relative
+  p
+    position: absolute
+    top: -5px
+    width: 80%
+    padding: 5px
+    margin: 0 10%
+    font-weight: bold
+    font-size: 13px
+    display: block
+    text-align: center
+    color: #fff
+
+  &.flash_error
+    p
+      border: $flashErrorBorder
+      background: $flashErrorBG
+
+  &.flash_success
+    p
+      border: $flashSuccessBorder
+      background: $flashSuccessBG
+
+  &.flash_notice, &.info
+    p
+      border: $flashNoticeBorder
+      background: $flashNoticeBG
+
+  &.flash_warning
+    p
+      border: $flashWarningBorder
+      background: $flashWarningBG
+
+
+
+.process
+  background: white image_url("default/vertical_bg_animation.gif") top left repeat
+  opacity: .5
+
+#contactBox
+  .jcarousel-container
+    img
+      margin-left: 0px
+      margin-top: 0px
+
+.moderator-links
+  display: none !important
+.mod-links-style
+  display: inline-block
+  position: relative
+  padding: 4px
+
+.admin-links
+  display: none !important
+.admin-links-style
+
+.user-present
+  display: none !important
+
+.wizard-errors
+  color: red

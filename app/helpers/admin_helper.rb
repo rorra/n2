@@ -60,7 +60,7 @@ module AdminHelper
         class_name = (item.moderatable? and item.blocked?) ? 'admin-blocked' : ''
         html << "<tr class='#{class_name} #{cycle('odd', 'even')}'>"
         fields.each do |field|
-          html << "<td>#{field_value item, field, options[:associations]}</td"
+          html << "<td>#{field_value item, field, options[:associations]}</td>"
         end
         html << "<td>#{admin_links item}</td>"
         html << "</tr>"
@@ -81,14 +81,21 @@ module AdminHelper
 
     if item.moderatable?
     	links << link_to(item.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.class.name.foreign_key.to_sym => item))
-      if item.class.name != 'RelatedItem'
+      if item.class.name != 'RelatedItem' and item.class.name != 'IdeaBoard' and item.class.name != 'ResourceSection'
     	  links << link_to(item.featured? ? 'UnFeature' : 'Feature', admin_feature_path(item.class.name.foreign_key.to_sym => item))
     	  links << link_to('Flag', admin_flag_item_path(item.class.name.foreign_key.to_sym => item))
     	end
     end
+    if item.class.name == 'User'
+      links << link_to('FB Profile', "http://www.facebook.com/profile.php?id=#{item.fb_user_id}", :target => "_fb")
+    end
+    
     if item.class.name == 'DashboardMessage'
       links << link_to('Send', send_global_admin_dashboard_message_path(item)) unless item.sent?
       links << link_to('Clear', clear_global_admin_dashboard_message_path(item)) if item.sent?
+    end
+    if item.class.name == 'Feed'
+      links << link_to('Destroy', [:admin, item], :confirm => 'Are you sure?', :method => :delete)
     end
     links.join ' | '
   end

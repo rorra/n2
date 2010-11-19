@@ -13,7 +13,6 @@ module FacebookHelper
 
   def fb_share_item_button item
     stream_post = build_stream_post item
-
     render :partial => 'shared/misc/share_button', :locals => {:item => item, :stream_post => stream_post}
   end
 
@@ -38,10 +37,6 @@ module FacebookHelper
     text += %{<link rel="target_url" href="#{polymorphic_path(item, :only_path => false, :canvas => true)}"}
     text += %{</fb:share-button>}
     text
-  end
-
-  def iframe_facebook_request?
-    (session and session[:facebook_request]) or request_comes_from_facebook?
   end
 
   private
@@ -76,5 +71,9 @@ module FacebookHelper
     stream_post.attachment = attachment
     stream_post
   end
-      
+
+  def fb_profile_link user
+    "http://www.facebook.com/profile.php?id=#{user.fb_user_id}"
+  end
+
 end

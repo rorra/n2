@@ -2,7 +2,7 @@
 - cache_if (false and page.present?), "users_list_#{page}html" do
   - scores ||= Score.weekly_scores
   - paginate ||= false
-  .panel_1
+  .panel_2
     .panelBar
       %h2= t('.users_title')
       - if false and users.present? and users.first.refineable?
@@ -10,23 +10,13 @@
           = render :partial => 'shared/forms/refine_dropdown'
     .subtitle
       %span= t('.users_subtitle')
-    .storyList
-      .list_stories
+    .itemListWrap
+      .list_items
         %ul
           - scores.each do |score|
             - user = score.user
             %li{'data-id' => user.cache_key}
-              .thumb.user
-                = local_linked_profile_pic user, :size => "small"
-              .storyBlockMeta.float_left{ :style => 'width: 60%' }
-                %h2.storyHead== #{local_linked_profile_name(user)}
-                %p= caption(user.bio,350)
-              .storyBlockMeta.float_right
-                %h4.userPoints= t('total_score', :score => score.total_score)
-                - if score.karma_score > 0
-                  %h3.userPoints= t('karma_score', :score => score.karma_score)
-                - if score.activity_score > 0
-                  %h3.userPoints= t('activity_score', :score => score.activity_score)
+              = render :partial => 'shared/items/user', :locals => { :user => user, :score => score }
     - if paginate
       .clearfix
         = will_paginate scores

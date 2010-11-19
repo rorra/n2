@@ -8,15 +8,16 @@ class Image < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :imageable, :polymorphic => true
+  belongs_to :source
 
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 8)} }
   named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
 
   has_attached_file :image, :styles => {
-  	:media_item => "72x48\!^",
-  	:thumb => "90x90<",
-  	:medium => "280x280>",
-  	:featured => "280x280<"
+  	:media_item => ["75x56#", :jpg],
+  	:thumb => ["100x100#", :jpg],
+  	:medium => ["320x240#", :jpg],
+  	:large => ["610x458#", :jpg]
   }
 
   validate :download_image, :if => :remote_image_url?

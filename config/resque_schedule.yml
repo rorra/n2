@@ -1,0 +1,21 @@
+parse_feeds:
+  cron: "30 * * * *"
+  class: FeedsWorker
+  queue: feeds
+  args:
+  rails_env: development, staging, production
+  description: "This job will parse the RSS/atom feeds"
+sitemap:
+  cron: "45 3 * * *"
+  class: SitemapWorker
+  queue: sitemaps
+  args:
+  rails_env: development, staging, production
+  description: "This job will update the sitemaps"
+reminders:
+  cron: "45 4 * * *"
+  class: RemindersWorker
+  queue: reminders
+  args:
+  rails_env: development, staging, production
+  description: "This job will send reminders to appropriate users"

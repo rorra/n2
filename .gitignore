@@ -1,5 +1,6 @@
 !*.gitignore
 public/maintenance.*
+public/sitemap*
 public/uploads
 public/cache/*
 !public/cache/.gitignore
@@ -21,7 +22,9 @@ config/application.god
 config/compass.config
 config/compass.rb
 !config/widgets.yml
+!config/resque_schedule.yml
 !config/cucumber.yml
+!config/asset_packages.yml
 config/deploy/*.rb
 !config/deploy/sample.rb
 *.pid

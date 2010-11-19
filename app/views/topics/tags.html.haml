@@ -5,7 +5,7 @@
   - page ||= ""
   - cache_if page.present?, "#{@forum.cache_key}_topics_tags_list#{page}" do
     - @paginate ||= false
-    .panel_1
+    .panel_2
       .panelBar
         %h2= t('forums.topics.list_title', :forum_name => @forum.name)
         -#%span.bar_link= fb_share_item_button(forum)
@@ -13,7 +13,7 @@
         %span= t('forums.topics.list_subtitle', :forum_description => @forum.description)
       .subtitle
         %span== Tagged with #{@tag_name}
-      .storyList
+      .itemListWrap
         - if @topics.any?
           %table.tablesorter
             %thead
@@ -28,7 +28,7 @@
                   %td= link_to topic.title, [@forum, topic]
                   %td= topic.comments_count
                   %td= topic.views_count
-                  %td= t('posted_by', :fb_name => local_linked_profile_name(topic.replied_user), :date => time_ago_in_words(topic.replied_at))
+                  %td= t('posted_by', :fb_name => local_linked_profile_name(topic.replied_user), :date => timeago(topic.replied_at))
         - else
           %p There are no topics yet, create one
     - if @paginate

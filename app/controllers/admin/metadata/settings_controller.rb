@@ -2,7 +2,7 @@ class Admin::Metadata::SettingsController < Admin::MetadataController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Metadata::Setting.paginate(:page => params[:page], :per_page => 30, :order => "created_at desc"),
+    	:items => Metadata::Setting.paginate(:page => params[:page], :per_page => 30, :order => "key_sub_type asc, key_name asc"),
     	:model => Metadata::Setting,
     	:fields => [:setting_name, :setting_sub_type_name, :setting_value],
     	:paginate => true
@@ -26,6 +26,12 @@ class Admin::Metadata::SettingsController < Admin::MetadataController
       # sweep cache elements when specific settings change
       if @setting.key_name.include? "welcome_"
         WidgetSweeper.expire_item "welcome_panel"
+      end
+      if @setting.key_name.include? "google_search_engine_id"
+        WidgetSweeper.expire_item "google_search"
+      end
+      if @setting.key_name.include? "widget_stories_short_max"
+        WidgetSweeper.expire_item "stories_short"
       end
       flash[:success] = "Successfully updated your setting."
       redirect_to admin_metadata_setting_path(@setting)
@@ -75,7 +81,16 @@ class Admin::Metadata::SettingsController < Admin::MetadataController
 
   def render_edit setting
     setting ||= Metadata::Setting.new
-
+=begin
+    if setting.name == 'site_notification_user'
+      render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+      	:item => setting,
+      	:model => Metadata::Setting,
+      	:fields => [:setting_name, :setting_hint, lambda {|f| f.input :setting_sub_type_name, :required => false }, lambda {|f| f.input :setting_value, :as => :select, :collection => User.admins, :hint => :setting_hint } ]
+      }
+    else  
+    end
+=end
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
     	:item => setting,
     	:model => Metadata::Setting,

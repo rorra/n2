@@ -1,65 +1,53 @@
-/* 960 Grid System ~ Core CSS.
- * Learn more ~ http://960.gs/
- *
- * Licensed under GPL and MIT.
- */
+// 960 Grid System ~ Core CSS.
+// Learn more ~ http://960.gs/
+// Licensed under GPL and MIT.
 
-
+/**********************************************************************************************/
 // Reset and grid stylesheets
 @import "compass/utilities/general/reset"
 @import 960/grid.sass
-
 +global-reset
 
-//App Skin
+/**********************************************************************************************/
+// App Skin
 @import skin.sass
 
-//App stylesheets
+/**********************************************************************************************/
+// App stylesheets
 @import default.sass
 @import application.sass
 @import formtastic.sass
-@import formtastic_changes.sass
-@import ui-lightness/jquery-ui-1.7.2.custom.sass
+//@import ui-lightness/jquery-ui-1.7.2.custom.sass
 @import jquery.jcarousel.sass
 @import jcarousel.skin.sass
+@import flowplayer_tabs.sass
+@import scrollable_fb.sass
+@import addthis.sass
 
-// Image sizing for Facebook
-.feature_bg
-  .thumb
-    img
-      max-height: 210px
-      max-width: 210px
-
-#readArticle
-  .thumb
-    img
-      max-height: 210px
-      max-width: 210px
-
+/**********************************************************************************************/
 // The following generates the default grids provided by the css version of 960.gs
 $ninesixty_columns: 12
-
 $ninesixty_grid_width: 760px
+$ninesixty_gutter_width: 10px
 
-$ninesixty_gutter_width: 20px
-
-=brdr
-  border: 1px dashed red
-
+/**********************************************************************************************/
+// Site wide Grid Container styles
 body
   +grid-system(12)
-  +grid-children
-
-body
-  +grid-system(12)
+  padding-bottom: 20px
 
 #header, #footer, #pageBody, #adspace, #subNav, .breadcrumbs
+  +grid(12)
+
+#col_full
+  position: relative
+  z-index: 1
   +grid(12)
 
 #col_left
   position: relative
   z-index: 1
-  width: 506.667px
+  +grid(8)
   float: left
   .right
     float: right
@@ -69,42 +57,253 @@ body
 #col_right
   position: relative
   z-index: 1
-  width: 253.333px
+  +grid(4)
   float: left
 
-.panel_1
-  .panel_4
-    &.first
-      +alpha
-    &.last
-      +omega
-    .thumb
-      +grid(2)
-      margin: 0 0 10px 0
-      img
-        +grid(2)
-        margin: 0
-  &.feature_bg
-    .panel_4
-      margin-top: 5px
-      margin-right: 8px
-      margin-left: 8px
-      margin-bottom: 10px
-      &.first
-        margin-left: 5px
-      &.last
-        margin-right: 5px
-
-.panel_4
-  +grid(2)
-
-.panel_1, #hotTopicBar
-  +grid(8)
-.feature_bg
-  .left
+.panel_3
+  &.first
     +alpha
-  .right
+  &.last
     +omega
+  +grid(12)
+  margin: 0 10px 10px 0
 
+/**********************************************************************************************/
+/* PANEL TITLE SIZES */
+.panel_1, .panel_2
+  .panelBar
+    h2
+      font-size: $fbpbh2
+
+  .third-panel
+    p
+      font-size: 10.5px
+
+  .quarter-panel
+    p
+      font-size: 10.5px
 .panel_2
+  h1
+    font-size: 19px
+  h2
+    font-size: 15px
+  h3
+    font-size: 10px
+  h4
+    font-size: 13px
+  p
+    font-size: 12px
+
+.panel_1
+  h1
+    font-size: 16px
+  h2
+    font-size: 13px
+  h3
+    font-size: 10px
+  h4
+    font-size: 13px
+  p
+    font-size: 12px
+
+/**********************************************************************************************/
+/* UNIVERSAL LIST PANEL_1 */
+.panel_1
   +grid(4)
+  +alpha
+  +omega
+  /* FEATURED STORY SIDEBAR WIDGET */
+  .full-panel
+    .thumb
+      width: 233px
+      height: 131px
+      img
+        top: -21.5px
+        width: 233px
+    .itemBlock
+      width: 233px
+  /* CATEGORY CLASSES */
+  .article, .topic
+    .thumb.user
+      margin: 5px
+      width: 46px
+      height: 46px
+      img
+        width: 46px
+        height: 46px
+        &.moderator
+          height: 18px 
+          width: 18px
+  .item_1
+    .itemBlock
+      float: left
+      width: 163px
+    .thumb
+      height: 45px
+      width: 60px
+      float: left
+      img
+        width: 60px
+    .itemMeta
+      width: 100%
+  .item_2
+    .itemBlock
+      width: 233px
+  .users
+    .thumb
+      float: left
+      height: 46px
+      width: 46px
+      img
+        width: 46px
+  .media
+    .thumb
+      width: 223px
+      height: 167px
+      margin: 5px 10px
+      img
+        width: 270px
+      object
+        width: 270px
+        height: 202px
+  .list_media
+    ul
+      width: 100%
+      display: inline-block      
+      margin: 4px 0
+      li
+        width: 56px
+        height: 42px
+        img
+          width: 56px
+
+/**********************************************************************************************/
+/* UNIVERSAL LIST PANEL_2 */
+.panel_2
+  +grid(8)
+  +alpha
+  +omega
+  &.featureWrap
+    .thumb.wide
+      width: 486px
+      height: 160px
+      img
+        top: -139px
+        width: 486px
+  .thumb
+    width: 80px
+    height: 60px
+    margin: 5px
+    float: left
+    img
+      width: 80px
+  /* CATEGORY CLASSES */
+  .list_items
+    .answer, .article, .comment, .content, .idea, .item_1, .question, .resource, .users
+      .itemBlock
+        width: 386px
+
+    .users
+      .thumb
+        width: 80px
+        height: 80px
+
+    .blog, .event, .item_2, .newswire
+      .itemBlock
+        width: 486px
+  /* MEDIA WIDGET STYLES */
+  .list_media
+    li
+      width: 58px
+      height: 43.5px
+      img
+        width: 58px
+/**********************************************************************************************/
+/* FEATURED STORY PANEL STYLES */
+
+.half-panel
+  .thumb
+    height: 178px
+    width: 238px
+    img
+      width: 238px
+
+.quarter-panel
+  .thumb
+    height: 85px
+    width: 114px
+    img
+      width: 114px
+  p
+    display: none
+  &.show-caption
+    p
+      display: inline-block
+.third-panel
+  .thumb
+    height: 116px
+    width: 155px
+    img
+      width: 155px
+  p
+    display: none
+
+.third-panel-small
+  .thumb
+    float: left
+    height: 45px
+    width: 60px
+    img
+      width: 60px
+
+/**********************************************************************************************/
+/* UNIQUE SIZE REQUIREMENT IMAGES */
+.thumb
+  &.banner
+    margin: 2px auto
+    width: 235px
+    padding: 0
+    display: block
+    img
+      width: 235px
+  &.short
+    height: 134px
+
+/**********************************************************************************************/
+/* DETAILS PAGE THUMB SIZE */
+#itemDetails
+  .thumb
+    width: 225px
+    height: 178px
+    float: right
+    img
+      width: 233px
+    .video
+      position: absolute
+      top: 0
+      left: 0
+      object
+        height: 182px
+        width: 233px
+  .itemMeta
+    width: 50%
+  .itemBlock
+    display: inline-block
+    width: 486px
+    margin: 5px 5px 10px
+    line-height: 140%
+    font-size: $fontsize
+  
+/**********************************************************************************************/
+/* FLASH MESSAGE STYLES */
+.flash
+  width: 750px
+  margin: 0 5px  
+
+/**********************************************************************************************/
+/* ADDTHIS DROPDOWN WIDTH */
+
+.addthis_toolbox
+  .custom_hover
+    .hover_menu 
+      width: 93px

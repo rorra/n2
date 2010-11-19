@@ -2,34 +2,35 @@
 // Learn more ~ http://960.gs/
 //Licensed under GPL and MIT.
 
-
-
+/**********************************************************************************************/
 // Reset and grid stylesheets
 @import "compass/utilities/general/reset"
 @import 960/grid.sass
-
 +global-reset
-//App Skin
+
+/**********************************************************************************************/
+// App Skin
 @import skin.sass
+
+/**********************************************************************************************/
 // App stylesheets
 @import default.sass
 @import application.sass
 @import formtastic.sass
-@import formtastic_changes.sass
-@import ui-lightness/jquery-ui-1.7.2.custom.sass
+//@import ui-lightness/jquery-ui-1.7.2.custom.sass
 @import jquery.jcarousel.sass
 @import jcarousel.skin.sass
+@import flowplayer_tabs.sass
+@import scrollable.sass
+@import addthis.sass
 
-//Image sizing for Non-facebook
-
-
+/**********************************************************************************************/
 // The following are the current grid layout boxes for the site.
 $ninesixty_columns: 12
-
 $ninesixty_gutter_width: 20px
 
-//#bodyWrapper, .panel_1, .panel_2
-//  border: 1px dashed red
+/**********************************************************************************************/
+// Site wide Grid Container styles
 body
   +grid-system(12)
   padding-bottom: 20px
@@ -37,10 +38,15 @@ body
 #header, #footer, #pageBody, #adspace, #subNav, .breadcrumbs
   +grid(12)
 
+#col_full
+  position: relative
+  z-index: 1
+  +grid(12)
+
 #col_left
   position: relative
   z-index: 1
-  width: 640px
+  +grid(8)
   float: left
   .right
     float: right
@@ -50,54 +56,248 @@ body
 #col_right
   position: relative
   z-index: 1
-  width: 320px
+  +grid(4)
   float: left
 
-.panel_1
-  .panel_4
-    &.first
-      +alpha
-    &.last
-      +omega
-    .thumb
-      +grid(2)
-      margin: 0 0 10px 0
-      img
-        +grid(2)
-        margin: 0
-  &.feature_bg
-    .panel_4
-      margin-top: 5px
-      margin-right: 8px
-      margin-left: 8px
-      margin-bottom: 10px
-      &.first
-        margin-left: 5px
-      &.last
-        margin-right: 5px
-      .thumb
-        height: 80px
-        overflow: hidden
-        &.threeFour
-          height: 100px
-          
 .panel_3
-  width: 50%
-  display: inline-block
-  float: left
-
-.panel_4
-  +grid(2)
-
-.panel_1, #hotTopicBar
-  +grid(8)
-
-.feature_bg
-  .left
+  &.first
     +alpha
-  .right
+  &.last
     +omega
+  +grid(12)
+  margin: 0 10px 10px 0
 
+/**********************************************************************************************/
+/* PANEL TITLE SIZES */
+.panel_1, .panel_2
+  .panelBar
+    h2
+      font-size: $pbh2
+  .third-panel
+    p
+      font-size: 11px
+  .quarter-panel
+    p
+      font-size: 11px
 
 .panel_2
+  h1
+    font-size: 24px
+  h2
+    font-size: 17px
+  h3
+    font-size: 11px
+  h4
+    font-size: 12.5px
+  p
+    font-size: 12px
+
+.panel_1
+  h1
+    font-size: 20px
+  h2
+    font-size: 15px
+  h3
+    font-size: 11px
+  h4
+    font-size: 13px
+  p
+    font-size: 12px
+
+/**********************************************************************************************/
+/* UNIVERSAL LIST PANEL_1 */
+.panel_1
   +grid(4)
+  +alpha
+  +omega
+  /* FEATURED STORY SIDEBAR WIDGET */
+  .full-panel
+    .thumb
+      width: 290px
+      height: 164px
+      img
+        top: -27px
+        width: 290px
+    .itemBlock
+      width: 290px
+  /* CATEGORY CLASS STYLES */
+  .item_1
+    .itemBlock
+      float: left
+      width: 210px
+    .thumb
+      height: 52px
+      width: 70px
+      float: left
+      img
+        width: 70px
+    .itemMeta
+      width: 100%
+  .article, .topic
+    .thumb.user
+      margin: 5px
+      width: 50px
+      height: 50px
+      img
+        width: 50px
+        height: 50px
+        &.moderator
+          height: 18px 
+          width: 18px
+  .item_2
+    .itemMeta
+      width: 100%
+    .itemBlock
+      width: 290px
+  .users
+    .thumb
+      height: 50px
+      width: 50px
+      img
+        width: 50px
+  .media
+    .thumb
+      width: 270px
+      height: 202px
+      margin: 10px 15px
+      img
+        width: 270px
+      object
+        width: 270px
+        height: 202px
+  .list_media
+    ul
+      width: 100%
+      display: inline-block      
+      margin: 4px 0
+      li
+        width: 71px
+        height: 53px
+        img
+          width: 73px
+
+/**********************************************************************************************/
+/* UNIVERSAL LIST PANEL_2 */
+.panel_2
+  +grid(8)
+  +alpha
+  +omega
+  &.featureWrap
+    .thumb.wide
+      width: 610px
+      height: 180px
+      img
+        top: -139px
+        width: 610px
+  .thumb
+    width: 90px
+    height: 75px
+    margin: 5px
+    float: left
+    img
+      width: 90px
+  /* CATEGORY CLASSES */
+  .list_items
+    .answer, .article, .comment, .content, .idea, .item_1, .question, .resource, .users
+      .itemBlock
+        width: 510px
+    .users
+      .thumb
+        height: 90px
+        width: 90px
+
+    .blog, .event, .item_2, .newswire
+      .itemBlock
+        width: 610px
+
+  .list_media
+    li
+      width: 73px
+      height: 55px
+      img
+        width: 73px
+/**********************************************************************************************/
+/* FEATURED STORY PANEL IMAGE SIZES */
+.half-panel
+  .thumb
+    height: 225px
+    width: 300px
+    img
+      width: 300px
+
+.quarter-panel
+  .thumb
+    height: 110px
+    width: 145px
+    img
+      width: 145px
+  p
+    display: none
+
+.third-panel
+  .thumb
+    height: 146px
+    width: 196px
+    img
+      width: 196px
+
+.third-panel-small
+  .thumb
+    float: left
+    height: 45px
+    width: 60px
+    img
+      width: 60px
+
+/**********************************************************************************************/
+/* UNIQUE SIZE IMAGES */
+.thumb
+  &.banner
+    margin: 2px auto
+    width: 292px
+    padding: 0
+    display: block
+  &.short
+    height: 168px
+    img
+      top: -28px
+
+/**********************************************************************************************/
+/* DETAILS PAGE THUMB SIZE */
+#itemDetails
+  .thumb
+    width: 290px
+    height: 220px
+    float: right
+    img
+      width: 300px
+    .video
+      position: absolute
+      top: 0
+      left: 0
+      object
+        height: 225px
+        width: 300px
+  .itemMeta
+    width: 50%
+  .itemBlock
+    display: inline-block
+    width: 610px
+    margin: 5px 5px 10px
+    line-height: 140%
+    font-size: $fontsize
+
+/**********************************************************************************************/
+/* FLASH MESSAGE STYLES */
+.flash
+  width: 940px
+  margin: 0 10px
+
+
+/**********************************************************************************************/
+/* ADDTHIS DROPDOWN WIDTH */
+
+.addthis_toolbox
+  .custom_hover
+    .hover_menu 
+      width: 118px

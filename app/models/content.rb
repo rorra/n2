@@ -20,17 +20,21 @@ class Content < ActiveRecord::Base
 
   has_friendly_id :title, :use_slug => true
 
+
+  named_scope :published, {  :joins => "INNER JOIN articles on contents.article_id = articles.id", :conditions => ["contents.is_blocked =0 and (article_id is NULL OR (article_id IS NOT NULL and is_draft = 0))"] }
   named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
   named_scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
   named_scope :newest_stories, lambda { |*args| { :conditions => ["article_id IS NULL"], :order => ["created_at desc"], :limit => (args.first || 5)} }
-  named_scope :newest_articles, lambda { |*args| { :conditions => ["article_id IS NOT NULL"], :order => ["created_at desc"], :limit => (args.first || 5)} }
-  named_scope :articles, lambda { |*args| { :conditions => ["article_id IS NOT NULL"], :order => ["created_at desc"]} }
-  named_scope :top_articles, lambda { |*args| { :conditions => ["article_id IS NOT NULL"], :order => ["votes_tally desc"], :limit => (args.first || 5)} }
-  named_scope :stories, lambda { |*args| { :conditions => ["article_id IS NULL"], :order => ["created_at desc"]} }
+  named_scope :newest_articles, lambda { |*args| { :joins => "INNER JOIN articles on contents.article_id = articles.id", :conditions => ["article_id IS NOT NULL and is_draft = 0"], :order => ["created_at desc"], :limit => (args.first || 5)} }
+  named_scope :articles, { :joins => "INNER JOIN articles on contents.article_id = articles.id", :conditions => ["article_id IS NOT NULL and is_draft = 0"], :order => ["created_at desc"]}
+  named_scope :draft_articles, { :joins => "INNER JOIN articles on contents.article_id = articles.id", :conditions => ["article_id IS NOT NULL and is_draft = 1"], :order => ["created_at desc"]}
+  named_scope :top_articles, lambda { |*args| {:joins => "INNER JOIN articles on contents.article_id = articles.id", :conditions => ["article_id IS NOT NULL and is_draft = 0 and is_blocked = 0"], :order => ["votes_tally desc"], :limit => (args.first || 5)} }
+  named_scope :stories, { :conditions => ["article_id IS NULL"], :order => ["created_at desc"]}
+  named_scope :featured, lambda { |*args| { :conditions => ["contents.is_featured = 1"], :limit  => (args.first || 5) } }
 
-  attr_accessor :image_url, :tags_string
+  attr_accessor :image_url, :tags_string, :is_draft
 
-  validates_presence_of :title, :caption
+  validates_presence_of :title, :caption, :user_id
   validates_presence_of :url, :if =>  :is_content?
   validates_format_of :url, :with => /\Ahttp(s?):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i, :message => "should look like a URL", :allow_blank => true
   validates_format_of :image_url, :with => /\Ahttp(s?):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i, :allow_blank => true, :message => "should look like a URL"
@@ -53,7 +57,7 @@ class Content < ActiveRecord::Base
       domain = URI.parse(self.url).host.gsub("www.","")
       self.source = Source.find_by_url(domain)      
       unless source
-        self.source = Source.create ({
+        self.source = Source.create({
             :name => domain,
             :url => domain
         })
@@ -103,6 +107,17 @@ class Content < ActiveRecord::Base
     else
       self.is_featured = ! self.is_featured
       self.featured_at = Time.now if self.respond_to? 'featured_at'
+      self.save
+    end
+  end
+
+  def toggle_blocked
+    if is_article?
+      self.article.is_blocked = !self.article.is_blocked
+      self.is_blocked = !self.is_blocked
+      self.save
+    else
+      self.is_blocked = !self.is_blocked
       self.save
     end
   end

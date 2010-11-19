@@ -5,14 +5,21 @@ class Newswire < ActiveRecord::Base
   has_one :content
 
   named_scope :unpublished, { :conditions => ["published = ?", false] }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 7)} }
+  named_scope :newest, lambda { |*args| {  :conditions => ["created_at <= ?", Time.zone.now ], :order => ["created_at desc"], :limit => (args.first || 7)} }
 
   def quick_post user_id = nil, override_image = false
     user_id ||= self.feed.user_id
     return false unless user_id and user_id > 0
 
     caption = CGI.unescapeHTML self.caption
-    caption = self.feed.full_html? ? caption : ActionController::Base.helpers.strip_tags(caption)
+    begin
+      caption = ActionController::Base.helpers.strip_tags(caption)
+    rescue
+      begin
+        caption = HTML::FullSanitizer.new.sanitize(caption)
+      rescue
+      end
+    end
     story_type = self.feed.full_html? ? 'full_html' : 'story'
     @content = Content.new({
     	:title      => self.title,

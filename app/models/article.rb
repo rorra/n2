@@ -13,16 +13,18 @@ class Article < ActiveRecord::Base
   has_one :tweeted_item, :as => :item
   belongs_to :author, :class_name => "User"
 
+  named_scope :published, { :conditions => ["is_draft = 0"] }
+  named_scope :draft, { :conditions => ["is_draft = 1"] }
   named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
   named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 1)} }
-  #named_scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
   named_scope :blog_roll, lambda { |*args| {  :select => "count(author_id) as author_article_count, author_id", :group => "author_id", :order => "author_article_count desc", :limit => (args.first || 30)} }
 
   accepts_nested_attributes_for :content
 
   validates_presence_of :body
   
-  before_save :sanitize_body
+  #todo - was removing formatting from drafts - not sure of purpose
+  #before_save :sanitize_body
 
   def item_title
     content.item_title
@@ -37,14 +39,33 @@ class Article < ActiveRecord::Base
   end
 
   def toggle_blocked
-    self.is_blocked = !self.is_blocked
     self.content.toggle_blocked
-    return self.save ? true : false
-  end  
-        
-  private
+  end
+
+  def create_preamble
+    t1 = self.body.gsub("<br><br><br><br>","<br /><br />").gsub("&nbsp;"," ").gsub("\r\n","<br /><br />").gsub("\r", "").gsub("\n", "<br />")
+    t2 = ActionController::Base.helpers.sanitize(t1, :tags => %w(br))
+    t3 = t2.split(/(?:<br>)+/)
+    full_entry = (t3.count > 3 ? false : true)
+    preamble = ""
+    index = 0
+    t3.each do |graf|
+      unless index >= 3 or preamble.length > 500
+        if graf.length > 497
+          graf = graf[/^.{0,497}(?=\w*\;?)/m][/.*[\w\;]/m] + "..."
+          full_entry = false
+        end
+        preamble += "<p>" + graf + "</p>"
+        index +=1
+      end
+    end
+    self.preamble_complete = full_entry
+    self.preamble = preamble
+  end
+      
+  private  
   
   def sanitize_body
-    self.body = self.body.sanatize_standard
+    self.body = self.body.sanitize_standard
   end
 end

@@ -21,7 +21,12 @@ RESERVED_NAMES = ["admin", "administrator", "update", "delete", "show", "create"
 #require "#{RAILS_ROOT}/lib/acts_as_moderatable.rb"
 #ActiveRecord::Base.send :include, Newscloud::Acts::Moderatable
 
+# Load Iframe Rewriter Middleware
+require "#{RAILS_ROOT}/lib/iframe_rewriter.rb"
+
 Rails::Initializer.run do |config|
+  config.middleware.use Newscloud::IframeRewriter
+
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -36,19 +41,21 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   #config.gem "haml"
   config.gem "eycap"
-  config.gem "whenever"
   config.gem "rack"
   config.gem "formtastic"
   config.gem "hpricot"
   config.gem "friendly_id"
   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   config.gem "compass"
-  config.gem 'json', :version => '1.2.4'
+  config.gem 'json', :version => '1.4.6'
   config.gem "compass-960-plugin", :lib => 'ninesixty'
   config.gem "eostrom-zvent", :lib => 'zvent'
   config.gem "oauth"
+  config.gem "mogli"
   config.gem "twitter"
   config.gem "bitly"
+  config.gem "resque"
+  config.gem "resque-scheduler", :lib => 'resque_scheduler'
   config.gem 'sitemap_generator', :lib => false
   
   # Only load the plugins named here, in the order given (default is alphabetical).
@@ -62,11 +69,11 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
   #config.active_record.observers = :message_observer, :vote_observer #having issues with vote observer
-  config.active_record.observers = :message_observer, :comment_observer
+  config.active_record.observers = :message_observer, :comment_observer, :flag_observer
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
-  config.time_zone = 'UTC'
+  config.time_zone = 'Pacific Time (US & Canada)'
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]

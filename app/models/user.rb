@@ -6,13 +6,16 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
 
   acts_as_voter
+  acts_as_moderatable
 
   #named_scope :top, lambda { |*args| { :order => ["karma_score desc"], :limit => (args.first || 5), :conditions => ["karma_score > 0 and is_admin = 0 and is_editor=0"]} }
   named_scope :top, lambda { |*args| { :order => ["karma_score desc"], :limit => (args.first || 5), :conditions => ["karma_score > 0"]} }
   named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 5), :conditions => ["created_at > ?", 2.months.ago]} }
-  named_scope :last_active, lambda { { :conditions => ["last_active > ?", 5.minutes.ago], :order => ["last_active desc"] } }
-  named_scope :admins, { :conditions => ["is_admin is true"] }
+  named_scope :last_active, lambda { { :conditions => ["last_active > ?", 60.minutes.ago], :order => ["last_active desc"] } }
+  named_scope :recently_active, lambda { |*args| { :order => ["last_active desc"], :limit => (args.first || 21) } }
+  named_scope :admins, { :conditions => ["is_admin is true"] } 
   named_scope :moderators, { :conditions => ["is_moderator is true"] }
+  named_scope :members, { :conditions => ["is_moderator is false and is_admin is false and is_editor is false and is_host is false"] }
 
   validates_presence_of     :login, :unless => :facebook_connect_user?
   validates_length_of       :login,    :within => 3..40, :unless => :facebook_connect_user?
@@ -37,19 +40,24 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :received_chirps, :class_name => "Chirp", :foreign_key => 'recipient_id'
   has_many :sent_chirps, :class_name => "Chirp", :foreign_key => 'user_id', :after_add => :trigger_chirp
-  has_many :activities, :class_name => "PfeedItem", :as => :originator, :order => "created_at desc"
+  has_many :activities, :class_name => "PfeedItem", :as => :originator, :order => "created_at desc", :conditions => ["participant_type != ?", Chirp.name]
   has_many :questions, :after_add => :trigger_question
   has_many :answers, :after_add => :trigger_answer
   has_many :ideas, :after_add => :trigger_idea
   has_many :events, :after_add => :trigger_event
   has_many :resources, :after_add => :trigger_resource
-  has_many :topics, :after_add => :trigger_topic
+  #has_many :topics, :after_add => :trigger_topic
+  has_many :topics
   has_many :dashboard_messages, :after_add => :trigger_dashboard_message
   has_one :profile, :class_name => "UserProfile"
   has_one :user_profile #TODO:: convert views and remove this
   has_many :received_cards, :class_name => "SentCard", :foreign_key => 'to_fb_user_id', :primary_key => 'fb_user_id', :conditions => 'sent_cards.to_fb_user_id IS NOT NULL'
   has_many :sent_cards, :class_name => "SentCard", :foreign_key => 'from_user_id'
   has_one  :twitter,:class_name=>"TwitterToken", :dependent=>:destroy
+  has_many :prediction_groups
+  has_many :prediction_questions
+  has_many :prediction_guesses
+  has_one :prediction_score
 
   belongs_to :last_viewed_feed_item, :class_name => "PfeedItem", :foreign_key => "last_viewed_feed_item_id"
   belongs_to :last_delivered_feed_item, :class_name => "PfeedItem", :foreign_key => "last_delivered_feed_item_id"
@@ -71,11 +79,16 @@ class User < ActiveRecord::Base
   has_friendly_id :name, :use_slug => true, :reserved => RESERVED_NAMES
 
 
+  # FB Graph API settings
+  delegate :post_comments?, :to => :user_profile
+  delegate :post_likes?, :to => :user_profile
+  delegate :post_items?, :to => :user_profile
+
   # NOTE:: must be above emits_pfeeds call
   def trigger_comment(comment) end
   def trigger_article(article) end
   def trigger_story(story) end
-  def trigger_topic(topic) end
+  #def trigger_topic(topic) end
   def trigger_question(question) end
   def trigger_answer(answer) end
   def trigger_idea(idea) end
@@ -89,17 +102,18 @@ class User < ActiveRecord::Base
   end
 
   def pfeed_inbox_unread
-    return pfeed_inbox unless last_viewed_feed_item
-    pfeed_inbox.newer_than(last_viewed_feed_item)
+    return pfeed_inbox.find(:all, :limit => 3) unless last_viewed_feed_item
+    pfeed_inbox.newer_than(last_viewed_feed_item).find(:all, :limit => 3)
   end
 
   def pfeed_inbox_get_new!
     items = pfeed_inbox_unread
-    pfeed_set_last_viewed_as_delivered!
+    pfeed_set_last_viewed! items.last
     items
   end
 
   def pfeed_set_last_viewed! pfeed_item
+    return true if last_viewed_feed_item == last_delivered_feed_item
     self.update_attribute(:last_viewed_feed_item, pfeed_item)
   end
 
@@ -110,7 +124,7 @@ class User < ActiveRecord::Base
 
   emits_pfeeds :on => [:trigger_story], :for => [:friends], :identified_by => :name
   emits_pfeeds :on => [:trigger_article], :for => [:friends], :identified_by => :name
-  emits_pfeeds :on => [:trigger_topic], :for => [:friends], :identified_by => :name
+  #emits_pfeeds :on => [:trigger_topic], :for => [:friends], :identified_by => :name
   emits_pfeeds :on => [:trigger_question], :for => [:friends], :identified_by => :name
   emits_pfeeds :on => [:trigger_answer], :for => [:participant_recipient_voices, :friends], :identified_by => :name
   emits_pfeeds :on => [:trigger_idea], :for => [:friends], :identified_by => :name
@@ -188,7 +202,7 @@ class User < ActiveRecord::Base
     return !fb_user_id.nil? && fb_user_id > 0
   end
 
-  def accepts_email_notifications
+  def accepts_email_notifications?
       self.email.present? and self.user_profile.receive_email_notifications == true
   end
   
@@ -280,6 +294,22 @@ class User < ActiveRecord::Base
         field = nil
     end
     increment!(field, score.value) unless field.nil?
+  end
+  
+  def is_blogger?
+    self.articles.count > 0
+  end
+  
+  def count_daily_posts
+    self.contents.find(:all, :conditions => ["created_at > ?", 24.hours.ago]).count
+  end
+
+  def fb_oauth_active?
+    fb_oauth_key.present? and fb_oauth_denied_at.nil?
+  end
+
+  def fb_oauth_desired?
+    fb_oauth_key.nil? and fb_oauth_denied_at.nil?
   end
 
   private
