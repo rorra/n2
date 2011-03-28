@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email, :unless => :facebook_connect_user?
   validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message, :unless => :facebook_connect_user?
   
-  after_create :register_user_to_fb
+  #after_create :register_user_to_fb
   before_save :check_profile
   
   has_many :contents, :after_add => :trigger_story
@@ -169,7 +169,7 @@ class User < ActiveRecord::Base
     new_facebooker.fb_user_id = fb_user.uid.to_i
     #We need to save without validations
     new_facebooker.save(false)
-    new_facebooker.register_user_to_fb
+    #new_facebooker.register_user_to_fb
   end
 
   #We are going to connect this user object with a facebook id. But only ever one account.
