@@ -10,7 +10,7 @@ View the Ubuntu Server 10.04 lts install guide
 
 We now have a full guide for bootstrapping and install newscloud on a minimal Ubuntu Server 10.04 LTS system.
 
-See the guide at [INSTALL-ubuntu.md](https://github.com/newscloud/n2/blob/master/INSTALL-ubuntu.md)
+See the guide at [INSTALL-ubuntu.md](https://github.com/newscloud/n2/blob/release3/INSTALL-ubuntu.md)
 
 
 Getting Started
