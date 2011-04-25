@@ -18,10 +18,14 @@ Get ruby up and running
 
 	sudo apt-get install ruby build-essential libopenssl-ruby ruby1.8-dev irb rubygems
 
+Add rubygems executables to your path
+
+	export PATH=/var/lib/gems/1.8/bin:$PATH
+
 Update rubygems
 
 	sudo gem install rubygems-update
-	sudo update_rubygems
+	sudo `which update_rubygems`
 
 Set your rails environment variable if need be
 	
@@ -35,14 +39,12 @@ Install mysql
 
 	sudo apt-get install mysql-server mysql-client libmysql-ruby libmysqlclient-dev
 
-	sudo gem install mysql
-
 Create a newscloud database and user
 
 	mysql -u root -p
 
 	create database n2_development;
-	grant ALL on n2_develpment.* to n2db@localhost identified by 'SOME SECURE PASSWORD';
+	grant ALL on n2_development.* to n2db@localhost identified by 'SOME SECURE PASSWORD';
 
 
 Install Memcached and Redis
@@ -78,6 +80,7 @@ Make Sure to checkout release 3.
 
 
 Configure your database with the settings you created earlier in mysql.
+
 	cp config/database.yml.sample config/database.yml
 	vim config/database.yml
 
@@ -89,7 +92,9 @@ You will need to have a facebook developer application, either:
 
   * Create a [new application](http://www.facebook.com/developers/createapp.php)
   * Use an [existing application](http://www.facebook.com/developers/)
+
 NOTE::
+
   * You **must** set your canvas url to end in /iframe/, ie http://my.site.com/iframe/
   * However, when you set your config files you only want to use http://my.site.com
   * This is used internally to allow the use of a facebook canvas app and an external web pages
@@ -105,6 +110,12 @@ Add your facebook settings to facebooker.yml
 
 Install required rubygems
 -------------------------
+
+First install the bundler gem
+
+	sudo gem install bundler
+
+Use bundler to install the required gems
 
 	bundle install
 
