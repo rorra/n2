@@ -1,14 +1,16 @@
 module N2
   class FeedParser
-    def self.update_feeds
+    def self.update_feeds timeout = nil
       feeds = Feed.find(:all, :conditions => ["deleted_at is null and specialType = ?", "default"])
-      feeds.each { |feed| update_feed feed, false }
+      feeds.each { |feed| update_feed feed, :trigger_expire_cache => false, :timeout => timeout }
 
       expire_newswire_cache
     end
 
-    def self.update_feed(feed, trigger_expire_cache = true)
+    def self.update_feed(feed, opts = {})
       return false unless feed
+      timeout = opts[:timeout]
+      trigger_expire_cache = opts[:trigger_expire_cache]
       Rails.logger.info "Running feedzirra on #{feed.item_title}"
       begin
         rss = Feedzirra::Feed.fetch_and_parse(feed.rss)
@@ -23,9 +25,14 @@ module N2
 
       feed_date = feed.last_fetched_at
       pub_date = rss.last_modified
+      start_time = Time.now
       if !feed_date or (pub_date and feed_date < pub_date)
         items.each do |item|
           Rails.logger.info "\tChecking feed items"
+
+          # Pause processing if we have a timeout and it has expired
+          raise Newscloud::Redcloud::JobTimeoutError if timeout and Time.now - start_time > timeout
+
           break if feed_date and item.published and (item.published <= feed_date)
           next if Newswire.find_by_title item.title
           item_summary = item.summary || item.content

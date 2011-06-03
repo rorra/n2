@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :oauth_consumers,:member=>{:callback=>:get}
+  map.resources :jobs, :collection => { :run => [:get, :post] }
 
   # Set locale and make pretty urls
   map.filter 'locale'
