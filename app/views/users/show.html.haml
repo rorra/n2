@@ -54,7 +54,7 @@
         = render :partial => 'users/bio_form'
     .panel_block
       .itemBlock.current-bio
-        %p= (@user.bio.present?) ? @user.bio : default_bio(@user)
+        %p= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
   = render_ad(:banner, @ad_layout, @ad_banner)
   .panel_2
     .panelBar

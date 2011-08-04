@@ -428,6 +428,10 @@ EMBED
     sanitize content, :tags => %w(a i b u p)
   end
 
+  def sanitize_user_bio content
+    sanitize content, :tags => %w(a i b u p fb:name), :attributes => %w(capitalize uid href linked)
+  end
+
   def toggle_blocked_link item
     return '' unless item.moderatable? and item.blockable?
     link_to(item.blocked? ? 'UnBlock' : 'Block', toggle_blocked_path(item.class.name.foreign_key.to_sym => item))
