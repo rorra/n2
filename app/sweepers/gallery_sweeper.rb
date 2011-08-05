@@ -34,7 +34,7 @@ class GallerySweeper < ActionController::Caching::Sweeper
     end
 
     GallerySweeper.expire_gallery_all gallery_item.gallery, controller
-    NewscloudSweeper.expire_instance(gallery)
+    NewscloudSweeper.expire_instance(gallery_item)
   end
 
 end
