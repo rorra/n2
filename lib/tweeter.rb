@@ -1,4 +1,6 @@
 require 'action_controller'
+require 'net/http'
+
 include ActionController::UrlWriter
 
 module Newscloud
@@ -30,6 +32,38 @@ module Newscloud
 
     def consumer
       @consumer ||= OAuth::Consumer.new(@oauth_key, @oauth_secret)
+    end
+
+    def fetch_list user, name
+
+      tweets = fetch_raw_list user, name
+      urls = tweets.map {|t| t["text"].scan(%r{http://[^\s]+}) }.flatten
+      self.class.fetch_real_urls urls
+    end
+
+    def fetch_raw_list user, name
+      client.list_timeline(user,name)
+    end
+
+    def self.fetch_real_url url_str
+      location = nil
+      loc = url_str
+      while loc = self.fetch_url_location(loc)
+        location = loc
+      end
+      location || url_str
+    end
+
+    def self.fetch_url_location url_str
+      url = URI.parse(url_str.strip)
+      req = Net::HTTP.new(url.host, url.port)
+      path = url.path.present? ? url.path : '/'
+      resp, data = req.get(path, nil)
+      resp.header['location']
+    end
+
+    def self.fetch_real_urls urls
+      urls.map {|url| self.fetch_real_url url }
     end
   end
 
