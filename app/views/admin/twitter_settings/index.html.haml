@@ -46,7 +46,7 @@
 - elsif @error == :auth_error
   %h3 Now you need to authorize your application to use twitter
   %p Click the link below and then fill in your pin code.
-  %p= link_to @oauth.request_token.authorize_url, @oauth.request_token.authorize_url, :target => "_external"
+  %p= link_to @request_token.authorize_url, @request_token.authorize_url, :target => "_external"
   - form_tag update_auth_admin_twitter_settings_path, :class => 'formtastic' do
     = hidden_field_tag 'request_token', @request_token.token
     = hidden_field_tag 'request_secret', @request_token.secret

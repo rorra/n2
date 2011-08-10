@@ -9,6 +9,30 @@ module Newscloud
   class TweeterNotConfigured < Exception
   end
 
+  class TweetList
+
+    def initialize
+      @oauth_key = Metadata::Setting.find_setting('oauth_key').try(:value)
+      @oauth_secret = Metadata::Setting.find_setting('oauth_secret').try(:value)
+      @oauth_consumer_key = Metadata::Setting.find_setting('oauth_consumer_key').try(:value)
+      @oauth_consumer_secret =  Metadata::Setting.find_setting('oauth_consumer_secret').try(:value)
+      Twitter.configure do |config|
+        config.consumer_key = @oauth_key
+        config.consumer_secret = @oauth_secret
+        config.oauth_token = @oauth_consumer_key
+        config.oauth_token_secret = @oauth_consumer_secret
+      end
+    end
+
+    def client
+      @client ||= Twitter::Client.new(:oauth_token => @oauth_consumer_key, :oauth_token_secret => @oauth_consumer_secret)
+    end
+
+    def consumer
+      @consumer ||= OAuth::Consumer.new(@oauth_key, @oauth_secret)
+    end
+  end
+
   class Tweeter
 
     def initialize
@@ -33,10 +57,13 @@ module Newscloud
       	  raise Newscloud::TweeterNotConfigured.new("You must configure your oauth settings and run the rake twitter connect task.")
       end
 
-      oauth = Twitter::OAuth.new(@oauth_key, @oauth_secret)
-      oauth.authorize_from_access(@oauth_consumer_key, @oauth_consumer_secret)
-
-      @twitter = Twitter::Base.new(oauth)
+      Twitter.configure do |config|
+        config.consumer_key = @oauth_key
+        config.consumer_secret = @oauth_secret
+        config.oauth_token = @oauth_consumer_key
+        config.oauth_token_secret = @oauth_consumer_secret
+      end
+      @twitter = Twitter::Client.new
     end
 
     def tweet_items items

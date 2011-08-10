@@ -37,9 +37,10 @@ class Admin::TwitterSettingsController < AdminController
       flash[:error] = "Please fix the errors and resubmit your changes"
       render :index
     else
-      @oauth.authorize_from_request(params[:request_token], params[:request_secret], params[:twitter_oauth_pin])
-      @oauth_consumer_key.update_value @oauth.access_token.token
-      @oauth_consumer_secret.update_value @oauth.access_token.secret
+      request_token = OAuth::RequestToken.new(@oauth_consumer, params[:request_token], params[:request_secret])
+      access_token = request_token.get_access_token(:oauth_verifier => params[:twitter_oauth_pin])
+      @oauth_consumer_key.update_value access_token.token
+      @oauth_consumer_secret.update_value access_token.secret
       flash[:success] = "Successfully updated your Twitter OAuth keys"
 
     	redirect_to admin_twitter_settings_path
@@ -72,6 +73,7 @@ class Admin::TwitterSettingsController < AdminController
     @base_consumer_secret = 'Heu0GGaRuzn762323gg0qFGWCp923viG8Haw'
     @extra_settings = Metadata::Setting.find(:all, :conditions => [ "key_sub_type like ?", 'twitter%' ] ).select {|k| k unless k.key_name =~ /oauth/}
     @error = nil
+    @twitter_api_url = 'http://api.twitter.com'
     @form_errors = {}
     ['key', 'secret', 'consumer_key', 'consumer_secret'].each do |key|
       val = instance_variable_get("@oauth_#{key}").try(:value)
@@ -80,23 +82,32 @@ class Admin::TwitterSettingsController < AdminController
       	break
       end
     end
-    @oauth = Twitter::OAuth.new(@oauth_key.value, @oauth_secret.value) unless @error and @error == :settings_error
-    if @oauth and @error == :auth_error
+    unless @error and @error == :settings_error
+      @oauth_consumer = OAuth::Consumer.new(@oauth_key.try(:value), @oauth_secret.try(:value), {:site => @twitter_api_url, :request_endpoint => @twitter_api_url})
+    end
+    if @oauth_consumer and @error == :auth_error
       unless params[:twitter_oauth_pin].present? 
         begin
-          @request_token = @oauth.request_token
-        rescue
-          flash[:error] = "Bad authorization, please reset your keys and try again."
+          @request_token = @oauth_consumer.get_request_token
+        rescue Exception => e
+          flash[:error] = "Bad authorization(:auth_error), please reset your keys and try again. #{e.inspect} --- #{[@oauth_key, @oauth_secret].inspect}"
           @error = :bad_settings_error
         end
       end
     end
     unless @error
-      @oauth.authorize_from_access(@oauth_consumer_key.value, @oauth_consumer_secret.value)
       begin
-        @twitter = Twitter::Base.new(@oauth)
+        Twitter.configure do |config|
+          config.consumer_key = @oauth_key.try(:value)
+          config.consumer_secret = @oauth_secret.try(:value)
+          config.oauth_token = @oauth_consumer_key.try(:value)
+          config.oauth_token_secret = @oauth_consumer_secret.try(:value)
+        end
+        @twitter = Twitter::Client.new
+        @twitter.user
       rescue
-        flash[:error] = "Bad authorization, please reset your keys and try again."
+        rescue Exception => e
+          flash[:error] = "Bad authorization, please reset your keys and try again. #{e.inspect}"
         @error = :bad_settings_error
       end
     end

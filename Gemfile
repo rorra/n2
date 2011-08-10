@@ -15,7 +15,7 @@ gem "friendly_id", '2.2.7'
 gem 'will_paginate', '~> 2.3.11'
 gem "tzinfo", '0.3.23'
 gem "oauth"
-gem "twitter", "0.9.12"
+gem "twitter"
 gem "mysql"
 gem "bitly"
 gem "redis"
