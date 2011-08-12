@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110627220941) do
+ActiveRecord::Schema.define(:version => 20110812002233) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -807,12 +807,45 @@ ActiveRecord::Schema.define(:version => 20110627220941) do
 
   add_index "translations", ["locale_id", "key", "pluralization_index"], :name => "index_translations_on_locale_id_and_key_and_pluralization_index"
 
+  create_table "tweet_urls", :force => true do |t|
+    t.integer  "tweet_id"
+    t.integer  "url_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweet_urls", ["tweet_id", "url_id"], :name => "index_tweet_urls_on_tweet_id_and_url_id"
+  add_index "tweet_urls", ["tweet_id"], :name => "index_tweet_urls_on_tweet_id"
+  add_index "tweet_urls", ["url_id"], :name => "index_tweet_urls_on_url_id"
+
   create_table "tweeted_items", :force => true do |t|
     t.string   "item_type"
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tweets", :force => true do |t|
+    t.integer  "twitter_stream_id"
+    t.string   "twitter_id_str"
+    t.string   "text"
+    t.text     "raw_tweet"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweets", ["twitter_id_str"], :name => "index_tweets_on_twitter_id_str", :unique => true
+  add_index "tweets", ["twitter_stream_id"], :name => "index_tweets_on_twitter_stream_id"
+
+  create_table "urls", :force => true do |t|
+    t.integer  "source_id"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "urls", ["source_id"], :name => "index_urls_on_source_id"
+  add_index "urls", ["url"], :name => "index_urls_on_url"
 
   create_table "user_profiles", :force => true do |t|
     t.integer   "user_id",                     :limit => 8,                    :null => false

@@ -35,10 +35,29 @@ module Newscloud
     end
 
     def fetch_list user, name
-
       tweets = fetch_raw_list user, name
       urls = tweets.map {|t| t["text"].scan(%r{http://[^\s]+}) }.flatten
       self.class.fetch_real_urls urls
+    end
+
+    def save_list user, name
+      tweets = fetch_raw_list user, name
+      urls = tweets.map {|t| t["text"].scan(%r{http://[^\s]+}) }.flatten
+      self.class.fetch_real_urls urls
+      tweets.each do |raw_tweet|
+        tweet = Tweet.create!({
+          :twitter_id_str => raw_tweet["id_str"],
+          :text           => raw_tweet["text"],
+          :raw_tweet      => raw_tweet.to_json
+        })
+        self.class.fetch_real_urls(tweet.raw_urls).each do |url_str|
+          url = Url.find_or_create_by_url(url_str)
+          TweetUrl.create!({
+            :tweet => tweet,
+            :url   => url
+          })
+        end
+      end
     end
 
     def fetch_raw_list user, name
