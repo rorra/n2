@@ -11,8 +11,8 @@ class Newswire < ActiveRecord::Base
 
   def quick_post user_id = nil, override_image = false
     user_id ||= self.feed.user_id
-    @user = User.find(user_id)
-    return false unless user_id and user_id > 0
+    @user = User.find_by_id(user_id) || User.admins.first
+    return false unless @user
 
     caption = CGI.unescapeHTML self.caption
     begin
