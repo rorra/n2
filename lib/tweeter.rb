@@ -50,7 +50,8 @@ module Newscloud
           :text           => raw_tweet["text"],
           :raw_tweet      => raw_tweet.to_json
         })
-        self.class.fetch_real_urls(tweet.raw_urls).each do |url_str|
+        raw_urls = self.class.extract_raw_urls raw_tweet
+        self.class.fetch_real_urls(raw_urls).each do |url_str|
           url = Url.find_or_create_by_url(url_str)
           TweetUrl.create!({
             :tweet => tweet,
@@ -61,7 +62,11 @@ module Newscloud
     end
 
     def fetch_raw_list user, name
-      client.list_timeline(user,name)
+      client.list_timeline(user,name, :include_entities => true)
+    end
+
+    def self.extract_raw_urls tweet
+      tweet["entities"]["urls"].map {|u| u["url"] }.flatten
     end
 
     def self.fetch_real_url url_str
