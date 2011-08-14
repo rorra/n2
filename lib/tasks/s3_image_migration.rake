@@ -1,3 +1,6 @@
+#
+# Thanks to: https://gist.github.com/924617
+#
 namespace :attachments do
   task :migrate_to_s3 => :environment do
     require 'aws/s3'
