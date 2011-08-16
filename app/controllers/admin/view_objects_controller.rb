@@ -27,6 +27,7 @@ class Admin::ViewObjectsController < AdminController
 
     view_object.setting.dataset = data.map {|i| i.split(/-/) }.map{|i| [i[0].classify, i[1]] }
     view_object.setting.save
+    view_object.expire
 
     render :json => {:success => "Success!"}.to_json and return
   end

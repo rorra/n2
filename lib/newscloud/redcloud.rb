@@ -9,5 +9,15 @@ module Newscloud
       @redis = Redis::Namespace.new(namespace.to_sym, :redis => redis)
     end
 
+    def self.expire_sets(sets)
+      sets.each do |set|
+        keys = $redis.smembers(set)
+        keys.each do |key|
+          view_object = ViewObject.find_by_redis_key key
+          view_object.expire
+        end
+      end
+    end
+
   end
 end

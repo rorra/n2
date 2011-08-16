@@ -121,6 +121,11 @@ class ViewObject < ActiveRecord::Base
     "view-tree:#{cache_key_name}"
   end
 
+  def self.find_by_redis_key key
+    return nil unless key =~ /^view_object:([0-9]+)$/
+    ViewObject.find($1)
+  end
+
   private
     
     def klass_method_key klass_name, method

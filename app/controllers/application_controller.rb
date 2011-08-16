@@ -346,6 +346,8 @@ class ApplicationController < ActionController::Base
           $redis.set "#{current_user.cache_id}:friends_string", fb_friends
           current_user.redis_update_friends fb_friends
         end
+        # Expire recent users
+        Newscloud::Redcloud.expire_sets($redis.keys("#{User.model_deps_key}:*"))
       else
       end
     end

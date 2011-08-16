@@ -82,6 +82,10 @@ module Newscloud
         end
       end
 
+      def model_deps_key
+        "#{self.name.downcase}:view_object_namespace_deps"
+      end
+
     end
 
     module InstanceMethods

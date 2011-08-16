@@ -10,6 +10,9 @@ class NewswireSweeper < ActionController::Caching::Sweeper
       controller.expire_fragment "newswires_list_#{page}html"
     end
     NewscloudSweeper.expire_class(Newswire)
+
+    Newscloud::Redcloud.expire_sets($redis.keys("#{Newswire.model_deps_key}:*"))
+
   end
 
 end
