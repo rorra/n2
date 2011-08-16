@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812002233) do
+ActiveRecord::Schema.define(:version => 20110815184455) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -807,6 +807,28 @@ ActiveRecord::Schema.define(:version => 20110812002233) do
 
   add_index "translations", ["locale_id", "key", "pluralization_index"], :name => "index_translations_on_locale_id_and_key_and_pluralization_index"
 
+  create_table "tweet_streams", :force => true do |t|
+    t.string   "list_name"
+    t.string   "list_username"
+    t.string   "twitter_id_str"
+    t.text     "description"
+    t.datetime "last_fetched_at"
+    t.integer  "last_fetched_tweet_id"
+    t.integer  "tweets_count",          :default => 0
+    t.integer  "votes_tally",           :default => 0
+    t.integer  "comments_count",        :default => 0
+    t.boolean  "is_featured",           :default => false
+    t.datetime "featured_at"
+    t.integer  "flags_count",           :default => 0
+    t.boolean  "is_blocked",            :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweet_streams", ["is_blocked"], :name => "index_tweet_streams_on_is_blocked"
+  add_index "tweet_streams", ["list_username", "list_name"], :name => "index_tweet_streams_on_list_username_and_list_name"
+  add_index "tweet_streams", ["twitter_id_str"], :name => "index_tweet_streams_on_twitter_id_str"
+
   create_table "tweet_urls", :force => true do |t|
     t.integer  "tweet_id"
     t.integer  "url_id"
@@ -826,7 +848,7 @@ ActiveRecord::Schema.define(:version => 20110812002233) do
   end
 
   create_table "tweets", :force => true do |t|
-    t.integer  "twitter_stream_id"
+    t.integer  "tweet_stream_id"
     t.string   "twitter_id_str"
     t.string   "text"
     t.text     "raw_tweet"
@@ -834,8 +856,8 @@ ActiveRecord::Schema.define(:version => 20110812002233) do
     t.datetime "updated_at"
   end
 
+  add_index "tweets", ["tweet_stream_id"], :name => "index_tweets_on_tweet_stream_id"
   add_index "tweets", ["twitter_id_str"], :name => "index_tweets_on_twitter_id_str", :unique => true
-  add_index "tweets", ["twitter_stream_id"], :name => "index_tweets_on_twitter_stream_id"
 
   create_table "urls", :force => true do |t|
     t.integer  "source_id"

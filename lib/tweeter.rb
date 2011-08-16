@@ -40,6 +40,10 @@ module Newscloud
       self.class.fetch_real_urls urls
     end
 
+    def fetch_list_info user, name
+      client.list(user,name)
+    end
+
     def save_list user, name
       tweets = fetch_raw_list user, name
       urls = tweets.map {|t| t["text"].scan(%r{http://[^\s]+}) }.flatten
@@ -61,8 +65,12 @@ module Newscloud
       end
     end
 
-    def fetch_raw_list user, name
-      client.list_timeline(user,name, :include_entities => true)
+    def fetch_raw_list user, name, since_id = nil
+      if since_id
+        client.list_timeline(user,name, :include_entities => true, :since_id => since_id)
+      else
+        client.list_timeline(user,name, :include_entities => true)
+      end
     end
 
     def self.extract_raw_urls tweet
