@@ -70,6 +70,12 @@
               %li= link_to 'News Feeds', admin_feeds_path
               %li= link_to 'Feed items', admin_newswires_path
               %li= link_to 'Related Items', admin_related_items_path
+              %li
+                %a{:href => "#twitter-lists"} Twitter Lists
+                %ul
+                  %li= link_to 'Tweet Streams', admin_tweet_streams_path
+                  %li= link_to 'Tweets', admin_tweets_path
+                  %li= link_to 'Tweet Accounts', admin_tweet_accounts_path
           %li
             %a{:href => "#modules"} Features
             %ul

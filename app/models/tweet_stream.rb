@@ -1,9 +1,13 @@
 class TweetStream < ActiveRecord::Base
+  acts_as_moderatable
+  acts_as_taggable_on :tags, :topics
 
   has_many :tweets
   belongs_to :last_fetched_tweet, :class_name => 'Tweet'
 
   validates_presence_of :list_name, :list_username, :twitter_id_str
+
+  before_validation :set_list_info, :unless => :twitter_id_str?
 
   def tweet_list
     @tweet_list ||= tweet_client.fetch_list_info(list_username, list_name)
@@ -30,7 +34,7 @@ class TweetStream < ActiveRecord::Base
   end
 
   def fetch_new_tweets!
-    fetch_new_tweets.each do |raw_tweet|
+    fetch_new_tweets.map do |raw_tweet|
       tweet = add_tweet! raw_tweet
     end
   end
@@ -40,6 +44,15 @@ class TweetStream < ActiveRecord::Base
     #self.last_fetched_tweet = tweet
     #self.save
     self.touch(:last_fetched_at)
+    tweet
+  end
+
+  def async_update_tweet_stream
+    Resque.enqueue(TweetStreamsWorker, self.id)
+  end
+
+  def self.async_update_tweet_streams
+    Resque.enqueue(TweetStreamsWorker)
   end
 
 end

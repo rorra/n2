@@ -11,11 +11,7 @@ module StoriesHelper
   end
 
   def stories_posted_by_via story
-    I18n.translate('posted_by_via',
-                   :fb_name => local_linked_profile_name(story.user),
-                   :source => (story.source.present? ? source_link(story) : story_source_link(story)),
-                   :date => timeago(story.created_at)
-                  ).html_safe
+    posted_by_via story, (story.source.present? ? source_link(story) : story_source_link(story))
   end
 
   def sanitize_title text

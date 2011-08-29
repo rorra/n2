@@ -18,6 +18,10 @@ class Content < ActiveRecord::Base
   belongs_to :source
   has_one :content_image
   has_many :comments, :as => :commentable  
+  has_many :item_tweets, :as => :item
+  has_many :primary_item_tweets, :as => :item, :class_name => "ItemTweet", :conditions => { :primary_item => true }
+  has_many :tweets, :through => :item_tweets
+  has_many :primary_tweets, :through => :primary_item_tweets, :source => :tweet
 
   has_friendly_id :title, :use_slug => true
 
@@ -196,5 +200,13 @@ class Content < ActiveRecord::Base
   def self.model_index_name() "Stories" end
   def self.model_index_url_name() "stories_url" end
   def self.model_new_url_name() "new_story_url" end
+
+  def twitter_item?
+    primary_item_tweets.any?
+  end
+
+  def primary_tweet
+    primary_tweets.first
+  end
 
 end

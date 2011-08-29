@@ -19,19 +19,24 @@ class User < ActiveRecord::Base
   named_scope :admins, { :conditions => ["is_admin is true"] } 
   named_scope :moderators, { :conditions => ["is_moderator is true"] }
   named_scope :members, { :conditions => ["is_moderator is false and is_admin is false and is_editor is false and is_host is false"] }
+  named_scope :real_users, { :conditions => ["system_user is false"] }
+  named_scope :twitter_users, { :conditions => ["twitter_user is true"] }
+  named_scope :system_users, { :conditions => ["system_user is true"] }
 
-  validates_presence_of     :login, :unless => :facebook_connect_user?
-  validates_length_of       :login,    :within => 3..40, :unless => :facebook_connect_user?
-  validates_uniqueness_of   :login, :unless => :facebook_connect_user?
-  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message, :unless => :facebook_connect_user?
+  validates_presence_of     :login, :if => :password_required?
+  validates_length_of       :login,    :within => 3..40, :if => :password_required?
+  validates_uniqueness_of   :login, :if => :password_required?
+  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message, :if => :password_required?
 
   validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
 
-  validates_presence_of     :email, :unless => :facebook_connect_user?
-  validates_length_of       :email,    :within => 6..100, :unless => :facebook_connect_user? #r@a.wk
-  validates_uniqueness_of   :email, :unless => :facebook_connect_user?
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message, :unless => :facebook_connect_user?
+  validates_presence_of     :email, :if => :password_required?
+  validates_length_of       :email,    :within => 6..100, :if => :password_required? #r@a.wk
+  validates_uniqueness_of   :email, :if => :password_required?
+  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message, :if => :password_required?
+  validates_presence_of     :name
+  validates_presence_of     :name
   
   # TODO::HACK:: fb registration errors
   # TODO::REMOVE:: deprecated: http://developers.facebook.com/docs/reference/rest/connect.registerusers/
@@ -70,6 +75,8 @@ class User < ActiveRecord::Base
 
   belongs_to :last_viewed_feed_item, :class_name => "PfeedItem", :foreign_key => "last_viewed_feed_item_id"
   belongs_to :last_delivered_feed_item, :class_name => "PfeedItem", :foreign_key => "last_delivered_feed_item_id"
+
+  has_many :tweet_accounts
   
   has_karma :contents
 
@@ -221,6 +228,10 @@ class User < ActiveRecord::Base
   def accepts_email_notifications?
     self.email.present? and self.user_profile.receive_email_notifications == true
   end
+
+  def tweet_account
+    tweet_accounts.first
+  end
   
 # TODO:: Update this
   def friends
@@ -252,11 +263,15 @@ class User < ActiveRecord::Base
   # We need to add the check to ignore password validations if using facebook connect
   def password_required?
     # Skip password validations if facebook connect user
-    return false if facebook_connect_user?
+    return false if third_party_oauth_user? or system_user?
     crypted_password.blank? || !password.blank?
   end
 
-  # Skip password validations if facebook connect user
+  # Skip password validations if third party oauth user
+  def third_party_oauth_user?
+    facebook_connect_user? or twitter_user?
+  end
+
   def facebook_connect_user?
     facebook_user? and password.blank?
   end
@@ -292,7 +307,11 @@ class User < ActiveRecord::Base
   end
 
   def bio
-    self.user_profile.present? ? self.user_profile.bio : nil
+    if self.twitter_user? and self.system_user?
+      self.tweet_account.description
+    else
+      self.user_profile.present? ? self.user_profile.bio : nil
+    end
   end
 
   def newest_actions
@@ -309,6 +328,12 @@ class User < ActiveRecord::Base
 
   def first_name
     return self.name.split(' ').first
+  end
+
+  def twitter_name
+    return public_name unless twitter_user?
+
+    "@" + tweet_account.screen_name
   end
 
   def to_s

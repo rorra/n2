@@ -577,3 +577,8 @@ en:
       written_by_via: "Written by {{name}} via {{source}}, {{date}} ago"
       written_by_in_topic: "Written By {{name}} in {{topic}}"
       written_by_in_topic_ago: "Written by {{name}} in {{topic}} {{date}} ago"
+      tweeted_by: "Tweeted By {{name}}"
+      tweeted_by_ago: "Tweeted By {{name}} {{date}} ago"
+      tweeted_by_via: "Tweeted by {{name}} via {{source}}, {{date}} ago"
+      tweeted_by_in_topic: "Tweeted By {{name}} in {{topic}}"
+      tweeted_by_in_topic_ago: "Tweeted by {{name}} in {{topic}} {{date}} ago"

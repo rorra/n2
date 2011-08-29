@@ -168,6 +168,8 @@ module ApplicationHelper
       else
         temp = link_to fb_profile_pic(user, options), destination
       end
+    elsif user.twitter_user?
+      temp = link_to image_tag(twitter_image(user)), twitter_url(user), link_options
     else
       temp = link_to image_tag(default_image), user, link_options
       #link_to gravatar_image(user), user, link_options
@@ -179,6 +181,16 @@ module ApplicationHelper
     return temp
   end
 
+  def twitter_url user
+    return user unless user.twitter_user?
+    "http://twitter.com/#{user.tweet_account.screen_name}"
+  end
+
+  def twitter_image user
+    return default_image unless user.twitter_user?
+    user.tweet_account.profile_image_url.present? ? user.tweet_account.profile_image_url : default_image
+  end
+
   def gravatar_image user
     gid = Digest::MD5.hexdigest(user.email.downcase)
     gurl = "http://www.gravatar.com/avatar/"
@@ -188,6 +200,8 @@ module ApplicationHelper
   def profile_pic_badge user
     if user.is_moderator?
       image_tag 'default/icon-mod-badge.png', :class => "moderator"
+    elsif user.twitter_user? and user.system_user?
+      image_tag 'https://si0.twimg.com/images/dev/cms/intents/bird/bird_blue/bird_16_blue.png', :class => "moderator"
     elsif user.is_host?
       image_tag 'default/icon-host-badge.png', :class => "moderator"    
     end
@@ -222,6 +236,8 @@ module ApplicationHelper
       else
         link_to fb_name(user, options), user_path(user, link_options)
       end
+    elsif user.twitter_user?
+      link_to user.twitter_name, twitter_url(user)
     else
       link_to user.public_name, user_path(user, link_options)
     end

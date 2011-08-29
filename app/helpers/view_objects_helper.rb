@@ -32,14 +32,25 @@ module ViewObjectsHelper
   def posted_by item, opts = {}
     include_date = opts[:date] || opts[:full] || false
     include_topic = opts[:topic] || opts[:full] || false
+    format = opts[:format] || nil
+    include_via = opts[:source_text]
+    user = opts[:user] || item.item_user
 
     locale = []
     interpolation_args = {}
 
-    locale << 'written' if item.is_a? Article or (item.is_a? Content and item.is_article?)
+    if item.respond_to?(:twitter_item?) and item.twitter_item?
+      locale << 'tweeted'
+    elsif item.is_a? Article or (item.is_a? Content and item.is_article?)
+      locale << 'written'
+    end
 
     locale << 'by'
-    interpolation_args[:name] = local_linked_profile_name(item.item_user)
+    if format
+      interpolation_args[:name] = local_linked_profile_name(user, :format => format)
+    else
+      interpolation_args[:name] = local_linked_profile_name(user)
+    end
 
     if include_topic
     	locale << 'in_topic'
@@ -51,11 +62,18 @@ module ViewObjectsHelper
     	interpolation_args[:date] = timeago(item.created_at)
     end
 
+    if include_via
+      locale << 'via'
+    	interpolation_args[:source] = include_via
+    	interpolation_args[:date] = timeago(item.created_at)
+    end
+
     # TODO:: add this in?
     # opts[:vt] ? opts[:vt].t(...) : I18n.translate(...)
     I18n.translate("generic.posted.#{locale.join('_')}", interpolation_args).html_safe
   end
   def posted_by_with_date(item) posted_by(item, :date => true) end
+  def posted_by_via(item, source_text) posted_by(item, :source_text => source_text) end
   def posted_by_with_topic(item) posted_by(item, :topic => true) end
   def posted_by_with_date_and_topic(item) posted_by(item, :date => true, :topic => true) end
 
