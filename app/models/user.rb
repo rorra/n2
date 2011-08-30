@@ -226,7 +226,7 @@ class User < ActiveRecord::Base
   end
 
   def accepts_email_notifications?
-    self.email.present? and self.user_profile.receive_email_notifications == true
+    self.email.present? and self.user_profile.receive_email_notifications == true and !self.system_user?
   end
 
   def tweet_account

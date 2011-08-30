@@ -25,29 +25,32 @@ class Tweet < ActiveRecord::Base
   end
 
   def build_related
-    return false unless urls.any?
-    url = urls.first.url
-    begin
-      page = Parse::Page.parse_page(url)
-    rescue Exception
-      return false
-    end
-    title = page[:title] || url
-    description = page[:description] || "@#{tweet_account.screen_name} tweeted: #{text}"
-    content = Content.find_by_url(url)
-    unless content
-      content = Content.new({
-        :title   => title,
-        :caption => description,
-        :user    => user,
-        :url     => url
-      })
-      if page[:images_sized].any? and Image.image_url?(page[:images_sized].first[:url])
-        content.images.push Image.new(:remote_image_url => page[:images_sized].first[:url])
+    urls.each do |tweet_url|
+      next unless tweet_url.allowed_source?
+
+      url = tweet_url.url
+      begin
+        page = Parse::Page.parse_page(url)
+      rescue Exception
+        return false
       end
+      title = page[:title] || url
+      description = page[:description] || "@#{tweet_account.screen_name} tweeted: #{text}"
+      content = Content.find_by_url(url)
+      unless content
+        content = Content.new({
+          :title   => title,
+          :caption => description,
+          :user    => user,
+          :url     => url
+        })
+        if page[:images_sized].any? and Image.image_url?(page[:images_sized].first[:url])
+          content.images.push Image.new(:remote_image_url => page[:images_sized].first[:url])
+        end
+      end
+      user.contents.push content
+      ItemTweet.create_from_item_and_tweet! content, self, true
     end
-    user.contents.push content
-    ItemTweet.create_from_item_and_tweet! content, self, true
   end
 
   def self.build_from_raw_tweet raw_tweet, stream

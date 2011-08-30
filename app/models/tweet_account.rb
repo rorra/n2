@@ -23,4 +23,9 @@ class TweetAccount < ActiveRecord::Base
 
     tweet_account
   end
+
+  def to_s
+    "@#{screen_name}"
+  end
+
 end

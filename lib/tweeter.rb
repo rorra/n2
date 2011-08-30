@@ -156,8 +156,8 @@ module Newscloud
       klasses.each do |klass|
         hot_items = klass.hot_items
         next unless hot_items
-        puts "Hot items for #{klass.name.titleize}"
-        puts hot_items.inspect
+        #puts "Hot items for #{klass.name.titleize}"
+        #puts hot_items.inspect
         tweet_items hot_items
       end
     end

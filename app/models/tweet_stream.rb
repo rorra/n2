@@ -55,4 +55,8 @@ class TweetStream < ActiveRecord::Base
     Resque.enqueue(TweetStreamsWorker)
   end
 
+  def to_s
+    [list_username, list_name].join '/'
+  end
+
 end

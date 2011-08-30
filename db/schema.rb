@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823205401) do
+ActiveRecord::Schema.define(:version => 20110829232116) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -763,9 +763,13 @@ ActiveRecord::Schema.define(:version => 20110823205401) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_blocked",           :default => false
+    t.boolean  "white_list",           :default => false
+    t.boolean  "black_list",           :default => false
   end
 
+  add_index "sources", ["black_list"], :name => "index_sources_on_black_list"
   add_index "sources", ["url"], :name => "index_sources_on_url", :unique => true
+  add_index "sources", ["white_list"], :name => "index_sources_on_white_list"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
