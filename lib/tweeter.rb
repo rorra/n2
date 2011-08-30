@@ -87,11 +87,15 @@ module Newscloud
     end
 
     def self.fetch_url_location url_str
-      url = URI.parse(url_str.strip)
-      req = Net::HTTP.new(url.host, url.port)
-      path = url.path.present? ? url.path : '/'
-      resp, data = req.get(path, nil)
-      resp.header['location']
+      begin
+        url = URI.parse(url_str.strip)
+        req = Net::HTTP.new(url.host, url.port)
+        path = url.path.present? ? url.path : '/'
+        resp, data = req.get(path, nil)
+        return resp.header['location']
+      rescue Exception
+        return false
+      end
     end
 
     def self.fetch_real_urls urls
