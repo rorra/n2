@@ -199,6 +199,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :sponsor_zones
     admin.resources :title_filters
     admin.resources :topics
+    admin.resources :tweet_streams, :member => { :fetch_new_tweets => :get }
+    admin.resources :tweets
+    admin.resources :tweet_accounts
     admin.resources :twitter_settings, :collection => { :update_keys => :post, :update_auth => :post, :reset_keys => :get }
     admin.resources :user_profiles,      :active_scaffold => true
     admin.resources :users,           :active_scaffold => true

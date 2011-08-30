@@ -44,6 +44,8 @@
             == Tags: #{tag_list(@tags, (@story.is_article? ? @story.article : @story))}
         - if @story.is_article?
           %p= sanitize nl2br(@story.caption)
+        - elsif @story.respond_to?(:twitter_item?) and @story.twitter_item?
+          %p= tweet_blurb @story
         - elsif @story.full_html?
           %p= sanitize nl2br(@story.caption)
         - else

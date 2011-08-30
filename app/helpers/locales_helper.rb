@@ -1,11 +1,14 @@
 module LocalesHelper
 
-  def generic_posted_by item, user = nil
+  def generic_posted_by item, user = nil, date = nil
     user ||= item.user
-    I18n.translate('posted_by', :fb_name => local_linked_profile_name(user), :date => timeago(item.created_at)).html_safe
+    posted_by item, :user => user
   end
-  alias_method :stories_posted_by, :generic_posted_by
-  
+
+  def stories_posted_by item, user = nil, format = nil
+    user ||= item.user
+    posted_by item, :user => user, :date => true, :format => nil
+  end
 
   def user_posted_item item, user = nil
     user ||= item.user

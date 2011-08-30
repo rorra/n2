@@ -70,7 +70,7 @@ class Image < ActiveRecord::Base
   end
 
   def self.image_url? url
-    url =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?(jpg|jpeg|gif|png)(\?.*)?$/ix
+    url =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?(jpg|jpeg|gif|png)([?;].*)?$/ix
   end
 
   private
@@ -83,7 +83,7 @@ class Image < ActiveRecord::Base
 
   def download_image
     return false unless remote_image_url_changed? or self.image_file_name.nil?
-    errors.add(:remote_image_url, "image url must point to a jpeg, gif or png image url") and return unless override_image? or remote_image_url =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?(jpg|jpeg|gif|png)(\?.*)?$/ix
+    errors.add(:remote_image_url, "image url must point to a jpeg, gif or png image url") and return unless override_image? or remote_image_url =~ /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?(jpg|jpeg|gif|png)([?;].*)?$/ix
     begin
       Timeout::timeout(10) {
         self.image = open(URI.parse(remote_image_url))

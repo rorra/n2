@@ -1,4 +1,6 @@
 require 'action_controller'
+require 'net/http'
+
 include ActionController::UrlWriter
 
 module Newscloud
@@ -7,6 +9,94 @@ module Newscloud
   end
 
   class TweeterNotConfigured < Exception
+  end
+
+  class TweetList
+
+    def initialize
+      @oauth_key = Metadata::Setting.find_setting('oauth_key').try(:value)
+      @oauth_secret = Metadata::Setting.find_setting('oauth_secret').try(:value)
+      @oauth_consumer_key = Metadata::Setting.find_setting('oauth_consumer_key').try(:value)
+      @oauth_consumer_secret =  Metadata::Setting.find_setting('oauth_consumer_secret').try(:value)
+      Twitter.configure do |config|
+        config.consumer_key = @oauth_key
+        config.consumer_secret = @oauth_secret
+        config.oauth_token = @oauth_consumer_key
+        config.oauth_token_secret = @oauth_consumer_secret
+      end
+    end
+
+    def client
+      @client ||= Twitter::Client.new(:oauth_token => @oauth_consumer_key, :oauth_token_secret => @oauth_consumer_secret)
+    end
+
+    def consumer
+      @consumer ||= OAuth::Consumer.new(@oauth_key, @oauth_secret)
+    end
+
+    def fetch_list user, name
+      tweets = fetch_raw_list user, name
+      urls = tweets.map {|t| t["text"].scan(%r{http://[^\s]+}) }.flatten
+      self.class.fetch_real_urls urls
+    end
+
+    def fetch_list_info user, name
+      client.list(user,name)
+    end
+
+    def save_list user, name
+      tweets = fetch_raw_list user, name
+      urls = tweets.map {|t| t["text"].scan(%r{http://[^\s]+}) }.flatten
+      self.class.fetch_real_urls urls
+      tweets.each do |raw_tweet|
+        tweet = Tweet.create!({
+          :twitter_id_str => raw_tweet["id_str"],
+          :text           => raw_tweet["text"],
+          :raw_tweet      => raw_tweet.to_json
+        })
+        raw_urls = self.class.extract_raw_urls raw_tweet
+        self.class.fetch_real_urls(raw_urls).each do |url_str|
+          url = Url.find_or_create_by_url(url_str)
+          TweetUrl.create!({
+            :tweet => tweet,
+            :url   => url
+          })
+        end
+      end
+    end
+
+    def fetch_raw_list user, name, since_id = nil
+      if since_id
+        client.list_timeline(user,name, :include_entities => true, :since_id => since_id)
+      else
+        client.list_timeline(user,name, :include_entities => true)
+      end
+    end
+
+    def self.extract_raw_urls tweet
+      tweet["entities"]["urls"].map {|u| u["url"] }.flatten
+    end
+
+    def self.fetch_real_url url_str
+      location = nil
+      loc = url_str
+      while loc = self.fetch_url_location(loc)
+        location = loc
+      end
+      location || url_str
+    end
+
+    def self.fetch_url_location url_str
+      url = URI.parse(url_str.strip)
+      req = Net::HTTP.new(url.host, url.port)
+      path = url.path.present? ? url.path : '/'
+      resp, data = req.get(path, nil)
+      resp.header['location']
+    end
+
+    def self.fetch_real_urls urls
+      urls.map {|url| self.fetch_real_url url }
+    end
   end
 
   class Tweeter
@@ -33,10 +123,13 @@ module Newscloud
       	  raise Newscloud::TweeterNotConfigured.new("You must configure your oauth settings and run the rake twitter connect task.")
       end
 
-      oauth = Twitter::OAuth.new(@oauth_key, @oauth_secret)
-      oauth.authorize_from_access(@oauth_consumer_key, @oauth_consumer_secret)
-
-      @twitter = Twitter::Base.new(oauth)
+      Twitter.configure do |config|
+        config.consumer_key = @oauth_key
+        config.consumer_secret = @oauth_secret
+        config.oauth_token = @oauth_consumer_key
+        config.oauth_token_secret = @oauth_consumer_secret
+      end
+      @twitter = Twitter::Client.new
     end
 
     def tweet_items items
@@ -63,8 +156,8 @@ module Newscloud
       klasses.each do |klass|
         hot_items = klass.hot_items
         next unless hot_items
-        puts "Hot items for #{klass.name.titleize}"
-        puts hot_items.inspect
+        #puts "Hot items for #{klass.name.titleize}"
+        #puts hot_items.inspect
         tweet_items hot_items
       end
     end

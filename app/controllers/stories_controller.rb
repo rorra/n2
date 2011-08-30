@@ -7,10 +7,10 @@ class StoriesController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :login_required, :only => [:like, :new, :create]
-  before_filter :load_top_stories, :only => [:index, :tags]
+  #before_filter :load_top_stories, :only => [:index, :tags]
   #before_filter :load_top_discussed_stories, :only => [:index, :tags]
-  before_filter :load_top_users, :only => [:index, :app_tab, :tags]
-  before_filter :load_newest_users, :only => [:index, :app_tab, :tags]
+  #before_filter :load_top_users, :only => [:index, :app_tab, :tags]
+  #before_filter :load_newest_users, :only => [:index, :app_tab, :tags]
   before_filter :set_custom_sidebar_widget, :only => [:index, :show]
 
   after_filter :store_location, :only => [:index, :new, :show]
@@ -33,10 +33,16 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Content.active.find(params[:id])
-    # allow only authors and moderators to preview draft articles
-    redirect_to home_index_path if @story.is_article? and @story.article.is_draft? and (!current_user.present? or current_user != @story.article.author or !current_user.is_moderator? ) 
-    redirect_to stories_path and return if @story.is_blocked?
+    begin
+      @story = Content.active.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to stories_path and return unless @story
+    else
+      # allow only authors and moderators to preview draft articles
+      redirect_to home_index_path and return if @story.is_article? and @story.article.is_draft? and (!current_user.present? or current_user != @story.article.author or !current_user.is_moderator? ) 
+      redirect_to stories_path and return if @story.is_blocked?
+    end
+
     tag_cloud (@story.is_article? ? @story.article : @story)
     if MENU.key? 'articles'
       if @story.is_article?

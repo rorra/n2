@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110627220941) do
+ActiveRecord::Schema.define(:version => 20110829232116) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -469,6 +469,18 @@ ActiveRecord::Schema.define(:version => 20110627220941) do
   add_index "images", ["remote_image_url"], :name => "index_images_on_remote_image_url"
   add_index "images", ["user_id"], :name => "index_images_on_user_id"
 
+  create_table "item_tweets", :force => true do |t|
+    t.string   "item_type"
+    t.integer  "item_id"
+    t.integer  "tweet_id"
+    t.boolean  "primary_item", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "item_tweets", ["item_type", "item_id"], :name => "index_item_tweets_on_item_type_and_item_id"
+  add_index "item_tweets", ["tweet_id"], :name => "index_item_tweets_on_tweet_id"
+
   create_table "locales", :force => true do |t|
     t.string "code"
     t.string "name"
@@ -751,9 +763,13 @@ ActiveRecord::Schema.define(:version => 20110627220941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_blocked",           :default => false
+    t.boolean  "white_list",           :default => false
+    t.boolean  "black_list",           :default => false
   end
 
+  add_index "sources", ["black_list"], :name => "index_sources_on_black_list"
   add_index "sources", ["url"], :name => "index_sources_on_url", :unique => true
+  add_index "sources", ["white_list"], :name => "index_sources_on_white_list"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -807,12 +823,97 @@ ActiveRecord::Schema.define(:version => 20110627220941) do
 
   add_index "translations", ["locale_id", "key", "pluralization_index"], :name => "index_translations_on_locale_id_and_key_and_pluralization_index"
 
+  create_table "tweet_accounts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "twitter_id_str"
+    t.string   "name"
+    t.string   "screen_name"
+    t.string   "profile_image_url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweet_accounts", ["screen_name"], :name => "index_tweet_accounts_on_screen_name"
+  add_index "tweet_accounts", ["twitter_id_str"], :name => "index_tweet_accounts_on_twitter_id_str"
+  add_index "tweet_accounts", ["user_id"], :name => "index_tweet_accounts_on_user_id"
+
+  create_table "tweet_streams", :force => true do |t|
+    t.string   "list_name"
+    t.string   "list_username"
+    t.string   "twitter_id_str"
+    t.text     "description"
+    t.datetime "last_fetched_at"
+    t.integer  "last_fetched_tweet_id"
+    t.integer  "tweets_count",          :default => 0
+    t.integer  "votes_tally",           :default => 0
+    t.integer  "comments_count",        :default => 0
+    t.boolean  "is_featured",           :default => false
+    t.datetime "featured_at"
+    t.integer  "flags_count",           :default => 0
+    t.boolean  "is_blocked",            :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweet_streams", ["is_blocked"], :name => "index_tweet_streams_on_is_blocked"
+  add_index "tweet_streams", ["list_username", "list_name"], :name => "index_tweet_streams_on_list_username_and_list_name"
+  add_index "tweet_streams", ["twitter_id_str"], :name => "index_tweet_streams_on_twitter_id_str"
+
+  create_table "tweet_urls", :force => true do |t|
+    t.integer  "tweet_id"
+    t.integer  "url_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweet_urls", ["tweet_id", "url_id"], :name => "index_tweet_urls_on_tweet_id_and_url_id"
+  add_index "tweet_urls", ["tweet_id"], :name => "index_tweet_urls_on_tweet_id"
+  add_index "tweet_urls", ["url_id"], :name => "index_tweet_urls_on_url_id"
+
   create_table "tweeted_items", :force => true do |t|
     t.string   "item_type"
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tweets", :force => true do |t|
+    t.string   "tweet_item_type"
+    t.integer  "tweet_item_id"
+    t.integer  "tweet_stream_id"
+    t.integer  "tweet_account_id"
+    t.string   "twitter_id_str"
+    t.string   "text"
+    t.text     "raw_tweet"
+    t.integer  "votes_tally",      :default => 0
+    t.integer  "comments_count",   :default => 0
+    t.boolean  "is_featured",      :default => false
+    t.datetime "featured_at"
+    t.integer  "flags_count",      :default => 0
+    t.boolean  "is_blocked",       :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tweets", ["tweet_stream_id"], :name => "index_tweets_on_tweet_stream_id"
+  add_index "tweets", ["twitter_id_str"], :name => "index_tweets_on_twitter_id_str", :unique => true
+
+  create_table "urls", :force => true do |t|
+    t.integer  "source_id"
+    t.string   "url"
+    t.integer  "votes_tally",    :default => 0
+    t.integer  "comments_count", :default => 0
+    t.boolean  "is_featured",    :default => false
+    t.datetime "featured_at"
+    t.integer  "flags_count",    :default => 0
+    t.boolean  "is_blocked",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "urls", ["source_id"], :name => "index_urls_on_source_id"
+  add_index "urls", ["url"], :name => "index_urls_on_url"
 
   create_table "user_profiles", :force => true do |t|
     t.integer   "user_id",                     :limit => 8,                    :null => false
@@ -885,10 +986,14 @@ ActiveRecord::Schema.define(:version => 20110627220941) do
     t.integer  "activity_score",                            :default => 0
     t.string   "fb_oauth_key"
     t.datetime "fb_oauth_denied_at"
+    t.boolean  "twitter_user",                              :default => false
+    t.boolean  "system_user",                               :default => false
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["posts_count"], :name => "index_users_on_posts_count"
+  add_index "users", ["system_user"], :name => "index_users_on_system_user"
+  add_index "users", ["twitter_user"], :name => "index_users_on_twitter_user"
 
   create_table "videos", :force => true do |t|
     t.string   "videoable_type"

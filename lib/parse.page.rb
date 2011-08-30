@@ -33,7 +33,7 @@ module Parse
       desc = (doc/"head/meta[@http-equiv='Description']") unless desc.present?
       desc = (doc/"head/meta[@http-equiv='description']") unless desc.present?
       return false unless desc.present?
-      desc.first.attributes['content'].value
+      desc.first.attributes['content'].try(:value)
     end
 
     def self.parse_images(doc, url)
@@ -64,7 +64,11 @@ module Parse
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
 
-      response = http.request_head(url.path)
+      begin
+        response = http.request_head(url.path)
+      rescue Exception
+        return false
+      end
 
       return false unless response and response['content-length'].present?
 
