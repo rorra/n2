@@ -23,6 +23,12 @@ class NewscloudSweeper < ActionController::Caching::Sweeper
     end
   end
 
+  def self.expire_new_item_widgets
+    [Vote, PfeedItem].each do |klass|
+      self.expire_class(klass)
+    end
+  end
+
   def self.expire_instance item
     keys = $redis.keys(item.model_deps_key)
     if keys.any?

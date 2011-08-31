@@ -55,6 +55,7 @@ class Tweet < ActiveRecord::Base
         next
       end
       ItemTweet.create_from_item_and_tweet! content, self, true
+      NewscloudSweeper.expire_new_item_widgets
     end
   end
 
