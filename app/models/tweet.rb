@@ -48,7 +48,11 @@ class Tweet < ActiveRecord::Base
           content.images.push Image.new(:remote_image_url => page[:images_sized].first[:url])
         end
       end
-      user.contents.push content
+      begin
+        user.contents.push content
+      rescue Exception
+        next
+      end
       ItemTweet.create_from_item_and_tweet! content, self, true
     end
   end
