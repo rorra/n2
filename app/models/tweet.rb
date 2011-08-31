@@ -72,7 +72,11 @@ class Tweet < ActiveRecord::Base
     })
     raw_urls = Newscloud::TweetList.extract_raw_urls raw_tweet
     Newscloud::TweetList.fetch_real_urls(raw_urls).each do |url_str|
-      url = Url.find_or_create_by_url(url_str)
+      begin
+        url = Url.find_or_create_by_url(url_str)
+      rescue Exception
+        next
+      end
       TweetUrl.create!({
         :tweet => tweet,
         :url   => url
