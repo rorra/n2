@@ -50,6 +50,7 @@ class Tweet < ActiveRecord::Base
       end
       begin
         user.contents.push content
+        content.expire
       rescue Exception
         next
       end
