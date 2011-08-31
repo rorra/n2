@@ -34,8 +34,8 @@ class Tweet < ActiveRecord::Base
       rescue Exception
         return false
       end
-      title = page[:title] || url
-      description = page[:description] || "@#{tweet_account.screen_name} tweeted: #{text}"
+      title = page[:title].present? ? page[:title] : url
+      description = page[:description] ? page[:description] : "@#{tweet_account.screen_name} tweeted: #{text}"
       content = Content.find_by_url(url)
       unless content
         content = Content.new({
