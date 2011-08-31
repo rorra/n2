@@ -68,6 +68,7 @@ class StorySweeper < ActionController::Caching::Sweeper
 
     StorySweeper.expire_article_all story.article if story.is_article?
     NewscloudSweeper.expire_instance(story)
+    NewscloudSweeper.expire_new_item_widgets
   end
 
   def self.expire_article_all article
