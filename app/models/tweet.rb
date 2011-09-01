@@ -47,6 +47,9 @@ class Tweet < ActiveRecord::Base
         if page[:images_sized].any? and Image.image_url?(page[:images_sized].first[:url])
           content.images.push Image.new(:remote_image_url => page[:images_sized].first[:url])
         end
+        if tweet_account.tags.any?
+          content.tag_list = tweet_account.tag_list
+        end
       end
       begin
         user.contents.push content

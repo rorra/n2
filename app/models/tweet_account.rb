@@ -1,6 +1,7 @@
 class TweetAccount < ActiveRecord::Base
   has_many :tweets
   belongs_to :user
+  acts_as_taggable_on :tags, :sections
 
   def self.get_user_from_json user_json
     tweet_account = self.find_by_twitter_id_str(user_json["id_str"])
