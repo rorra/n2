@@ -22,7 +22,6 @@ config/*.yml
 config/application.god
 config/compass.config
 !config/widgets.yml
-!config/resque_schedule.yml
 !config/cucumber.yml
 !config/asset_packages.yml
 config/deploy/*.rb

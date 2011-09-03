@@ -41,7 +41,7 @@ class StorySweeper < ActionController::Caching::Sweeper
     #expire_page :controller => '/home', :action => 'index', :format => 'fbml'
     #expire_page :controller => '/stories', :action => 'show', :id => story, :format => 'html'
     #expire_page :controller => '/stories', :action => 'show', :id => story, :format => 'fbml'
-    ['stories_short','top_stories', 'active_users', 'most_discussed_stories', 'top_users', 'top_ideas', 'top_events', 'featured_items', 'newest_users', 'newest_ideas', 'header', 'fan_application', 'prompt_permissions', "#{story.cache_key}_top", "#{story.cache_key}_bottom", "#{story.cache_key}_sidebar", "#{story.cache_key}_who_liked", "top_contents_tags", "top_contents_sections"].each do |fragment|
+    ['stories_short','top_stories', 'active_users', 'most_discussed_stories', 'top_users', 'top_ideas', 'top_events', 'featured_items', 'newest_users', 'newest_ideas', 'header', 'fan_application', 'prompt_permissions', "#{story.cache_key}_top", "#{story.cache_key}_bottom", "#{story.cache_key}_sidebar", "#{story.cache_key}_who_liked", "top_Content_tags", "top_Content_sections"].each do |fragment|
       expire_fragment "#{fragment}_html"
     end
     ['', 'page_1_', 'page_2_'].each do |page|
@@ -59,7 +59,7 @@ class StorySweeper < ActionController::Caching::Sweeper
 
   def self.expire_story_all story
     controller = ActionController::Base.new
-    ['top_stories', 'stories_list', 'featured_items', 'most_discussed_stories', "#{story.cache_key}_top", "#{story.cache_key}_bottom", "#{story.cache_key}_sidebar", "top_contents_tags", "top_contents_sections", 'newest_stories', 'auto_feature_sidebar', 'auto_feature_mini', 'auto_feature' ].each do |fragment|
+    ['top_stories', 'stories_list', 'featured_items', 'most_discussed_stories', "#{story.cache_key}_top", "#{story.cache_key}_bottom", "#{story.cache_key}_sidebar", "top_Content_tags", "top_Content_sections", 'newest_stories', 'auto_feature_sidebar', 'auto_feature_mini', 'auto_feature' ].each do |fragment|
       controller.expire_fragment "#{fragment}_html"
     end
     ['', 'page_1_', 'page_2_'].each do |page|

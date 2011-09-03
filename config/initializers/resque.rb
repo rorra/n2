@@ -25,7 +25,10 @@ if defined?(Newscloud)
 end
 
 require 'resque_scheduler'
-Resque.schedule = YAML.load_file(File.join(rails_root, 'config/resque_schedule.yml'))
+resque_schedule_base_file = rails_root + '/config/resque_schedule.yml'
+resque_schedule_file = File.exists?(resque_schedule_base_file) ? resque_schedule_base_file : (resque_schedule_base_file + '.sample')
+resque_schedule_config = YAML.load_file(resque_schedule_file)
+Resque.schedule = resque_schedule_config
 
 begin
   NotificationWorker.class

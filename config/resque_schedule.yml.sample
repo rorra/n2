@@ -26,10 +26,10 @@ twitter_hot_items:
   args:
   rails_env: development, staging, production
   description: "Tweet hot items"
-twitter_lists:
-  cron: "*/11 * * * *"
-  class: TweetStreamsWorker
-  queue: tweet_streams
-  args:
-  rails_env: development, staging, production
-  description: "Process twitter streams and create relevant content"
+#twitter_lists:
+#  cron: "*/11 * * * *"
+#  class: TweetStreamsWorker
+#  queue: tweet_streams
+#  args:
+#  rails_env: development, staging, production
+#  description: "Process twitter streams and create relevant content"

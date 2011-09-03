@@ -6,6 +6,7 @@ class Source < ActiveRecord::Base
   validates_presence_of :url
   validates_uniqueness_of :url
   validates_format_of :url, :with => /\A(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i, :message => "should look like a URL", :allow_blank => false
+  before_validation :extract_host
 
   validate :validate_filter_type
 
@@ -54,6 +55,14 @@ class Source < ActiveRecord::Base
         [:white_list, :black_list].each do |list_type|
           errors.add(list_type, "You may only white list or black list a source, not both. Please choose one.")
         end
+      end
+    end
+
+    def extract_host
+      host_uri = URI.parse(self.url)
+
+      if host_uri.host
+        self.url = host_uri.host
       end
     end
   
