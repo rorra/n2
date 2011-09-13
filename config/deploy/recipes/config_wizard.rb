@@ -44,11 +44,6 @@ Capistrano::Configuration.instance.load do
       settings = {}
       settings[:using_aws] = @using_aws
       settings[:app_name] = get_app
-      settings[:default_user] = ui.ask("Please enter the ssh username for your server. The user name you provide must have sudo (or root) access to the server:") do |q|
-        q.default = @using_aws ? "ubuntu" : "root"
-        q.validate = /^[A-Za-z_-]+$/
-        q.responses[:not_valid] = "Please use only letters, underscores and dashes"
-      end
       if @using_aws
         settings[:aws_key_location] = ui.ask("Please enter the path to your AWS private key so that you can deploy to your server:") do |q|
           q.validate = /^.+$/
@@ -70,8 +65,13 @@ Capistrano::Configuration.instance.load do
       cap_set_stage settings[:app_name]
 
       say_headline("\nRunning full system bootstrap. This will take a while and does not require any user intervention after logging into your server, so grab a cup of coffee.\n")
-      say_headline("\nInitializing server..\n Now we will ask for the password to your SSH username account which needs to have sudo (or root) privileges.")
+      say_headline("\nInitializing server..\n")
       # Set user to the provided user account on the server for ssh access
+      settings[:default_user] = ui.ask("Please enter the ssh username for your server. The user name you provide must have sudo (or root) access to the server:") do |q|
+        q.default = @using_aws ? "ubuntu" : "root"
+        q.validate = /^[A-Za-z_-]+$/
+        q.responses[:not_valid] = "Please use only letters, underscores and dashes"
+      end
       set :user, settings[:default_user]
       chef.init_server
       # Now that we've initialized the user, we have a deploy user to work with
