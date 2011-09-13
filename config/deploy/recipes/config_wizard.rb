@@ -36,14 +36,15 @@ Capistrano::Configuration.instance.load do
     DESC
     task :run do
       run_color_scheme
-      say_headline('Welcome to the Newscloud bootstrap script. This will take care of provisioning your ubuntu server and bootstrapping the Newscloud framework.')
+      say_headline('Welcome to the Newscloud bootstrap script. This will take care of provisioning your ubuntu server and bootstrapping the Newscloud framework. This script is designed and tested on Ubuntu 10.04 Lucid Lynx.')
+      say_headline("Be sure you have the following settings ready (see http://newscloud.net/rr1uVX) before running this script. Also, be sure that you've mapped your domain name DNS record and tested that it is working. We recommend NOT using www prefix when configuring your Facebook settings and when running this script.")
       say_headline("\nBase config settings")
-      @enable_advanced_config = Capistrano::CLI.ui.agree("Advanced config mode?") {|q| q.default = "no" }
+      @enable_advanced_config = Capistrano::CLI.ui.agree("Do you want to use advanced configuration mode? If you don't know what this means, choose no.") {|q| q.default = "no" }
       @using_aws = Capistrano::CLI.ui.agree("Deploying to Amazon AWS?") {|q| q.default = "no" }
       settings = {}
       settings[:using_aws] = @using_aws
       settings[:app_name] = get_app
-      settings[:default_user] = ui.ask("Please enter the ssh username for your server:") do |q|
+      settings[:default_user] = ui.ask("Please enter the ssh username for your server. The user name you provide must have sudo (or root) access to the server:") do |q|
         q.default = @using_aws ? "ubuntu" : "root"
         q.validate = /^[A-Za-z_-]+$/
         q.responses[:not_valid] = "Please use only letters, underscores and dashes"
@@ -69,7 +70,7 @@ Capistrano::Configuration.instance.load do
       cap_set_stage settings[:app_name]
 
       say_headline("\nRunning full system bootstrap. This will take a while and does not require any user intervention after logging into your server, so grab a cup of coffee.\n")
-      say_headline("\nInitializing server..\n")
+      say_headline("\nInitializing server..\n Now we will ask for the password to your SSH username account which needs to have sudo (or root) privileges.")
       # Set user to the provided user account on the server for ssh access
       set :user, settings[:default_user]
       chef.init_server
@@ -135,7 +136,7 @@ def run_color_scheme
 end
 
 def get_app
-  ui.ask("Please enter your application name (lowercase and underscore):") do |q|
+  ui.ask("Please enter your application name (lowercase and underscore) e.g. your_app:") do |q|
     q.case = :down
     q.validate = /^[a-z0-9_]+$/
   end
@@ -156,8 +157,8 @@ def get_facebook_config
   say_headline("Facebook Configuration")
   settings = Hash.new
 
-  settings[:api_key] = non_blank_request("Facebook API Key:")
-  settings[:secret_key] = non_blank_request("Facebook Secret Key:")
+  settings[:api_key] = non_blank_request("Facebook API Key e.g. 218234865890233 (see http://newscloud.net/qiiwyM for more information):")
+  settings[:secret_key] = non_blank_request("Facebook Secret Key e.g. aff4c01ca4203bc22fea22728a1d982c:")
 
   settings[:canvas_page_name] = ui.ask("Please enter your Facebook Canvas Page Name:") do |q|
     q.case = :down
@@ -165,7 +166,7 @@ def get_facebook_config
     q.responses[:not_valid] = "Facebook Canvas Page Name can only contain lower case letters, dashes, and underscores."
   end
 
-  settings[:callback_url] = ui.ask("Please enter your Facebook Callback URL:", lambda {|str| str.sub(%r{/$}, '')} ) do |q|
+  settings[:callback_url] = ui.ask("Please enter your Facebook Callback URL e.g. your site domain name such as yoursuperapp.com (do not enter www prefix here):", lambda {|str| str.sub(%r{/$}, '')} ) do |q|
     q.case = :down
     q.validate = lambda do |url|
       # TODO:: add back in
