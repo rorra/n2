@@ -238,7 +238,7 @@ def non_blank_request(key_name, opts = {})
 end
 
 def say_headline(*args, &block)
-  ui.say("<%= color('\n#{args.shift}', :headline) %>", *args, &block)
+  ui.say("<%= color('\n#{args.shift.gsub(/'/, "\\\\'")}', :headline) %>", *args, &block)
   ui.say("<%= color('-'*20, :horizontal_line) %>")
 end
 
