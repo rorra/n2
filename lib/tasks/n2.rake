@@ -2,22 +2,8 @@ namespace :n2 do
   namespace :data do
 
     desc "Bootstrap and convert existing data"
-    task :bootstrap => [:environment, :pre_register_users, :delete_floating_content, :delete_floating_comments, :delete_floating_ideas, :delete_floating_questions_and_answers, :update_floating_comments, :generate_model_slugs, :generate_widgets, :load_seed_data, :convert_images_to_paperclip, :load_locale_data] do
+    task :bootstrap => [:environment, :delete_floating_content, :delete_floating_comments, :delete_floating_ideas, :delete_floating_questions_and_answers, :update_floating_comments, :generate_model_slugs, :generate_widgets, :load_seed_data, :convert_images_to_paperclip, :load_locale_data] do
       puts "Finished Bootstrapping and converting existing data"
-    end
-
-    desc "Pre-Register existing users with facebook"
-    task :pre_register_users => :environment do
-      puts "Pre-Registering existing users with facebook"
-      User.all.each do |user|
-        next unless user.email.present?
-        puts "\tRegistering #{user.name}(#{user.email})"
-        begin
-          user.register_user_to_fb
-        rescue => e
-          puts "\t***Failed to register user #{user.name}(#{user.email}) -- #{e}"
-        end
-      end
     end
 
     desc "Delete blank users"

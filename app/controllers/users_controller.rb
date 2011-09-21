@@ -167,9 +167,7 @@ class UsersController < ApplicationController
   
   def current
     respond_to do |format|
-      format.fbjs
       format.js
-      format.fbml { render :template => 'users/current.js', :content_type => 'text/javascript', :layout => false }
     end
   end
 

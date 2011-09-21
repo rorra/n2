@@ -9,7 +9,8 @@ module Newscloud
     def initialize(app, flag = "iframe")
       @app = app
       @flag = flag
-      @base_url = FACEBOOKER["callback_url"].downcase.sub(%r(^https?://), '')
+      #@base_url = FACEBOOKER["callback_url"].downcase.sub(%r(^https?://), '')
+      @base_url = APP_CONFIG["base_site_url"].downcase.sub(%r(^https?://), '')
     end
 
     def call(env)

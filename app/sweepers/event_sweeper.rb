@@ -23,11 +23,9 @@ class EventSweeper < ActionController::Caching::Sweeper
     controller = ActionController::Base.new
     ['top_events', 'newest_events', 'featured_events'].each do |fragment|
       controller.expire_fragment "#{fragment}_html"
-      controller.expire_fragment "#{fragment}_fbml"
     end
     ['', 'page_1_', 'page_2_'].each do |page|
       controller.expire_fragment "events_list_#{page}html"
-      controller.expire_fragment "events_list_#{page}fbml"
     end
     NewscloudSweeper.expire_instance(event)
   end

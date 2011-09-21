@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  rescue_from Facebooker::Session::SessionExpired, :with => :facebook_session_expired
-  rescue_from Facebooker::Session::MissingOrInvalidParameter, :with => :facebook_session_expired
+  #rescue_from Facebooker::Session::SessionExpired, :with => :facebook_session_expired
+  #rescue_from Facebooker::Session::MissingOrInvalidParameter, :with => :facebook_session_expired
   rescue_from Acl9::AccessDenied, :with => :access_denied
 
   def rescue_action(exception)
@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   end
 
   def facebook_session_expired
+    # tmp hack, need to remove cookies
+    # redirect_to link_user_accounts_users_path(:only_path => false, :canvas => false)
+    return true
+
+    
     clear_fb_cookies!
     clear_facebook_session_information
     reset_session # remove your cookies!
@@ -28,7 +33,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  include AuthenticatedSystem
+  include Newscloud::Util
 
   helper :all # include all helpers, all the time
   before_filter :set_iframe_status
@@ -55,6 +60,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_facebook_user
   helper_method :get_setting
   helper_method :get_setting_value
+  helper_method :setting_enabled?
   helper_method :get_ad_layout
   helper_method :iframe_facebook_request?
   helper_method :get_canvas_preference
@@ -291,10 +297,9 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     format = options[:format] || request.format.to_sym
-    unless ['html', 'fbml', 'json', 'js', 'fbjs', 'xml', 'atom', 'rss'].include? format.to_s
-      if request.xhr? or request_is_facebook_ajax?
+    unless ['html', 'json', 'js', 'xml', 'atom', 'rss'].include? format.to_s
+      if request.xhr?
         if request_comes_from_facebook?
-        	#format = 'fbjs'
         	format = 'json'
         else
         	format = 'json'
@@ -406,6 +411,10 @@ class ApplicationController < ActionController::Base
     get_setting(name, sub_type).try(:value)
   end
 
+  def setting_enabled? name, sub_type = nil
+    !! get_setting_value(name, sub_type)
+  end
+  
   def get_ad_layout name, sub_type = nil
     Metadata::AdLayout.get name, sub_type
   end

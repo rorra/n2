@@ -34,7 +34,6 @@ class WidgetSweeper < ActionController::Caching::Sweeper
 
       puts "Expiring fragment: #{widget}"
       controller.expire_fragment "#{widget}_html"
-      #controller.expire_fragment "#{widget}_fbml"
     end
   end
 

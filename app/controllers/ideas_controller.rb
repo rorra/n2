@@ -21,10 +21,8 @@ class IdeasController < ApplicationController
     set_sponsor_zone('ideas')
     respond_to do |format|
       format.html { @paginate = true }
-      format.fbml { @paginate = true }
       format.atom
       format.json { @ideas = Idea.refine(params) }
-      format.fbjs { @ideas = Idea.refine(params) }
     end
   end
 

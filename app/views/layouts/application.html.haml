@@ -85,25 +85,9 @@
     = auto_discovery_link_tag(:atom, @auto_discovery_rss)
 
     = yield :head_content
-              
-    - stream_post = build_app_stream_post
-    :javascript
-      $(function() {
-        $('.app-share-button').click(function(event) {
-          event.preventDefault();
-          #{fb_connect_stream_publish(stream_post, t('facebook_share') )}
-        });
-      });
 
   %body
     #bodyWrapper
-      = raw fb_connect_javascript_tag
-      - if @share_item
-        - init_fb_connect "XFBML", :js => :jquery do
-          = fb_connect_stream_publish(build_stream_post(@share_item), t('facebook_share'))
-      - else
-        = init_fb_connect "XFBML", :js => :jquery
-
       = render :partial => 'shared/header'
       = flash_messages
 
@@ -120,12 +104,3 @@
  
 
     = render :partial => 'shared/google_analytics'
-
-    - if iframe_facebook_request?
-      <!-- Note: Include this div markup as a workaround for a known bug in this release on IE where you may get a "operation aborted" error -->
-      <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
-
-      <script type="text/javascript"> FB_RequireFeatures(["CanvasUtil"], function(){ FB.XdComm.Server.init('/xd_receiver.html'); FB.CanvasClient.startTimerToSizeToContent(); FB.CanvasClient.scrollTo(0,0); }); </script>
-
-    -# HACK:: non floating div eliminates webkit resizing issues with facebook javascript
-    %div{:style => "clear: both;"}

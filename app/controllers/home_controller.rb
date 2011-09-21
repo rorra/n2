@@ -29,9 +29,7 @@ class HomeController < ApplicationController
       if request.post?
         respond_to do |format|
           format.html
-          format.fbml
           format.json { @stories = Content.refine(params) }
-          format.fbjs { @stories = Content.refine(params) }
         end
       else
         @no_paginate = true

@@ -20,10 +20,8 @@ class EventsController < ApplicationController
     set_sponsor_zone('events')
     respond_to do |format|
       format.html { @paginate = true }
-      format.fbml { @paginate = true }
       format.atom
       format.json { @events = Event.refine(params) }
-      format.fbjs { @events = Event.refine(params) }
     end
   end
 

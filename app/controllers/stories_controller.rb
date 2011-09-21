@@ -25,10 +25,8 @@ class StoriesController < ApplicationController
     end
     respond_to do |format|
       format.html { @paginate = true }
-      format.fbml { @paginate = true }
       format.atom
       format.json { @stories = Content.refine(params) }
-      format.fbjs { @stories = Content.refine(params) }
     end
   end
 

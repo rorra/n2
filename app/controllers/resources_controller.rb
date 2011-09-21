@@ -21,10 +21,8 @@ class ResourcesController < ApplicationController
     set_sponsor_zone('resources')
     respond_to do |format|
       format.html { @paginate = true }
-      format.fbml { @paginate = true }
       format.atom
       format.json { @resources = Resource.refine(params) }
-      format.fbjs { @resources = Resource.refine(params) }
     end
   end
 

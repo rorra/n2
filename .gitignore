@@ -46,3 +46,11 @@ config/s3.yml
 dump.rdb
 .bundle
 capybara*.html
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*

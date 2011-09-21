@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110829232116) do
+ActiveRecord::Schema.define(:version => 20110916233249) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -72,6 +72,19 @@ ActiveRecord::Schema.define(:version => 20110829232116) do
 
   add_index "audios", ["audioable_type", "audioable_id"], :name => "index_audios_on_audioable_type_and_audioable_id"
   add_index "audios", ["user_id"], :name => "index_audios_on_user_id"
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentications", ["provider"], :name => "index_authentications_on_provider"
+  add_index "authentications", ["uid"], :name => "index_authentications_on_uid"
+  add_index "authentications", ["user_id", "provider"], :name => "index_authentications_on_user_id_and_provider"
+  add_index "authentications", ["user_id"], :name => "index_authentications_on_user_id"
 
   create_table "cards", :force => true do |t|
     t.string   "name"
@@ -934,6 +947,7 @@ ActiveRecord::Schema.define(:version => 20110829232116) do
     t.boolean   "post_likes",                               :default => true
     t.boolean   "post_items",                               :default => true
     t.boolean   "is_blocked",                               :default => false
+    t.string    "profile_image"
   end
 
   add_index "user_profiles", ["user_id"], :name => "index_user_infos_on_user_id", :unique => true
