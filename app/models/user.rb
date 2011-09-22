@@ -463,14 +463,25 @@ class User < ActiveRecord::Base
     user.name = omniauth['user_info']['name']
     user.twitter_user = true
     
-
     user.build_profile
     user.profile.profile_image = omniauth['user_info']['image']
-    user.authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
-
+    user.build_authentication_from_omniauth(omniauth)
     user
   end
 
+  def build_authentication_from_omniauth(omniauth)
+    self.authentications.build({
+                                 :provider           => omniauth['provider'],
+                                 :uid                => omniauth['uid'],
+                                 :credentials_token  => omniauth['credentials']['token'],
+                                 :credentials_secret => omniauth['credentials']['secret']
+                               })
+  end
+
+  def build_authentication_from_omniauth!(omniauth)
+    self.build_authentication_from_omniauth(omniauth) and self.save!
+  end
+    
   def self.find_facebook_user(fb_user_id)
     User.find_by_fb_user_id(fb_user_id) || UserProfile.find_by_facebook_user_id(fb_user_id, :include => :user).try(:user)
   end

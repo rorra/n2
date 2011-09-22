@@ -299,19 +299,9 @@ class ApplicationController < ActionController::Base
     format = options[:format] || request.format.to_sym
     unless ['html', 'json', 'js', 'xml', 'atom', 'rss'].include? format.to_s
       if request.xhr?
-        if request_comes_from_facebook?
-        	format = 'json'
-        else
-        	format = 'json'
-        end
+        format = 'json'
       else
-        if request_comes_from_facebook?
-        	#format = 'fbml'
-          # TODO:: needed to change this for iframes as all should be html now
-        	format = 'html'
-        else
-        	format = 'html'
-        end
+        format = 'html'
       end
     end
     opts = {}

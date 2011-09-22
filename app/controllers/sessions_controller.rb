@@ -16,13 +16,13 @@ class SessionsController < ApplicationController
       set_current_user authentication.user
       redirect_to home_index_path
     elsif current_user
-      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      current_user.build_authentication_from_omniauth!(omniauth)
       flash[:notice] = "Authentication successful."
       redirect_to home_index_path
     elsif omniauth['provider'] == 'facebook' and fb_user = User.find_facebook_user(omniauth['uid'])
       set_current_user fb_user
       #session[:user_id] = fb_user.id
-      current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
+      current_user.build_authentication_from_omniauth!(omniauth)
       flash[:notice] = "Authentication successful."
       redirect_to home_index_path
     else
