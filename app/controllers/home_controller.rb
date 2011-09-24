@@ -2,9 +2,6 @@ class HomeController < ApplicationController
   layout proc { |controller| controller.action_name == 'app_tab' ? 'app_tab' : 'application' }
 
   before_filter :set_current_tab
-  before_filter :load_newest_images, :only => [:index, :app_tab]
-  before_filter :load_newest_videos, :only => [:index, :app_tab]
-  before_filter :load_newest_articles, :only => [:index, :app_tab]
 
   def test_design
   end

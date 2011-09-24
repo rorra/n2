@@ -1,9 +1,17 @@
 class RelatedItemsController < ApplicationController
-  before_filter :login_required, :only => [:create, :new]
   before_filter :moderator_required, :only => [:create]
-  cache_sweeper :story_sweeper, :only => [:create, :update, :destroy]
 
   after_filter :store_location, :only => [:new]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def new
     @relatable = find_relatable_item

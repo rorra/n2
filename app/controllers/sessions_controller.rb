@@ -14,29 +14,29 @@ class SessionsController < ApplicationController
       # TODO:: sign_in_and_redirect(:user, authentication.user)
       #session[:user_id] = authentication.user_id
       set_current_user authentication.user
-      redirect_to home_index_path
+      redirect_back_or_default home_index_path
     elsif current_user
       current_user.build_authentication_from_omniauth!(omniauth)
       flash[:notice] = "Authentication successful."
-      redirect_to home_index_path
+      redirect_back_or_default home_index_path
     elsif omniauth['provider'] == 'facebook' and fb_user = User.find_facebook_user(omniauth['uid'])
       set_current_user fb_user
       #session[:user_id] = fb_user.id
       current_user.build_authentication_from_omniauth!(omniauth)
       flash[:notice] = "Authentication successful."
-      redirect_to home_index_path
+      redirect_back_or_default home_index_path
     else
       user = User.build_from_omniauth(omniauth)
       if user.save
         flash[:notice] = "Signed in successfully."
         #session[:user_id] = user.id
         set_current_user user
-        redirect_to home_index_path
+        redirect_back_or_default home_index_path
         # TODO:: sign_in_and_redirect(:user, user)
       else
         render :json => {:authentications => user.authentications, :auth_errors => user.authentications.map {|a| a.errors.full_messages }, :errors => user.errors.full_messages, :user => user, :omniauth => omniauth}.to_json and return
         session[:omniauth] = omniauth.except('extra')
-        redirect_to new_user_path
+        redirect_back_or_default new_user_path
       end
     end
 

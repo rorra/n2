@@ -7,13 +7,19 @@ class StoriesController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :login_required, :only => [:like, :new, :create]
-  #before_filter :load_top_stories, :only => [:index, :tags]
-  #before_filter :load_top_discussed_stories, :only => [:index, :tags]
-  #before_filter :load_top_users, :only => [:index, :app_tab, :tags]
-  #before_filter :load_newest_users, :only => [:index, :app_tab, :tags]
   before_filter :set_custom_sidebar_widget, :only => [:index, :show]
 
   after_filter :store_location, :only => [:index, :new, :show]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags, :parse_page]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"

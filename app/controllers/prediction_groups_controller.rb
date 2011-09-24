@@ -4,6 +4,16 @@ class PredictionGroupsController < ApplicationController
   after_filter :store_location, :only => [:index, :new, :create, :show, :play ]
 
   cache_sweeper :prediction_sweeper, :only => [:create, :update, :destroy]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags, :play]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"

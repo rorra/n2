@@ -5,13 +5,19 @@ class EventsController < ApplicationController
 
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show, :my_events, :import_facebook]
-  before_filter :login_required, :only => [:like, :new, :create, :update, :my_events, :import_facebook]
-  before_filter :load_top_events
-  before_filter :load_newest_events
-  before_filter :load_featured_events, :only => [:index]
   before_filter :set_custom_sidebar_widget, :only => [:index, :new, :show, :my_events, :import_facebook]
 
   after_filter :store_location, :only => [:index, :new, :edit, :my_events, :import_facebook]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :my_events, :import_facebook]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"

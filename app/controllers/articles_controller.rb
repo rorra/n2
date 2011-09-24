@@ -5,13 +5,19 @@ class ArticlesController < ApplicationController
 
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :drafts, :user_index]
-  before_filter :login_required, :only => [:new, :create, :edit, :update]
-  before_filter :load_top_stories, :only => [:index]
-  before_filter :load_top_discussed_stories, :only => [:index]
-  before_filter :load_newest_articles, :only => [:index]
   before_filter :set_custom_sidebar_widget, :only => [:index]
 
   after_filter :store_location, :only => [:index, :new, :edit]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags, :user_index]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :drafts]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"

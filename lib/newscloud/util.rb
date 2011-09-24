@@ -49,8 +49,7 @@ module Newscloud
     #   after_filter :store_location, :only => [:index, :new, :show, :edit]
     # for any controller you want to be bounce-backable.
     def redirect_back_or_default(default)
-      session[:return_to] = nil
-      redirect_to(session[:return_to] || default)
+      redirect_to(session.delete(:return_to) || default)
     end
     
     def self.included(base)

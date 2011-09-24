@@ -1,37 +1,5 @@
 class ApplicationController < ActionController::Base
-  #rescue_from Facebooker::Session::SessionExpired, :with => :facebook_session_expired
-  #rescue_from Facebooker::Session::MissingOrInvalidParameter, :with => :facebook_session_expired
   rescue_from Acl9::AccessDenied, :with => :access_denied
-
-  def rescue_action(exception)
-    if (defined?(exception.message) and defined?(exception.file_name) and defined?(exception.source_extract)) and
-    	 exception.message == 'Invalid parameter' and
-    	 exception.file_name =~ /_header/ and
-    	 exception.source_extract =~ /if logged_in/
-    	facebook_session_expired
-    elsif exception.class.name == "Facebooker::Session::MissingOrInvalidParameter"
-    	facebook_session_expired
-    else
-      super
-    end
-  end
-
-  def facebook_session_expired
-    # tmp hack, need to remove cookies
-    # redirect_to link_user_accounts_users_path(:only_path => false, :canvas => false)
-    return true
-
-    
-    clear_fb_cookies!
-    clear_facebook_session_information
-    reset_session # remove your cookies!
-    #flash[:error] = "Your facebook session has expired."
-    if canvas?
-      redirect_top link_user_accounts_users_path(:only_path => false, :canvas => true)
-    else
-      redirect_to link_user_accounts_users_path(:only_path => false, :canvas => false)
-    end
-  end
   
   include Newscloud::Util
 
@@ -39,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_iframe_status
   protect_from_forgery :secret => 'a64cfbca0d60835e7c0ef3f0c814087d14f417155b354ff1b85fc6188e70a7be4d75e93b6699de6fe3ce80a270ff3e7001104932' # See ActionController::RequestForgeryProtection for details
   before_filter :set_p3p_header
-  before_filter :set_facebook_session_wrapper
+  #before_filter :set_facebook_session_wrapper
   before_filter :set_current_tab
   before_filter :set_current_sub_tab
   before_filter :set_ad_layout
@@ -81,6 +49,9 @@ class ApplicationController < ActionController::Base
   # TODO:: get this working
   #def handle_unverifiedrequest
   #end
+
+  # Facebooker workarounds
+  def request_comes_from_facebook?() false end
 
   def logged_in_to_facebook_and_app_authorized
     if ensure_application_is_installed_by_facebook_user  
@@ -499,6 +470,7 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied
+    store_location
     if current_user
       flash[:notice] = "Access Denied"
       redirect_to home_path
