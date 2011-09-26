@@ -23,7 +23,7 @@ Once these requirements have been fetch, simply run:
 
     git clone git://github.com/newscloud/n2.git
     cd n2
-		cap newscloud:run
+    cap newscloud:run
 
 This will run through a setup wizard to grab your config settings, bootstrap your server with minimal requirements to run chef-solo, bootstrap the system requirements with chef, and then do a full capistrano deployment.
 
