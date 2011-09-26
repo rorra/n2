@@ -5,6 +5,8 @@ NewsCloud is a free, open-source, community engagement platform which is closely
 
 For more details on NewsCloud, visit [our website](http://newscloud.com). Follow [@newscloud on Twitter](http://twitter.com/newscloud) for updates.
 
+We also have a [guide to our new easy install](http://blog.newscloud.com/2011/06/easy-install-for-newscloud-.html) with a demonstration video.
+
 Quick Start Newscloud Production Server With Chef
 =================================================
 
