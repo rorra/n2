@@ -1,7 +1,8 @@
 # Inspired by:
 # http://blog.hulihanapplications.com/browse/view/69-autodetecting-oauth-providers-with-omniauth
 
-config = YAML::load_file(File.join(Rails.root, "config", "providers.yml"))
+config_file = File.join(Rails.root, "config", "providers.yml")
+config = File.exists?(config_file) ? YAML::load_file(config_file) : nil
 APP_CONFIG['omniauth'] = config
 
 #take keys of hash and transform those to a symbols
