@@ -49,6 +49,8 @@ gem 'builder', '2.1.2'
 gem 'curb', :git => 'git://github.com/taf2/curb.git'
 gem 'sax-machine', :git => 'git://github.com/pauldix/sax-machine.git'
 
+gem "omniauth", "~> 0.2.6"
+
 source("http://gems.github.com") { gem "mdalessio-dryopteris", "0.1.2" }
 
 #gem 'feedzirra', '0.0.18.1'

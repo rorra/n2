@@ -1,10 +1,18 @@
 class NewswiresController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index]
-  before_filter :login_required, :only => [:quick_post]
-  before_filter :load_top_stories, :only => [:index]
 
   after_filter :store_location, :only => [:index]
+  
+  access_control do
+    allow all, :to => [:index, :show, :feed_index]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:quick_post]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @current_sub_tab = 'Browse Wires'

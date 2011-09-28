@@ -18,7 +18,7 @@
             %a== #{like_link @gallery} #{@gallery.votes_tally}
           %li
             %a== #{link_to t('comment'), gallery_path(@gallery, :anchor => "postCommentBox")} #{@gallery.comments_count}
-          %li= fb_share_item_button(@gallery)
+          -#%li= fb_share_item_button(@gallery)
           %li
             = twitter_share_item_link @gallery, @gallery.title
           %li.nomargin

@@ -29,7 +29,7 @@ require "#{RAILS_ROOT}/lib/facebook_request.rb"
 
 Rails::Initializer.run do |config|
   config.middleware.use Rack::FacebookRequest
-  config.middleware.use Newscloud::IframeRewriter
+  #config.middleware.use Newscloud::IframeRewriter
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

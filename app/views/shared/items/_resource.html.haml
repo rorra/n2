@@ -12,4 +12,4 @@
       %h3= generic_posted_by resource
       %span.btnComment== #{like_link resource} #{resource.votes_tally}
       %span.btnComment== #{link_to t('.resources_comments'), resource_path(resource, :anchor => "commentListTop")} #{resource.comments_count}
-      %span.btnComment= fb_share_item_button(resource)
+      -#%span.btnComment= fb_share_item_button(resource)

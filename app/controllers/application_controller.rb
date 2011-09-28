@@ -1,40 +1,13 @@
 class ApplicationController < ActionController::Base
-  rescue_from Facebooker::Session::SessionExpired, :with => :facebook_session_expired
-  rescue_from Facebooker::Session::MissingOrInvalidParameter, :with => :facebook_session_expired
   rescue_from Acl9::AccessDenied, :with => :access_denied
-
-  def rescue_action(exception)
-    if (defined?(exception.message) and defined?(exception.file_name) and defined?(exception.source_extract)) and
-    	 exception.message == 'Invalid parameter' and
-    	 exception.file_name =~ /_header/ and
-    	 exception.source_extract =~ /if logged_in/
-    	facebook_session_expired
-    elsif exception.class.name == "Facebooker::Session::MissingOrInvalidParameter"
-    	facebook_session_expired
-    else
-      super
-    end
-  end
-
-  def facebook_session_expired
-    clear_fb_cookies!
-    clear_facebook_session_information
-    reset_session # remove your cookies!
-    #flash[:error] = "Your facebook session has expired."
-    if canvas?
-      redirect_top link_user_accounts_users_path(:only_path => false, :canvas => true)
-    else
-      redirect_to link_user_accounts_users_path(:only_path => false, :canvas => false)
-    end
-  end
   
-  include AuthenticatedSystem
+  include Newscloud::Util
 
   helper :all # include all helpers, all the time
   before_filter :set_iframe_status
   protect_from_forgery :secret => 'a64cfbca0d60835e7c0ef3f0c814087d14f417155b354ff1b85fc6188e70a7be4d75e93b6699de6fe3ce80a270ff3e7001104932' # See ActionController::RequestForgeryProtection for details
   before_filter :set_p3p_header
-  before_filter :set_facebook_session_wrapper
+  #before_filter :set_facebook_session_wrapper
   before_filter :set_current_tab
   before_filter :set_current_sub_tab
   before_filter :set_ad_layout
@@ -55,6 +28,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_facebook_user
   helper_method :get_setting
   helper_method :get_setting_value
+  helper_method :setting_enabled?
   helper_method :get_ad_layout
   helper_method :iframe_facebook_request?
   helper_method :get_canvas_preference
@@ -75,6 +49,9 @@ class ApplicationController < ActionController::Base
   # TODO:: get this working
   #def handle_unverifiedrequest
   #end
+
+  # Facebooker workarounds
+  def request_comes_from_facebook?() false end
 
   def logged_in_to_facebook_and_app_authorized
     if ensure_application_is_installed_by_facebook_user  
@@ -291,22 +268,11 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     format = options[:format] || request.format.to_sym
-    unless ['html', 'fbml', 'json', 'js', 'fbjs', 'xml', 'atom', 'rss'].include? format.to_s
-      if request.xhr? or request_is_facebook_ajax?
-        if request_comes_from_facebook?
-        	#format = 'fbjs'
-        	format = 'json'
-        else
-        	format = 'json'
-        end
+    unless ['html', 'json', 'js', 'xml', 'atom', 'rss'].include? format.to_s
+      if request.xhr?
+        format = 'json'
       else
-        if request_comes_from_facebook?
-        	#format = 'fbml'
-          # TODO:: needed to change this for iframes as all should be html now
-        	format = 'html'
-        else
-        	format = 'html'
-        end
+        format = 'html'
       end
     end
     opts = {}
@@ -392,6 +358,10 @@ class ApplicationController < ActionController::Base
   end
 
   def get_canvas_preference force = false
+    # DISABLED:: canvas_app
+    return false
+
+
     return false unless force
     preference = get_setting('default_site_preference').try(:value)
     return false unless preference
@@ -406,6 +376,10 @@ class ApplicationController < ActionController::Base
     get_setting(name, sub_type).try(:value)
   end
 
+  def setting_enabled? name, sub_type = nil
+    !! get_setting_value(name, sub_type)
+  end
+  
   def get_ad_layout name, sub_type = nil
     Metadata::AdLayout.get name, sub_type
   end
@@ -475,7 +449,7 @@ class ApplicationController < ActionController::Base
   end
 
   def canvas_url
-    "http://#{Facebooker.canvas_server_base}/#{FACEBOOKER["canvas_page_name"]}/"
+    "https://apps.facebook.com/#{APP_CONFIG["canvas_page_name"] || get_setting_value('site_title')}/"
   end
 
   def base_site_url
@@ -500,9 +474,10 @@ class ApplicationController < ActionController::Base
   end
 
   def access_denied
+    store_location
     if current_user
       flash[:notice] = "Access Denied"
-      redirect_to home_path
+      redirect_to home_index_path
     else
       flash[:notice] = "Access Denied. Try logging in first."
       redirect_to new_session_path

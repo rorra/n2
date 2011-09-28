@@ -14,7 +14,6 @@ class ImageSweeper < ActionController::Caching::Sweeper
     image.imageable.expire
     ['top_images', 'newest_images', 'gallery_images'].each do |fragment|
       controller.expire_fragment "#{fragment}_html"
-      controller.expire_fragment "#{fragment}_fbml"
     end
   end
 

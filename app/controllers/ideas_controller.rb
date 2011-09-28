@@ -5,14 +5,19 @@ class IdeasController < ApplicationController
 
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show, :my_ideas]
-  before_filter :login_required, :only => [:new, :create, :update, :my_ideas]
-  before_filter :load_top_ideas
-  before_filter :load_newest_ideas
-  before_filter :load_featured_ideas, :only => [:index]
   before_filter :set_idea_board
-  before_filter :load_newest_idea_boards
 
   after_filter :store_location, :only => [:index, :new, :show]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :my_ideas]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
@@ -21,10 +26,8 @@ class IdeasController < ApplicationController
     set_sponsor_zone('ideas')
     respond_to do |format|
       format.html { @paginate = true }
-      format.fbml { @paginate = true }
       format.atom
       format.json { @ideas = Idea.refine(params) }
-      format.fbjs { @ideas = Idea.refine(params) }
     end
   end
 

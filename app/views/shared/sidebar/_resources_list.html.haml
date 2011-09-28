@@ -6,7 +6,7 @@
 
   .list_items
     %ul.listTags
-      - resources.each do |resource|
+      - Resource.active.top(5).each do |resource|
         %li
           .itemBlock
             .profilePic= local_linked_profile_pic resource.user

@@ -6,7 +6,16 @@ class PredictionsController < ApplicationController
 
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index]
-  before_filter :login_required, :only => [:like, :new, :create, :update, :my_predictions]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags, :scores]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :my_resources]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     redirect_to play_prediction_groups_path

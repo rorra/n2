@@ -1,11 +1,20 @@
 class QuestionsController < ApplicationController
 
-  before_filter :login_required, :only => [:like, :new, :create, :create_answer, :new_answer, :my_questions]
   before_filter :set_ad_layout, :only => [:index, :show, :my_questions]
 
   cache_sweeper :qanda_sweeper, :only => [:create, :update, :destroy, :create_answer]
 
   after_filter :store_location, :only => [:index, :new, :show, :new_answer, :my_questions]
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :my_questions, :new_answer, :create_answer]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"

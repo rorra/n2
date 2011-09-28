@@ -35,12 +35,6 @@ class StorySweeper < ActionController::Caching::Sweeper
   end
 
   def clear_story_cache(story)
-    #expire_page :controller => '/stories', :action => 'index', :format => 'html'
-    #expire_page :controller => '/stories', :action => 'index', :format => 'fbml'
-    #expire_page :controller => '/home', :action => 'index', :format => 'html'
-    #expire_page :controller => '/home', :action => 'index', :format => 'fbml'
-    #expire_page :controller => '/stories', :action => 'show', :id => story, :format => 'html'
-    #expire_page :controller => '/stories', :action => 'show', :id => story, :format => 'fbml'
     ['stories_short','top_stories', 'active_users', 'most_discussed_stories', 'top_users', 'top_ideas', 'top_events', 'featured_items', 'newest_users', 'newest_ideas', 'header', 'fan_application', 'prompt_permissions', "#{story.cache_key}_top", "#{story.cache_key}_bottom", "#{story.cache_key}_sidebar", "#{story.cache_key}_who_liked", "top_Content_tags", "top_Content_sections"].each do |fragment|
       expire_fragment "#{fragment}_html"
     end

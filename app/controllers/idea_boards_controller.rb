@@ -1,9 +1,16 @@
 class IdeaBoardsController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show]
-  before_filter :login_required, :only => [:new, :create, :update]
-  before_filter :load_top_ideas, :only => :index
-  before_filter :load_newest_ideas, :only => :index
+  
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :my_resources]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @current_sub_tab = 'Browse Idea Topics'

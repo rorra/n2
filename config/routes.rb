@@ -10,6 +10,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :oauth, :controller=>"oauth"
   map.oauth_callback "/oauth/create", :controller=>"oauth", :action=>"create"
 
+  # Omniauth
+  map.auth_provider_callback "/auth/:provider/callback", :controller => "sessions", :action => "create"
+
   # TEST DESIGN ROUTE
   map.test_design '/test_design.:format', :controller => 'home', :action => 'test_design'
 

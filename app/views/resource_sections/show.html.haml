@@ -5,7 +5,7 @@
   .panel_2
     .panelBar.clearfix
       %h2= @resource_section.name
-      %span.bar_link= fb_share_item_button(@resource_section)
+      -#%span.bar_link= fb_share_item_button(@resource_section)
     .subtitle
       %span= @resource_section.description
     .itemListWrap
@@ -27,7 +27,7 @@
                     %h3= generic_posted_by resource
                     %span.btnComment== #{like_link resource} #{resource.votes_tally}
                     %span.btnComment== #{link_to t('comments'), [@resource_section, resource]} #{resource.comments_count}
-                    %span.btnComment= fb_share_item_button(resource)
+                    -#%span.btnComment= fb_share_item_button(resource)
 
   = render :partial => 'shared/index_footer', :locals => { :index_path => resource_section_path(:only_path => false, :canvas => iframe_facebook_request?), :title => @resource_section.name }
                   

@@ -1,6 +1,14 @@
 class CommentsController < ApplicationController
-  before_filter :login_required, :only => [:create,:like]
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy]
+  
+ access_control do
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :like, :dislike]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def create
     @commentable = find_commentable
@@ -35,15 +43,11 @@ class CommentsController < ApplicationController
        if current_user and @comment.present? and current_user.vote_for(@comment)
        	success = "Thanks for your vote!"
        	format.html { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
-       	format.fbml { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
        	format.json { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
-       	format.fbjs { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
        else
        	error = "Vote failed"
        	format.html { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
-       	format.fbml { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
        	format.json { render :json => { :msg => error }.to_json }
-       	format.fbjs { render :text => { :msg => error }.to_json }
        end
      end
    end
@@ -54,15 +58,11 @@ class CommentsController < ApplicationController
        if current_user and @comment.present? and current_user.vote_against(@comment)
        	success = "Thanks for your vote!"
        	format.html { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
-       	format.fbml { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
        	format.json { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
-       	format.fbjs { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
        else
        	error = "Vote failed"
        	format.html { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
-       	format.fbml { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
        	format.json { render :json => { :msg => error }.to_json }
-       	format.fbjs { render :text => { :msg => error }.to_json }
        end
      end
    end

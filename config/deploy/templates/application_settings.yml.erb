@@ -1,0 +1,17 @@
+defaults: &defaults
+  base_site_url: "http://<%= base_url %>"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+cucumber:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults

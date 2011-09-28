@@ -2,8 +2,18 @@ class Mobile::StoriesController < ApplicationController
   layout proc{ |c| c.request.xhr? ? false : "mobile" }
 
   before_filter :set_current_tab
-  #before_filter :login_required, :only => [:like, :new, :create]
-  #before_filter :load_top_stories, :only => [:index]
+
+    
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
+
 
   def index
     @contents = Content.find(:all, :limit => 10, :order => "created_at desc")

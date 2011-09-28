@@ -1,7 +1,12 @@
 class CardsController < ApplicationController
-  #cache_sweeper :story_sweeper, :only => [:post_sent]
 
-  before_filter :login_required, :except => :received
+  access_control do
+    allow anonymous, :to => [:received]
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:show, :post_sent, :get_card_form, :my_received, :my_sent, :received]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def index
     @current_sub_tab = 'Send a Card'

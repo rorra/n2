@@ -168,6 +168,8 @@ module ApplicationHelper
       else
         temp = link_to fb_profile_pic(user, options), destination
       end
+    elsif user.twitter_user? and not user.system_user?
+      temp = link_to image_tag(user.profile_image || default_image), user, link_options
     elsif user.twitter_user?
       temp = link_to image_tag(twitter_image(user)), twitter_url(user), link_options
     else
@@ -181,6 +183,10 @@ module ApplicationHelper
     return temp
   end
 
+  def fb_profile_pic user, options = {}
+    image_tag("http://graph.facebook.com/#{user.fb_user_id}/picture")
+  end
+
   def twitter_url user
     return user unless user.twitter_user?
     "http://twitter.com/#{user.tweet_account.screen_name}"
@@ -188,6 +194,7 @@ module ApplicationHelper
 
   def twitter_image user
     return default_image unless user.twitter_user?
+    return user.profile.profile_image if user.profile and user.profile.profile_image.present?
     user.tweet_account.profile_image_url.present? ? user.tweet_account.profile_image_url : default_image
   end
 
@@ -232,24 +239,40 @@ module ApplicationHelper
       firstnameonly = get_setting('firstnameonly').try(:value) || false
       options.merge!(:firstnameonly => firstnameonly) if firstnameonly
       if target
-        link_to fb_name(user, options), user_path(user, link_options), :target => target
+        #link_to fb_name(user, options), user_path(user, link_options), :target => target
+        link_to user.public_name, user_path(user, link_options), :target => target
       else
-        link_to fb_name(user, options), user_path(user, link_options)
+        #link_to fb_name(user, options), user_path(user, link_options)
+        link_to user.public_name, user_path(user, link_options)
       end
-    elsif user.twitter_user?
+    elsif user.twitter_user? and user.system_user?
       link_to user.twitter_name, twitter_url(user)
     else
       link_to user.public_name, user_path(user, link_options)
     end
   end
 
+  def facebook_profile_url user
+    "http://www.facebook.com/profile.php?id=#{user.fb_user_id}"
+  end
+  
+  def external_linked_profile_name user, opts = {}
+    if user.twitter_user?
+      link_to user.twitter_name, twitter_url(user)
+    elsif user.facebook_user?
+      link_to user.public_name, facebook_profile_url(user)
+    else
+      link_to user.public_name, user
+    end
+  end
+  
   def nl2br(string)
     string.gsub(/<.?br.*?>/i,"<br />").gsub("\n\r","<br />").gsub("\r", "").gsub("\n", "<br />")
   end
 
   def profile_fb_name(user,linked = false,use_you = true, possessive = false)
     firstnameonly = get_setting('firstnameonly').try(:value) || false
-    fb_name(user, :use_you => use_you, :possessive => possessive, :capitalize => true, :linked => linked, :firstnameonly => firstnameonly )
+    external_linked_profile_name(user)
   end
   
   def path_to_self(item, use_canvas = false)

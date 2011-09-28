@@ -1,9 +1,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  include Authentication
-  include Authentication::ByPassword
-  include Authentication::ByCookieToken
 
   acts_as_authorization_subject
   has_and_belongs_to_many :roles
@@ -26,21 +23,20 @@ class User < ActiveRecord::Base
   validates_presence_of     :login, :if => :password_required?
   validates_length_of       :login,    :within => 3..40, :if => :password_required?
   validates_uniqueness_of   :login, :if => :password_required?
-  validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message, :if => :password_required?
+  validates_format_of       :login,    :with => Newscloud::Util.login_regex, :message => Newscloud::Util.bad_login_message, :if => :password_required?
 
-  validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
+  validates_format_of       :name,     :with => Newscloud::Util.name_regex,  :message => Newscloud::Util.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
 
   validates_presence_of     :email, :if => :password_required?
   validates_length_of       :email,    :within => 6..100, :if => :password_required? #r@a.wk
   validates_uniqueness_of   :email, :if => :password_required?
-  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message, :if => :password_required?
+  validates_format_of       :email,    :with => Newscloud::Util.email_regex, :message => Newscloud::Util.bad_email_message, :if => :password_required?
   validates_presence_of     :name
   validates_presence_of     :name
   
   # TODO::HACK:: fb registration errors
   # TODO::REMOVE:: deprecated: http://developers.facebook.com/docs/reference/rest/connect.registerusers/
-  #after_create :register_user_to_fb, :if => Proc.new { Rails.env.production? }
   before_save :check_profile
   
   has_many :contents, :after_add => :trigger_story
@@ -72,6 +68,7 @@ class User < ActiveRecord::Base
   has_many :gallery_items
   has_many :prediction_results
   has_one :prediction_score
+  has_many :authentications
 
   belongs_to :last_viewed_feed_item, :class_name => "PfeedItem", :foreign_key => "last_viewed_feed_item_id"
   belongs_to :last_delivered_feed_item, :class_name => "PfeedItem", :foreign_key => "last_delivered_feed_item_id"
@@ -85,6 +82,7 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   # NOTE:: this must be above has_friendly_id, see below
   attr_accessible :login, :email, :name, :password, :password_confirmation, :karma_score, :is_admin, :is_blocked, :cached_slug, :is_moderator, :is_editor, :is_host
+  attr_accessor :password, :password_confirmation
 
   accepts_nested_attributes_for :user_profile
 
@@ -192,7 +190,6 @@ class User < ActiveRecord::Base
     new_facebooker.fb_user_id = fb_user.uid.to_i
     #We need to save without validations
     new_facebooker.save(false)
-    #new_facebooker.register_user_to_fb
   end
 
   #We are going to connect this user object with a facebook id. But only ever one account.
@@ -209,16 +206,6 @@ class User < ActiveRecord::Base
       self.fb_user_id = fb_user_id
       save(false)
     end
-  end
-
-  #The Facebook registers user method is going to send the users email hash and our account id to Facebook
-  #We need this so Facebook can find friends on our local application even if they have not connect through connect
-  #We hen use the email hash in the database to later identify a user from Facebook with a local user
-  def register_user_to_fb
-    users = {:email => email, :account_id => id}
-    r = Facebooker::User.register([users])
-    self.email_hash = Facebooker::User.hash_email(email)
-    save(false)
   end
 
   def facebook_user?
@@ -333,7 +320,11 @@ class User < ActiveRecord::Base
   def twitter_name
     return public_name unless twitter_user?
 
-    "@" + tweet_account.screen_name
+    if tweet_account.present?
+      "@" + tweet_account.screen_name
+    else
+      "@" + name
+    end
   end
 
   def to_s
@@ -421,6 +412,8 @@ class User < ActiveRecord::Base
       true
     elsif method == :is_admin?
       self.is_admin?
+    elsif method == :is_moderator?
+      self.is_moderator?
     elsif object.respond_to?(method)
     	  object.send(method, self)
     else
@@ -452,6 +445,18 @@ class User < ActiveRecord::Base
     User.find(:all, :select => "id", :conditions => ["fb_user_id IN (?)", friends_array]).map(&:id)
   end
 
+  def profile_image
+    if self.profile and self.profile.profile_image
+      self.profile.profile_image
+    elsif self.twitter_user?
+      nil
+    elsif self.facebook_user?
+      nil
+    else
+      nil
+    end
+  end
+  
   def self.get_welcome_host
     host_id = Metadata::Setting.get_setting('welcome_host').try(:value).try(:to_i)
     return nil unless host_id and not host_id.zero?
@@ -459,6 +464,38 @@ class User < ActiveRecord::Base
     User.active.find_by_id(host_id) || User.active.find_by_fb_user_id(host_id) || UserProfile.active.find_by_facebook_user_id(host_id).try(:user) || nil
   end
 
+  def self.build_from_omniauth(omniauth)
+    user = self.new
+    user.name = omniauth['user_info']['name']
+    user.twitter_user = true
+    
+    user.build_profile
+    user.profile.profile_image = omniauth['user_info']['image']
+    user.build_authentication_from_omniauth(omniauth)
+    user
+  end
+
+  def build_authentication_from_omniauth(omniauth)
+    self.authentications.build({
+                                 :provider           => omniauth['provider'],
+                                 :uid                => omniauth['uid'],
+                                 :credentials_token  => omniauth['credentials']['token'],
+                                 :credentials_secret => omniauth['credentials']['secret']
+                               })
+  end
+
+  def build_authentication_from_omniauth!(omniauth)
+    self.build_authentication_from_omniauth(omniauth) and self.save!
+  end
+    
+  def self.find_facebook_user(fb_user_id)
+    User.find_by_fb_user_id(fb_user_id) || UserProfile.find_by_facebook_user_id(fb_user_id, :include => :user).try(:user)
+  end
+
+  def is_identity_user? user
+    self == user
+  end
+  
   private
 
   def mogli_client
