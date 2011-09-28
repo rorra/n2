@@ -10,7 +10,7 @@
   - unless User.admins.any?
     %h4 You need to add an admin user.
     %p== First register #{link_to 'here', signup_path} if you have not done so already. Next add set an admin user #{link_to 'here', admin_users_path}.
-  - unless FACEBOOKER["api_key"] and FACEBOOKER["secret_key"]
+  - unless false and FACEBOOKER["api_key"] and FACEBOOKER["secret_key"]
     %h4 Facebook application configuration
     %p
       == Please provide your application name, callback url, api key and secret key in the file config/facebooker.yml, and then restart your newscloud application. If you do not have a facebook application,#{link_to "create one now", "http://www.facebook.com/developers/createapp.php", :target => "_blank"}.
