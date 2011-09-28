@@ -1,9 +1,11 @@
 Welcome to the Newscloud framework
 ==================================
 
-NewsCloud is an open-source Facebook Connect Website and Facebook Application that brings the power of community to news  organizations. It is powered in part by technology funded by the John S. and James L. Knight Foundation.Funding for our open source development will continue through April 30, 2012.
+NewsCloud is a free, open-source, community engagement platform which is closely integrated with Facebook Connect. It is powered in part by technology funded by the John S. and James L. Knight Foundation.Funding for our open source development will continue through April 30, 2012.
 
-For a complete feature list of the platform, visit [http://newscloud.net/idLbRa](http://newscloud.net/idLbRa). Follow [@newscloud on Twitter](http://twitter.com/newscloud) for updates.
+For more details on NewsCloud, visit [our website](http://newscloud.com). Follow [@newscloud on Twitter](http://twitter.com/newscloud) for updates.
+
+We also have a [guide to our new easy install](http://blog.newscloud.com/2011/06/easy-install-for-newscloud-.html) with a demonstration video.
 
 Quick Start Newscloud Production Server With Chef
 =================================================
@@ -15,13 +17,15 @@ In addition to the standard requirements of a registered facebook application, y
   * A minimal ubuntu server with at least 1024 megs of ram and ssh installed
   * A registered domain name point to your ubuntu server
   * A local ssh key in ~/ssh/id_rsa(.pub) (this will be used for passwordless execution of tasks on the remote server)
-  * GEMS: gem install capistrano capistrano-ext bundler
+  * GEMS: gem install --version=2.5.10 capistrano
+  * and: gem install capistrano-ext bundler
+  * Review [Configuring Ruby on Rails for NewsCloud](http://support.newscloud.com/kb/installing-newscloud/how-to-configure-ruby-on-rails-for-newscloud) if you need more information.
 
 Once these requirements have been fetch, simply run:
 
-        git clone git://github.com/newscloud/n2.git
-        cd n2
-		cap newscloud:run
+    git clone git://github.com/newscloud/n2.git
+    cd n2
+    cap newscloud:run
 
 This will run through a setup wizard to grab your config settings, bootstrap your server with minimal requirements to run chef-solo, bootstrap the system requirements with chef, and then do a full capistrano deployment.
 
@@ -32,8 +36,7 @@ We now have a full guide for bootstrapping and install newscloud on a minimal Ub
 
 See the guide at [INSTALL-ubuntu.md](https://github.com/newscloud/n2/blob/master/INSTALL-ubuntu.md)
 
-This guide will bootstrap a production newscloud install on Ubuntu 10.04. We have tested this configuration specifically for a 1 GB Rackspace cloud-based server, which costs about $45/mo. 
-
+This guide will bootstrap a production newscloud install on Ubuntu 10.04. We have tested this configuration specifically for a 1 GB Rackspace cloud-based server, which costs about $45/mo. [Sign up with Rackspace](https://signup.rackspacecloud.com/signup?id=2352)
 
 Getting Started
 ===============
@@ -55,6 +58,7 @@ Register a facebook application
   * Other settings of note are:
     * Canvas Type = Iframe
 	* Iframe Size = Auto-resize
+	* Note: as of October 1st, 2011, NewsCloud has temporarily discontinued support for Facebook canvas applications due to SSL hosting requirements and infrastructure work that we do not have the resources to complete at this time. We hope to add this back soon. In general we recommend people use the website version of this application with Facebook Connect.
 
 Install required software
 -------------------------
