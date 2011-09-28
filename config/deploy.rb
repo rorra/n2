@@ -25,7 +25,7 @@ set :skin_dir, "/data/config/n2_sites"
 after("deploy:symlink") do
   # setup shared files
   %w{/config/unicorn.conf.rb /tmp/sockets /config/database.yml
-    /config/facebooker.yml /config/application_settings.yml
+    /config/facebooker.yml /config/application_settings.yml /config/providers.yml
     /config/application.god /config/newrelic.yml /config/s3.yml
     /config/smtp.yml /config/resque_schedule.yml /config/menu.yml}.each do |file|
       run "ln -nfs #{shared_path}#{file} #{release_path}#{file}"

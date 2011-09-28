@@ -6,5 +6,5 @@ providers:
     key: "consumer_key"
     secret: "consumer_secret"
   facebook:
-    key: "api_key"
-    secret: "api_secret"
+    key: "app_id"
+    secret: "app_secret"
