@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
   before_filter :logged_in_to_facebook_and_app_authorized, :only => [:new, :drafts, :create, :edit, :update, :like], :if => :request_comes_from_facebook?
-  before_filter :check_valid_user, :only => [:edit, :update ]
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy, :like]
 
+  before_filter :find_article, :only => [:edit, :update]
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :drafts, :user_index]
   before_filter :set_custom_sidebar_widget, :only => [:index]
@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
     allow :admin, :of => :current_user
     allow :admin
     allow logged_in, :to => [:new, :create, :drafts]
-    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+    allow :owner, :of => :article, :to => [:edit, :update]
   end
 
   def index
@@ -132,10 +132,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-  
-  def check_valid_user
-    redirect_to home_index_path and return false unless current_user and ((current_user == Article.active.find(params[:id]).author or current_user.is_moderator?))
-  end
 
   def set_current_tab
     if MENU.key? 'articles'
@@ -145,4 +141,8 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def find_article
+    @article ||= Article.active.find(params[:id])
+  end
+  
 end

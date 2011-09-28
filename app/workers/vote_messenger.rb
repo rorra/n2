@@ -2,6 +2,9 @@ class VoteMessenger
   @queue = :vote_messenger
 
   def self.perform(vote_id, item_url, app_caption, image_url)
+    # TEMPORARILY DISABLE
+    return true
+    
     vote = Vote.find(vote_id)
 
     self.facebook_messenger vote, item_url, app_caption, image_url

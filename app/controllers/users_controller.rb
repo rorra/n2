@@ -2,12 +2,20 @@ class UsersController < ApplicationController
   cache_sweeper :profile_sweeper, :only => [:update_bio]
   cache_sweeper :user_sweeper, :only => [:create, :link_user_accounts]
 
-  before_filter :check_valid_user, :only => [:edit, :update ]
-  before_filter :login_required, :only => [:update_bio, :feed, :edit, :update, :dont_ask_me_for_email, :invite]
-  before_filter :load_top_stories, :only => [:show]
-  before_filter :ensure_authenticated_to_facebook, :only => :link_user_accounts
+  ###before_filter :ensure_authenticated_to_facebook, :only => :link_user_accounts
+  before_filter :find_page_user, :only => [:edit, :update]
   before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :enable_iframe_urls, :only => [:current]
+
+  access_control do
+    allow all, :to => [:index, :show, :feed, :account_menu, :current]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :update_bio, :dont_ask_me_for_email, :dont_ask_me_invite_friends, :invite]
+    allow :identity_user, :of => :page_user, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
@@ -114,6 +122,10 @@ class UsersController < ApplicationController
   end
 
   def invite
+    flash[:error] = "User invites is currently disabled"
+    redirect_to home_index_path and return
+
+    
     @success = false
     if request.post?
     	if params['action'] == 'invite' and params['ids'].present?
@@ -190,4 +202,8 @@ class UsersController < ApplicationController
     redirect_to home_index_path and return false unless current_user == User.active.find(params[:id])
   end
 
+  def find_page_user
+    @page_user ||= User.active.find(params[:id])
+  end
+  
 end

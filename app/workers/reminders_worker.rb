@@ -26,17 +26,17 @@ class RemindersWorker
         end
       end      
       # reminder: invite your friends
-      recipients = UserProfile.active.find(:all, :conditions => [ "dont_ask_me_invite_friends = ? and (invite_last_ask < date_sub(NOW(), INTERVAL 4 WEEK) or invite_last_ask is null)",0 ], :order => "user_id DESC", :joins => :user).map(&:user)
-      recipients.each do |recipient|
-        chirp = Chirp.new({
-          :chirper => user,
-          :recipient => recipient,
-          :message => ActionView::Base.new.render(:partial => "#{RAILS_ROOT}/app/views/reminders/invite_friends.html.haml", :locals => { :user => recipient } ) 
-        })
-        if chirp.valid? and user.sent_chirps.push chirp
-          recipient.user_profile.update_attribute(:invite_last_ask, Time.now)
-        end
-      end      
+      #recipients = UserProfile.active.find(:all, :conditions => [ "dont_ask_me_invite_friends = ? and (invite_last_ask < date_sub(NOW(), INTERVAL 4 WEEK) or invite_last_ask is null)",0 ], :order => "user_id DESC", :joins => :user).map(&:user)
+      #recipients.each do |recipient|
+      #  chirp = Chirp.new({
+      #    :chirper => user,
+      #    :recipient => recipient,
+      #    :message => ActionView::Base.new.render(:partial => "#{RAILS_ROOT}/app/views/reminders/invite_friends.html.haml", :locals => { :user => recipient } ) 
+      #  })
+      #  if chirp.valid? and user.sent_chirps.push chirp
+      #    recipient.user_profile.update_attribute(:invite_last_ask, Time.now)
+      #  end
+      #end      
     end
   end
 end

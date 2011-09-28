@@ -30,7 +30,7 @@
                 = link_to t('footer.setup_twitter', :setup_twitter_path => admin_twitter_settings_path, :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere" ).html_safe            
       .panel-third
         = link_to t('footer.contact'), contact_us_path, :class => "icon-link email"
-        = link_to t('account_menu.invite_friends'), invite_users_path(:format => 'html'), :class => "icon-link friends"
+        -#= link_to t('account_menu.invite_friends'), invite_users_path(:format => 'html'), :class => "icon-link friends"
         %a.icon-link.rssfeed{:target => "_blank", :title => t('.rss_title'), :href => stories_path(:format => :atom)}= t('.rss')
       .panel-third.last
         %ul.footer-list

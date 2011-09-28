@@ -2,6 +2,9 @@ class CommentMessenger
   @queue = :comment_messenger
 
   def self.perform(comment_id, item_url, app_caption, image_url)
+    # TEMPORARILY DISABLE
+    return true
+    
     comment = Comment.active.find(comment_id)
 
     self.facebook_messenger comment, item_url, app_caption, image_url

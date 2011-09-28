@@ -60,6 +60,10 @@ class Gallery < ActiveRecord::Base
     [self.user, self.voices].flatten.uniq
   end
 
+  def is_owner? user
+    user == self.user
+  end
+  
   def self.build_from_youtube_playlist playlist, user = nil
     if playlist =~ %r{^https?://(?:www\.)?youtube.com\/view_play_list\?p=([^"&]+)}
       playlist_id = $1

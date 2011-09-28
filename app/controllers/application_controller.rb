@@ -358,6 +358,10 @@ class ApplicationController < ActionController::Base
   end
 
   def get_canvas_preference force = false
+    # DISABLED:: canvas_app
+    return false
+
+
     return false unless force
     preference = get_setting('default_site_preference').try(:value)
     return false unless preference
@@ -445,7 +449,7 @@ class ApplicationController < ActionController::Base
   end
 
   def canvas_url
-    "http://#{Facebooker.canvas_server_base}/#{FACEBOOKER["canvas_page_name"]}/"
+    "https://apps.facebook.com/#{APP_CONFIG["canvas_page_name"] || get_setting_value('site_title')}/"
   end
 
   def base_site_url
@@ -473,7 +477,7 @@ class ApplicationController < ActionController::Base
     store_location
     if current_user
       flash[:notice] = "Access Denied"
-      redirect_to home_path
+      redirect_to home_index_path
     else
       flash[:notice] = "Access Denied. Try logging in first."
       redirect_to new_session_path

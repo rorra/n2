@@ -1,8 +1,18 @@
 class GalleriesController < ApplicationController
   cache_sweeper :gallery_sweeper, :only => [:create, :update, :destroy, :add_gallery_item]
-  before_filter :login_required, :only => [:new, :create, :edit, :update, :add_gallery_item]
   before_filter :check_valid_user, :only => [:edit, :update]
+  before_filter :find_gallery, :only => [:edit, :update]
   before_filter :set_enable_file_uploads
+
+  access_control do
+    allow all, :to => [:index, :show, :tags]
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :admin
+    allow logged_in, :to => [:new, :create, :add_gallery_item]
+    allow :owner, :of => :gallery, :to => [:edit, :update]
+  end
 
   def index
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
@@ -147,4 +157,8 @@ class GalleriesController < ApplicationController
     #@enable_file_uploads = true
   end
 
+  def find_gallery
+    @gallery ||= Gallery.active.find(params[:id])
+  end
+  
 end

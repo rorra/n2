@@ -320,7 +320,11 @@ class User < ActiveRecord::Base
   def twitter_name
     return public_name unless twitter_user?
 
-    "@" + tweet_account.screen_name
+    if tweet_account.present?
+      "@" + tweet_account.screen_name
+    else
+      "@" + name
+    end
   end
 
   def to_s
@@ -408,6 +412,8 @@ class User < ActiveRecord::Base
       true
     elsif method == :is_admin?
       self.is_admin?
+    elsif method == :is_moderator?
+      self.is_moderator?
     elsif object.respond_to?(method)
     	  object.send(method, self)
     else
@@ -485,7 +491,11 @@ class User < ActiveRecord::Base
   def self.find_facebook_user(fb_user_id)
     User.find_by_fb_user_id(fb_user_id) || UserProfile.find_by_facebook_user_id(fb_user_id, :include => :user).try(:user)
   end
-        
+
+  def is_identity_user? user
+    self == user
+  end
+  
   private
 
   def mogli_client

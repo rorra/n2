@@ -6,7 +6,6 @@ class StoriesController < ApplicationController
 
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show]
-  before_filter :login_required, :only => [:like, :new, :create]
   before_filter :set_custom_sidebar_widget, :only => [:index, :show]
 
   after_filter :store_location, :only => [:index, :new, :show]

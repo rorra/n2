@@ -5,11 +5,7 @@ class ResourcesController < ApplicationController
 
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show, :my_resources]
-  before_filter :load_top_resources
-  before_filter :load_newest_resources
   before_filter :set_resource_section
-  before_filter :load_featured_resources, :only => [:index]
-  before_filter :load_newest_resource_sections
 
   after_filter :store_location, :only => [:index, :new, :show, :my_resources]
   

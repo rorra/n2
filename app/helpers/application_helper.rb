@@ -252,13 +252,27 @@ module ApplicationHelper
     end
   end
 
+  def facebook_profile_url user
+    "http://www.facebook.com/profile.php?id=#{user.fb_user_id}"
+  end
+  
+  def external_linked_profile_name user, opts = {}
+    if user.twitter_user?
+      link_to user.twitter_name, twitter_url(user)
+    elsif user.facebook_user?
+      link_to user.public_name, facebook_profile_url(user)
+    else
+      link_to user.public_name, user
+    end
+  end
+  
   def nl2br(string)
     string.gsub(/<.?br.*?>/i,"<br />").gsub("\n\r","<br />").gsub("\r", "").gsub("\n", "<br />")
   end
 
   def profile_fb_name(user,linked = false,use_you = true, possessive = false)
     firstnameonly = get_setting('firstnameonly').try(:value) || false
-    fb_name(user, :use_you => use_you, :possessive => possessive, :capitalize => true, :linked => linked, :firstnameonly => firstnameonly )
+    external_linked_profile_name(user)
   end
   
   def path_to_self(item, use_canvas = false)

@@ -85,6 +85,10 @@ class Article < ActiveRecord::Base
     StorySweeper
   end
 
+  def is_owner? user
+    user == self.author
+  end
+  
   private  
   
   def sanitize_body

@@ -5,7 +5,7 @@
     %h2= t('.title')
   .list_items
     %ul
-      - resource_sections.each do |resource_section|
+      - ResourceSection.active.newest(5).each do |resource_section|
         %li
           .itemBlock
             %h4= link_to resource_section.name, resource_section

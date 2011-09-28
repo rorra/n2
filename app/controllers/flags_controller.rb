@@ -1,7 +1,14 @@
 class FlagsController < ApplicationController
-  before_filter :login_required, :only => [:create,:block,:feature]
-  before_filter :admin_user_required, :only => [:block]
-  before_filter :moderator_user_required, :only => [:feature]
+
+  access_control do
+    # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
+    # FIXME:: get admins switched over to using :admin role
+    allow :admin, :of => :current_user
+    allow :moderator, :of => :current_user, :to => [:feature]
+    allow :admin
+    allow logged_in, :to => [:create]
+    #allow :owner, :of => :model_klass, :to => [:edit, :update]
+  end
 
   def create
     @flaggable = find_moderatable_item
