@@ -1,6 +1,3 @@
-client_options:
-  ssl:
-    ca_path: "/etc/ssl/certs"
 providers:
   twitter:
     key: "consumer_key"
@@ -8,3 +5,7 @@ providers:
   facebook:
     key: "app_id"
     secret: "app_secret"
+    options:
+      client_options:
+        ssl:
+          ca_path: "/etc/ssl/certs"
