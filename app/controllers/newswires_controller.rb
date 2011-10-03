@@ -2,8 +2,6 @@ class NewswiresController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index]
 
-  after_filter :store_location, :only => [:index]
-  
   access_control do
     allow all, :to => [:index, :show, :feed_index]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)

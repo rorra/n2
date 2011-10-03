@@ -5,7 +5,7 @@ class VotesController < ApplicationController
     @voteable = find_voteable
     respond_to do |format|
       unless current_user
-      	format.html { flash[:error] = "You must login to vote"; redirect_to params[:return_to] || @voteable }
+      	format.html { flash[:error] = "You must login to vote"; redirect_to @voteable }
       	format.json { render :json => { :msg => "You must login" }.to_json }
       end
       error = (current_user and current_user.voted_for?(@voteable)) ? "You already voted" : false
@@ -17,12 +17,12 @@ class VotesController < ApplicationController
           vote.async_vote_messenger polymorphic_path(@voteable.item_link, :only_path => false, :canvas => iframe_facebook_request?, :format => 'html'), app_caption, image_url
         end
       	success = "Thanks for your vote!"
-      	format.html { flash[:success] = success; redirect_to params[:return_to] || @voteable }
+      	format.html { flash[:success] = success; redirect_to @voteable }
       	#format.json { render :json => { :trigger_oauth => current_user.fb_oauth_desired?, :msg => "#{@voteable.votes_tally} likes", :canvas => iframe_facebook_request? }.to_json }
       	format.json { render :json => { :msg => "#{@voteable.votes_tally} likes", :canvas => iframe_facebook_request? }.to_json }
       else
       	error ||= "Vote failed"
-      	format.html { flash[:error] = error; redirect_to params[:return_to] || @voteable }
+      	format.html { flash[:error] = error; redirect_to @voteable }
       	format.json { render :json => { :msg => error }.to_json }
       end
     end
@@ -34,11 +34,11 @@ class VotesController < ApplicationController
       if current_user and @voteable.present? and current_user.vote_against(@voteable)
       	@voteable.expire
       	success = "Thanks for your vote!"
-      	format.html { flash[:success] = success; redirect_to params[:return_to] || @voteable }
+      	format.html { flash[:success] = success; redirect_to @voteable }
       	format.json { render :json => { :msg => "#{@voteable.votes_tally} likes" }.to_json }
       else
       	error = "Vote failed"
-      	format.html { flash[:error] = error; redirect_to params[:return_to] || @voteable }
+      	format.html { flash[:error] = error; redirect_to @voteable }
       	format.json { render :json => { :msg => error }.to_json }
       end
     end

@@ -11,8 +11,6 @@ class TopicsController < ApplicationController
     #allow :owner, :of => :model_klass, :to => [:edit, :update]
   end
 
-  after_filter :store_location, :only => [:index, :new, :show]
-
   def new
     @topic = @forum.topics.new
   end

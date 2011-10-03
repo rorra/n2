@@ -7,8 +7,6 @@ class IdeasController < ApplicationController
   before_filter :set_ad_layout, :only => [:index, :show, :my_ideas]
   before_filter :set_idea_board
 
-  after_filter :store_location, :only => [:index, :new, :show]
-  
   access_control do
     allow all, :to => [:index, :show, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)

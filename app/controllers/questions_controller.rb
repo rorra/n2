@@ -4,8 +4,6 @@ class QuestionsController < ApplicationController
 
   cache_sweeper :qanda_sweeper, :only => [:create, :update, :destroy, :create_answer]
 
-  after_filter :store_location, :only => [:index, :new, :show, :new_answer, :my_questions]
-  
   access_control do
     allow all, :to => [:index, :show, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)

@@ -7,8 +7,6 @@ class ArticlesController < ApplicationController
   before_filter :set_ad_layout, :only => [:index, :drafts, :user_index]
   before_filter :set_custom_sidebar_widget, :only => [:index]
 
-  after_filter :store_location, :only => [:index, :new, :edit]
-  
   access_control do
     allow all, :to => [:index, :show, :tags, :user_index]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)

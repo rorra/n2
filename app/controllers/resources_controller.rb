@@ -7,8 +7,6 @@ class ResourcesController < ApplicationController
   before_filter :set_ad_layout, :only => [:index, :show, :my_resources]
   before_filter :set_resource_section
 
-  after_filter :store_location, :only => [:index, :new, :show, :my_resources]
-  
   access_control do
     allow all, :to => [:index, :show, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
