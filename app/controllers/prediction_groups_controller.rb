@@ -1,5 +1,4 @@
 class PredictionGroupsController < ApplicationController
-  before_filter :login_required, :only => [:like, :new, :create]
   before_filter :set_ad_layout, :only => [:index, :show]
 
   cache_sweeper :prediction_sweeper, :only => [:create, :update, :destroy]
