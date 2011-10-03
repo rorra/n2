@@ -26,10 +26,33 @@ class Image < ActiveRecord::Base
 
   has_attached_file :image,
     :styles => {
-      :media_item => ["75x56#", :jpg],
-      :thumb => ["100x75#", :jpg],
-      :medium => ["320x240#", :jpg],
-      :large => ["610x458#", :jpg]
+      :thumb => {
+        :geometry => "100x75",
+        :format => :jpg,
+        :convert_options => ['-background white', '-gravity center', '-extent 100x75']
+      },
+      :media_item => {
+        :geometry => "75x56",
+        :format => :jpg,
+        :convert_options => ['-background white', '-gravity center', '-extent 75x56']
+      },
+      :medium => {
+        :geometry => "320x240",
+        :format => :jpg,
+        :convert_options => ['-background white', '-gravity center', '-extent 320x240']
+      },
+      :large => {
+        :geometry => "610x458",
+        :format => :jpg,
+        :convert_options => ['-background white', '-gravity center', '-extent 610x458']
+      }
+    },
+    # not sure why I have to duplicate convert options here and in individual style blocks
+    :convert_options => {
+      :thumb => ['-background white', '-gravity center', '-extent 100x75'],
+      :media_item => ['-background white', '-gravity center', '-extent 75x56'],
+      :medium => ['-background white', '-gravity center', '-extent 320x240'],
+      :large => ['-background white', '-gravity center', '-extent 610x458']
     },
     :storage => :s3,
     :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
