@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110916233249) do
+ActiveRecord::Schema.define(:version => 20111005215423) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(:version => 20110916233249) do
     t.boolean  "is_blocked",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location_text"
   end
 
   add_index "classifieds", ["aasm_state"], :name => "index_classifieds_on_aasm_state"

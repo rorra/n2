@@ -261,6 +261,7 @@ settings = [
  { :key_sub_type => 'amazon', :key_name => 'aws_access_key_id',  :value => "1234asdf4321" },
  { :key_sub_type => 'amazon', :key_name => 'aws_secret_key',  :value => "123454321asdf5432112345" },
  { :key_sub_type => 'amazon', :key_name => 'associate_code',  :value => "yourcode-20" },
+ { :key_sub_type => 'classifieds', :key_name => 'enable_sale_items',  :value => "true" },
  { :key_sub_type => 'tweet_streams', :key_name => 'enable_whitelist',  :value => "true" },
  { :key_sub_type => 'options', :key_name => 'default_admin_user',  :value => (APP_CONFIG['default_admin_user'] || "admin") },
  { :key_sub_type => 'options', :key_name => 'default_admin_password',  :value => (APP_CONFIG['default_admin_password'] || "n2adminpassword") },

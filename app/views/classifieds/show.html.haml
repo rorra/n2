@@ -43,6 +43,8 @@
           .eventMeta
             %h4== #{classified_listing_type(@classified)}
             %h3== #{t('classifieds.status', :state => @classified.state)}
+            - if @classified.location_text.present?
+              %h3== Location: #{@classified.location_text}
         .float_left.classified_button_margin= link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "btn")
         -# change to amazon_asin
         - if @classified.amazon_item.present?

@@ -76,6 +76,7 @@
                     = form.input :title, :label => t('.title'), :hint => t('.hint_classified_title')
                     = form.input :details, :hint => t('.hint_classified_details')
                     = form.input :price, :hint => t('.hint_classified_price'), :required => false
+                    = form.input :location_text, :label => 'Location', :hint => t('.hint_classified_location'), :required => false
                 - form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
               .panel2

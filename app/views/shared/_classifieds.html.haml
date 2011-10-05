@@ -33,6 +33,8 @@
                   %b== #{classified_listing_type(classified)}
                 %li
                   == #{t('classifieds.status', :state => classified.state)}
+                - if classified.location_text.present?
+                  %li== Location: #{classified.location_text}
   - if paginate
     .clearfix
       = will_paginate classifieds
