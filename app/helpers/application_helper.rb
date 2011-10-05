@@ -266,6 +266,16 @@ module ApplicationHelper
     end
   end
   
+  def external_profile_link user, opts = {}
+    if user.twitter_user?
+      twitter_url(user)
+    elsif user.facebook_user?
+      facebook_profile_url(user)
+    else
+      user
+    end
+  end
+  
   def nl2br(string)
     string.gsub(/<.?br.*?>/i,"<br />").gsub("\n\r","<br />").gsub("\r", "").gsub("\n", "<br />")
   end
