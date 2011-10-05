@@ -10,7 +10,7 @@ role :db,   "<%= @settings[:base_url] %>", :primary => true
 set :rails_env, "production"
 set :application, "<%= @settings[:app_name] %>"
 set :base_url, "<%= @settings[:base_url] %>"
-set :branch, "<%= @settings[:branch] || "release3_3" %>"
+set :branch, "<%= @settings[:branch] || "release3_4" %>"
 
 # database.yml settings
 set :db_user, "<%= @settings[:database][:user] %>"
@@ -18,7 +18,7 @@ set :db_name, "<%= @settings[:database][:name] %>"
 set :db_password, "<%= @settings[:database][:password] %>"
 
 # facebooker.yml settings
-set :facebook_api_key, "<%= @settings[:facebooker][:api_key] %>"
+set :facebook_app_id, "<%= @settings[:facebooker][:app_id] %>"
 set :facebook_secret_key, "<%= @settings[:facebooker][:secret_key] %>"
 set :facebook_canvas_page_name, "<%= @settings[:facebooker][:canvas_page_name] %>"
 set :facebook_callback_url, "<%= @settings[:facebooker][:callback_url] %>"

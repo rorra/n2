@@ -113,8 +113,8 @@ Capistrano::Configuration.instance.load do
 
     end
 
-    after "deploy:setup",           "deploy:config:setup_facebooker"   unless fetch(:skip_facebooker_setup, false)
-    after "deploy:finalize_update", "deploy:config:symlink_facebooker"
+    #after "deploy:setup",           "deploy:config:setup_facebooker"   unless fetch(:skip_facebooker_setup, false)
+    #after "deploy:finalize_update", "deploy:config:symlink_facebooker"
 
   end
 

@@ -27,12 +27,13 @@
     .panel-half.pad-left
       .panel-content
         %ul.list-items
-          - remaining_items.each do |item|
-            %li
-              .item-with-no-image
-                .item-text
-                  %h3
-                    %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-                .meta-data
-                  %h6= posted_by_with_topic(item)
-                  %h6= action_links(item)
+          - if remaining_items
+            - remaining_items.each do |item|
+              %li
+                .item-with-no-image
+                  .item-text
+                    %h3
+                      %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+                  .meta-data
+                    %h6= posted_by_with_topic(item)
+                    %h6= action_links(item)

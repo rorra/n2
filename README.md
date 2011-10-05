@@ -44,7 +44,7 @@ Getting Started
 Clone this application to your machine and checkout release 3
 
         git clone git://github.com/newscloud/n2.git
-        git checkout --track -b release3_3 origin/release3_3
+        git checkout --track -b release3_4 origin/release3_4
 
 Alternatively, download release 3 directly [http://github.com/newscloud/n2/archives/v3.3_stable](http://github.com/newscloud/n2/archives/v3.3_stable)
 

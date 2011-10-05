@@ -157,7 +157,7 @@ def get_facebook_config
   say_headline("Facebook Configuration")
   settings = Hash.new
 
-  settings[:api_key] = non_blank_request("Facebook API Key e.g. 218234865890233 (see http://newscloud.net/qiiwyM for more information):")
+  settings[:app_id] = non_blank_request("Facebook Application ID e.g. 218234865890233 (NOTE: this used to be API key, we now need the Application ID for OAuth 2 support; see http://newscloud.net/qiiwyM for more information):")
   settings[:secret_key] = non_blank_request("Facebook Secret Key e.g. aff4c01ca4203bc22fea22728a1d982c:")
 
   settings[:canvas_page_name] = ui.ask("Please enter your Facebook Canvas Page Name:") do |q|
@@ -288,7 +288,7 @@ def extract_settings config
     :facebooker => {
       :canvas_page_name => config["facebooker"]["canvas_page_name"],
       :callback_url     => config["facebooker"]["callback_url"],
-      :api_key          => config["facebooker"]["api_key"],
+      :app_id           => config["facebooker"]["app_id"],
       :secret_key       => config["facebooker"]["secret_key"]
     },
     :database   => {
