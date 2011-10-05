@@ -596,8 +596,8 @@ EMBED
   end
   
   def render_ad(ad_size, in_layout, ad_slot)
-    platform = get_setting('platform').try(:value) || 'none'
-    unless in_layout.nil? || platform == 'none'
+    platform = get_setting('platform').try(:value) || 'default'
+    unless in_layout.nil? || platform == 'default'
       case ad_size
         when :leaderboard
           render_ad_partial(ad_slot) if in_layout.include? "Leader"
