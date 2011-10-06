@@ -120,11 +120,16 @@ class Classified < ActiveRecord::Base
 
   def self.listing_types
     #[:sale, :free, :loan, :wanted]
-    if Metadata::Setting.get_setting('enable_sale_items').try(:value)
+    if self.enable_sale_items?
       [:loan, :free, :sale]
     else
       [:loan, :free]
     end
+  end
+
+  def self.enable_sale_items?
+    return @enable_sale_items if defined?(@enable_sale_items)
+    @enable_sale_items = Metadata::Setting.get_setting('enable_sale_items').try(:value)
   end
 
   def valid_listing_type?

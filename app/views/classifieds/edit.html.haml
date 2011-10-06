@@ -63,7 +63,8 @@
                   - form.inputs do                
                     = form.input :title, :label => t('classifieds.new.title'), :hint => t('.hint_classified_title')
                     = form.input :details, :hint => t('classifieds.new.hint_classified_details'), :required => false 
-                    = form.input :price, :hint => t('classifieds.new.hint_classified_details'), :required => false
+                    - if Classified.enable_sale_items?
+                      = form.input :price, :hint => t('classifieds.new.hint_classified_details'), :required => false
                     = form.input :location_text, :label => 'Location', :hint => t('classifieds.new.hint_classified_location'), :required => false
                     %li
                       %label{:for => "classified_listing_type"}= t('classifieds.listing_type.title')
