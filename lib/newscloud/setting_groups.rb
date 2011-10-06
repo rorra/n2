@@ -179,7 +179,7 @@ module Newscloud
           {
             :tab_title        => "Yahoo Sitemap Configuration",
             :page_title       => "Configuration Settings for Yahoo Sitemap",
-            :page_description => %{Set your Yahoo Sitemap Account Info. If you do not have a yahoo sitemap account yet, you can register by following the link: <a href="http://siteexplorer.search.yahoo.com/" target="_ext">http://siteexplorer.search.yahoo.com/http://siteexplorer.search.yahoo.com/</a>.},
+            :page_description => %{Set your Yahoo Sitemap Account Info. If you do not have a yahoo sitemap account yet, you can register by following the link: <a href="http://siteexplorer.search.yahoo.com/" target="_ext">http://siteexplorer.search.yahoo.com/</a>.},
             :items            => [
               {
                 :title       => "Yahoo Sitemap Verification Key",
@@ -193,7 +193,7 @@ module Newscloud
                 :required    => true,
                 :description => nil,
                 :setting     => ["yahoo_app_id", nil],
-                :hint        => "Please add your yahoo application ID."
+                :hint        => "Please add your yahoo application ID. You can apply for one from this link: http://developer.yahoo.com/faq/#appid"
               }
             ]
           }
