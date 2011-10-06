@@ -76,7 +76,7 @@
           %h2
             %strong== Step #{page_index + 1}:
             = page[:page_title]
-            %em= page[:page_description]
+            %em= raw page[:page_description]
 
           %ul
             - page[:items].each_with_index do |item, item_index|
