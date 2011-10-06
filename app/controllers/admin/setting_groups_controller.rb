@@ -20,7 +20,7 @@ class Admin::SettingGroupsController < AdminController
       params[:setting_group] and params[:setting_group].each do |setting_name, value|
         key,type = setting_name.split(/--/)
         setting = Metadata::Setting.get_setting(key, type)
-        setting.update_value! nil unless setting.value == value
+        setting.update_value! value unless setting.value == value
       end
       params[:translation_group] and params[:translation_group].each do |translation_key, value|
         translation = @locale.translations.find_by_raw_key(translation_key)
