@@ -7,13 +7,13 @@ class ClassifiedsController < ApplicationController
   before_filter :set_categories, :only => [:new]
   
   access_control do
-    allow all, :to => [:index]
+    allow all, :to => [:index, :categories]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
     # FIXME:: get admins switched over to using :admin role
     allow :admin, :of => :current_user
     allow :admin
     allow logged_in, :to => [:new, :create, :borrowed_items, :my_items]
-    allow anonymous, :to => [:show], :if => :classified_allows_anonymous_users?
+    #allow anonymous, :to => [:show, :categories], :if => :classified_allows_anonymous_users?
     allow :allowed, :of => :classified, :to => [:show]
     allow :owner, :of => :classified, :to => [:edit, :update, :set_status]
   end
