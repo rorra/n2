@@ -40,7 +40,7 @@ Feature: Classified Authorization
 			| available  | generic          | loan         | all                | true       |
 			| available  | generic          | loan         | friends            | false      |
 			| available  | generic          | loan         | friends_of_friends | false      |
-			| available  | anonymous        | loan         | all                | false      |
+			| available  | anonymous        | loan         | all                | true       |
 			| available  | anonymous        | loan         | friends            | false      |
 			| available  | anonymous        | loan         | friends_of_friends | false      |
 			| available  | friend           | loan         | all                | true       |
@@ -203,7 +203,7 @@ Feature: Classified Authorization
 			| available  | generic          | loan         | all                | true       |
 			| available  | generic          | loan         | friends            | false      |
 			| available  | generic          | loan         | friends_of_friends | false      |
-			| available  | anonymous        | loan         | all                | false      |
+			| available  | anonymous        | loan         | all                | true       |
 			| available  | anonymous        | loan         | friends            | false      |
 			| available  | anonymous        | loan         | friends_of_friends | false      |
 			| available  | friend           | loan         | all                | true       |

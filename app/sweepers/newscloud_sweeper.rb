@@ -1,3 +1,4 @@
+
 #
 # Base Newscloud Sweeper; extend from this
 #
@@ -34,8 +35,8 @@ class NewscloudSweeper < ActionController::Caching::Sweeper
     if keys.any?
       $redis.sunion(item.model_deps_key).each do |key_name|
         if key_name =~ /^view_object:([0-9]+)$/
-          view_object = ViewObject.find($1)
-          view_object.uncache_deps
+          view_object = ViewObject.find_by_id($1)
+          view_object.uncache_deps if view_object
         end
       end
     end

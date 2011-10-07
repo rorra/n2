@@ -246,9 +246,9 @@ class Classified < ActiveRecord::Base
   end
 
   def self.sets_for_user user = nil
-    sets = ["items:classifieds:public:free", "items:classifieds:public:sale"]
+    sets = ["items:classifieds:public:free", "items:classifieds:public:sale", "items:classifieds:public:loan"]
     if user
-    	sets.push "items:classifieds:public:loan"
+    	#sets.push "items:classifieds:public:loan"
     	sets = sets | $redis.smembers("#{user.cache_id}:friends").map {|f| "user:#{f}:items:classifieds:friends"}
     end
     sets
@@ -320,10 +320,10 @@ class Classified < ActiveRecord::Base
 
     def __available_is_allowed?(user = nil)
       # TODO::: REFACTOR
-      if free? or sellable?
+      if free? or sellable? or loanable?
         allow_user? user, :default => true
-      elsif loanable?
-        allow_user? user, :require_user => true, :default => false
+      #elsif loanable?
+        #allow_user? user, :require_user => true, :default => false
       else
       	false
       end
