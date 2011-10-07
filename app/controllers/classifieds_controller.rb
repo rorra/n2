@@ -1,6 +1,4 @@
 class ClassifiedsController < ApplicationController
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
-
   cache_sweeper :classified_sweeper, :only => [:create, :update]
 
   before_filter :find_classified, :only => [:show, :edit, :update, :set_status]
@@ -13,7 +11,7 @@ class ClassifiedsController < ApplicationController
     allow :admin, :of => :current_user
     allow :admin
     allow logged_in, :to => [:new, :create, :borrowed_items, :my_items]
-    #allow anonymous, :to => [:show, :categories], :if => :classified_allows_anonymous_users?
+    allow anonymous, :to => [:show, :categories], :if => :classified_allows_anonymous_users?
     allow :allowed, :of => :classified, :to => [:show]
     allow :owner, :of => :classified, :to => [:edit, :update, :set_status]
   end
