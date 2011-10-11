@@ -104,3 +104,23 @@
  
 
     = render :partial => 'shared/google_analytics'
+    
+    #fb-root
+    :javascript
+      window.fbAsyncInit = function() {
+      FB.init({appId: "#{APP_CONFIG['omniauth']['providers']['facebook']['key']}", status: true, cookie: true, xfbml: true});
+      FB.Event.subscribe('edge.create', function(resp) {alert("You clicked: "+resp); console.log(resp);});
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      function shareEventHandler(event) {
+      if (event.type == 'addthis.menu.share') {alert("SHARED IT!!!"); console.log(typeof(event.data)); console.log(event.data);}
+      }
+      addthis.addEventListener('addthis.menu.share',shareEventHandler);

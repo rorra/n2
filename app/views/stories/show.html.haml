@@ -14,10 +14,24 @@
 #col_left
   - cache "#{@story.cache_key}_top_html" do
     #itemDetails.panel_2
-      .topBar
+
+      .addthis_toolbox.addthis_default_style
+        -#%a.addthis_button{:style => "text-decoration: none"}== #{like_link @story} #{@story.votes_tally}
+        %a.addthis_button{:style => "text-decoration: none"} Vote
+        %a.addthis_button_facebook_like{"fb:like:layout" => "button_count"}
+        %a.addthis_button_facebook_send
+        %a.addthis_button_tweet
+        %a.addthis_button_google_plusone{"g:plusone:size" => "medium"}
+        %a.addthis_counter.addthis_pill_style
+      %br
+      .clear
+      %script{:src => "http://s7.addthis.com/js/250/addthis_widget.js", :type => "text/javascript"}
+
+      -#.topBar
         %ul
           %li
             %a== #{like_link @story} #{@story.votes_tally}
+
           %li
             %a== #{link_to t('comment'), story_path(@story, :anchor => "postCommentBox")} #{@story.comments_count}
           -#%li= fb_share_item_button(@story)
@@ -52,6 +66,7 @@
           %p= sanitize caption(@story.caption, 500)
         - if @story.url.present?
           .float_left= link_to t('.read_story'), @story.url, :target => "_cts", :class => "btn"
+        .fb-like{"data-href" => story_path(@story, :only_path => false), "data-send" => "true", "data-width" => "450", "data-show-faces" => "false"}
       - if @story.media_item?
         = render_media_items @story, :size => 'large'
 

@@ -308,11 +308,15 @@ module ApplicationHelper
     caption =  Rack::Utils.escape(strip_tags(caption))
     url = nil
     if is_bitly_configured
-      bitly_username = get_setting('bitly_username').try(:value)
-      bitly_api_key = get_setting('bitly_api_key').try(:value)
-      if bitly_username.present? and bitly_username != 'username'
-        bitly = Bitly.new(bitly_username, bitly_api_key)
-        url = bitly.shorten(path_to_self(item)).short_url
+      begin
+        bitly_username = get_setting('bitly_username').try(:value)
+        bitly_api_key = get_setting('bitly_api_key').try(:value)
+        if bitly_username.present? and bitly_username != 'username'
+          bitly = Bitly.new(bitly_username, bitly_api_key)
+          url = bitly.shorten(path_to_self(item)).short_url
+        end
+      rescue Exception
+        url = nil
       end
     end
     unless url

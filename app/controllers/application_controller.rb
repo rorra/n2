@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   
   include Newscloud::Util
 
+  layout :detect_browser
+
   helper :all # include all helpers, all the time
   before_filter :set_iframe_status
   protect_from_forgery :secret => 'a64cfbca0d60835e7c0ef3f0c814087d14f417155b354ff1b85fc6188e70a7be4d75e93b6699de6fe3ce80a270ff3e7001104932' # See ActionController::RequestForgeryProtection for details
@@ -484,4 +486,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def detect_browser
+    #raise request.headers["HTTP_USER_AGENT"].downcase.inspect
+    "application"
+  end
 end
