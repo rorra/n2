@@ -9,9 +9,9 @@
             .item_2.resource
               .itemBlock
                 - if current_user.present?
-                  %p= t('email_reminder.message',  :settings_link => edit_user_path(current_user, :format => 'html') )
+                  %p= t('email_reminder.message',  :settings_link => edit_user_path(current_user, :format => 'html') ).html_safe
                 - else
                   %p= t('email_reminder.login_required')
                 -# todo 
                   - else
-                    %p= t('email_reminder.login_required', :sign_in_link => , :register_link =>  )
+                    %p= t('email_reminder.login_required', :sign_in_link => , :register_link =>  ).html_safe
