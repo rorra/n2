@@ -4,6 +4,8 @@ $(document).ajaxSend(function(e, xhr, options) {
   xhr.setRequestHeader("X-CSRF-Token", token);
 });
 
+var fbAppId = window.Newscloud.config.fbAppId;
+
 /*
  * jQuery Extensions
  */
@@ -659,3 +661,25 @@ $(function() {
 	$("#images").scrollable();
 });
 
+window.fbAsyncInit = function() {
+  FB.init({appId: fbAppId, status: true, cookie: true, xfbml: true});
+};
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+function shareEventHandler(event) {
+  if (event.type == 'addthis.menu.share') {
+    var data = {};
+    data.cache_id = $('#addthis_item').attr('data-id');
+    data.action_type = event.data.service;
+    data.url = event.data.url;
+    $.post('/shared_item', data);
+  }
+}
+addthis.addEventListener('addthis.menu.share',shareEventHandler);

@@ -13,17 +13,7 @@
 #col_left
   - cache "#{@classified.cache_key}_top_html" do
     #itemDetails.panel_2
-      .topBar
-        %ul
-          %li
-            %a== #{like_link @classified} #{@classified.votes_count}
-          %li
-            %a== #{link_to t('comment'), classified_path(@classified, :anchor => "postCommentBox")} #{@classified.comments_count}
-          -#%li= fb_share_item_button(@classified)
-          %li
-            = twitter_share_item_link @classified, @classified.title
-          %li.nomargin
-            = render :partial => 'shared/add_this'
+      = add_this @classified
       .itemBlock
 
         - if @classified.images.present?

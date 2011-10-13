@@ -55,7 +55,7 @@ class VotesController < ApplicationController
                                        })
       render :json => {:success => "Item created successfully"}.to_json and return
     else
-      raise params.inspect
+      render :json => {:error => "Invalid request."}.to_json and return
     end
   end
   

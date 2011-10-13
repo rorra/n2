@@ -14,31 +14,7 @@
 #col_left
   - cache "#{@story.cache_key}_top_html" do
     #itemDetails.panel_2
-
-      .addthis_toolbox.addthis_default_style#addthis_item{"data-id" => @story.cache_id}
-        -#%a.addthis_button{:style => "text-decoration: none"}== #{like_link @story} #{@story.votes_tally}
-        %a.addthis_button{:style => "text-decoration: none"} Vote
-        %a.addthis_button_facebook_like{"fb:like:layout" => "button_count"}
-        %a.addthis_button_facebook_send
-        %a.addthis_button_tweet
-        %a.addthis_button_google_plusone{"g:plusone:size" => "medium"}
-        %a.addthis_counter.addthis_pill_style
-      %br
-      .clear
-      %script{:src => "http://s7.addthis.com/js/250/addthis_widget.js", :type => "text/javascript"}
-
-      -#.topBar
-        %ul
-          %li
-            %a== #{like_link @story} #{@story.votes_tally}
-
-          %li
-            %a== #{link_to t('comment'), story_path(@story, :anchor => "postCommentBox")} #{@story.comments_count}
-          -#%li= fb_share_item_button(@story)
-          %li
-            = twitter_share_item_link @story, @story.title
-          %li.nomargin
-            = render :partial => 'shared/add_this'
+      = add_this @story
       .itemBlock
 
         - if @story.images.present?

@@ -59,6 +59,7 @@ class PredictionGroupsController < ApplicationController
 
     tag_cloud @prediction_group
     set_outbrain_item @prediction_group
+    set_current_meta_item @prediction_group
     @current_sub_tab = 'Predict'
     @previous_prediction_group = @prediction_group.previous
     @next_prediction_group = @prediction_group.next

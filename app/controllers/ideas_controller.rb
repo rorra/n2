@@ -67,6 +67,7 @@ class IdeasController < ApplicationController
     tag_cloud @idea
     set_outbrain_item @idea
     set_sponsor_zone('ideas', @idea.item_title.underscore)
+    set_current_meta_item @idea
   end
 
   def my_ideas

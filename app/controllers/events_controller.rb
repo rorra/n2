@@ -57,6 +57,7 @@ class EventsController < ApplicationController
     tag_cloud @event
     set_sponsor_zone('events', @event.item_title.underscore)
     set_outbrain_item @event
+    set_current_meta_item @event
   end
 
   def my_events

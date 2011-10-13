@@ -60,6 +60,7 @@ class ClassifiedsController < ApplicationController
   def show
     @classified = Classified.active.find(params[:id])    
     @current_sub_tab = 'Show'
+    set_current_meta_item @classified
   end
 
   def edit

@@ -39,6 +39,8 @@ class ApplicationController < ActionController::Base
   helper_method :replace_text_with_canvas_urls
   helper_method :replace_text_with_urls
   helper_method :find_item_by_cache_id
+  helper_method :get_current_meta_item
+  helper_method :set_current_meta_item
 
   def newscloud_redirect_to(options = {}, response_status = {})
     @enable_iframe_hack = !! @iframe_status
@@ -502,6 +504,14 @@ class ApplicationController < ActionController::Base
     else
       nil
     end
+  end
+
+  def set_current_meta_item item
+    @current_meta_item = item
+  end
+
+  def get_current_meta_item
+    @current_meta_item
   end
   
 end
