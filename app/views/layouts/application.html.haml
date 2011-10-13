@@ -109,7 +109,6 @@
     :javascript
       window.fbAsyncInit = function() {
       FB.init({appId: "#{APP_CONFIG['omniauth']['providers']['facebook']['key']}", status: true, cookie: true, xfbml: true});
-      FB.Event.subscribe('edge.create', function(resp) {alert("You clicked: "+resp); console.log(resp);});
       };
 
       (function(d, s, id) {
@@ -121,6 +120,12 @@
       }(document, 'script', 'facebook-jssdk'));
 
       function shareEventHandler(event) {
-      if (event.type == 'addthis.menu.share') {alert("SHARED IT!!!"); console.log(typeof(event.data)); console.log(event.data);}
+      if (event.type == 'addthis.menu.share') {
+      var data = {};
+      data.cache_id = $('#addthis_item').attr('data-id');
+      data.action_type = event.data.service;
+      data.url = event.data.url;
+      $.post('/shared_item', data);
+      }
       }
       addthis.addEventListener('addthis.menu.share',shareEventHandler);

@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
   helper_method :replace_url_with_canvas_url
   helper_method :replace_text_with_canvas_urls
   helper_method :replace_text_with_urls
+  helper_method :find_item_by_cache_id
 
   def newscloud_redirect_to(options = {}, response_status = {})
     @enable_iframe_hack = !! @iframe_status
@@ -490,4 +491,17 @@ class ApplicationController < ActionController::Base
     #raise request.headers["HTTP_USER_AGENT"].downcase.inspect
     "application"
   end
+
+  def find_item_by_cache_id(cache_id)
+    if cache_id =~ /^([a-zA-Z_]+):([0-9]+)$/
+      begin
+        $1.classify.constantize.send(:find_by_id, $2)
+      rescue Exception => e
+        nil
+      end
+    else
+      nil
+    end
+  end
+  
 end

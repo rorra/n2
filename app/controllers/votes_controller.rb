@@ -44,6 +44,21 @@ class VotesController < ApplicationController
     end
   end
 
+  def shared_item
+    if request.post? and params[:cache_id].present? and params[:action_type].present?
+      item = find_item_by_cache_id(params[:cache_id])
+      item_action = ItemAction.create!({
+                                         :actionable => item,
+                                         :user => current_user,
+                                         :action_type => params[:action_type],
+                                         :url => params[:url]
+                                       })
+      render :json => {:success => "Item created successfully"}.to_json and return
+    else
+      raise params.inspect
+    end
+  end
+  
   private
 
   def find_voteable
