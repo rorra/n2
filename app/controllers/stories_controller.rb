@@ -52,6 +52,7 @@ class StoriesController < ApplicationController
       end
     end
     set_outbrain_item @story
+    set_current_meta_item @story
   end
 
   def new 

@@ -93,6 +93,8 @@ class Metadata::ViewObjectSetting < Metadata
   def use_post_button=(val) self.data[:use_post_button] = !! val end
   def locale_subtitle() self.data[:locale_subtitle] end
   def locale_subtitle=(val) self.data[:locale_subtitle] = val end
+  def meta() self.data[:meta] end
+  def meta=(val) self.data[:meta] = val end
   def cache_enabled() self.data[:cache_enabled] or true end #default to true
   def cache_enabled=(val) self.data[:cache_enabled] = val end
   def old_widget() self.data[:old_widget] or false end #default to false

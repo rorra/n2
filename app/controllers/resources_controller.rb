@@ -64,6 +64,7 @@ class ResourcesController < ApplicationController
     tag_cloud @resource
     set_outbrain_item @resource
     set_sponsor_zone('resources', @resource.item_title.underscore)
+    set_current_meta_item @resource
   end
 
   def my_resources

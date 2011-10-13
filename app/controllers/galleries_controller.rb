@@ -23,6 +23,7 @@ class GalleriesController < ApplicationController
   def show
     @gallery = Gallery.find(params[:id])
     tag_cloud @gallery
+    set_current_meta_item @gallery
   end
 
   def new

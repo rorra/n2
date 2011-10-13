@@ -5,17 +5,7 @@
 #col_left
   - cache "#{@event.cache_key}_html" do
     #itemDetails.panel_2
-      .topBar
-        %ul
-          %li
-            #{like_link @event} #{@event.votes_tally}
-          %li
-            %a== #{link_to t('comment'), event_path(@event, :anchor => "postCommentBox")} #{@event.comments_count}
-          -#%li= fb_share_item_button(@event)
-          %li
-            %a= twitter_share_item_link @event, @event.name           
-          %li.nomargin
-            = render :partial => 'shared/add_this'
+      = add_this @event
       .itemBlock
         .thumb
           - if @event.images.present?

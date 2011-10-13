@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   
   include Newscloud::Util
 
+  layout :detect_browser
+
   helper :all # include all helpers, all the time
   before_filter :set_iframe_status
   protect_from_forgery :secret => 'a64cfbca0d60835e7c0ef3f0c814087d14f417155b354ff1b85fc6188e70a7be4d75e93b6699de6fe3ce80a270ff3e7001104932' # See ActionController::RequestForgeryProtection for details
@@ -36,6 +38,9 @@ class ApplicationController < ActionController::Base
   helper_method :replace_url_with_canvas_url
   helper_method :replace_text_with_canvas_urls
   helper_method :replace_text_with_urls
+  helper_method :find_item_by_cache_id
+  helper_method :get_current_meta_item
+  helper_method :set_current_meta_item
 
   def newscloud_redirect_to(options = {}, response_status = {})
     @enable_iframe_hack = !! @iframe_status
@@ -484,4 +489,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def detect_browser
+    #raise request.headers["HTTP_USER_AGENT"].downcase.inspect
+    "application"
+  end
+
+  def find_item_by_cache_id(cache_id)
+    if cache_id =~ /^([a-zA-Z_]+):([0-9]+)$/
+      begin
+        $1.classify.constantize.send(:find_by_id, $2)
+      rescue Exception => e
+        nil
+      end
+    else
+      nil
+    end
+  end
+
+  def set_current_meta_item item
+    @current_meta_item = item
+  end
+
+  def get_current_meta_item
+    @current_meta_item
+  end
+  
 end

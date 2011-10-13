@@ -1,0 +1,8 @@
+- type = vo.setting.meta.present? ? vo.setting.meta[:template_type] : nil
+.panel-1.float-right
+  - if type == "recommendations"
+    .fb-activity{"data-width" => "300", "data-height" => "300", "data-header" => "true", "data-recommendations" => vo.setting.meta[:data_recommendations], "data-site" => base_site_url}
+  - elsif type == "activity"
+    .fb-recommendations{"data-width" => "300", "data-height" => "300", "data-header" => "true", "data-site" => base_site_url}
+  - else
+    -#

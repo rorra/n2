@@ -492,6 +492,11 @@ view_object_templates = [
   	:template    => "shared/templates/single_col_list"
   },
   {
+  	:name        => "v2_single_facebook_widget",
+  	:pretty_name => "Version 2 Single Column Facebook Widget",
+  	:template    => "shared/templates/single_col_facebook_widget"
+  },
+  {
   	:name        => "v2_triple_col_large_2",
   	:pretty_name => "Version 2 Triple Column Large Feature With 2 Sub Items",
   	:template    => "shared/templates/triple_col_large_2"
@@ -1174,6 +1179,37 @@ view_objects = [
   		:kommands        => [
   		]
   	}
+  },
+  {
+  	:name          => "Facebook Recommendations Plugin",
+  	:template_name => "v2_single_facebook_widget",
+  	:settings      => {
+  		:klass_name      => "ViewObject",
+  		:locale_title    => nil,
+  		:locale_subtitle => nil,
+  		:use_post_button => false,
+  		:kommands        => [
+  		],
+  		:meta            => {
+  	    :template_type => "recommendations"
+      }
+  	}
+  },
+  {
+  	:name          => "Facebook Activity Plugin",
+  	:template_name => "v2_single_facebook_widget",
+  	:settings      => {
+  		:klass_name      => "ViewObject",
+  		:locale_title    => nil,
+  		:locale_subtitle => nil,
+  		:use_post_button => false,
+  		:kommands        => [
+  		],
+  		:meta            => {
+  	    :template_type        => "activity",
+  	    :data_recommendations => false
+      }
+  	}
   }
 ]
 view_objects.each do |view_object_hash|
@@ -1200,6 +1236,7 @@ view_objects.each do |view_object_hash|
   view_object.setting.css_class        = view_object_hash[:settings][:css_class] if view_object_hash[:settings][:css_class]
   view_object.setting.locale_subtitle  = view_object_hash[:settings][:locale_subtitle] if view_object_hash[:settings][:locale_subtitle]
   view_object.setting.dataset          = view_object_hash[:settings][:dataset] if view_object_hash[:settings][:dataset]
+  view_object.setting.meta             = view_object_hash[:settings][:meta] if view_object_hash[:settings][:meta]
 
   # Add Kommands
   view_object_hash[:settings][:kommands].each do |kommand|

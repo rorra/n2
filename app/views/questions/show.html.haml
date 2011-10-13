@@ -5,17 +5,7 @@
 #col_left
   #itemDetails.panel_2
     - cache "#{@question.cache_key}_top_html" do
-      .topBar
-        %ul
-          %li
-            %a== #{like_link @question} #{@question.votes_tally}
-          -# %li
-            %a= link_to t('answer_question'), '#', :class => "answer_link"
-          -#%li= fb_share_item_button(@question)
-          %li
-            %a= twitter_share_item_link @question, @question.question
-          %li.nomargin
-            = render :partial => 'shared/add_this'
+      = add_this @question
       .itemBlock
         - if @question.images.present?
           .thumb= image_tag @question.images.first.url(:medium)

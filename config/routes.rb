@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.paged_articles '/articles/page/:page.:format', :controller => 'articles', :action => 'index'
   map.user_articles '/articles/user/:user_id.:format', :controller => 'articles', :action => 'user_index'
 
+  map.shared_item '/shared_item', :controller => 'votes', :action => 'shared_item'
 #
 # PAGINATION
 #

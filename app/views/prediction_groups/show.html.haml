@@ -4,17 +4,7 @@
 
 #col_left
   #itemDetails.panel_2
-    .topBar
-      %ul
-        %li
-          %a== #{like_link @prediction_group} #{@prediction_group.votes_tally}
-        %li
-          %a== #{link_to t('comment'), prediction_group_path(@prediction_group, :anchor => "postCommentBox")} #{@prediction_group.comments_count}
-        -#%li= fb_share_item_button(@prediction_group)
-        %li
-          = twitter_share_item_link @prediction_group, @prediction_group.title
-        %li.nomargin
-          = render :partial => 'shared/add_this'
+    = add_this @prediction_group
     .itemBlock
       - if @prediction_group.images.present?
         .thumb

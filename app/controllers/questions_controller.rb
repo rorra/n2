@@ -33,6 +33,7 @@ class QuestionsController < ApplicationController
     end
     set_sponsor_zone('questions', @question.item_title.underscore)
     set_outbrain_item @question
+    set_current_meta_item @question
   end
 
   def new

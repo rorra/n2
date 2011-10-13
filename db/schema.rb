@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005215423) do
+ActiveRecord::Schema.define(:version => 20111012215608) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -484,6 +484,20 @@ ActiveRecord::Schema.define(:version => 20111005215423) do
   add_index "images", ["imageable_type", "imageable_id"], :name => "index_images_on_imageable_type_and_imageable_id"
   add_index "images", ["remote_image_url"], :name => "index_images_on_remote_image_url"
   add_index "images", ["user_id"], :name => "index_images_on_user_id"
+
+  create_table "item_actions", :force => true do |t|
+    t.string   "actionable_type"
+    t.integer  "actionable_id"
+    t.integer  "user_id"
+    t.string   "action_type"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "item_actions", ["action_type"], :name => "index_item_actions_on_action_type"
+  add_index "item_actions", ["actionable_type", "actionable_id"], :name => "index_item_actions_on_actionable_type_and_actionable_id"
+  add_index "item_actions", ["user_id"], :name => "index_item_actions_on_user_id"
 
   create_table "item_tweets", :force => true do |t|
     t.string   "item_type"

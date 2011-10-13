@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout proc { |controller| controller.action_name == 'app_tab' ? 'app_tab' : 'application' }
+  #layout proc { |controller| controller.action_name == 'app_tab' ? 'app_tab' : 'application' }
 
   before_filter :set_current_tab
 

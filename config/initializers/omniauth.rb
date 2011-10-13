@@ -1,3 +1,26 @@
+# Thanks to: http://stackoverflow.com/questions/5518101/switching-between-web-and-touch-interfaces-on-facebook-login-using-omniauth-and-r
+module OmniAuth
+  module Strategies
+    class Facebook < OAuth2
+
+      MOBILE_USER_AGENTS =  'webos|ipod|iphone|mobile'
+
+      def request_phase
+        options[:scope] ||= "email,offline_access"
+        options[:display] = mobile_request? ? 'touch' : 'page'
+        super
+      end
+
+      def mobile_request?
+        ua = Rack::Request.new(@env).user_agent.to_s
+        ua.downcase =~ Regexp.new(MOBILE_USER_AGENTS)
+      end
+
+    end
+  end
+end
+
+
 # Inspired by:
 # http://blog.hulihanapplications.com/browse/view/69-autodetecting-oauth-providers-with-omniauth
 

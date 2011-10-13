@@ -14,17 +14,7 @@
 #col_left
   - cache "#{@story.cache_key}_top_html" do
     #itemDetails.panel_2
-      .topBar
-        %ul
-          %li
-            %a== #{like_link @story} #{@story.votes_tally}
-          %li
-            %a== #{link_to t('comment'), story_path(@story, :anchor => "postCommentBox")} #{@story.comments_count}
-          -#%li= fb_share_item_button(@story)
-          %li
-            = twitter_share_item_link @story, @story.title
-          %li.nomargin
-            = render :partial => 'shared/add_this'
+      = add_this @story
       .itemBlock
 
         - if @story.images.present?
@@ -52,6 +42,7 @@
           %p= sanitize caption(@story.caption, 500)
         - if @story.url.present?
           .float_left= link_to t('.read_story'), @story.url, :target => "_cts", :class => "btn"
+        .fb-like{"data-href" => story_path(@story, :only_path => false), "data-send" => "true", "data-width" => "450", "data-show-faces" => "false"}
       - if @story.media_item?
         = render_media_items @story, :size => 'large'
 

@@ -10,6 +10,7 @@
       %meta{:name => 'y_key', :content => "#{get_setting('yahoo-site-verification').value}"}
     %meta{:name => 'description', :content => (out = yield(:meta_description)) ? out : ""}
     %meta{:name => 'medium', :content => 'news'}
+    = item_meta_tags
 
     = csrf_meta_tag
 
@@ -29,11 +30,17 @@
         = javascript_include_tag "http://use.typekit.com/#{typekit}.js"
         :javascript
           try{Typekit.load();}catch(e){}
-          
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', "http://platform.twitter.com/anywhere.js?id=#{get_setting('oauth_key').try(:value)}&v=1"
+
+    :javascript
+      var Newscloud = {};
+      Newscloud.config = {};
+      Newscloud.config.fbAppId = "#{APP_CONFIG['omniauth']['providers']['facebook']['key']}";
+      window.Newscloud = Newscloud;
+
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', "http://platform.twitter.com/anywhere.js?id=#{get_setting('oauth_key').try(:value)}&v=1","http://s7.addthis.com/js/250/addthis_widget.js"
     = raw javascript_include_merged :base
 
-    = javascript_include_tag 'application'
+
     = javascript_include_tag 'jquery.ellipsis'
     - if iframe_facebook_request?
       = javascript_include_tag '/iframe/users/current'
@@ -104,3 +111,7 @@
  
 
     = render :partial => 'shared/google_analytics'
+    
+    #fb-root
+
+    = javascript_include_tag 'application'
