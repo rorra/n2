@@ -44,7 +44,7 @@ class ViewObject < ActiveRecord::Base
   end
 
   def add_dataset_deps
-    dataset.map {|k| add_dataset_dep(k) }
+    dataset.map {|k| add_dataset_dep(k) } if dataset and dataset.respond_to?(:map)
   end
 
   def rem_dataset_dep klass
