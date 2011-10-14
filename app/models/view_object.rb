@@ -53,7 +53,7 @@ class ViewObject < ActiveRecord::Base
   end
 
   def rem_dataset_deps
-    dataset.each {|k| rem_dataset_dep(k) }
+    dataset.each {|k| rem_dataset_dep(k) } if dataset and dataset.respond_to?(:each)
   end
 
   def r_dataset
