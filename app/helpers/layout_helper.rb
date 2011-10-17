@@ -8,10 +8,11 @@ module LayoutHelper
              ["og:title", item.item_title],
              ["og:type", "article"],
              ["og:url", base_url(polymorphic_path(item.item_link))],
-             ["og:image", thumb_image_or_default(item)],
+             ["og:image", external_thumb_image(item)],
              ["og:site_name", get_setting_value('site_title')],
              ["og:description", item.item_description]
             ]
+    
     if APP_CONFIG['omniauth']['providers'] and APP_CONFIG['omniauth']['providers']['facebook']
       metas << ["fb:app_id", APP_CONFIG['omniauth']['providers']['facebook']['key']]
     end

@@ -2,8 +2,15 @@
 module MediaHelper
 
   def external_thumb_image image
-    base_url("/images/#{thumb_image_or_default(image)}")
+    img_url = thumb_image_or_default(image)
+
+    if img_url == default_image
+      return base_url("/images/#{img_url}")
+    else
+      return img_url
+    end
   end
+
   
   def thumb_image_or_default image
     url = nil
