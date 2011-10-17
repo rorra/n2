@@ -12,8 +12,7 @@
             - prediction_scores.each do |score|
               - user = score.user
               %li{'data-id' => user.cache_key}
-                = render :partial =>
-- 'shared/items/prediction_user_score', :locals => { :user => user, :score => number_to_percentage(score, :precision => 2) }
+                = render :partial => 'shared/items/prediction_user_score', :locals => { :user => user, :score => number_to_percentage(score, :precision => 2) }
       - else
         %br
         %p= t('predictions.no_scores')
