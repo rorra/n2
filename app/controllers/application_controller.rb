@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   helper_method :base_site_url
+  helper_method :base_site_domain
   helper_method :facebook_session
   helper_method :current_facebook_user
   helper_method :get_setting
@@ -461,6 +462,10 @@ class ApplicationController < ActionController::Base
     APP_CONFIG['base_site_url']
   end
 
+  def base_site_domain
+    base_site_url.sub(%r{^https?://}, '')
+  end
+  
   def replace_url_with_canvas_url url
     url.sub %r{^#{base_site_url}/?(iframe/)?}, canvas_url
   end
