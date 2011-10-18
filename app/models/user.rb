@@ -483,7 +483,7 @@ class User < ActiveRecord::Base
                                  :credentials_secret => omniauth['credentials']['secret'],
                                  :nickname           => omniauth['user_info']['nickname'],
                                  :description        => omniauth['user_info']['description'],
-                                 :raw_output         => omniauth.except('extra')
+                                 :raw_output         => omniauth.except('extra').to_json
                                })
   end
 
