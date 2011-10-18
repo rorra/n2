@@ -14,7 +14,7 @@
         - account_setting = get_setting('account')
         - oauth_key_setting = get_setting('oauth_key')
         - if account_setting.present? && !oauth_key_setting.present?
-          %a.icon-link.twitterfeed{:target => "_blank", :title => t('.twitter_title'), :href => twitter_url(account_setting.value) }= t('.twitter')
+          %a.icon-link.twitterfeed{:target => "_blank", :title => t('.twitter_title'), :href => base_twitter_url(account_setting.value) }= t('.twitter')
         %span#follow-twitterapi
         -if account_setting.present? && oauth_key_setting.present?
           - if oauth_key_setting.value != 'U6qjcn193333331AuA'
@@ -23,7 +23,7 @@
                 T('#follow-twitterapi').followButton("#{account_setting.value}");
               });
             %span.twt_ft_wrap
-              %a.twitter_link{:style=>"display:none;",:target => "_tweet", :title => t('.twitter_title'), :href => twitter_url(account_setting.value) }= t('.twitter')
+              %a.twitter_link{:style=>"display:none;",:target => "_tweet", :title => t('.twitter_title'), :href => base_twitter_url(account_setting.value) }= t('.twitter')
           - else
             .admin-links
               %p

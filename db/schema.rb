@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012215608) do
+ActiveRecord::Schema.define(:version => 20111018212247) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -81,6 +81,9 @@ ActiveRecord::Schema.define(:version => 20111012215608) do
     t.string   "credentials_secret"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nickname"
+    t.string   "description"
+    t.text     "raw_output"
   end
 
   add_index "authentications", ["provider"], :name => "index_authentications_on_provider"

@@ -480,7 +480,10 @@ class User < ActiveRecord::Base
                                  :provider           => omniauth['provider'],
                                  :uid                => omniauth['uid'],
                                  :credentials_token  => omniauth['credentials']['token'],
-                                 :credentials_secret => omniauth['credentials']['secret']
+                                 :credentials_secret => omniauth['credentials']['secret'],
+                                 :nickname           => omniauth['user_info']['nickname'],
+                                 :description        => omniauth['user_info']['description'],
+                                 :raw_output         => omniauth.except('extra')
                                })
   end
 

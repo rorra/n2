@@ -188,8 +188,19 @@ module ApplicationHelper
   end
 
   def twitter_url user
-    return user unless user.twitter_user?
-    "http://twitter.com/#{user.tweet_account.screen_name}"
+    if not user.twitter_user?
+      user
+    elsif user.tweet_account.present?
+      base_twitter_url(user.tweet_account.screen_name)
+    elsif user.authentications.for_twitter.any?
+      base_twitter_url(user.authentications.for_twitter.first["nickname"])
+    else
+      user
+    end
+  end
+
+  def base_twitter_url url
+    "http://twitter.com/#{url}"
   end
 
   def twitter_image user
@@ -323,7 +334,7 @@ module ApplicationHelper
       url =  Rack::Utils.escape(path_to_self(item))
     end
     # text = "#{caption}+#{url}"
-    twitter_url = "http://twitter.com/share?url=#{url}&text=#{caption}"
+    local_twitter_url = "http://twitter.com/share?url=#{url}&text=#{caption}"
 
     if button == true
       link_text = image_tag('/images/default/tweet_button.gif')
@@ -332,9 +343,9 @@ module ApplicationHelper
     end
 
     if is_bitly_configured
-      link_to link_text, "#", :rel=>"#overlay", :link => overlay_tweet_url(:text=>caption, :link=>url), :burl=>twitter_url, :id=>"twitter-link", :target => "_tweet", :class => "tweet-share"
+      link_to link_text, "#", :rel=>"#overlay", :link => overlay_tweet_url(:text=>caption, :link=>url), :burl=>local_twitter_url, :id=>"twitter-link", :target => "_tweet", :class => "tweet-share"
     else
-      link_to link_text, twitter_url, :target => "_tweet", :class => "tweet-share"
+      link_to link_text, local_twitter_url, :target => "_tweet", :class => "tweet-share"
     end
 
   end
@@ -352,10 +363,6 @@ module ApplicationHelper
     return fb_name(fb_user_ids.first,:firstnameonly => firstnameonly) if fb_user_ids.size == 1
     last = fb_user_ids.pop
     "#{fb_user_ids.collect { |c| fb_name c }.join ', '} and #{fb_name last}"
-  end
-
-  def twitter_url(query)
-    "http://twitter.com/#{query}"
   end
 
   def flash_messages
