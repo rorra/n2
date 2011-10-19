@@ -65,7 +65,6 @@
                   = form.input :url, :label => t('.label_url'), :hint =>t('.hint_url')
                   = form.input :title, :label => t('.label_title'),:hint =>t('.hint_title')
                   = form.input :resource_section, :required => true, :include_blank => false,:label => t('.label_section'),:hint => t('.hint_section')
-                  = render :partial => 'shared/forms/wall_postable', :locals => { :form => form }
                 - form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
                   = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
