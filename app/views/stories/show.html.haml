@@ -42,7 +42,6 @@
           %p= sanitize caption(@story.caption, 500)
         - if @story.url.present?
           .float_left= link_to t('.read_story'), @story.url, :target => "_cts", :class => "btn"
-        .fb-like{"data-href" => story_path(@story, :only_path => false), "data-send" => "true", "data-width" => "450", "data-show-faces" => "false"}
       - if @story.media_item?
         = render_media_items @story, :size => 'large'
 
