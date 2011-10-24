@@ -6,7 +6,7 @@ describe ClassifiedsController do
     block.call
 
     response.should redirect_to("http://test.host#{classifieds_path(:format => 'html')}")
-    flash[:notice].should =~ /^Access Denied/
+    flash[:notice].should =~ /^Please sign in to access this feature./
   end
 
   def access_allowed(&block)
