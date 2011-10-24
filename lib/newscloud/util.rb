@@ -2,7 +2,7 @@ module Newscloud
   module Util
 
     # Thanks to restful_auth authentication.rb for these
-    mattr_accessor :email_name_regex, :domain_head_regex, :domain_tld_regex, :email_regex, :bad_email_message, :login_regex, :bad_login_message, :name_regex, :bad_name_message
+    mattr_accessor :email_name_regex, :domain_head_regex, :domain_tld_regex, :email_regex, :bad_email_message, :login_regex, :bad_login_message, :name_regex, :bad_name_message, :url_regex
     
     self.name_regex        = /\A[^[:cntrl:]\\<>\/&]*\z/              # Unicode, permissive
     self.bad_name_message  = "avoid non-printing characters and \\&gt;&lt;&amp;/ please.".freeze
@@ -14,6 +14,7 @@ module Newscloud
     self.domain_tld_regex  = '(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)'.freeze
     self.email_regex       = /\A#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}\z/i
     self.bad_email_message = "should look like an email address.".freeze
+    self.url_regex = /\Ahttp(s?):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i
 
     def current_user
       @current_user ||= User.active.find(session[:user_id]) if session[:user_id]
