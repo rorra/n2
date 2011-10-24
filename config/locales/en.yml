@@ -402,6 +402,11 @@ en:
     images: "Images"
     multimedia: "Multimedia"
     more: "More"
+    add_story:
+      title: "Add a story URL"
+      instructions: "Copy and paste the link to the story you would like to post in the text field below."
+      details_title: "Story details"
+      details_instructions: "Customize your story by editing the title, creating your own summary caption, and add tags to your story that will help other site users to find the story you posted."
   who_liked:
     title: "{{user_count}} people like this"
     none: "Be the first to like this"  
