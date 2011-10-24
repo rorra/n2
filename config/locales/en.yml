@@ -218,6 +218,8 @@ en:
   sessions:
     use_fb_connect: "Use Facebook Connect"
     request_offline_access: "Tell Facebook to keep me signed in"
+    invalid_permissions: "Sorry, you do not have access to this feature. If you have questions, please contact your site administrator."
+    access_denied: "Please sign in to access this feature."
   forums:
     title: "Forums"
     subtitle: "Community Discussion"
