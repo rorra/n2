@@ -37,6 +37,7 @@ class Tweet < ActiveRecord::Base
       next unless page[:title].present?
       title = page[:title]
       description = page[:description] ? page[:description] : "@#{tweet_account.screen_name} tweeted: #{text}"
+      description.gsub(NewsCloud::Util.url_regex,"").gsub(/\s{2,}/," ")
       content = Content.find_by_url(url)
       unless content
         content = Content.new({
