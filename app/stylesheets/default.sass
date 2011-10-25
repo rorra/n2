@@ -327,15 +327,6 @@ li
         margin: 0
         position: relative
         bottom: -1px
-        -webkit-border-top-right-radius: $SecondaryBorderRadius
-        -webkit-border-top-left-radius: $SecondaryBorderRadius
-        -moz-border-radius-topright: $SecondaryBorderRadius
-        -moz-border-radius-topleft: $SecondaryBorderRadius
-        border-top-right-radius: $SecondaryBorderRadius
-        border-top-left-radius: $SecondaryBorderRadius
-        -webkit-border-radius: $PageTabRoundedCorners
-        -moz-border-radius: $PageTabRoundedCorners 
-        border-radius: $PageTabRoundedCorners
       &.first 
         width: 30px
         a
@@ -374,9 +365,6 @@ li
         padding: 8px 0
         position: relative
         width: $pageTabWidth * 1.75
-        -webkit-border-radius: $SecondaryBorderRadius
-        -moz-border-radius: $SecondaryBorderRadius
-        border-radius: $SecondaryBorderRadius
         z-index: 20
         -moz-box-shadow: 0px 4px 5px #333
         -webkit-box-shadow: 0px 4px 5px #333
@@ -559,9 +547,6 @@ li
 $ColumnCorners: none
 #col_left
   background: none
-  -moz-border-radius: $ColumnCorners
-  -webkit-border-radius: $ColumnCorners
-  border-radius: $ColumnCorners
 
 //**********************************************************************************************
 /* UNIVERSAL LIST - CHECK GRID.SASS & FB_GRID.SASS FOR MORE IN-DEPTH STYLING */
@@ -716,10 +701,6 @@ $ColumnCorners: none
 
   /* PANEL BAR STYLES */
   .panelBar
-    -moz-border-radius-topleft: $ColumnCorners
-    -moz-border-radius-topright: $ColumnCorners
-    -webkit-border-top-right-radius: $ColumnCorners
-    -webkit-border-top-left-radius: $ColumnCorners
     position: relative
     display: block
     padding: 4px 0
@@ -747,9 +728,6 @@ $ColumnCorners: none
   /* WELCOME PANEL STYLES */
   .welcomePanel
     background: $WelcomePanelBG
-    -moz-border-radius: $featureBorderRadius
-    -webkit-border-radius: $featureBorderRadius
-    border-radius: $featureBorderRadius
     border:
       top: $featureBorderTop
       bottom: $featureBorderBot

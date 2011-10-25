@@ -10,26 +10,6 @@ p
 .float-right
   float: right
 
-/* Shadows */
-.v-shadow
-.h-shadow
-
-/* Rounded Corners */
-.top-secondary-corners
-  -webkit-border-top-right-radius: $SecondaryBorderRadius
-  -webkit-border-top-left-radius: $SecondaryBorderRadius
-  -moz-border-radius-topright: $SecondaryBorderRadius
-  -moz-border-radius-topleft: $SecondaryBorderRadius
-  border-top-right-radius: $SecondaryBorderRadius
-  border-top-left-radius: $SecondaryBorderRadius
-
-.bottom-secondary-corners
-  -webkit-border-bottom-right-radius: $SecondaryBorderRadius
-  -webkit-border-bottom-left-radius: $SecondaryBorderRadius
-  -moz-border-radius-bottomright: $SecondaryBorderRadius
-  -moz-border-radius-bottomleft: $SecondaryBorderRadius
-  border-bottom-right-radius: $SecondaryBorderRadius
-  border-bottom-left-radius: $SecondaryBorderRadius
 
 
 #header
@@ -95,8 +75,11 @@ p
  V2 GRID CLASSES */
 /* Columns */
 #left-col
+  +grid(8)
 #right-col
+  +grid(4)
 #full-col
+  +grid(12)
 
 /* Global Panel Styles */
 .panel-1, .panel-2, .panel-3, .panel-content, .panel-half, .panel-third, .panel-twothird, .panel-quarter, .panel-threequarter, .panel-full, .panel-bar, .panel-border
@@ -124,10 +107,6 @@ p
 
 .panel-bar
   display: block
-  background-color: $PanelBarBG
-  padding-top: $PanelGutters
-  h1, h2, h3, h4, h5, h6, p
-    color: $PaneBarHeaderColor
   h5, h4, h3
     margin: 0
   h3
@@ -158,11 +137,6 @@ p
     box-shadow: inset 0 0 22px #d1d1d1
     .profile-pic
       border-color: $PanelMetaBackground - #222
-  &.meta-panel, &.featured-panel
-    padding-top: $PanelGutters
-    -webkit-border-radius: $PrimaryBorderRadius
-    -moz-border-radius: $PrimaryBorderRadius
-    border-radius: $PrimaryBorderRadius
   &.generic-panel
   .panel-bar
     margin-bottom: 10px
@@ -259,37 +233,6 @@ p
   .panel-twothird
     width: $PanelThreePanelTwoThird
 
-
-/****************************************************
- PANEL BACKGROUND IMAGES */
-.news, .articles, .blogs, .contents, .comments, .events, .ideas, .questions, .classifieds, .resources, .forums, .topics, .galleries, .newswires, .latest, .active, .media
-  background-position: 80% center
-  background-repeat: no-repeat
-
-.active
-  background-image: image_url("default/site/mark-active.png")
-.contents, .news, .newswires
-  background-image: image_url("default/site/mark-news.png")
-.articles, .blogs
-  background-image: image_url("default/site/mark-blogs.png")
-.comments
-  background-image: image_url("default/site/mark-comments.png")
-.events
-  background-image: image_url("default/site/mark-events.png")
-.ideas
-  background-image: image_url("default/site/mark-ideas.png")
-.questions
-  background-image: image_url("default/site/mark-qa.png")
-.latest
-  background-image: image_url("default/site/mark-latest.png")
-.classifieds, .resources
-  background-image: image_url("default/site/mark-classifieds.png")
-.predictions
-  background-image: image_url("default/site/mark-predictions.png")
-.forums, .topics
-  background-image: image_url("default/site/mark-forumtopics.png")
-.media, .galleries
-  background-image: image_url("default/site/mark-media.png")
 
 /****************************************************
  WIDGET LISTS */
@@ -487,12 +430,6 @@ p
     background: $footerBG
     display: inline-block
     padding-top: $PanelGutters
-    -webkit-border-top-right-radius: $PrimaryBorderRadius
-    -webkit-border-top-left-radius: $PrimaryBorderRadius
-    -moz-border-radius-topright: $PrimaryBorderRadius
-    -moz-border-radius-topleft: $PrimaryBorderRadius
-    border-top-right-radius: $PrimaryBorderRadius
-    border-top-left-radius: $PrimaryBorderRadius
     -moz-box-shadow: inset 0 0 22px #d1d1d1
     -webkit-box-shadow: inset 0 0 22px #d1d1d1
     box-shadow: inset 0 0 22px #d1d1d1
@@ -552,12 +489,6 @@ p
 .panel-1, .panel-2, .panel-3
   .ad-wrap
     background: #ddd
-    -webkit-border-top-right-radius: $SecondaryBorderRadius
-    -webkit-border-top-left-radius: $SecondaryBorderRadius
-    -moz-border-radius-topright: $SecondaryBorderRadius
-    -moz-border-radius-topleft: $SecondaryBorderRadius
-    border-top-right-radius: $SecondaryBorderRadius
-    border-top-left-radius: $SecondaryBorderRadius
     padding: 26px 6px 6px
     position: relative
   .ad-title
@@ -620,9 +551,6 @@ p
  USER WIDGET */
 .user-panel
   background-color: $PanelMetaBackground 
-  -webkit-border-radius: $PrimaryBorderRadius - 4px
-  -moz-border-radius: $PrimaryBorderRadius - 4px
-  border-radius: $PrimaryBorderRadius - 4px
   -moz-box-shadow: inset 0 0 22px #d1d1d1
   -webkit-box-shadow: inset 0 0 22px #d1d1d1
   box-shadow: inset 0 0 22px #d1d1d1
@@ -668,9 +596,6 @@ p
   width: 100%
 .popover-wrapper
   margin: 0 auto
-  -webkit-border-radius: $PrimaryBorderRadius
-  -moz-border-radius: $PrimaryBorderRadius
-  border-radius: $PrimaryBorderRadius
   display: block
   background: image_url("default/site/btn-highlight.png") top left repeat 
   width: $postPopOverWidth + $PanelGutters
@@ -679,22 +604,12 @@ p
     padding-bottom: $PanelGutters 
     width: $postPopOverWidth
     display: inline-block
-    -webkit-border-radius: $SecondaryBorderRadius
-    -moz-border-radius: $SecondaryBorderRadius
-    border-radius: $SecondaryBorderRadius
     background: $popOverBG
     margin: $PanelGutters * .5
     h1.title, p
       color: $bodyBG
       margin: 0 $PanelGutters $PanelGutters * .5
 .popover-tabs
-  li, a
-    -webkit-border-top-right-radius: $SecondaryBorderRadius
-    -webkit-border-top-left-radius: $SecondaryBorderRadius
-    -moz-border-radius-topright: $SecondaryBorderRadius
-    -moz-border-radius-topleft: $SecondaryBorderRadius
-    border-top-right-radius: $SecondaryBorderRadius
-    border-top-left-radius: $SecondaryBorderRadius
   ul
     display: block
     float: left
