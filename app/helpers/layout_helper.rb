@@ -10,7 +10,7 @@ module LayoutHelper
              ["og:url", base_url(polymorphic_path(item.item_link))],
              ["og:image", external_thumb_image(item)],
              ["og:site_name", get_setting_value('site_title')],
-             ["og:description", item.item_description]
+             ["og:description", caption(strip_tags(item.item_description),250)]
             ]
     
     if APP_CONFIG['omniauth']['providers'] and APP_CONFIG['omniauth']['providers']['facebook']
