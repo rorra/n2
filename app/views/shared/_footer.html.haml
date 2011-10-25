@@ -16,6 +16,9 @@
         - if account_setting.present? && !oauth_key_setting.present?
           %a.icon-link.twitterfeed{:target => "_blank", :title => t('.twitter_title'), :href => base_twitter_url(account_setting.value) }= t('.twitter')
         %span#follow-twitterapi
+        -# ticket898
+        -# replace twttr.anywhere with (see http://twitter.com/about/resources/followbutton)
+        -# %a.twitter-follow-button{:href => base_twitter_url(account_setting.value), :data-show-count => "false" }= t('footer.twitter_follow', :twitter_account => base_twitter_url(account_setting.value))
         -if account_setting.present? && oauth_key_setting.present?
           - if oauth_key_setting.value != 'U6qjcn193333331AuA'
             :javascript
