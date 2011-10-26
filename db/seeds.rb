@@ -1231,7 +1231,7 @@ view_objects.each do |view_object_hash|
   view_object.setting ||= Metadata::ViewObjectSetting.new
 
   # reset kommands if we're updating the version
-  if view_object.version != view_object_hash[:version]
+  if view_object.version != view_object_hash[:settings][:version]
     view_object.setting.kommands = []
   end
   
