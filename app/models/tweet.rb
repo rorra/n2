@@ -34,8 +34,10 @@ class Tweet < ActiveRecord::Base
       rescue Exception
         return false
       end
-      title = page[:title].present? ? page[:title] : url
-      description = page[:description] ? page[:description] : "@#{tweet_account.screen_name} tweeted: #{text}"
+      next unless page[:title].present?
+      title = page[:title]
+      description = page[:description] ? page[:description] : "#{text}"
+      description.gsub(NewsCloud::Util.url_regex,"").gsub(/\s{2,}/," ")
       content = Content.find_by_url(url)
       unless content
         content = Content.new({
