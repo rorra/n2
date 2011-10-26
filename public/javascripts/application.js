@@ -47,7 +47,7 @@ function rebuild_facebook_dom() {
   } catch(error) { }
 }
 
-$(function() {
+(function($) {
   $('.hide').hide();
   $('.unhide').show().removeClass('hidden');
 
@@ -387,13 +387,13 @@ $(function() {
   });
 
 
-});
+})(jQuery);
 
 
 /* 
  * Post Story Functionality
  */
-$(function() {
+(function($) {
 	var my_carousel = null;
 	function set_carousel(carousel) {
 		my_carousel = carousel;
@@ -630,10 +630,10 @@ $(function() {
   */
 
   $('.ellipsis_text').ellipsis();
-});
+})(jQuery);
 
 /** IMAGE VIEWER **/
-$(function() {
+(function($) {
 	$("#thumbnails").scrollable({size: 3, clickable: false}).find("img").each(function(index) {
 
 			// thumbnail images trigger the overlay
@@ -659,7 +659,7 @@ $(function() {
 			});
 		});
 	$("#images").scrollable();
-});
+})(jQuery);
 
 window.fbAsyncInit = function() {
   FB.init({appId: fbAppId, status: true, cookie: true, xfbml: true});
