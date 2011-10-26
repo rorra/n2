@@ -52,6 +52,9 @@
             %li
               %span.admin-links
                 = link_to t('.admin'), admin_path 
+  - extended_footer_content = get_setting('extended_footer_content')
+  - if extended_footer_content.present? and extended_footer_content.value != 'false'
+    = raw extended_footer_content.value
   :javascript
     if(top !== self) {
       $("#twitter-link").attr("href", $("#twitter-link").attr("burl"));
@@ -81,7 +84,7 @@
       	});
       });
     }
-     
+           
   -#    = pipe_spacer
   -#    %span= t('.locale')
   -#    = link_to "EN", root_path(:locale => :en)
