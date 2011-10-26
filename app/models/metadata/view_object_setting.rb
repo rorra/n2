@@ -59,9 +59,10 @@ class Metadata::ViewObjectSetting < Metadata
     kommands.inject(model_klass) {|klass,kommand| klass.send(kommand[:method_name], *([kommand[:args], kommand[:options]].flatten.compact)) }
   end
 
-  def add_kommand *args
-    options = args.extract_options!
-    method_name =  args.shift
+  def add_kommand params
+    options = params[:options]
+    method_name =  params[:method_name]
+    args = params[:args]
     raise "Missing argument" unless method_name
     kommand = {
     	:method_name => method_name
@@ -95,6 +96,8 @@ class Metadata::ViewObjectSetting < Metadata
   def locale_subtitle=(val) self.data[:locale_subtitle] = val end
   def meta() self.data[:meta] end
   def meta=(val) self.data[:meta] = val end
+  def version() self.data[:version] end
+  def version=(val) self.data[:version] = val end
   def cache_enabled() self.data[:cache_enabled] or true end #default to true
   def cache_enabled=(val) self.data[:cache_enabled] = val end
   def old_widget() self.data[:old_widget] or false end #default to false

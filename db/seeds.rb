@@ -936,15 +936,16 @@ view_objects = [
   	:name          => "Top Universal Items",
   	:template_name => "v2_single_col_list",
   	:settings      => {
-  		:klass_name      => "Vote",
+  		:klass_name      => "ItemAction",
   		:locale_title    => "generic.top_items.title",
   		:locale_subtitle => nil,
   		:use_post_button => false,
-  		:css_class       => "active",
+                    :css_class       => "active",
+                    :version => 2,
   		:kommands        => [
   		  {
   		    :method_name => "top_items",
-          :args        => [5]
+                                       :options        => {:limit => 5, :minimu => 5}
   		  }
   		]
   	}
@@ -1156,14 +1157,18 @@ view_objects = [
   	:name          => "Double Column Triple Popular Items",
   	:template_name => "v2_double_col_triple_item",
   	:settings      => {
-  		:klass_name      => "Vote",
+  		:klass_name      => "ItemAction",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :version => 4,
   		:kommands        => [
   		  {
           :method_name => "top_items",
-          :args => [3, nil, 3]
+                                       :options => {
+                                         :limit => 3,
+                                         :minimum => 3
+                                       }
         }
   		]
   	}
@@ -1202,7 +1207,8 @@ view_objects = [
   		:klass_name      => "ViewObject",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :version => 1,
   		:kommands        => [
   		],
   		:meta            => {
@@ -1213,14 +1219,22 @@ view_objects = [
   }
 ]
 view_objects.each do |view_object_hash|
-  next if ViewObject.find_by_name(view_object_hash[:name])
-  puts "Creating View Object: #{view_object_hash[:name]}" if debug
+  view_object = ViewObject.find_by_name(view_object_hash[:name])
+  next if view_object and view_object.version == view_object_hash[:settings][:version]
+
+  
+  puts "Creating View Object: #{view_object_hash[:name]}--#{view_object_hash[:settings][:version] || 0}" if debug
 
   # Build ViewObject and Metadata::ViewObjectSetting
-  view_object = ViewObject.new(:name => view_object_hash[:name])
+  view_object ||= ViewObject.new(:name => view_object_hash[:name])
   #view_object.build_setting
-  view_object.setting = Metadata::ViewObjectSetting.new
+  view_object.setting ||= Metadata::ViewObjectSetting.new
 
+  # reset kommands if we're updating the version
+  if view_object.version != view_object_hash[:version]
+    view_object.setting.kommands = []
+  end
+  
   # Set template
   view_object_template = ViewObjectTemplate.find_by_name(view_object_hash[:template_name])
   raise "Invalid Template Name" unless view_object_template
@@ -1237,11 +1251,16 @@ view_objects.each do |view_object_hash|
   view_object.setting.locale_subtitle  = view_object_hash[:settings][:locale_subtitle] if view_object_hash[:settings][:locale_subtitle]
   view_object.setting.dataset          = view_object_hash[:settings][:dataset] if view_object_hash[:settings][:dataset]
   view_object.setting.meta             = view_object_hash[:settings][:meta] if view_object_hash[:settings][:meta]
+  view_object.setting.version          = view_object_hash[:settings][:version] if view_object_hash[:settings][:version]
 
   # Add Kommands
   view_object_hash[:settings][:kommands].each do |kommand|
-    args = kommand[:args] || []
-    view_object.setting.add_kommand(kommand[:method_name], *args)
+    params = {
+      :args => kommand[:args] || [],
+      :options => kommand[:options] || {},
+      :method_name => kommand[:method_name]
+    }
+    view_object.setting.add_kommand(params)
   end
 
   # Make sure to save both the view object and the metadata setting
@@ -1249,7 +1268,7 @@ view_objects.each do |view_object_hash|
     view_object.save!
     view_object.setting.save!
   else
-  	raise (view_object.errors.full_messages | view_object.setting.errors.full_messages).inspect
+    raise (view_object.errors.full_messages | view_object.setting.errors.full_messages).inspect
   end
 end
 

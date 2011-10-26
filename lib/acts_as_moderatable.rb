@@ -11,6 +11,8 @@ module Newscloud
       module ClassMethods
         def acts_as_moderatable
           has_many :flags, :as => :flaggable
+          # HACK:: move this out to its own location
+          has_many :item_actions, :as => :actionable
 
           named_scope :active, { :conditions => ["#{self.name.tableize}.is_blocked = 0"] }
           named_scope :inactive, { :conditions => ["#{self.name.tableize}.is_blocked = 1"] }

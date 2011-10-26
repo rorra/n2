@@ -126,6 +126,10 @@ class ViewObject < ActiveRecord::Base
     ViewObject.find($1)
   end
 
+  def version
+    setting ? setting.try(:version) : nil
+  end
+
   private
     
     def klass_method_key klass_name, method

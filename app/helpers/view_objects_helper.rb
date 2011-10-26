@@ -105,6 +105,16 @@ module ViewObjectsHelper
       ].join(' ').html_safe)
   end
 
+  def tally_link item
+    # Add wrapper span tag for vote link ajax purposes
+    count = ItemAction.tally_for_item item
+    content_tag(:span,
+                [
+                 content_tag(:span, count, :class => "count"),
+                 link_to('Points', item)
+                ].join(' ').html_safe)
+  end
+
   def post_something klass_name, css_class = "float-right"
     klass = klass_name.constantize
     link_to(I18n.translate("generic.post.#{klass_name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => "button-panel-bar #{css_class}")
