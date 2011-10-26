@@ -53,6 +53,7 @@ class VotesController < ApplicationController
                                          :action_type => params[:action_type],
                                          :url => params[:url]
                                        })
+      NewscloudSweeper.expire_instance(item)
       render :json => {:success => "Item created successfully"}.to_json and return
     else
       render :json => {:error => "Invalid request."}.to_json and return
