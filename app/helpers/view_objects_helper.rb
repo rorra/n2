@@ -46,7 +46,9 @@ module ViewObjectsHelper
     end
 
     locale << 'by'
-    if format
+    if item.respond_to?(:twitter_item?) and item.twitter_item?
+      interpolation_args[:name] = link_to(user.twitter_name, tweet_url(item))
+    elsif format
       interpolation_args[:name] = local_linked_profile_name(user, :format => format)
     else
       interpolation_args[:name] = local_linked_profile_name(user)
