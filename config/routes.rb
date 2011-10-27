@@ -131,7 +131,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :forums, :has_many => [:topics]
   map.resources :galleries, :has_many => [:comments, :flags, :related_items], :member => { :add_gallery_item => [:get, :post] }
   map.resources :go, :only => :show
-  map.resources :home, :collection => { :preview_widgets => :get, :index => [:get, :post], :app_tab => [:get, :post], :google_ads => [:get],:openx_ads => [:get],:helios_ads => [:get],:helios_alt2_ads => [:get],:helios_alt3_ads => [:get],:helios_alt4_ads => [:get], :about => :get, :faq => :get, :terms => :get, :contact_us => [:get, :post] }, :member => { :render_widget => [:get, :post] }
+  map.resources :home, :collection => { :preview_widgets => :get, :index => [:get, :post], :app_tab => [:get, :post], :default_ads => [:get],:google_ads => [:get],:openx_ads => [:get],:helios_ads => [:get],:helios_alt2_ads => [:get],:helios_alt3_ads => [:get],:helios_alt4_ads => [:get], :about => :get, :faq => :get, :terms => :get, :contact_us => [:get, :post] }, :member => { :render_widget => [:get, :post] }
   map.resources :idea_boards, :has_many => :ideas
   map.resources :ideas, :member => { :like => [:get, :post],:my_ideas => [:get, :post] },:collection => { :index => [:get, :post] }, :has_many => [:comments, :flags, :related_items ]
   map.resources :newswires, :member => { :quick_post => [:get, :post] }

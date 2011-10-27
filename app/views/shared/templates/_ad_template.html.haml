@@ -33,6 +33,8 @@
     %div{:class => ad_class}
       - if get_setting('platform','ads').try(:value)
         - case get_setting('platform','ads').try(:value)
+          - when "default"
+            %iframe{:src => base_url(default_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
           - when "openx"
             %iframe{:src => base_url(openx_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
           - when "helios_alt4" 

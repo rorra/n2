@@ -323,7 +323,7 @@ settings = [
  { :key_sub_type => 'sitemap', :key_name => 'yahoo_app_id',  :value => (APP_CONFIG['yahoo_app_id'] || "ELIZq2L333322.rGdRR5abc888HCGL1zDOegJakZyHIrugVqPip3YK333P8-") },
  { :key_sub_type => 'ads', :key_name => 'sponsor_zones_enabled', :value => "false" },
  { :key_sub_type => 'ads', :key_name => 'sponsor_zones_store_url', :value => "http://newscloud.trafficspaces.com", :hint => "The website URL used to sell your sponsored ad zones"  },
- { :key_sub_type => 'ads', :key_name => 'platform', :value => (APP_CONFIG['ad_platform'] || "none" ) },
+ { :key_sub_type => 'ads', :key_name => 'platform', :value => (APP_CONFIG['ad_platform'] || "default" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_sitepage', :value => (APP_CONFIG['helios_sitepage'] || "youraddomain.com/yourfacebookproject.htm" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_url', :value => (APP_CONFIG['helios_url'] || "http://subdomain.xxx.com" ) },
  { :key_sub_type => 'ads', :key_name => 'helios_script_url', :value => (APP_CONFIG['helios_script_url'] || "http://scriptsubdomain.xxx.com" ) },
