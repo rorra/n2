@@ -5,7 +5,7 @@ module TwitterHelper
     [
       #local_linked_profile_name(item.primary_tweet.user),
       #"tweeted:",
-      item.primary_tweet.text
+      item.primary_tweet.text.gsub(Newscloud::Util.url_regex,"").gsub(/\s{2,}/," ")
     ].join(' ').html_safe
   end
 
