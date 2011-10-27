@@ -3,9 +3,9 @@
   = render :partial => 'shared/subnav/predictions_subnav'
 
 #col_left
-  #itemDetails.panel_2
+  #itemDetails.panel-2
     = add_this @prediction_group
-    .itemBlock
+    .item-block
       - if @prediction_group.images.present?
         .thumb
           = image_tag @prediction_group.images.first.url(:medium)

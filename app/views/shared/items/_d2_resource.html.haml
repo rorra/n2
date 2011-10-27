@@ -5,7 +5,7 @@
     .item-text
       %h3= link_to resource.title, resource_path(resource)
     .meta-data
-      .profilePic= local_linked_profile_pic resource.user
+      .profile-pic= local_linked_profile_pic resource.user
       %h6= generic_posted_by resource
       %h6 
         %span.count== #{like_link resource} #{resource.votes_tally}
@@ -16,7 +16,7 @@
     .item-text
       %h3= link_to resource.title, resource_path(resource)
     .meta-data
-      .profilePic= local_linked_profile_pic resource.user
+      .profile-pic= local_linked_profile_pic resource.user
       %h6= generic_posted_by resource
       %h6 
         %span.count== #{like_link resource} #{resource.votes_tally}

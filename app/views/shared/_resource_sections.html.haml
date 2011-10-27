@@ -1,14 +1,14 @@
-.panel_2
-  .panelBar.clearfix
+.panel-2
+  .panel-bar.clearfix
     %h2= t('.title')
   .subtitle
     %span= t('.subtitle')
-  .itemListWrap
-    .list_items.clearfix
+  .item-list-wrap
+    .item-list.clearfix
       %ul
         - resource_sections.each do |resource_section|
           %li
-            .itemBlock
+            .item-block
               %p= link_to resource_section.name, resource_section
               %p= resource_section.description
 

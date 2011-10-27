@@ -9,13 +9,13 @@
     - contents ||= Content.active.top_story_items.paginate :page => params[:page], :per_page => story_count, :order => "created_at desc"
   -else
     - contents ||= Content.active.top_items.paginate :page => params[:page], :per_page => story_count, :order => "created_at desc"
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('shared.stories.stories_title')
     .subtitle
       %span= t('shared.stories.stories_subtitle').html_safe
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul
           - contents.each do |content|
             -# todo hack to fix drafts appearing until we can switch articles out of this widget
@@ -26,13 +26,13 @@
                     - if content.images.present?
                       = image_tag content.images.first.url(:thumb)
                     -else
-                      = image_tag ('default/watermark.jpg')
-                  .itemBlock
+                      = image_tag ('skin/watermark.jpg')
+                  .item-block
                     %h2= link_to content.title, story_path(content)
                     %p= linked_story_caption content
                   
-                    .profilePic= local_linked_profile_pic content.user
-                    .itemMeta
+                    .profile-pic= local_linked_profile_pic content.user
+                    .item-meta-data
                       %h3= generic_posted_by content
                       %span.btnComment== #{like_link content} #{content.votes_tally}
                       %span.btnComment== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count} 

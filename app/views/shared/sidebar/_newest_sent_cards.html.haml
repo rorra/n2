@@ -4,16 +4,16 @@
   - newest_sent_cards ||= SentCard.newest 5
   - unless newest_sent_cards.empty?
     %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+      .panel-bar
         %h2= t('cards.newest_sent_cards_title')
-      .list_items
+      .item-list
         %ul
           - newest_sent_cards.each do |sent_card|
             %li
-              .itemBlock
+              .item-block
                 %h4= link_to sent_card.card.name, card_path(sent_card.card)
-                .profilePic= image_tag sent_card.card.image_path
-                .itemMeta
+                .profile-pic= image_tag sent_card.card.image_path
+                .item-meta-data
                   %h3= t('cards.sent_at', :date => timeago(sent_card.created_at)).html_safe
                   -#%span.btnComment== #{like_link sent_card} #{sent_card.votes_tally}
                   -#%span.btnComment== #{link_to t('comments'), sent_card_path(sent_card, :anchor => "commentListTop")} #{sent_card.comments_count}

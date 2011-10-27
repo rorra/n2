@@ -4,21 +4,21 @@
   - if most_discussed_stories.empty?
     - most_discussed_stories = Content.active.published.commented.find( :all, :limit => 5, :order => "comments_count desc")
   %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-    .panelBar
+    .panel-bar
       %h2= t('.top_discussed_title')
-    .list_items
+    .item-list
       %ul
         - unless most_discussed_stories.empty?
           - most_discussed_stories.each do |story|
             %li
-              .itemBlock
+              .item-block
                 %h4= link_to sanitize_title(story.title), story_path(story)
-                .profilePic= local_linked_profile_pic story.user
-                .itemMeta
+                .profile-pic= local_linked_profile_pic story.user
+                .item-meta-data
                   %h3= stories_posted_by story
                   %span.btnComment== #{like_link story} #{story.votes_tally}
                   %span.btnComment== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}
         - else
           %li
-            .itemBlock
+            .item-block
               %h4= t('empty.top_discussed_stories')

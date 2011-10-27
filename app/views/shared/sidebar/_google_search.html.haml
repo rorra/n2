@@ -1,8 +1,8 @@
 - cache :google_search_html, :expires_in => 180.minute do
   - if Metadata::Setting.find_setting('google_search_engine_id').present?
     - search_engine_id = Metadata::Setting.find_setting('google_search_engine_id').value
-  .panel_1
-    .panelBar
+  .panel-1
+    .panel-bar
       %h2= t('google_search_title')
       - if search_engine_id and search_engine_id != "your-google-search-engine-id"
         #cse

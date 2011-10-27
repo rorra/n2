@@ -5,15 +5,15 @@
 #col_left
   = render_ad(:banner, @ad_layout, @ad_banner)
   - @paginate ||= false
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('predictions.my_list_title')
       - if @prediction_guesses.present? and @prediction_guesses.first.refineable?
         .refine_link
           = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => PredictionGuess.refineable_select_options }
     - unless @prediction_guesses.empty?
-      .itemListWrap
-        .list_items
+      .item-list-wrap
+        .item-list
           %ul
             - @prediction_guesses.each do |prediction_guess|
               %li.askPredictionGuessWrap{'data-id' => prediction_guess.cache_key}

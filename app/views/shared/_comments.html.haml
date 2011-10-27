@@ -1,9 +1,9 @@
 -# @expects: local 'comments'
 
 %a#commentsListTop{:name => "commentsListTop"}
-.commentThread.panel_2
+.commentThread.panel-2
   - if comments.present?
-    .panelBar
+    .panel-bar
       %h2= t '.comment_title'
       -# TODO:: current refine logic only works on lists
       -# if comments.present? and comments.first.refineable?

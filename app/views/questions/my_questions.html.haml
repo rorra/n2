@@ -6,8 +6,8 @@
   = render_ad(:banner, @ad_layout, @ad_banner)
   - @questions ||= Question.active.newest
   - @paginate ||= false
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('questions.my_list_title')
       - if @questions.present? and @questions.first.refineable?
         .refine_link
@@ -15,8 +15,8 @@
     .subtitle
       %span= t('questions.my_list_subtitle')
     - unless @questions.empty?
-      .itemListWrap
-        #front-stories.list_items
+      .item-list-wrap
+        #front-stories.item-list
           %ul
             - @questions.each do |question|
               %li.askQuestionWrap{'data-id' => question.cache_key}
@@ -25,12 +25,12 @@
                     - if question.images.present?
                       = image_tag question.images.first.url(:thumb)
                     - else
-                      = image_tag ('default/watermark.jpg')
-                  .itemBlock
+                      = image_tag ('skin/watermark.jpg')
+                  .item-block
                     %h2= link_to question.question, question
                     %p= linked_item_details question
-                    .profilePic= local_linked_profile_pic question.user
-                    .itemMeta
+                    .profile-pic= local_linked_profile_pic question.user
+                    .item-meta-data
                       %h3= asked_by question
                       %span.btnComment== #{like_link question} #{question.votes.size}
                       %span.btnComment== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}

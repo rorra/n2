@@ -5,7 +5,7 @@
     .item-text
       %h3= link_to content.title, story_path(content)
     .meta-data
-      .profilePic= local_linked_profile_pic content.user
+      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
       %h6 
         %span.count== #{like_link content} #{content.votes_tally}
@@ -15,7 +15,7 @@
     .item-text
       %h3= link_to content.title, story_path(content)
     .meta-data
-      .profilePic= local_linked_profile_pic content.user
+      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
       %h6 
         %span.count== #{like_link content} #{content.votes_tally}

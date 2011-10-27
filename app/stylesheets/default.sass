@@ -1,3 +1,5 @@
+
+// Global Layout Reset //
 *
   margin: 0
   padding: 0
@@ -132,7 +134,7 @@
       a
         padding: 0
 // Body containers //
-#bodyWrapper
+#page
   position: relative
   background: $bodyWrapperBG
   display: inline-block
@@ -236,167 +238,7 @@ li
   padding: 0
 
 
-// top level menu page tabs //
-#pageTabs
-  height: 28px
-  position: absolute
-  bottom: 0
-  left: 0
-  right: 0
-  .tabs
-    border-bottom: $tabBorder
-    height: 24px
-    position: absolute
-    bottom: -1px
-    left: 0
-    right: 0
-    .toggle_tabs li
-      width: $pageTabWidth
-      a.tab
-        background: $tabBG
-        border-bottom: $tabBorder
-        color: $tabTextColor
-        height: 13px
-        padding: 6px 0 4px
-        &:hover
-          background: $tabBGHover
-          text-decoration: none
-      a.tab.selected
-        border: 1px solid
-        border:
-          top: $tabBorder
-          bottom: $bodyBG
-          right: $tabBorder
-          left: $tabBorder
-        background: $tabSelectedBG
-        color: $tabSelectedTextColor
-      a.tab.selected:hover
-        background: $tabSelectedBG
 
-
-// Sub Navigation Styles //
-#subNav
-  height: 20px
-  margin: 0px 0px $PanelGutters 0px
-  position: relative
-  .tabs
-    border-bottom: $subTabBorder
-    height: 21px
-    padding: 0 $PanelGutters
-    .toggle_tabs li
-      width: auto
-      a.tab
-        background: $subTabBG
-        border-bottom: $subTabBorder
-        color: $subTabTextColor
-        height: 10px
-        padding: 4px $PanelGutters * .5 6px
-        width: auto
-        &:hover
-          background: $subTabBGHover
-          text-decoration: none
-      a.tab.selected
-        border: 1px solid
-        border:
-          top: $subTabBorder
-          bottom: $bodyBG
-          right: $subTabBorder
-          left: $subTabBorder
-        background: $subTabSelectedBG
-        color: $subTabSelectedTextColor
-      a.tab.selected:hover
-        background: $subTabSelectedBG
-
-
-// Shared Tab Styles
-#pageTabs, #subNav
-  border: none
-  .tabs
-    .tab-float
-      float: $pagetabFloat
-      padding: 0 10px
-    .toggle_tabs li
-      margin: 0 1px
-      float: left
-      padding: 0
-      text-align: center
-      a.tab
-        display: block
-        font-size: $fontsize
-        font-weight: bold
-        margin: 0
-        position: relative
-        bottom: -1px
-      &.first 
-        width: 30px
-        a
-          margin: 0
-          padding: 5px 0
-          img
-            display: inline-block
-
-    .toggle_tabs li
-      a.tab.selected
-        text-shadow: none
-      &.first a.tab.selected
-        padding: 5px 7px
-      a.tab.selected:hover
-        text-decoration: none
-        &.disabled
-          color: $subheadColor
-          cursor: default
-          &:hover
-            text-decoration: none
-
-#pageTabs
-  .toggle_tabs
-    li.menu_item
-      &:hover
-        a
-          background: $tabBGHover
-        ul.dropdown
-          display: inline-block
-      ul.dropdown
-        background: $PageTabDropDownBG image_url("default/site/dropdown-arrow.png") top center no-repeat
-        display: none
-        left: -$pageTabWidth * .35 
-        margin-top: 4px
-        overflow: hidden
-        padding: 8px 0
-        position: relative
-        width: $pageTabWidth * 1.75
-        z-index: 20
-        -moz-box-shadow: 0px 4px 5px #333
-        -webkit-box-shadow: 0px 4px 5px #333
-        box-shadow: 0px 4px 5px #333
-        li
-          display: inline-block
-          float: none
-          height: 100%
-          margin: 0
-          position: relative
-          padding: 0
-          text-align: left
-          width: $pageTabWidth * 1.75
-          a
-            background: none
-            bottom: 0px
-            border: none
-            color: $tabTextColor
-            display: inline-block
-            font-size: $fontsize
-            font-weight: normal
-            height: auto
-            line-height: 130%
-            margin: 4px 8px
-            padding: 5px 8px 3px
-            width: $pageTabWidth * 1.75 - 32px
-            -webkit-border-radius: 100px
-            -moz-border-radius: 100px
-            border-radius: 100px
-            &:hover
-              background: $PageTabDropDownBGHover
-              text-decoration: none
 
 
 //**********************************************************************************************
@@ -456,7 +298,7 @@ li
   overflow: hidden
   img
     position: relative
-    background: image_url("default/watermark.jpg") center no-repeat
+    background: image_url("skin/watermark.jpg") center no-repeat
   a:hover
     text-decoration: none
 
@@ -471,7 +313,7 @@ li
     height: 70px
 
 /* PROFILE IMAGE */
-.profilePic
+.profile-pic
   position: relative
   float: left
   margin: 0px 5px 0px 0px
@@ -507,7 +349,7 @@ li
     height: 16px
     width: 16px
 
-.panel_2
+.panel-2
   .user
     img.moderator
       height: 32px
@@ -516,7 +358,7 @@ li
       left: 2px
       bottom: 2px
 
-.panel_1
+.panel-1
   .users
     .thumb.user
       img.moderator
@@ -535,7 +377,7 @@ li
       left: 2px
       bottom: 2px
 
-.profilePic
+.profile-pic
   img.moderator
     height: 12px
     width: 12px
@@ -552,17 +394,17 @@ $ColumnCorners: none
 /* UNIVERSAL LIST - CHECK GRID.SASS & FB_GRID.SASS FOR MORE IN-DEPTH STYLING */
 
 /* CONTENT BLOCK */
-.itemBlock
+.item-block
   margin: 5px
 
 /* META DATA */
-.itemMeta
+.item-meta-data
   display: inline-block
   width: 79%
 
 /* NO IMAGE META */
 .item_2, .event, .newswire
-  .itemMeta
+  .item-meta-data
     width: 100%
 
 /* ACTIONS BAR FOR PANELS */
@@ -583,22 +425,22 @@ $ColumnCorners: none
   width: 100%
 
 /* LIST CLASSES WITH IMAGE */
-.panel_2
+.panel-2
   .answer, .article, .comment, .content, .idea, .question, .resource, .topic, .users, .item_1
-    .itemBlock
+    .item-block
       float: left
  
 /* LIST CLASSES WITH NO IMAGE */
-.panel_2
+.panel-2
   .article, .newswire
     margin: 5px 0 10px
   .newswire, .item_2, .event
-    .itemBlock
+    .item-block
       display: block 
 
 /* UNVERSAL LIST STYLES - PANELS */
-.panel_1, .panel_2
-  .list_items
+.panel-1, .panel-2
+  .item-list
     li
       display: inline-block
       position: relative
@@ -679,7 +521,7 @@ $ColumnCorners: none
 //**********************************************************************************************
 /* LAYOUT PANELS - PANEL_1 & PANEL_2 CONTAINERS */
 
-.panel_1, .panel_2, .panel_3
+.panel-1, .panel-2, .panel-3
   margin-bottom: $PanelGutters
   .top-tags
     display: inline-block
@@ -700,7 +542,7 @@ $ColumnCorners: none
         background: $PanelFeaturedBG
 
   /* PANEL BAR STYLES */
-  .panelBar
+  .panel-bar
     position: relative
     display: block
     padding: 4px 0
@@ -735,7 +577,7 @@ $ColumnCorners: none
       right: $featureBorderRight
     display: inline-block
 
-    .itemBlock
+    .item-block
       text-align: center
       margin: 10px
 
@@ -773,14 +615,14 @@ $ColumnCorners: none
       float: left
       border:
         bottom: none
-      .profilePic
+      .profile-pic
         margin: 0
 
 
 
 
 
-.panel_2, .panel_1, .panel_3
+.panel-2, .panel-1, .panel-3
   .listTags
     li
       border: none
@@ -805,7 +647,7 @@ $ColumnCorners: none
       float: left
       width: 75%
       padding: 4px 0 6px 0
-      .itemBlock
+      .item-block
         padding-left: 6px
         float: left
         width: 70%
@@ -842,7 +684,6 @@ $ColumnCorners: none
       margin: 0 0 10px 10px
       padding: 0
       line-height: 120%
-      list-style-image: image_url("default/bullet1.gif")
       list-style-type: disc
       list-style-position: outside
       border-bottom: none
@@ -886,7 +727,7 @@ $ColumnCorners: none
     z-index: 7
 
 // refine search box styles //
-.panelBar, .subtitle
+.panel-bar, .subtitle
   .bio-box
     width: 100%
     padding: 0px
@@ -959,7 +800,7 @@ $ColumnCorners: none
   border-top: 1px solid #000
   border-bottom: 1px solid #535353
 
-.panel_2
+.panel-2
   .video
     min-width: 200px
     max-width: 480px
@@ -1099,7 +940,7 @@ $ColumnCorners: none
 
 // Comment Style Modifications and Additions //
 .commentThread, #commentThread
-  .panelBar
+  .panel-bar
     background: $panelBarCommentBG
     h2
       color: $linkColor
@@ -1655,7 +1496,7 @@ body div.jGrowl div.jGrowl-notification div.user-wrapper
   padding: 2px
   width: 271px
   display: inline-block
-  .profilePic
+  .profile-pic
     border: #ccc 1px solid
     margin: 0 5px 5px 0
   p

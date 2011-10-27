@@ -12,19 +12,19 @@
       = submit_tag "search"
   %br
   - if @items
-    .panel_2
-      .panelBar
+    .panel-2
+      .panel-bar
         %h2 Items
       .subtitle
         %span Items we found
-      .itemListWrap
-        .list_items
+      .item-list-wrap
+        .item-list
           %ul
             - @items.each do |item|
               %li
                 .article
                   .thumb{:style => "height: 103px"}
                     = image_tag(thumb_image_or_default item[:thumb_image_url])
-                  .itemBlock
+                  .item-block
                     %h2= link_to item[:title], item[:url], :target => "_amazon"
                     %p item details

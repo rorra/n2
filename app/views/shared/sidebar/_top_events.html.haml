@@ -3,15 +3,15 @@
 - cache :top_events_html do
   - top_events ||= Event.active.tally({ :at_least => 1, :limit => 5, :order => "votes.count desc" })
   %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-    .panelBar
+    .panel-bar
       %h2= t('.top_events_title')
-    .list_items
+    .item-list
       %ul
         - top_events.each do |event|
           %li
-            .itemBlock
+            .item-block
               %h4= link_to event.name, event_path(event)
-              .profilePic= local_linked_profile_pic event.user
+              .profile-pic= local_linked_profile_pic event.user
               .complexBlockMeta
                 %h3= generic_posted_by event
                 %span.btnComment== #{like_link event} #{event.votes_tally}

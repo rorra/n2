@@ -465,7 +465,7 @@ ul#nav2-tabs li a:active {
 4a)  NAV TABS
 *********************************/
 
-#pageTabs {
+#primary-navigation {
 	width: 100%;
 	height: 22px;
 	position: relative;
@@ -476,10 +476,10 @@ ul#nav2-tabs li a:active {
 	overflow: visible;
 	border: none; }
 
-.ie6 #pageTabs, .ie7 #pageTabs {
+.ie6 #primary-navigation, .ie7 #primary-navigation {
 	top: -24px;}
 
-#pageTabs .tabs {
+#primary-navigation .tabs {
 	border-bottom: 2px solid #999999;
 	width: 100%;
 	height: 18px;
@@ -566,7 +566,7 @@ ul#nav2-tabs li a:active {
 4b)  SUBNAV TABS
 *********************************/
 
-#subNav {
+#secondary-navigation {
 	clear: both;
 	width: 100%;
 	height: 1.5em;
@@ -577,29 +577,29 @@ ul#nav2-tabs li a:active {
 	border-bottom: none;
 	}
 
-.ff2 #subNav {
+.ff2 #secondary-navigation {
 	overflow: visible; }
 
-#subNav.tabs {
+#secondary-navigation.tabs {
 	border-bottom: 2px solid #3B5998;
 	width: 100%;
 	margin: 0px 0px 3px 0px;
 	padding: 0px 0px 0px 0px; }
 
 
-#subNav .toggle_tabs {
+#secondary-navigation .toggle_tabs {
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 	text-align: center;
 	}
 
-#subNav .toggle_tabs li { display:inline;
+#secondary-navigation .toggle_tabs li { display:inline;
 	padding: 0px 0px 0px 0px;
 	margin: 0 2px 0 2px;
 	overflow: hidden;
 	}
 
-#subNav .toggle_tabs li a {
+#secondary-navigation .toggle_tabs li a {
 	margin: 0px 0px 0px 0px;
 	padding: 2px 10px 3px 10px;
 	height: 14px;
@@ -610,7 +610,7 @@ ul#nav2-tabs li a:active {
 	background: #ECEFF5;
 	display: inline; }
 
-#subNav .toggle_tabs li a.selected {
+#secondary-navigation .toggle_tabs li a.selected {
 	margin: 0px 0px 0px 0px;
 	background: #3B5998;
 	border-top: none;
@@ -620,9 +620,9 @@ ul#nav2-tabs li a:active {
 	color: #fff;
 	}
 
-#subNav .toggle_tabs li a.selected:hover { text-decoration:none;}
-#subNav .toggle_tabs li a.disabled { color:#999999; cursor:default;}
-#subNav .toggle_tabs li a.disabled:hover { text-decoration:none;}
+#secondary-navigation .toggle_tabs li a.selected:hover { text-decoration:none;}
+#secondary-navigation .toggle_tabs li a.disabled { color:#999999; cursor:default;}
+#secondary-navigation .toggle_tabs li a.disabled:hover { text-decoration:none;}
 
 #attachTabs {
 	margin-bottom: none;}
@@ -711,7 +711,7 @@ ul#nav2-tabs li a:active {
 	margin: 10px 10px 0 10px;
 	}
 
-#featurePanel .panelBar {
+#featurePanel .panel-bar {
 	border-top: 1px solid #999999;
 	background: #D8DFEA;
 	display: block;
@@ -727,13 +727,13 @@ ul#nav2-tabs li a:active {
 	max-height: 135px;
 	}
 
-#col_left .featured_story_half .itemBlock {
+#col_left .featured_story_half .item-block {
 	clear: both;
 	width: 230px;
 	margin: 0px;
 	}
 
-#col_left #featurePanel .itemBlock {
+#col_left #featurePanel .item-block {
 	float: left;
 	width: 280px;
 	margin: 0px;
@@ -782,7 +782,7 @@ ul#nav2-tabs li a:active {
 	position: relative; top: 45px;
 }
 
-#col_left #readStoryList .itemBlock, #teamWrap #readStoryList .itemBlock{
+#col_left #readStoryList .item-block, #teamWrap #readStoryList .item-block{
 	float: left;
 	width: 300px;
 	margin: 10px 0px 0px 0px;
@@ -823,7 +823,7 @@ ul#nav2-tabs li a:active {
 	display: inline-block;
 	}
 
-#col_left #myProfile .itemBlock {
+#col_left #myProfile .item-block {
 	float: left;
 	width: 300px;
 	margin: 10px 0px 0px 0px;
@@ -848,7 +848,7 @@ ul#nav2-tabs li a:active {
 	float: left;
 	margin: 0px 5px;}
 
-#col_left #commentThread .itemBlock {
+#col_left #commentThread .item-block {
 	float: left;
 	width: 420px;
 	margin: 0px;
@@ -928,7 +928,7 @@ ul#nav2-tabs li a:active {
 	margin-top: 15px;
 	}
 
-#teamPanel .itemBlock {
+#teamPanel .item-block {
 	float: left;
 	width: 400px;
 	margin: 10px 0px 0px 0px;
@@ -947,7 +947,7 @@ ul#nav2-tabs li a:active {
 	border: 1px solid #D8DFEA;
 	}
 
-#rewardsHead .itemBlock {
+#rewardsHead .item-block {
 	float: left;
 	width: 290px;
 	margin: 0px;
@@ -984,7 +984,7 @@ ul#nav2-tabs li a:active {
 	max-height: 50px;
 	}
 
-.gridBlock .itemBlock {
+.gridBlock .item-block {
 	float: left;
 	width: 72px;
 	margin: 0px;
@@ -1103,36 +1103,36 @@ ul#nav2-tabs li a:active {
 BLUE "panel_1" div wraps general content panels
 ORANGE "panel_2" div wraps Action Team specific panels
 
-These wrappers cascade to tell .panelBar to which background to use for the title bar, and add a border-bottom. */
+These wrappers cascade to tell .panel-bar to which background to use for the title bar, and add a border-bottom. */
 
-.panelBar {
+.panel-bar {
 	width: 100%;
 	display: block;
 	}
 
-.panel_2 {
+.panel-2 {
 	border-bottom: 1px solid #999999;
 	margin-bottom: 15px;
 	display: block;
 	}
 
-.panel_1 {
+.panel-1 {
 	border-bottom: 1px solid #999999;
 	margin-bottom: 15px;
 	display: block;
 	}
 
-.panel_2 .panelBar {
+.panel-2 .panel-bar {
 	border-top: 1px solid #999999;
 	background: #D8DFEA;
 	}
 
-.panel_1 .panelBar {
+.panel-1 .panel-bar {
 	border-top: 1px solid #999999;
 	background: #D8DFEA;
 	}
 
-.panelBar h2 {
+.panel-bar h2 {
 	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 	float: left;
 	padding: 2px 6px 4px 6px;
@@ -1142,7 +1142,7 @@ These wrappers cascade to tell .panelBar to which background to use for the titl
 	font-size: 11px;
 	}
 
-.panelBar h2 a {
+.panel-bar h2 a {
 	color: #3B5998;
 	font-weight: bold;
 	font-size: 11px;
@@ -1354,13 +1354,13 @@ li {
 	clear: both;
 	}
 
-.panel_2 ul li {
+.panel-2 ul li {
 	clear: both;
 	float: left;
 	border-bottom: 1px solid #CCCCCC;
 	}
 
-.panel_1 ul li {
+.panel-1 ul li {
 	clear: both;
 	float: left;
 	border-bottom: 1px solid #CCCCCC;
@@ -1392,12 +1392,12 @@ li {
 	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 	}
 
-#col_left .itemBlock {
+#col_left .item-block {
 	width: 390px;
 	float: right;
 	}
 
-#col_right .itemBlock {
+#col_right .item-block {
 	width: 185px;
 	float: right;
 	}
@@ -1405,33 +1405,33 @@ li {
 
 /* Stories List */
 
-.list_items .thumb img {
+.item-list .thumb img {
 	/*width: 90px; djm - fix for awkward reward image sizes, will break ie 6*/
 	max-width: 90px;
 	max-height: 90px;
 	}
 
-.profilePic {
+.profile-pic {
 	float: left;
 	margin: 0px 10px 0px 0px;
 	}
 
-.profilePicLarger {
+.profile-picLarger {
 	float: left;
 	margin: 0px 10px 0px 0px;
 	}
 
-.list_items .profilePic img {
+.item-list .profile-pic img {
 	width: 30px;
 	height: 30px;
 	}
 
-.list_items .profilePicLarger img { /* djm: need a small profile pic for action feed that doesnt override fb pic sizes */
+.item-list .profile-picLarger img { /* djm: need a small profile pic for action feed that doesnt override fb pic sizes */
 	/*width: 30px;
 	height: 30px;*/
 	}
 
-.itemMeta {
+.item-meta-data {
 	color: #999999;
 	padding-bottom: 7px;
 	margin: 0;
@@ -1473,7 +1473,7 @@ li {
 	margin: 0px 10px 0px 0px;
 	}
 
-#col_right .top_reward .itemBlock {
+#col_right .top_reward .item-block {
 	width: 125px;
 	float: right;
 	}
@@ -1557,7 +1557,7 @@ li {
 	margin: 0px 10px 10px 0px;
 	}
 
-#profileSummary .itemBlock {
+#profileSummary .item-block {
 	width: 165px;
 	margin-bottom: 3px;
 	}
@@ -1718,7 +1718,7 @@ li {
 	border-bottom: 1px solid #D8DFEA;
 	}
 
-.microFeed .itemBlock {width: 184px;}
+.microFeed .item-block {width: 184px;}
 
 /*********************************
 12)  RESOURCES LIST

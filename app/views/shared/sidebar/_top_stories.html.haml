@@ -6,9 +6,9 @@
     - top_stories = (get_setting('exclude_articles_from_news').value ? Content.active.top_story_items(5,false) : Content.active.top_items(5,false))
   - unless top_stories.empty?
     %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+      .panel-bar
         %h2= t('.top_stories_title')
-      .list_items
+      .item-list
         %ul
           - top_stories.each_with_index do |story, index|
             -# todo hack to fix drafts appearing until we can switch articles out of this widget
@@ -20,17 +20,17 @@
                       - if story.images.present?
                         = link_to image_tag(story.images.first.url(:thumb)), story_path(story)
                       -else
-                        = link_to image_tag('default/watermark.jpg'), story_path(story)
-                    .itemBlock  
+                        = link_to image_tag('skin/watermark.jpg'), story_path(story)
+                    .item-block  
                       %h4
                         %span.ellipsis_title_2
                           = link_to sanitize_title(story.title), story_path(story), { :class => 'ellipsis_text'}
-                      .itemMeta
+                      .item-meta-data
                         %span.btnComment== #{like_link story} #{story.votes_tally}
                         %span.btnComment== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}
                 - else
                   .item_2
-                    .itemBlock
+                    .item-block
                       %h4
                         %span.ellipsis_title_1
                           = link_to story.title, story_path(story), { :class => 'ellipsis_text'}

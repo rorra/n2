@@ -2,46 +2,51 @@
 - cache_if page.present?, "events_list_#{page}html" do
   - events ||= Event.active.paginate :page => params[:page], :per_page => Event.per_page, :order => "start_time asc"
   - paginate ||= false
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('.events_title')
       -# if events.present? and events.first.refineable?
         .refine_link
           = render :partial => 'shared/forms/refine_dropdown'
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul
           - events.each do |event|
-            %li.complexBlock
-              .complexDetailsBlock
-                .thumb
-                  - if event.images.present?
-                    = image_tag event.images.first.url(:thumb)
-                  -else
-                    = image_tag ('default/watermark.jpg')
-                .itemBlock
-                  %h4
-                    -# %span.tag
-                    -# could be used to show type of event e.g. Lecture, Party, etc.                    
-                    = link_to event.name, event_path(event)
-
-
-                  .itemMeta
-                    .profilePic= local_linked_profile_pic event.user, :size => :square
-                    %h3= generic_posted_by event
-                    %span.btnComment== #{like_link event} #{event.votes_tally}
-                    %span.btnComment== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
-              .complexMiniBlock
-                %ul
-                  %li 
-                    %b== #{event.location}
-                  %li
-                    == #{event.start_time.to_s :short_day}
-                  %li
-                    == Start: #{event.start_time.to_s :short_time}
-                  %li
-                    - unless event.end_time.nil?
-                      == End: #{event.end_time.to_s :short_time} 
+            %li
+              // event item wrapper
+              .event
+                // event description
+                .event-description
+                  .thumb
+                    - if event.images.present?
+                      = image_tag event.images.first.url(:thumb)
+                    -else
+                      = image_tag ('skin/watermark.jpg')
+                  .item-content
+                    %h4
+                      -# %span.tag
+                      -# could be used to show type of event e.g. Lecture, Party, etc.                    
+                      = link_to event.name, event_path(event)
+                  .item-meta-data
+                    .profile-pic= local_linked_profile_pic event.user, :size => :square
+                    %h6= generic_posted_by event
+                    .meta-data-actions
+                      %span.btnComment== #{like_link event} #{event.votes_tally}
+                      %span.pipe
+                        |
+                      %span.btnComment== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
+                // event-details
+                .event-details
+                  %h5
+                    == #{event.location}
+                  %p
+                    %span.detail
+                      == #{event.start_time.to_s :short_day}
+                    %span.detail
+                      == Start: #{event.start_time.to_s :short_time}
+                    %span.detail
+                      - unless event.end_time.nil?
+                        == End: #{event.end_time.to_s :short_time} 
 
     - if paginate
       .clearfix

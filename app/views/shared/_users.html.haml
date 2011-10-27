@@ -2,16 +2,16 @@
 - cache_if (false and page.present?), "users_list_#{page}html" do
   - scores ||= Score.weekly_scores
   - paginate ||= false
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('.users_title')
       - if false and users.present? and users.first.refineable?
         .refine_link
           = render :partial => 'shared/forms/refine_dropdown'
     .subtitle
       %span= t('.users_subtitle')
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul
           - scores.each do |score|
             - user = score.user

@@ -1,5 +1,5 @@
 //****************************************************************************************************
-// NEWSCLOUD SITE SKIN
+// NEWSCLOUD DEFAULT SKIN 1
 //****************************************************************************************************
 //****************************************************************************************************
 //Globals
@@ -12,7 +12,7 @@ $colorSix:     #3B5998    // links
 $colorSeven:   #55761b    // #pageTab BG, button BG
 $colorEight:   #F1F1F1    // Meta Panel, Subtitle BG,
 $colorNine:    #999999    // general Border color
-$colorTen:     #ffffff    // body BG, #bodyWrapper BG, V1 .panelBar BG, button TXT
+$colorTen:     #ffffff    // body BG, #page BG, V1 .panel-bar BG, button TXT
 //Globals
 //****************************************************************************************************
 //****************************************************************************************************
@@ -32,235 +32,18 @@ $flashWarningBG: #f79410
 
 
 //****************************************************
-// FONTS & TEXT
+// Fonts & Text
 
 // Font Families
 $copyFont: lucida grande, tahoma, verdana, arial, "san-serif"
 $headerFont: lucida grande, tahoma, verdana, arial, "san-serif"
-$headerWeight: bold // TypeKit work-around for single family fonts.
 
-// Text Color
-$headerColor: $colorOne
-$headerLinkHover: $colorOne
-$subheadColor: $colorFive
-$linkColor: $colorSix
-$bodyColor: $colorFour
+
 
 
 //****************************************************
-// HEADER
+// Containers
+// #header
+$headerBG: pie
+$headerBGimage: pie
 
-// Header Container
-$headerBG: image_url("default/hdr_bg.gif") bottom left repeat-x
-$headerHeight: 110px
-
-// Site Title
-$headerTitleColor: $colorOne
-$headerTitleDisplay: visible
-$headerTitleLogoHeight: 50px
-$headerTitleLogoWidth: 400px
-$headerTitleLogoPosTop: 30px
-$headerTitleLogoPosLeft: 20px
-$headerTitleLogoImage: none
-
-// Site Sponsor 
-$sponsorDisplay: none
-$sponsorHeight: 30px
-$sponsorWidth: 140px
-$sponsorTop: 20px
-$sponsorLeft: 300px
-$sponsorLogoImage: image_url("default/sponsor-logo.png") center left no-repeat
-
-// Page Tab Float
-$pagetabFloat: right
-
-// Page Tab Width
-$pageTabWidth: 100px
-
-// Page Tabs
-$tabBG: $colorSeven image_url("default/site/btn-gradient.png") top left repeat-x
-$tabBGHover: $colorSeven - #222 image_url("default/site/btn-gradient.png") top left repeat-x
-$tabBorder: 1px solid $colorSeven
-$tabTextColor: $colorTen
-$tabSelectedBG: $colorTen
-$tabSelectedTextColor: $colorSeven
-// Non-Tab navigation
-$PageTabRoundedCorners: none
-
-// Page Tab Dropdowns
-$PageTabDropDownBG: $colorSeven + #444
-$PageTabDropDownBGHover: $colorSeven - #222
-
-// Page Sub-Navigation Tabs
-$subTabBG: $colorOne 
-$subTabBGHover: $colorOne - #222 
-$subTabBorder: 1px solid $colorNine
-$subTabTextColor: $colorTen
-$subTabSelectedBG: $colorTen
-$subTabSelectedTextColor: $colorOne
-
-
-//****************************************************
-// BODY
-
-// Body Containers
-$bodyBG: $colorTen
-$bodyBGImage: none
-$bodyWrapperBG: $colorTen
-
-
-//****************************************************
-// WIDGETS
-
-//Panel Featured 
-$PanelFeaturedBG: $colorTwo
-$PanelBarFeaturedBG: $colorTwo
-
-//Panel Generic (V2)
-$PanelBarBG: $colorOne
-$PaneBarHeaderColor: $colorTen
-
-$PanelBorderColor: 1px solid $PanelBarFeaturedBG - #222
-
-//Panel Generic (V1)
-$subTitleBG: $colorEight - #010101
-$panelListBorder: 1px solid $colorEight - #010101
-//Panel Bar (V1)
-$pbh2: 11px
-$fbpbh2: 10px
-$panelBarBG: $colorTen
-$panelBarBorder: 1px solid $colorOne
-$panelBarHeader: $colorNine
-$panelBarHeaderLink: $linkColor
-$panelBarHeaderWeight: normal
-$panelBarTextTransform: uppercase
-
-//Panel Meta
-$PanelMetaBackground: $colorEight
-
-// Pagination
-$paginationAlign: right
-$paginationLinkOn: $colorOne
-$paginationLinkOff: $colorTen
-$paginationLinkDisabled: $colorFive
-$paginationBgOn: $colorTen
-$paginationBgOff: $colorOne
-$paginationBgDisabled: $colorTen
-$paginationBdrOn: 1px solid $colorOne
-$paginationBdrOff: 1px solid $colorOne
-$paginationBdrDisabled: 1px solid $colorFive
-
-
-//Buttons (V2)
-//General Button
-$BtnBG: $colorOne
-$BtnBGHover: $colorOne - #222
-$BtnBorder: $colorOne
-$BtnTextColor: $colorTen
-//Panel Bar Button
-$PanelBarBtnBG: $colorTen
-$PanelBarBtnTextColor: $colorOne
-$PanelBarBtnTextColorHover: $colorTen
-
-//Buttons (V1)
-$btnBG: $colorSeven image_url("default/site/btn-gradient.png") top left repeat-x
-$btnBGHover: $colorSeven - #222 image_url("default/site/btn-gradient.png") top left repeat-x
-$btnBorder:  1px solid $colorSeven
-$btnTextColor: $colorTen
-
-//Advertisments (V2)
-$AdvertBG: $colorEight
-
-// Advertisments (V1)
-$AdBG: #ccc image_url("default/ad-bg-title.gif") top center no-repeat
-
-// Forms 
-$formInputBorder: 1px solid $colorFive
-
-// Footer
-$footerBG: $colorEight
-
-//Pop Overs
-$popOverBG: $colorOne
-$popOverTabBG: $colorTwo
-
-
-
-
-
-
-
-
-
-
-
-// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //
-// text dropdown styles //
-$AccountArrow: transparent image_url("default/dropdown_arrow.gif") center right no-repeat
-$RefineArrow: transparent image_url("default/dropdown_arrow.gif") center right no-repeat
-
-// Text Dropdown Panel //
-$DropDownBorder: 1px solid $colorOne
-$DropDownBorderBot: 1px solid $colorTen
-$DropDownBG: $colorTen
-$DropDownLinkHover: $colorTwo
-
-
-// refine drop down form button variables //
-$refineInputBorder: 1px solid $colorOne
-$refineInputBG: $colorTwo
-$refineInputText: $colorOne
-$refineInputHoverText: $colorTen
-$refineInputHoverBG: $colorOne
-// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //
-
-// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //
-// House Ad Variables //
-$featureH2Text: $colorOne
-$featureBodyText: $colorOne
-$WelcomePanelBG: #fff image_url("default/house-ad-bg.gif") top center repeat-x
-$featureBorder: 2px solid $colorTwo
-$featureBorderTop: $featureBorder
-$featureBorderBot: $featureBorder
-$featureBorderLeft: $featureBorder
-$featureBorderRight: $featureBorder
-$featureBorderRadius: none
-// Bookmarklet Variables //
-$demoBG: image_url("default/bookmarklet-demo.png") top center no-repeat
-$bookmarkletBG: #dbe5ee image_url("default/bookmarklet-BG.gif") top left repeat-x
-$bookmarkletHeader: $colorOne
-$bookmarkletHeaderBG: image_url("default/bookmarklet-header-BG.png") top center no-repeat
-$bookmarkletText: $colorFour
-$bookmarkletBorder: 2px solid $colorTwo
-// Footer //
-$FooterBorder: 1px solid $colorOne
-$FooterBG: $colorTwo
-// Action Legend Variables //
-$actionLegendinputBorder: 1px solid $colorFive
-$actionLegendBG: $colorTwo
-
-// BlockQuote Image Variable //
-$blockQuote: $bodyBG
-
-// Hot Topic Bar Variables //
-$HTBaseBG: $colorEight - #010101
-$HTTitleBG: $colorOne
-$HTTitleText: $bodyBG
-
-//Top Bar Variables (bar at the top of article detail pages)//
-$TopBarBorder: 1px solid $bodyBG
-$TopBarBG: $colorEight - #010101
-
-// Vote Button Variable //
-$btnCommentBG: $colorEight - #010101
-
-// feature vote button variable //
-$btnCommentFeatureBG: $bodyBG
-
-// PanelBar Comments Thread BG //
-$panelBarCommentBG: $colorTwo
-$commentBlockBorder: 1px solid $colorEight - #010101
-
-// Comment Reply Variables //
-$commentReplyText: #336600
-// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //

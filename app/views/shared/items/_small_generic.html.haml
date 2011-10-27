@@ -1,8 +1,8 @@
 .generic.small
-  .itemBlock
+  .item-block
     %h4= link_to item.item_title, path_to_self(item.item_link)
-    .profilePic= local_linked_profile_pic item.user
-    .itemMeta
+    .profile-pic= local_linked_profile_pic item.user
+    .item-meta-data
       %h3= generic_posted_by item
       %span.btnComment== #{like_link item} #{item.votes_tally}
       %span.btnComment== #{link_to t('comments'), path_to_self_with_anchor(item, "commentListTop")} #{item.comments_count}

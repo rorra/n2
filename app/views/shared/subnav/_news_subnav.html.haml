@@ -1,7 +1,6 @@
-#subNav
-  .tabs
-    %ul#toggle_tabs_unused.toggle_tabs
-      %li= link_to t('.new_story'), new_story_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'New Story')}"
-      %li= link_to t('.new_article'), new_article_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'New Article')}" 
-      - if current_user.present? and current_user.is_blogger?
-        %li= link_to t('articles.drafts'), drafts_articles_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Draft Articles')}" 
+#secondary-navigation
+  %ul
+    %li= link_to t('.new_story'), new_story_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'New Story')}"
+    %li= link_to t('.new_article'), new_article_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'New Article')}" 
+    - if current_user.present? and current_user.is_blogger?
+      %li= link_to t('articles.drafts'), drafts_articles_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Draft Articles')}" 

@@ -1,8 +1,8 @@
 -# content_for :sub_nav do
   
 #col_left
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('forums.topics.new_header')
     .formBox
       - semantic_form_for [@forum, @topic], :html => { :multipart => true } do |form|

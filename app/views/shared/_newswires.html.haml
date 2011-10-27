@@ -2,13 +2,13 @@
 - cache_if page.present?, "newswires_list_#{page}html" do
   - newswires ||= Newswire.active.unpublished.newest.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
   - paginate ||= false
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t '.title'
     .subtitle
       %span= t('.subtitle')
-    .itemListWrap
-      #front-newswires.list_items
+    .item-list-wrap
+      #front-newswires.item-list
         %ul
           - @newswires.each do |newswire|
             %li{'data-id' => newswire.cache_key}

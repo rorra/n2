@@ -5,7 +5,7 @@
       %ul.list-users
         - vo.dataset.each_with_index do |item, index|
           %li
-            .profilePic= local_linked_profile_pic item, :width => '30', :height => '30'
+            .profile-pic= local_linked_profile_pic item, :width => '30', :height => '30'
     - else
       %p= vt.t('recent_users_none')
     %div.clearfix

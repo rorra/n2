@@ -5,10 +5,10 @@
   - newest_videos ||= Video.newest
   - unless newest_videos.empty?
     %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar.clearfix
+      .panel-bar.clearfix
         %h2= t('.newest_videos_title')
       %br
-      .list_items
+      .item-list
         %ul
           - newest_videos.each do |video|
             %li

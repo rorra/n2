@@ -1,12 +1,11 @@
-#subNav
-  .tabs
-    %ul#toggle_tabs_unused.toggle_tabs
-      - if @resource_section.present?
-        %li= link_to t('.browse_section_resources', :name => @resource_section.name), resource_section_path(@resource_section), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Section Resources')}" 
-        %li= link_to t('.suggest_section_resource', :name => @resource_section.name), new_resource_section_resource_path(@resource_section), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Suggest Resource')}" 
-      %li= link_to t('.browse_resource_sections'), resource_sections_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Resource Sections')}" 
-      - if not @resource_section.present?
-        %li= link_to t('.home_resource_sections'), resources_path, :class => "tab"
-      -# TODO:: add this back in
-      - if false and current_user
-        %li= link_to t('.my_resources'), my_resources_resource_path(:id => current_user), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'My Resources')}" 
+#secondary-navigation
+  %ul
+    - if @resource_section.present?
+      %li= link_to t('.browse_section_resources', :name => @resource_section.name), resource_section_path(@resource_section), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Section Resources')}" 
+      %li= link_to t('.suggest_section_resource', :name => @resource_section.name), new_resource_section_resource_path(@resource_section), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Suggest Resource')}" 
+    %li= link_to t('.browse_resource_sections'), resource_sections_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Resource Sections')}" 
+    - if not @resource_section.present?
+      %li= link_to t('.home_resource_sections'), resources_path, :class => "tab"
+    -# TODO:: add this back in
+    - if false and current_user
+      %li= link_to t('.my_resources'), my_resources_resource_path(:id => current_user), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'My Resources')}" 

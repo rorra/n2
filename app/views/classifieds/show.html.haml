@@ -12,9 +12,9 @@
 
 #col_left
   - cache "#{@classified.cache_key}_top_html" do
-    #itemDetails.panel_2
+    #itemDetails.panel-2
       = add_this @classified
-      .itemBlock
+      .item-block
 
         - if @classified.images.present?
           .thumb= image_tag @classified.images.first.url(:medium)
@@ -46,7 +46,7 @@
       = pipe_spacer
       = link_to t('classifieds.edit'), edit_classified_path(@classified)
     - if @classified.moderatable?
-      .mod-panel.panel_2
+      .mod-panel.panel-2
         .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
         .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
 

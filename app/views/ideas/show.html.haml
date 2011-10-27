@@ -7,9 +7,9 @@
 
 #col_left
   - cache "#{@idea.cache_key}_html" do
-    #itemDetails.panel_2
+    #itemDetails.panel-2
       = add_this @idea
-      .itemBlock
+      .item-block
         - if @idea.images.present?
           .thumb
             = image_tag @idea.images.first.url(:medium)
@@ -26,7 +26,7 @@
     - if @idea.media_item?
       = render_media_items @idea
       - if @idea.moderatable?
-        .mod-panel.panel_2
+        .mod-panel.panel-2
           .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @idea }
           .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @idea }
 

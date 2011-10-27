@@ -3,7 +3,7 @@
   = render :partial => 'shared/subnav/predictions_subnav'
 
 #col_left
-  #itemDetails.panel_2
+  #itemDetails.panel-2
     = add_this @prediction_question
   - if not current_user.present?
     %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe

@@ -1,14 +1,14 @@
 %h1
   This is the beginning of Layout B
-#featuredPanel.panel_2.featureWrap
-  .panelBar
+#featuredPanel.panel-2.featureWrap
+  .panel-bar
     %h2
       Featured News
-  .panel_1.left
+  .panel-1.left
     .thumb
-      = image_tag('default/watermark.jpg', :width => "100%")
-  .panel_1.right
-    .itemBlock
+      = image_tag('skin/watermark.jpg', :width => "100%")
+  .panel-1.right
+    .item-block
       %h1
         Featured News Title Here: Two line spread
       %p
@@ -34,8 +34,8 @@
 
 = render :partial => 'shared/hot_topics'
 
-.panel_2
-  .panelBar
+.panel-2
+  .panel-bar
     %h2
       Forum Topics
   %ul
@@ -43,7 +43,7 @@
       %h4
         %a
           Hawks needed to do more researching on the coaching change
-      .profilePic
+      .profile-pic
         =link_to image_tag('default/default_thumb.gif', :height => "30px", :width => "30px"), '#'
       %h3
         Posted by 
@@ -64,7 +64,7 @@
       %h4
         %a
           Hawks needed to do more researching on the coaching change
-      .profilePic
+      .profile-pic
         =link_to image_tag('default/default_thumb.gif', :height => "30px", :width => "30px"), '#'
       %h3
         Posted by 
@@ -82,13 +82,13 @@
         %a
           16 Comments
 
-.panel_2
+.panel-2
   .ad_fullCol
     %span            
       Advertisement
 
-.panel_1.left
-  .panelBar
+.panel-1.left
+  .panel-bar
     %h2
       Blogs
   %ul
@@ -96,7 +96,7 @@
       %h4
         %a
           Time for the mayor to get going
-      .profilePic
+      .profile-pic
         =link_to image_tag('default/default_thumb.gif', :height => "30px", :width => "30px"), '#'
       %h3
         Posted by 
@@ -117,7 +117,7 @@
       %h4
         %a
           Time for the mayor to get going
-      .profilePic
+      .profile-pic
         =link_to image_tag('default/default_thumb.gif', :height => "30px", :width => "30px"), '#'
       %h3
         Posted by 
@@ -135,8 +135,8 @@
         %a
           16 Comments
 
-.panel_1.right
-  .panelBar
+.panel-1.right
+  .panel-bar
     %h2
       Latest Comments
 
@@ -144,7 +144,7 @@
     %li
       %p
         “At this point, I’m tired of hearing about healthcare reform in the midst of human tradgedy. Seems the President has no ...More
-      .profilePic
+      .profile-pic
         =link_to image_tag('default/default_thumb.gif', :height => "30px", :width => "30px"), '#'
       %h3
         Posted by 
@@ -164,7 +164,7 @@
     %li
       %p
         “At this point, I’m tired of hearing about healthcare reform in the midst of human tradgedy. Seems the President has no ...More
-      .profilePic
+      .profile-pic
         =link_to image_tag('default/default_thumb.gif', :height => "30px", :width => "30px"), '#'
       %h3
         Posted by 

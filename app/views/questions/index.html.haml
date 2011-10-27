@@ -3,8 +3,8 @@
   = render :partial => 'shared/subnav/questions_subnav'
 
 #col_left
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2 Ask a question
     .formBox
       - unless current_user.present?
@@ -25,34 +25,37 @@
     - questions ||= Question.active.paginate :page => params[:page], :per_page => Question.per_page, :order => "created_at desc"
     - @paginate ||= false
     - unless questions.empty?
-      .panel_2
-        .panelBar
+      .panel-2
+        .panel-bar
           %h2= t('questions.list_title')
           - if questions.present? and questions.first.refineable?
             .refine_link
               = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => Question.refineable_select_options }
         .subtitle
           %span= t('questions.list_subtitle')
-        .itemListWrap
-          #front-stories.list_items
+        .item-list-wrap
+          #front-stories.item-list
             %ul
               - questions.each do |question|
                 %li.askQuestionWrap{'data-id' => question.cache_key}
-                  .item_1
+                  .question
                     .thumb
                       - if question.images.present?
                         = image_tag question.images.first.url(:thumb)
                       - else
-                        = image_tag ('default/watermark.jpg')
-                    .itemBlock
-                      %h2= link_to question.question, question
+                        = image_tag ('skin/watermark.jpg')
+                    .item-block
+                      %h3= link_to question.question, question
                       %p= linked_item_details question
-                      .profilePic= local_linked_profile_pic question.user
-                      .itemMeta
-                        %h3= asked_by question
-                        %span.btnComment== #{like_link question} #{question.votes.size}
-                        %span.btnComment== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
-                        -#%span.btnComment= fb_share_item_button question
+                      .item-meta-data
+                        .profile-pic= local_linked_profile_pic question.user
+                        %h6= asked_by question
+                        .meta-data-actions
+                          %span== #{like_link question} #{question.votes.size}
+                          %span.pipe
+                            |
+                          %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
+                          -#%span.btnComment= fb_share_item_button question
 
       - if @paginate
         .clearfix

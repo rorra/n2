@@ -2,13 +2,13 @@
   - top_prediction_scores = PredictionScore.top
   - unless top_prediction_scores.empty?
     %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+      .panel-bar
         %h2= t('predictions.high_scores')
-      .list_items
+      .item-list
         %ul
           - top_prediction_scores.each do |prediction_score|
             %li
-              .itemBlock
-                .profilePic= local_linked_profile_pic prediction_score.user
-                .itemMeta
+              .item-block
+                .profile-pic= local_linked_profile_pic prediction_score.user
+                .item-meta-data
                   %h3== Accuracy: #{number_to_percentage(prediction_score.accuracy * 100)}

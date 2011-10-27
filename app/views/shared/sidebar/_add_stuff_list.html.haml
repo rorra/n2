@@ -1,10 +1,10 @@
 - cache :add_stuff_list_html, :expires_in => 24.hours do
   %div{:class => "panel_1 featureWrap #{defined?(widget_page) ? widget_page.css_class : ''}"}
-    .itemBlock
+    .item-block
       .featured
         .item_1.answer
           %h4= t('add_stuff.title')
-          .list_items.bullet_list
+          .item-list.bullet_list
             %ul
               %li= link_to t('add_stuff.story'), new_story_path
               - unless MENU['stories']['new_article'].nil? and MENU['articles']['new_article'].nil?

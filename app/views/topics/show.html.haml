@@ -6,8 +6,8 @@
   = render_ad(:banner, @ad_layout, @ad_banner)
   - cache @topic do
     - paginate ||= false
-    .panel_2
-      .panelBar
+    .panel-2
+      .panel-bar
         %h2= t('forums.topics.item_title', :title => @topic.title)
         -#%span.bar_link= fb_share_item_button(@topic)
       .subtitle
@@ -15,15 +15,15 @@
       - if @tags.present?
         .subtitle
           %h3== Tags #{tag_list(@tags, @topic)}
-      .itemListWrap
-        .list_items
+      .item-list-wrap
+        .item-list
           %ul
             - @topic.posts.each do |post|
               = render :partial => 'shared/comment', :locals => { :comment => post}
 
 
       - if @topic.moderatable?
-        .mod-panel.panel_2
+        .mod-panel.panel-2
           .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @topic }
   .topic-form= render :partial => 'shared/comment_form', :locals => { :commentable => @topic , :post_locale => 'forums.topics.post_comment', :commit_text => 'forums.topics.commit_reply' }
   - if @outbrain_item

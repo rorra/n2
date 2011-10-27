@@ -4,8 +4,8 @@
 
 #col_left
   = render_ad(:banner, @ad_layout, @ad_banner)
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       - if get_setting('site_topic').present?
         %h2== What's your event for #{get_setting('site_topic').value}?
       - else
@@ -25,13 +25,13 @@
 
               %li.complexBlock
                 .complexDetailsBlock
-                  .itemBlock
+                  .item-block
                     %h4
                       = check_box_tag "fb_events[]", event.id, false, :style=>"width: 20px;"
                       %span.tag
                         Event:
                       = event.name
-                    .itemMeta
+                    .item-meta-data
                       %h3= truncate(event.description, :length => 255)       
                 .complexMiniBlock
                   %ul

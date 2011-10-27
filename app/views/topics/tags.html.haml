@@ -5,15 +5,15 @@
   - page ||= ""
   - cache_if page.present?, "#{@forum.cache_key}_topics_tags_list#{page}" do
     - @paginate ||= false
-    .panel_2
-      .panelBar
+    .panel-2
+      .panel-bar
         %h2= t('forums.topics.list_title', :forum_name => @forum.name)
         -#%span.bar_link= fb_share_item_button(forum)
       .subtitle
         %span= t('forums.topics.list_subtitle', :forum_description => @forum.description)
       .subtitle
         %span== Tagged with #{@tag_name}
-      .itemListWrap
+      .item-list-wrap
         - if @topics.any?
           %table.tablesorter
             %thead

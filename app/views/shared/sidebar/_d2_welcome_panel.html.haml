@@ -9,7 +9,7 @@
           .item_1.users
             .profile-pic
               = local_linked_profile_pic current_user
-            .itemBlock
+            .item-block
               %h2= t('welcome_name', :name => current_user.name.split(' ').first)
               - unless current_user.combined_score < 20    
                 %h3= t('karma_score', :score => current_user.karma_score)
@@ -18,7 +18,7 @@
               - else
                 %p= t('newbie_headline')
           - if current_user.combined_score < 20 
-            .list_items.bullet_list
+            .item-list.bullet_list
               %ul
                 %li= t('newbie_tip_like')
                 %li= t('newbie_tip_story', :href => new_story_path )
@@ -48,7 +48,7 @@
                           = local_linked_profile_pic(user)
                         - else
                           = image_tag('default/house-ad-profile.jpg')
-                  .itemBlock
+                  .item-block
                     %h2= t('.welcome_panel_headline')
                     %p= t('.welcome_panel_message_fbml')
         - when 'thumb'
@@ -61,7 +61,7 @@
                       = image_tag('default/house-ad-profile.jpg')
                     - else
                       = image_tag(get_setting('welcome_image_url'))
-                  .itemBlock
+                  .item-block
                     %h2= t('.welcome_panel_headline')
                     %p= t('.welcome_panel_message_fbml')
         - when 'banner'
@@ -74,7 +74,7 @@
                       = image_tag('default/house-ad-banner.jpg')
                     - else
                       = image_tag(get_setting('welcome_image_url'))
-                  .itemBlock
+                  .item-block
                     %h2= t('.welcome_panel_headline')
                     %p= t('.welcome_panel_message_fbml')
         - else
@@ -87,6 +87,6 @@
                       = image_tag('default/house-ad-profile.jpg')
                     - else
                       = image_tag(get_setting('welcome_image_url'))
-                  .itemBlock
+                  .item-block
                     %h2= t('.welcome_panel_headline')
                     %p= t('.welcome_panel_message_fbml')

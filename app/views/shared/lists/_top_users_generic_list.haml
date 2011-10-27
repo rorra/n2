@@ -3,9 +3,9 @@
 - item_type ||= "activity"
 - list_empty ||= t('empty.default')
 %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-  .panelBar
+  .panel-bar
     %h2= list_title
-  .list_items
+  .item-list
     %ul
       - unless scores.empty?
         - scores.each do |score|
@@ -15,8 +15,8 @@
           - elsif item_type == 'prediction'
             - display_score = accuracy << "%"
           %li
-            .itemBlock
-              .profilePic= local_linked_profile_pic user
+            .item-block
+              .profile-pic= local_linked_profile_pic user
               .float_left
                 %h4== #{local_linked_profile_name(user)}
                 -#TODO:: add something in here
@@ -25,6 +25,6 @@
                 %h4.userPoints= score.total_score
       - else
         %li
-          .itemBlock
+          .item-block
             .float_left
               %p= list_empty

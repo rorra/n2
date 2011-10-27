@@ -3,12 +3,12 @@
     - if prediction_group.images.present?
       = image_tag prediction_group.images.first.url(:thumb)
     - else
-      = image_tag ('default/watermark.jpg')
-  .itemBlock
+      = image_tag ('skin/watermark.jpg')
+  .item-block
     %h2= link_to prediction_group.title, prediction_group_path(prediction_group)
     -#%p= linked_item_details prediction_group
-    .profilePic= local_linked_profile_pic prediction_group.user
-    .itemMeta
+    .profile-pic= local_linked_profile_pic prediction_group.user
+    .item-meta-data
       %h3= generic_posted_by prediction_group
       %span.btnComment== #{like_link prediction_group} #{prediction_group.votes_tally}
       %span.btnComment== #{link_to t('comments'), prediction_group_path(prediction_group, :anchor => "commentListTop")} #{prediction_group.comments_count}

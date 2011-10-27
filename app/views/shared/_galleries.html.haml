@@ -1,24 +1,24 @@
 - cache_if page.present?, "galleries_list_#{page}html" do
   - galleries ||= Gallery.active.newest
   - paginate ||= false
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('galleries.title')
     .subtitle
       %span= t('galleries.subtitle')
       
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul.galleries
           - galleries.each do |gallery|
             %li{'data-id' => gallery.cache_key}
               .thumb
                 = link_to image_tag(thumb_image_or_default(gallery)), gallery
-              .itemBlock
+              .item-block
                 %h2= link_to gallery.title, gallery
                 %p= gallery.description
-                .itemMeta
-                  .profilePic= local_linked_profile_pic gallery.user
+                .item-meta-data
+                  .profile-pic= local_linked_profile_pic gallery.user
                   -#%h3= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
                   %h3= generic_posted_by gallery
                   %span.btnComment== #{like_link gallery} #{gallery.votes_tally}

@@ -4,9 +4,9 @@
 - commit_text ||= nil
 - commit_text = t(commit_text) unless commit_text.nil?
 
-.postComment.panel_2
+.postComment.panel-2
   %a{:id => "postCommentBox", :name => "postCommentBox"}
-  .panelBar
+  .panel-bar
     %h2= t post_locale
   .formBox
     - unless current_user.present?

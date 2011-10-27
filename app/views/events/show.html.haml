@@ -4,9 +4,9 @@
 
 #col_left
   - cache "#{@event.cache_key}_html" do
-    #itemDetails.panel_2
+    #itemDetails.panel-2
       = add_this @event
-      .itemBlock
+      .item-block
         .thumb
           - if @event.images.present?
             = image_tag @event.images.first.url(:medium)
@@ -41,11 +41,11 @@
               %h4
                 = link_to t('.website'), @event.get_url
             = link_to(t('.view'), @event.get_view_button_url, :class=>"btn", :target=>"_new") if @event.url.present? or @event.alt_url.present?
-      %div.itemBlock= sanitize @event.description
+      %div.item-block= sanitize @event.description
     - if @event.media_item?
       = render_media_items @event
     - if @event.moderatable?
-      .mod-panel.panel_2
+      .mod-panel.panel-2
         .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
         .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
 

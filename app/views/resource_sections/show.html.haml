@@ -2,14 +2,14 @@
   = render :partial => 'shared/subnav/resource_sections_subnav'
 
 #col_left
-  .panel_2
-    .panelBar.clearfix
+  .panel-2
+    .panel-bar.clearfix
       %h2= @resource_section.name
       -#%span.bar_link= fb_share_item_button(@resource_section)
     .subtitle
       %span= @resource_section.description
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul
           - @resource_section.resources.active.newest(10).each do |resource|
             %li{'data-id' => resource.cache_key}
@@ -18,12 +18,12 @@
                   - if resource.images.present?
                     = image_tag resource.images.first.url(:thumb)
                   - else
-                    = image_tag ('default/watermark.jpg')
-                .itemBlock
+                    = image_tag ('skin/watermark.jpg')
+                .item-block
                   %h2= link_to resource.title, [@resource_section, resource]
                   %p= linked_item_details resource
-                  .profilePic= local_linked_profile_pic resource.user
-                  .itemMeta
+                  .profile-pic= local_linked_profile_pic resource.user
+                  .item-meta-data
                     %h3= generic_posted_by resource
                     %span.btnComment== #{like_link resource} #{resource.votes_tally}
                     %span.btnComment== #{link_to t('comments'), [@resource_section, resource]} #{resource.comments_count}

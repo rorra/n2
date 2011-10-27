@@ -4,11 +4,11 @@
   - feed_roll ||= Feed.enabled.active.roll 7
   - unless feed_roll.empty?
     %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+      .panel-bar
         %h2= t('feed_roll_title')
-      .list_items.bullet_list
+      .item-list.bullet_list
         %ul
           - feed_roll.each do |feed|
-            .itemBlock
+            .item-block
               %li= link_to feed.title, feed_newswires_path(feed)
         %p= link_to t('read_latest_newswires'), newswires_path

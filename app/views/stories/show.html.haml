@@ -13,9 +13,9 @@
 
 #col_left
   - cache "#{@story.cache_key}_top_html" do
-    #itemDetails.panel_2
+    #itemDetails.panel-2
       = add_this @story
-      .itemBlock
+      .item-block
 
         - if @story.images.present?
           .thumb= image_tag @story.images.first.url(:medium)
@@ -47,7 +47,7 @@
         = render_media_items @story, :size => 'large'
 
     - if @story.moderatable?
-      .mod-panel.panel_2
+      .mod-panel.panel-2
         .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
         .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
 

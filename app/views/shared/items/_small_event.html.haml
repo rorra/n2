@@ -1,7 +1,7 @@
 .event.small
-  .itemBlock
+  .item-block
     %h4= link_to event.name, event_path(event)
-    .profilePic= local_linked_profile_pic event.user
+    .profile-pic= local_linked_profile_pic event.user
     .complexBlockMeta
       %h3= generic_posted_by event
       %span.btnComment== #{like_link event} #{event.votes_tally}

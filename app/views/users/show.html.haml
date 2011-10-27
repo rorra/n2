@@ -2,15 +2,15 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
 #col_left
-  #myProfile.panel_2.featureWrap
-    .panelBar
+  #myProfile.panel-2.featureWrap
+    .panel-bar
       %h2= t('.title', :name => profile_fb_name(@user,false)).html_safe
     .half-panel
       .thumb.user-details      
         -#= local_linked_profile_pic @user, :destination => fb_profile_link(@user), :width => '180', :size => 'normal', :target => '_top'
         = local_linked_profile_pic @user, :destination => '#', :width => '180', :size => 'normal', :target => '_top'        
     .half-panel
-      .itemBlock
+      .item-block
         %h1= external_linked_profile_name(@user)
         .pointsTable_profile
           %table
@@ -47,22 +47,22 @@
                 %td.bold= link_to 'RSS', user_path(@user, :format => :atom), :class => 'rss_link', :target => "_blank"
                 %td
               -# TODO:: add challenges
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('.bio_title')
       - if @is_owner
         .bar_link= link_to t('.bio_edit'), '#', :class => "update-bio"
         = render :partial => 'users/bio_form'
     .panel_block
-      .itemBlock.current-bio
+      .item-block.current-bio
         %p= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
   = render_ad(:banner, @ad_layout, @ad_banner)
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t('articles.my_articles')
     - unless @articles.empty?
-      .itemListWrap
-        .list_items
+      .item-list-wrap
+        .item-list
           %ul  
             - @articles.each do |article|
               - content = article.is_a?(Article) ? article.content : article
@@ -77,12 +77,12 @@
       %h3= t('articles.user_none')
 #col_right
   = render_ad(:small_square, @ad_layout, @ad_small_square)
-  .panel_1
-    .panelBar
+  .panel-1
+    .panel-bar
       %h2= t('.action_feeds')
     #actionFeed
-      #feedList.itemListWrap
-        .list_items
+      #feedList.item-list-wrap
+        .item-list
           - unless @activities.any?
             %p= t('.action_feed_empty')
           - else

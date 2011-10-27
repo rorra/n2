@@ -1,9 +1,9 @@
 #col_left
-  .panel_2
-    .panelBar.clearfix
+  .panel-2
+    .panel-bar.clearfix
       %h2 Post a story
     .panel_block
-      .itemBlock
+      .item-block
         - form_for @story, :url => stories_path do |form|
           = render :partial => 'story_form', :locals => { :form => form }
           = form.submit "Post Story"

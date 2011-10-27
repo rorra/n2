@@ -2,11 +2,11 @@
 - external_widget ||= external_widget
 - item_type ||= 'topic'
 .generic.small
-  .profilePic.margins= local_linked_profile_pic item.user
-  .itemBlock
+  .profile-pic.margins= local_linked_profile_pic item.user
+  .item-block
     - unless external_widget
       %h4= link_to item.title, path_to_self(item)
     - else
       %h4= link_to item.title, path_to_self(item, canvas_preference), :target => "_top"
-    .itemMeta
+    .item-meta-data
       %h3= forum_posted_by_with_topic item

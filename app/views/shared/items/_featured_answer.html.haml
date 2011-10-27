@@ -5,17 +5,17 @@
 - if index == 0
   .featured
     %div{:class => "item_2 #{model_name}"}
-      .itemBlock
+      .item-block
         %p.ellipsis_caption_3
           %span.ellipsis_text
             = item.item_description
-        .itemMeta
-          .profilePic= local_linked_profile_pic item.user
+        .item-meta-data
+          .profile-pic= local_linked_profile_pic item.user
           %h3= generic_posted_by item
           %h3
             = link_to item.item_title, path_to_self(item.item_link)
 - else
   .item_2
-    .itemBlock
+    .item-block
       %h4
         = link_to item.item_title, path_to_self(item.item_link)

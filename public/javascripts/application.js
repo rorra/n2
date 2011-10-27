@@ -122,7 +122,7 @@ $(function() {
   	$(this).parent().parent().toggle();
 
   	var url = change_url_format($(this).attr('action'));
-  	var list = $('.list_items ul', $(this).parents().filter('.panel_2'));
+  	var list = $('.item-list ul', $(this).parents().filter('.panel-2'));
   	$.ajax({
       'url': url,
       'data': $(this).serializeJSON(),
@@ -130,7 +130,7 @@ $(function() {
       'success': function(data) {
   		$(list).quicksand( $(data).find('li'), {adjustHeight: false} );
         $.timeago.settings.strings.suffixAgo = '';
-        $('abbr.timeago', $('.itemListWrap') ).timeago();
+        $('abbr.timeago', $('.item-list-wrap') ).timeago();
   		rebuild_facebook_dom();
       }
     });

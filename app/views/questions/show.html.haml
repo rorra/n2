@@ -3,10 +3,10 @@
   = render :partial => 'shared/subnav/questions_subnav'
 
 #col_left
-  #itemDetails.panel_2
+  #itemDetails.panel-2
     - cache "#{@question.cache_key}_top_html" do
       = add_this @question
-      .itemBlock
+      .item-block
         - if @question.images.present?
           .thumb= image_tag @question.images.first.url(:medium)
         %h1.askQuestionHead= @question.question
@@ -19,23 +19,23 @@
       - if @question.media_item?
         = render_media_items @question
       - if @question.moderatable?
-        .mod-panel.panel_2
+        .mod-panel.panel-2
           .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
           .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @question }
 
       = render_ad(:banner, @ad_layout, @ad_banner)
   - if @question.answers.active.present?
     - cache "#{@question.cache_key}_bottom_html" do
-      #answersList.panel_2
-        .panelBar
+      #answersList.panel-2
+        .panel-bar
           %h2== Showing #{pluralize @question.answers.active.size, 'Answer'}
-        .itemListWrap
-          .list_items
+        .item-list-wrap
+          .item-list
             %ul
               - @question.answers.active.each do |answer|
                 = render :partial => 'shared/answer', :locals => { :answer => answer }
-  #answerForm.panel_2
-    .panelBar
+  #answerForm.panel-2
+    .panel-bar
       - if @question.answers.present?
         %h2= t('add_your_own_answer')
       - else
