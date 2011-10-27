@@ -37,8 +37,7 @@ class Tweet < ActiveRecord::Base
       next unless page[:title].present?
       title = page[:title]
       description = page[:description] ? page[:description] : "#{text}"
-      # HACK: should use Newscloud::Util.url_regex, but resque can't find it
-      description.gsub(/http(s?):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i,"").gsub(/\s{2,}/," ")
+      description.gsub(Newscloud::Util.url_regex,"").gsub(/\s{2,}/," ")
       content = Content.find_by_url(url)
       unless content
         content = Content.new({
