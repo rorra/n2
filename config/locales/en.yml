@@ -15,6 +15,7 @@ en:
     setup_app_id: "<a href=\"{{setup_app_id_path}}\">Setup your Facebook app id</a> (<a target=\"_blank\" href=\"{{learn_more_path}}\">Learn more</a>)"
     setup_twitter: "<a href=\"{{setup_twitter_path}}\">Setup Twitter integration</a> (<a target=\"_blank\" href=\"{{learn_more_path}}\">Learn more</a>)"
     twitter_follow: "Follow @{{twitter_account}}"
+    rackspace_hosting_credit: "Powered by Rackspace"
   account_menu:
     sign_in: "Sign in"
     sign_out: "Sign out"
