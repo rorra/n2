@@ -48,6 +48,9 @@
             = link_to t('.about'), about_path
           %li
             = link_to t('.developers'), "http://opensource.newscloud.com", :target => "_cts"
+          - if get_setting('rackspace_hosting_credit').try(:value)          
+            %li
+              %i= link_to t('footer.rackspace_hosting_credit'), "http://www.rackspacestartups.com/", :target => "_cts"
           - if current_user.present?
             %li
               %span.admin-links
