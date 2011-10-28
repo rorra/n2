@@ -3,7 +3,7 @@
 - canvas_preference ||= false
 - external_widget ||= external_widget
 - hide_titlebar =  (not @hide_titlebar.nil? and @hide_titlebar ) || false
-%div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+%div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => hide_titlebar, :title => list_title}
   .item-list
     %ul

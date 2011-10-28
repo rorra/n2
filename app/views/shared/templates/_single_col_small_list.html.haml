@@ -7,7 +7,7 @@
         - if vo.setting.use_post_button
           = post_something vo.setting.klass_name
   .panel-content
-    %ul.list-items
+    %ul.item-list
       - vo.dataset.each_with_index do |item, index|
         %li
           .item-with-no-image

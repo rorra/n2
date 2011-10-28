@@ -1,44 +1,34 @@
-.panel-1.float-right
-  /change the class where "active" is to switch out the icon in the background.
-  %div.panel-bar.top-secondary-corners{:class => vo.setting.css_class}
-    .panel-full
-      - if vo.setting and vo.setting.locale_title
-        %h2.float-left= vt.t(vo.setting.locale_title)
-        - if vo.setting.use_post_button
+.panel-1
+  %div.panel-bar
+    - if vo.setting and vo.setting.locale_title
+      %h2.float-left= vt.t(vo.setting.locale_title)
+      - if vo.setting.use_post_button
+        .panel-bar-actions
           = post_something vo.setting.klass_name, "center"
-  .panel-content
-    %ul.list-items
-      - vo.dataset.each_with_index do |item, index|
-        - if index == 0
-          %li
-            .item-with-image
-              .item-thumb
-                %a= image_tag(thumb_image_or_default(item))
-              .item-text
+          %span.pipe
+            |
+          %a View
+  .item-list-wrap
+    .item-list
+      %ul
+        - vo.dataset.each_with_index do |item, index|
+          - if index == 0
+            %li
+              .story
                 %h4
-                  %span.ellipsis_title_3= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-                .meta-data.clearfix
-                  %h6= posted_by_with_topic(item)
-                  %h6= action_links(item)
-
-        - elsif index == 1
-          %li
-            .item-with-no-image
-              .item-text
-                %h3
                   %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-              .meta-data
-                .profile-pic
-                  = local_linked_profile_pic item.item_user
+              .item-meta-data
+                %h6= posted_by_with_topic(item)
+          - elsif index == 1
+            %li
+              %h3
+                %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+              .item-meta-data
                 %h6= posted_by_with_date_and_topic(item)
-                %h6= action_links(item)
 
-        - else
-          %li
-            .item-with-no-image
-              .item-text
-                %h3
-                  %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-              .meta-data
+          - else
+            %li
+              %h3
+                %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+              .item-meta-data
                 %h6= posted_by_with_date_and_topic(item)
-                %h6= action_links(item)

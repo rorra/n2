@@ -3,7 +3,7 @@
 - cache :featured_gallery_html do
   - gallery ||= Gallery.featured.first || Gallery.top.first
   - if gallery
-    %div{:class => "panel_2 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+    %div{:class => "panel-2 #{defined?(widget_page) ? widget_page.css_class : ''}"}
       .panel-bar
         %h2= t('galleries.featured_title', :gallery_title => gallery.title)
       .subtitle

@@ -4,6 +4,7 @@
 $primary-body-color: #444444
 $primary-body-font: lucida grande, tahoma, verdana, arial, "san-serif"
 $primary-body-size: 12px
+$primary-line-height: 150%
 // headers
 $primary-header-color: #333333
 $secondary-header-color: #222222
@@ -13,7 +14,7 @@ $primary-header-link: #000000
 // header text sizes
 $h1-size: 22px
 $h2-size: 18px
-$h3-size: 16px
+$h3-size: 14px
 $h4-size: 14px
 $h5-size: 12px
 $h6-size: 11px
@@ -44,12 +45,11 @@ h1, h2, h3, h4, h5, h6
   font-weight: normal
   padding: 0
   margin: 0
-  line-height: 150%
+  line-height: $primary-line-height
 h1, h2, h3, h4, h5
   color: $primary-header-color
-  line-height: 120%
   margin-bottom: 10px
-  > a
+  a
     color: $primary-header-color
 h1
   font-size: $h1-size
@@ -62,10 +62,10 @@ h3
 
 h4
   font-size: $h4-size
+  font-weight: bold
 
 h5
   font-size: $h5-size
-  font-weight: bold
 
 h6
   font-size: $h6-size
@@ -249,116 +249,143 @@ p
 
 .panel-bar
   border-bottom: 1px solid $secondary-border-color
-  padding: 4px 0
-  margin-bottom: 20px
+  padding: 4px 0 0 0
+  margin-bottom: 10px
+  position: relative
   > h2
     font-size: 12px
     margin-bottom: 0
     text-transform: uppercase
+  > .panel-bar-actions
+    font-size: 11px
+    float: right
+    position: absolute
+    top: 6px
+    right: 0px
+
+
+.panel-1, .panel-2, .panel-3
+  .subtitle
+    margin-top: -11px
 
 .subtitle
   border: 1px solid #dddddd
   background-color: #f1f1f1
   color: #666
-  margin-bottom: 20px
+  margin-bottom: 10px
   padding: 8px
 
 
-// left column and double column widget styles
+// left column column panel interaction
 #left-col, #col_left
   +grid(8)
   .panel-2
     margin-left: 0
     margin-right: 0
 
-#left-col, #col_left, #home-content
-  .panel-2
-    .item-list-wrap
-      .item-list
-        > ul > li
-          border-bottom: 1px solid #f1f1f1
-          display: block
-          padding-bottom: 10px
-          margin-bottom: 20px
-        // shared thumb styling
-        .story, .question, .resource, .idea, .article-content, .event-description
-          padding-left: 140px
-          min-height: 90px
-          .thumb
+// two column panel styles
+.panel-2
+  .item-list-wrap
+    .item-list
+      > ul > li
+        border-bottom: 1px solid #f1f1f1
+        display: block
+        padding-bottom: 10px
+        margin-bottom: 20px
+      // shared thumb styling
+      .story, .question, .resource, .idea, .article-content, .event-description
+        padding-left: 140px
+        min-height: 90px
+        .thumb
+          float: left
+          margin-left: -140px
+          > img
+            width: 118px
+            height: 88px
+      // styles for news stories, questions, resources and ideas
+      .story, .question, .resource, .idea
+        .item-meta-data
+          padding-left: 50px
+          min-height: 40px
+          .profile-pic
             float: left
-            margin-left: -140px
-            > img
-              width: 118px
-              height: 88px
-        // styles for news stories, questions, resources and ideas
-        .story, .question, .resource, .idea
-          .item-meta-data
-            padding-left: 50px
-            min-height: 40px
-            .profile-pic
-              float: left
-              margin-left: -50px
-        // styles for blog articles
-        .article
-        // styles for events
-        .event
-          display: table-row
-          > div
-            display: table-cell
-          .event-description
-            padding-left: 0
-            width: 75%
-            .thumb
-              margin-left: 0
-            .item-content, .item-meta-data
-              margin-left: 140px
-              margin-right: 10px
-          .item-meta-data
-            padding-left: 50px
-            min-height: 40px
-            .profile-pic
-              float: left
-              margin-left: -50px
-          .event-details
-            border-left: 1px solid #ccc
-            width: 25%
-            font-size: 11px
-            h5
-              font-weight: bold
+            margin-left: -50px
+      // styles for events
+      .event
+        display: table-row
+        > div
+          display: table-cell
+        .event-description
+          padding-left: 0
+          width: 75%
+          .thumb
+            margin-left: 0
+          .item-content, .item-meta-data
+            margin-left: 140px
+            margin-right: 10px
+        .item-meta-data
+          padding-left: 50px
+          min-height: 40px
+          .profile-pic
+            float: left
+            margin-left: -50px
+        .event-details
+          border-left: 1px solid #ccc
+          width: 25%
+          font-size: 11px
+          h5
+            font-weight: bold
+            margin-bottom: 5px
+            margin-left: 10px
+          > p
+            margin-bottom: 5px
+            padding-left: 10px
+            > span
+              display: block
               margin-bottom: 5px
-              margin-left: 10px
-            > p
-              margin-bottom: 5px
-              padding-left: 10px
-              > span
-                display: block
-                margin-bottom: 5px
 
 
-// right column and single column widget styles
+// right column panel interaction
 #right-col, #col_right
   +grid(4)
   .panel-1
     margin-left: 0
     margin-right: 0
 
-#right-col, #col_right, #home-content
-  .panel-1
-    .item-list-wrap
-      .item-list
-        > ul > li
-          border-bottom: 1px solid #f1f1f1
-          display: block
-          padding-bottom: 10px
-          margin-bottom: 10px
-          .story
-            min-height: 40px
-            padding-left: 50px
-            .profile-pic
-              float: left
-              margin-left: -50px 
-          
+// single column panel styles
+.panel-1
+  margin-bottom: 10px
+  // header bottom margin removal
+  h3, h4, h5
+    margin-bottom: 0
+  // panel-content styles
+  .panel-content
+    margin-bottom: 10px
+  // shared list styles
+  .item-list-wrap
+    .item-list
+      > ul > li
+        border-bottom: 1px solid #f1f1f1
+        display: block
+        padding-bottom: 10px
+        margin-bottom: 10px
 
+
+  // recent online users
+  .users-online
+    background-color: #f1f1f1
+    display: inline-block
+    padding: 10px 5px 0
+    margin-top: -10px
+    margin-bottom: 20px
+    > ul > li
+      float: left
+      width: 30px
+      height: 30px
+      margin: 0 5px 10px
+      > .profile-pic
+        height: 30px
+        width: 30px
 
 
 
@@ -385,8 +412,8 @@ p
   position: relative
   z-index: 1
   > a > img
-    width: 38px
-    height: 38px
+    width: 100%
+    height: 100%
     z-index: 2
   .moderator
     height: 16px
@@ -399,10 +426,9 @@ p
 // meta data
 .item-meta-data
   color: #666
-  h6
-    margin-bottom: 5px
   .meta-data-actions
     font-size: 11px
+    padding-top: 5px
 
 // widgets
 .info-widget
@@ -412,6 +438,10 @@ p
     padding: $gutter * .5
 
 // Ads
+
+#adspace
+  +grid(12)
+
 .ad_160
   width: 160px
 

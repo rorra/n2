@@ -1,6 +1,6 @@
 - cache :top_sent_cards_html do
   - top_sent_cards ||= SentCard.active.top
-  %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+  %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
     .panel-bar
       %h2= t('cards.top_sent_cards_title')
     .item-list

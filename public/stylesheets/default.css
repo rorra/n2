@@ -1100,8 +1100,8 @@ ul#nav2-tabs li a:active {
 *********************************/
 
 /* Different colored panel shells, depending on conent:
-BLUE "panel_1" div wraps general content panels
-ORANGE "panel_2" div wraps Action Team specific panels
+BLUE "panel-1" div wraps general content panels
+ORANGE "panel-2" div wraps Action Team specific panels
 
 These wrappers cascade to tell .panel-bar to which background to use for the title bar, and add a border-bottom. */
 
