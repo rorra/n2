@@ -17,11 +17,12 @@
           - when 3
             %script{:type => "text/javascript"}
               <!--
-                var amazon_ad_tag = "#{associate_code}";
-                var amazon_ad_width = "728";
-                var amazon_ad_height = "90";
+              var amazon_ad_tag = "#{associate_code}";
+              var amazon_ad_width = "728";
+              var amazon_ad_height = "90";
               // -->
-            = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"      - when "slot_small_square"
+            = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"
+      - when "slot_small_square"
       - when "slot_skyscraper"
         - case rand(3)
           - when 0
@@ -33,9 +34,9 @@
           - when 3
             %script{:type => "text/javascript"}
               <!--
-                var amazon_ad_tag = "#{associate_code}";
-                var amazon_ad_width = "160";
-                var amazon_ad_height = "600";
+              var amazon_ad_tag = "#{associate_code}";
+              var amazon_ad_width = "160";
+              var amazon_ad_height = "600";
               // -->
             = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"
       - when "slot_small_square"
@@ -61,8 +62,8 @@
           - when 3
             %script{:type => "text/javascript"}
               <!--
-                var amazon_ad_tag = "#{associate_code}";
-                var amazon_ad_width = "300";
-                var amazon_ad_height = "250";
+              var amazon_ad_tag = "#{associate_code}";
+              var amazon_ad_width = "300";
+              var amazon_ad_height = "250";
               // -->
             = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"
