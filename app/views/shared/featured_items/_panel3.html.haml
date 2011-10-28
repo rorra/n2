@@ -8,5 +8,5 @@
       %span.ellipsis_title_2= link_to item.featured_title, item.featured_url, { :class => 'ellipsis_text'}
     %p.ellipsis_caption_7
       %span.ellipsis_text= caption(sanitize(strip_tags(item.featured_blurb)),limit_caption)
-    %span.btnComment== #{like_link item} #{item.num_votes}
-    %span.btnComment== #{link_to t("#{item.featured_related_locale}"), item} #{item.featured_related_count}
+    %span== #{like_link item} #{item.num_votes}
+    %span== #{link_to t("#{item.featured_related_locale}"), item} #{item.featured_related_count}

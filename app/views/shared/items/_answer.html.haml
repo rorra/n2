@@ -5,7 +5,7 @@
     .profile-pic= local_linked_profile_pic answer.user
     .item-meta-data
       %h3= answered_by answer
-      %span.btnComment.btn_left= link_to answer_comments_translate(answer.comments.size), '#', :class => 'answer_comments_link'
+      %span.btn_left= link_to answer_comments_translate(answer.comments.size), '#', :class => 'answer_comments_link'
   - if show_comments.present?
     %br
     .clearfix

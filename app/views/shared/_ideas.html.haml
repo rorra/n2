@@ -31,10 +31,10 @@
                         in
                         = link_to(idea.idea_board.name, idea.idea_board)
                     .meta-data-actions
-                      %span.btnComment== #{like_link idea} #{idea.votes_tally}
+                      %span== #{like_link idea} #{idea.votes_tally}
                       %span.pipe
                         |
-                      %span.btnComment== #{link_to t('.ideas_comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}
+                      %span== #{link_to t('.ideas_comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}
  
     - if paginate
       .clearfix

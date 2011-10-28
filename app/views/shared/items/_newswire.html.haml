@@ -1,12 +1,16 @@
-.newswire.large
-  .item-block
-    %h2= link_to newswire.title, newswire.url, :target => "_newswire"
-    %p
-      = linked_newswire_caption newswire
-      = link_to 'More', newswire.url, :target => "_cts"
-    .item-meta-data
-      %h3= newswire_via_with_date newswire
-      %span.btnComment= link_to t('newswires.publish', :site_title => get_setting('site_title').try(:value)), new_story_path(:newswire_id => newswire)
+.item-block
+  %h3= link_to newswire.title, newswire.url, :target => "_newswire"
+  %p
+    = linked_newswire_caption newswire
+    = link_to 'More', newswire.url, :target => "_cts"
+  .item-meta-data
+    %h6= newswire_via_with_date newswire
+    .meta-data-actions
+      %span= link_to t('newswires.publish', :site_title => get_setting('site_title').try(:value)), new_story_path(:newswire_id => newswire)
+      %span.pipe
+        |
       -# TODO:: add this to a job queue
-      %span.btnComment= link_to t('newswires.quick_post', :site_title => get_setting('site_title').try(:value)), quick_post_newswire_path(newswire), :class => 'quick_post'
-      %span.btnComment= link_to t('newswires.read'), newswire.url, :target => "_cts"
+      %span= link_to t('newswires.quick_post', :site_title => get_setting('site_title').try(:value)), quick_post_newswire_path(newswire), :class => 'quick_post'
+      %span.pipe
+        |
+      %span= link_to t('newswires.read'), newswire.url, :target => "_cts"

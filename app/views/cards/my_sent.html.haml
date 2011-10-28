@@ -29,8 +29,8 @@
                       %h3= t('cards.sent_to', :fb_name => local_linked_profile_name(my_card.to_user), :date => timeago(my_card.created_at)).html_safe
                     - else
                       %h3= t('cards.sent_to', :fb_name => fb_name(my_card.to_fb_user_id), :date => timeago(my_card.created_at)).html_safe
-                    -#%span.btnComment== #{link_to t('.stories_like'), like_story_path(card.id), :class => "voteUp"} #{card.votes_tally}
-                    -#%span.btnComment== #{link_to t('comments'), story_path(card, :anchor => "commentListTop")} #{card.comments_count}
+                    -#%span== #{link_to t('.stories_like'), like_story_path(card.id), :class => "voteUp"} #{card.votes_tally}
+                    -#%span== #{link_to t('comments'), story_path(card, :anchor => "commentListTop")} #{card.comments_count}
     - if @paginate
       .clearfix
         = will_paginate @my_cards

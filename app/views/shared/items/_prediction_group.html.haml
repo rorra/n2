@@ -10,5 +10,5 @@
     .profile-pic= local_linked_profile_pic prediction_group.user
     .item-meta-data
       %h3= generic_posted_by prediction_group
-      %span.btnComment== #{like_link prediction_group} #{prediction_group.votes_tally}
-      %span.btnComment== #{link_to t('comments'), prediction_group_path(prediction_group, :anchor => "commentListTop")} #{prediction_group.comments_count}
+      %span== #{like_link prediction_group} #{prediction_group.votes_tally}
+      %span== #{link_to t('comments'), prediction_group_path(prediction_group, :anchor => "commentListTop")} #{prediction_group.comments_count}

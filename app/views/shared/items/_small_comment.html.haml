@@ -5,6 +5,6 @@
   .item-block
     .item-meta-data
       %h3= generic_posted_by comment
-      %span.btnComment= votes_link(comment, comment.votes_tally)
+      %span= votes_link(comment, comment.votes_tally)
       - if comment.moderatable?
         = render :partial => 'shared/flag_form', :class => "btnComment, float_left", :locals => { :flaggable => comment }

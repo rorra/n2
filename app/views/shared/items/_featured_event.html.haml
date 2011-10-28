@@ -17,8 +17,8 @@
           %h3
             = t('events.start_time', :start_time => item.start_time.to_s(:short_with_time) )
         .item-meta-data
-          %span.btnComment== #{link_to t('comments'), polymorphic_url(item.item_link, :anchor => "commentListTop")} #{item.comments_count}
-          %span.btnComment== #{like_link item.item_link} #{item.votes_tally}
+          %span== #{link_to t('comments'), polymorphic_url(item.item_link, :anchor => "commentListTop")} #{item.comments_count}
+          %span== #{like_link item.item_link} #{item.votes_tally}
 - else
   .item_2
     .item_block

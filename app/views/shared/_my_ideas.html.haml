@@ -27,7 +27,7 @@
                   %span.pipe
                     |
                   %span== #{link_to t('.ideas_comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}
-                  -#%span.btnComment= fb_share_item_button(idea)
+                  -#%span= fb_share_item_button(idea)
 
   - if paginate
     .clearfix

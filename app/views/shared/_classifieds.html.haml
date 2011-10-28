@@ -25,8 +25,8 @@
                 .profile-pic= local_linked_profile_pic classified.user
                 .item-meta-data
                   %h3= classifieds_posted_by classified
-                  %span.btnComment== #{like_link classified} #{classified.votes_count}
-                  %span.btnComment== #{link_to t('comments'), classified_path(classified, :anchor => "commentListTop")} #{classified.comments_count}
+                  %span== #{like_link classified} #{classified.votes_count}
+                  %span== #{link_to t('comments'), classified_path(classified, :anchor => "commentListTop")} #{classified.comments_count}
             .complexMiniBlock
               %ul
                 %li 

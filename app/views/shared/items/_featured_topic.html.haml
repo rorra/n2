@@ -12,7 +12,7 @@
           %span.ellipsis_title_2
             = link_to item.item_title, path_to_self(item.item_link), {:class => 'ellipsis_text'}
         .item-meta-data
-          %span.btnComment== #{link_to t('forums.topics.replies'), path_to_self(item.item_link)} #{item.comments_count}
+          %span== #{link_to t('forums.topics.replies'), path_to_self(item.item_link)} #{item.comments_count}
 - else
   .item_2
     .item-block

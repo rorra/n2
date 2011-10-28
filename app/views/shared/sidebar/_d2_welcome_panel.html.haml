@@ -5,7 +5,7 @@
   .panel-1
     .panel-content.meta-panel
       .panel-full
-        .welcomePanel
+        .info-widget
           .item_1.users
             .profile-pic
               = local_linked_profile_pic current_user
@@ -36,7 +36,7 @@
           .panel-1
             .panel-content.meta-panel
               .panel-full
-                .welcomePanel
+                .info-widget
                   .thumb.welcome
                     - if get_setting('welcome_host').present? and get_setting('welcome_host').value.empty?
                       = image_tag('default/house-ad-profile.jpg')
@@ -55,7 +55,7 @@
           .panel-1
             .panel-content.meta-panel
               .panel-full
-                .welcomePanel
+                .info-widget
                   .profile-pic
                     - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
                       = image_tag('default/house-ad-profile.jpg')
@@ -68,7 +68,7 @@
           .panel-1
             .panel-content.meta-panel
               .panel-full
-                .welcomePanel
+                .info-widget
                   .thumb.banner
                     - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
                       = image_tag('default/house-ad-banner.jpg')
@@ -81,7 +81,7 @@
           .panel-1
             .panel-content.meta-panel
               .panel-full
-                .welcomePanel
+                .info-widget
                   .thumb.welcome
                     - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
                       = image_tag('default/house-ad-profile.jpg')

@@ -31,10 +31,10 @@
                     .profile-pic= local_linked_profile_pic event.user, :size => :square
                     %h6= generic_posted_by event
                     .meta-data-actions
-                      %span.btnComment== #{like_link event} #{event.votes_tally}
+                      %span== #{like_link event} #{event.votes_tally}
                       %span.pipe
                         |
-                      %span.btnComment== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
+                      %span== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
                 // event-details
                 .event-details
                   %h5

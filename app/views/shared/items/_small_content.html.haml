@@ -4,5 +4,5 @@
     .profile-pic= local_linked_profile_pic content.user
     .item-meta-data
       %h3= generic_posted_by content
-      %span.btnComment== #{like_link content} #{content.votes_tally}
-      %span.btnComment== #{link_to t('comments'), content_path(content, :anchor => "commentListTop")} #{content.comments_count}
+      %span== #{like_link content} #{content.votes_tally}
+      %span== #{link_to t('comments'), content_path(content, :anchor => "commentListTop")} #{content.comments_count}

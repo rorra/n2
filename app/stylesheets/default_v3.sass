@@ -1,11 +1,37 @@
-// variables
-$global-font-size: 12px
+// variables --------------------------- //
+
+// text
+$primary-body-color: #444444
+$primary-body-font: lucida grande, tahoma, verdana, arial, "san-serif"
+$primary-body-size: 12px
+// headers
 $primary-header-color: #333333
-$primary-link-color: #2462E2
+$secondary-header-color: #222222
+$tertiary-header-color: #111111
+$primary-header-font: lucida grande, tahoma, verdana, arial, "san-serif"
+$primary-header-link: #000000
+// header text sizes
+$h1-size: 22px
+$h2-size: 18px
+$h3-size: 16px
+$h4-size: 14px
+$h5-size: 12px
+$h6-size: 11px
+// links
+$primary-link-color: #2462E2                                                      
+$secondary-link-color: #2462E2
+$tertiary-link-color: #333333
+//layout
+$gutter: 20px
+//borders
+$primary-border-color: #253E72                                                    // .panel-bar,
+$secondary-border-color: #CCCCCC
+
 // global ------------------------------ //
 body
-  font-family: lucida grande, tahoma, verdana, arial, "san-serif"
-  font-size: $global-font-size
+  color: $primary-body-color
+  font-family: $primary-body-font
+  font-size: $primary-body-size
 
 
 
@@ -14,35 +40,35 @@ body
 
 // headers
 h1, h2, h3, h4, h5, h6
+  font-family: $primary-header-font
   font-weight: normal
   padding: 0
   margin: 0
-h1, h2, h3, h4
+  line-height: 150%
+h1, h2, h3, h4, h5
   color: $primary-header-color
   line-height: 120%
   margin-bottom: 10px
   > a
     color: $primary-header-color
-h5, h6
-  font-weight: normal
-  line-height: 140%
 h1
-  font-size: $HeaderOne
+  font-size: $h1-size
 
 h2
-  font-size: $HeaderTwo
+  font-size: $h2-size
 
 h3
-  font-size: $HeaderThree
+  font-size: $h3-size
 
 h4
-  font-size: $HeaderFour
+  font-size: $h4-size
 
 h5
-  font-size: $HeaderFive
+  font-size: $h5-size
+  font-weight: bold
 
 h6
-  font-size: $HeaderSix
+  font-size: $h6-size
 // text
 a
   color: $primary-link-color
@@ -66,39 +92,13 @@ p
   width: 960px
   position: relative
 
-#home_container
+#home-content
   float: left
   position: relative
   display: inline
   width: 960px
   z-index: 1
 
-// columns
-#left-col, #col_left
-  +grid(8)
-  .panel-2, .panel-2
-    margin-left: 0
-    margin-right: 0
-#right-col, #col_right
-  +grid(4)
-  .panel-1, .panel-1
-    margin-left: 0
-    margin-right: 0
-#full-col, #col_full
-  +grid(12)
-  .panel-3, .panel-3
-    margin-left: 0
-    margin-right: 0
-
-// layout boxes
-.panel-1, .panel-1
-  +grid(4)
-
-.panel-2, .panel-2
-  +grid(8)
-
-.panel-3, .panel-3
-  +grid(12)
 
 // header ------------------------------ //
 #header
@@ -174,7 +174,7 @@ p
           z-index: 20
           > a
             display: block
-            font-size: $global-font-size - 2px
+            font-size: $primary-body-size - 2px
             padding: 5px 10px
             white-space: nowrap
             &:hover
@@ -192,7 +192,7 @@ p
     > li
       margin-right: 1px
       > a
-        font-size: $global-font-size - 2px
+        font-size: $primary-body-size - 2px
         height: 14px
         padding: 5px 10px 0
         &.selected
@@ -237,8 +237,18 @@ p
       color: #666
 
 // panels
+.panel-1, .panel-1
+  +grid(4)
+
+.panel-2, .panel-2
+  +grid(8)
+
+.panel-3, .panel-3
+  +grid(12)
+
+
 .panel-bar
-  border-bottom: 1px solid #253E72
+  border-bottom: 1px solid $secondary-border-color
   padding: 4px 0
   margin-bottom: 20px
   > h2
@@ -246,20 +256,23 @@ p
     margin-bottom: 0
     text-transform: uppercase
 
+.subtitle
+  border: 1px solid #dddddd
+  background-color: #f1f1f1
+  color: #666
+  margin-bottom: 20px
+  padding: 8px
 
 
+// left column and double column widget styles
 #left-col, #col_left
   +grid(8)
-  .panel-2, .panel-2
+  .panel-2
     margin-left: 0
     margin-right: 0
 
-    .subtitle
-      background-color: #f1f1f1
-      color: #666
-      margin-bottom: 20px
-      padding: 10px
-
+#left-col, #col_left, #home-content
+  .panel-2
     .item-list-wrap
       .item-list
         > ul > li
@@ -322,6 +335,45 @@ p
                 margin-bottom: 5px
 
 
+// right column and single column widget styles
+#right-col, #col_right
+  +grid(4)
+  .panel-1
+    margin-left: 0
+    margin-right: 0
+
+#right-col, #col_right, #home-content
+  .panel-1
+    .item-list-wrap
+      .item-list
+        > ul > li
+          border-bottom: 1px solid #f1f1f1
+          display: block
+          padding-bottom: 10px
+          margin-bottom: 10px
+          .story
+            min-height: 40px
+            padding-left: 50px
+            .profile-pic
+              float: left
+              margin-left: -50px 
+          
+
+
+
+
+// full column and triple column widget styles
+#full-col, #col_full
+  +grid(12)
+  .panel-3, .panel-3
+    margin-left: 0
+    margin-right: 0
+
+
+
+
+
+
 .thumb
   border: 1px solid #CCC
 
@@ -353,7 +405,11 @@ p
     font-size: 11px
 
 // widgets
-
+.info-widget
+  background: #f0f0f0
+  margin-bottom: $gutter
+  .item-block
+    padding: $gutter * .5
 
 // Ads
 .ad_160
@@ -404,7 +460,7 @@ p
 // predictions
 .prediction-details 
   .item-details
-    margin-bottom: $PanelGutters * .5
+    margin-bottom: $gutter * .5
   .vote-options
     border: 1px solid #ccc
     padding: 10px 10px 0
@@ -415,7 +471,7 @@ p
       margin: 0 
       padding: 0
     li
-      background-color: $PanelBarFeaturedBG
+      background-color: #999
       float: left
       width: 100%
       padding: 5px 0
@@ -425,19 +481,19 @@ p
         margin-bottom: 10px
       li.option-item
         &:hover
-          background-color: $PanelBarFeaturedBG - #111
+          background-color: #666
         label
           display: block
-          padding:  $PanelGutters * .5 $PanelGutters * .5 $PanelGutters * .5 $PanelGutters * 1.15
+          padding:  $gutter * .5 $gutter * .5 $gutter * .5 $gutter * 1.15
           font-weight: bold
         input
           float: left
-          margin: $PanelGutters * .5 0 $PanelGutters * .5 $PanelGutters * .25
+          margin: $gutter * .5 0 $gutter * .5 $gutter * .25
     .results-list
       li.results-item
-        background-color: $PanelBarFeaturedBG
+        background-color: #999
         &.user-choice
-          background-color: $PanelBarFeaturedBG - #111
+          background-color: #666
         .numbers
           float: left
           width: 30%
@@ -458,13 +514,13 @@ p
 
   .pred-nav-bar
     padding: 5px 0
-    background-color: $subTitleBG
+    background-color: #f1f1f1
     display: inline-block
     width: 100%
     margin-bottom: 10px
     
     a
-      color: $linkColor
+      color: $primary-link-color
       display: inline-block
       font-weight: bold
       padding: 0 5px

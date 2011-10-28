@@ -18,5 +18,5 @@
               - if idea.idea_board.present?
                 in
                 = link_to(idea.idea_board.name, idea.idea_board)
-            %span.btnComment== #{like_link idea} #{idea.votes_tally}
-            %span.btnComment== #{link_to t('.ideas_comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}
+            %span== #{like_link idea} #{idea.votes_tally}
+            %span== #{link_to t('.ideas_comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}

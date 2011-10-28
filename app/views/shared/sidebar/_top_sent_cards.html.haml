@@ -12,5 +12,5 @@
               .profile-pic= image_tag sent_card.card.image_path
               .item-meta-data
                 %h3= t('cards.sent_count', :count => pluralize(sent_card.card_count, 'time'))
-                -#%span.btnComment== #{link_to t('like'), like_sent_card_path(sent_card.id), :class => "voteUp"} #{sent_card.votes_tally}
-                -#%span.btnComment== #{link_to t('comments'), sent_card_path(sent_card, :anchor => "commentListTop")} #{sent_card.comments_count}
+                -#%span== #{link_to t('like'), like_sent_card_path(sent_card.id), :class => "voteUp"} #{sent_card.votes_tally}
+                -#%span== #{link_to t('comments'), sent_card_path(sent_card, :anchor => "commentListTop")} #{sent_card.comments_count}

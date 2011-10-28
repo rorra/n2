@@ -32,8 +32,8 @@
                     .item-meta-data
                       .profile-pic= local_linked_profile_pic item.user
                       %h3= generic_posted_by item
-                      %span.btnComment== #{like_link item.item_link} #{item.votes_tally}
-                      %span.btnComment== #{link_to t('comments'), polymorphic_url(item.item_link, :anchor => "commentListTop")} #{item.comments_count}
+                      %span== #{like_link item.item_link} #{item.votes_tally}
+                      %span== #{link_to t('comments'), polymorphic_url(item.item_link, :anchor => "commentListTop")} #{item.comments_count}
       :javascript
         $(function() {            
           $(".feature_scrollable_panel_mini").scrollable({speed : #{animation_speed}, circular: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});

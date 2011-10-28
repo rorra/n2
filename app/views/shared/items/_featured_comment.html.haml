@@ -12,5 +12,5 @@
           %a.ellipsis_title_1
           %span.ellipsis_text
             = link_to item.item_title, polymorphic_url(item.item_link)
-        -# %span.btnComment== #{link_to t('featured_comment.view'), polymorphic_url(item.item_link, :anchor => "commentListTop")}
-        -# %span.btnComment= votes_link(item, item.votes_tally)        
+        -# %span== #{link_to t('featured_comment.view'), polymorphic_url(item.item_link, :anchor => "commentListTop")}
+        -# %span= votes_link(item, item.votes_tally)        

@@ -9,8 +9,8 @@
         = link_to primary1.featured_title, primary1.featured_url, {:class => 'ellipsis_text'}
     %p.ellipsis_caption_4
       %span.ellipsis_text= caption(sanitize(strip_tags(primary1.featured_blurb)),limit_caption)
-    %span.btnComment== #{like_link primary1} #{primary1.num_votes}
-    %span.btnComment== #{link_to t("#{primary1.featured_related_locale}"), primary1} #{primary1.featured_related_count}
+    %span== #{like_link primary1} #{primary1.num_votes}
+    %span== #{link_to t("#{primary1.featured_related_locale}"), primary1} #{primary1.featured_related_count}
     .bullet_list.float_left
       %ul
         %li

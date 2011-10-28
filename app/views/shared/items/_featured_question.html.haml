@@ -10,8 +10,8 @@
             = link_to item.item_title, path_to_self(item.item_link), {:class => 'ellipsis_text'}
         .item-meta-data
           %h3= generic_posted_by item
-          %span.btnComment== #{like_link item} #{item.votes_tally}
-          %span.btnComment== #{link_to answer_translate(item.answers.count), question_path(item, :anchor => "commentListTop")}
+          %span== #{like_link item} #{item.votes_tally}
+          %span== #{link_to answer_translate(item.answers.count), question_path(item, :anchor => "commentListTop")}
 - else
   .item_2
     .item-block

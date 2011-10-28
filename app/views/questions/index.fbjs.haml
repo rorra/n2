@@ -12,6 +12,6 @@
         .profile-pic= local_linked_profile_pic question.user
         .item-meta-data
           %h3= t('asked_by', :fb_name => local_linked_profile_name(question.user), :date => timeago(question.created_at))
-          %span.btnComment== #{like_link question} #{question.votes_tally}
-          %span.btnComment== #{link_to t('comments'), question_path(question, :anchor => "commentListTop")} #{question.comments_count}
-          %span.btnComment= fb_share_button(questions_url(question))
+          %span== #{like_link question} #{question.votes_tally}
+          %span== #{link_to t('comments'), question_path(question, :anchor => "commentListTop")} #{question.comments_count}
+          %span= fb_share_button(questions_url(question))

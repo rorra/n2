@@ -29,7 +29,7 @@
       - case get_setting('welcome_layout').value
         - when 'host'
           .panel-1
-            .welcomePanel
+            .info-widget
               .thumb.welcome
                 - if get_setting('welcome_host').present? and get_setting('welcome_host').value.empty?
                   = image_tag('default/house-ad-profile.jpg')
@@ -45,7 +45,7 @@
                 %p= t('.welcome_panel_message_fbml')
         - when 'thumb'
           .panel-1
-            .welcomePanel
+            .info-widget
               .thumb.welcome
                 - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
                   = image_tag('default/house-ad-profile.jpg')
@@ -56,7 +56,7 @@
                 %p= t('.welcome_panel_message_fbml')
         - when 'banner'
           .panel-1
-            .welcomePanel
+            .info-widget
               .thumb.banner
                 - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
                   = image_tag('default/house-ad-banner.jpg')
@@ -67,7 +67,7 @@
                 %p= t('.welcome_panel_message_fbml')
         - else
           .panel-1
-            .welcomePanel
+            .info-widget
               .thumb.welcome
                 - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
                   = image_tag('default/house-ad-profile.jpg')

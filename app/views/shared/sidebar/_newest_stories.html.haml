@@ -15,5 +15,5 @@
                 .profile-pic= local_linked_profile_pic story.user
                 .item-meta-data
                   %h3= generic_posted_by story
-                  %span.btnComment== #{like_link story} #{story.votes_tally}
-                  %span.btnComment== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}
+                  %span== #{like_link story} #{story.votes_tally}
+                  %span== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}

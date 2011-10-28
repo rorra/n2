@@ -11,6 +11,6 @@
       %span.ellipsis_text= caption(sanitize(strip_tags(item.featured_blurb)),limit_caption)
 
     - unless item.featured_related_count == 0
-      %span.btnComment== #{link_to t("#{item.featured_related_locale}"), item} #{item.featured_related_count}
+      %span== #{link_to t("#{item.featured_related_locale}"), item} #{item.featured_related_count}
     -else
-      %span.btnComment== #{like_link item} #{item.num_votes}
+      %span== #{like_link item} #{item.num_votes}

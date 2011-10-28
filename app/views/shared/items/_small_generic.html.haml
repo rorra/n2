@@ -4,5 +4,5 @@
     .profile-pic= local_linked_profile_pic item.user
     .item-meta-data
       %h3= generic_posted_by item
-      %span.btnComment== #{like_link item} #{item.votes_tally}
-      %span.btnComment== #{link_to t('comments'), path_to_self_with_anchor(item, "commentListTop")} #{item.comments_count}
+      %span== #{like_link item} #{item.votes_tally}
+      %span== #{link_to t('comments'), path_to_self_with_anchor(item, "commentListTop")} #{item.comments_count}

@@ -4,5 +4,5 @@
     .profile-pic= local_linked_profile_pic question.user
     .item-meta-data
       %h3= asked_by question
-      %span.btnComment== #{like_link question} #{question.votes_tally}
-      %span.btnComment== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
+      %span== #{like_link question} #{question.votes_tally}
+      %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}

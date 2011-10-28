@@ -16,6 +16,6 @@
             .profile-pic= local_linked_profile_pic content.user, :format => 'html'
             .item-meta-data
               %h3= stories_posted_by content
-              %span.btnComment== #{like_link content, :format => 'html'} #{content.votes_tally}
-              %span.btnComment== #{link_to t('comments'), story_path(content, :anchor => "commentListTop", :format => 'html')} #{content.comments_count}
+              %span== #{like_link content, :format => 'html'} #{content.votes_tally}
+              %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop", :format => 'html')} #{content.comments_count}
 

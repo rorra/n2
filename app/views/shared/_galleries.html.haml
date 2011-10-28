@@ -21,10 +21,10 @@
                   .profile-pic= local_linked_profile_pic gallery.user
                   -#%h3= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
                   %h3= generic_posted_by gallery
-                  %span.btnComment== #{like_link gallery} #{gallery.votes_tally}
-                  %span.btnComment== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
-                  -#%span.btnComment= t('galleries.topics_count', :topics_count => gallery.topics_count)
-                  -#%span.btnComment= t('galleries.posts_count', :posts_count => gallery.comments_count)
+                  %span== #{like_link gallery} #{gallery.votes_tally}
+                  %span== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
+                  -#%span= t('galleries.topics_count', :topics_count => gallery.topics_count)
+                  -#%span= t('galleries.posts_count', :posts_count => gallery.comments_count)
               %hr
 
     - if paginate

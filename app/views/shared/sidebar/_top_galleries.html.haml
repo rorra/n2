@@ -16,7 +16,7 @@
                     %span.ellipsis_title_2
                       = link_to gallery.title, gallery_path(gallery), { :class => 'ellipsis_text'}
                   .item-meta-data
-                    %span.btnComment== #{like_link gallery} #{gallery.votes_tally}
-                    %span.btnComment== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
+                    %span== #{like_link gallery} #{gallery.votes_tally}
+                    %span== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
       .itemActions
         = link_to t('galleries.see_more'), galleries_path
