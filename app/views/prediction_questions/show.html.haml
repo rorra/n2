@@ -3,13 +3,12 @@
   = render :partial => 'shared/subnav/predictions_subnav'
 
 #col_left
-  #itemDetails.panel_2
+  .panel_2.prediction-details
     = add_this @prediction_question
-  - if not current_user.present?
-    %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
-    %br
-  .predictions.question_block
-    %ul
+    - if not current_user.present?
+      %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
+      %br
+    .item-details
       = render :partial => 'shared/prediction_question_container', :locals => { :prediction_question => @prediction_question }
       - if @tags.present?
         .tag-wrap
