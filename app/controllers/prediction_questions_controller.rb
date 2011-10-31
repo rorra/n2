@@ -1,5 +1,6 @@
 class PredictionQuestionsController < ApplicationController
   cache_sweeper :prediction_sweeper, :only => [:create, :update, :destroy]
+  before_filter :set_meta_klass, :only => [:index]
   
   access_control do
     allow all, :to => [:index, :show, :tags]
@@ -38,6 +39,7 @@ class PredictionQuestionsController < ApplicationController
   def show
     @prediction_question = PredictionQuestion.active.find(params[:id])
     tag_cloud(@prediction_question)
+    set_current_meta_item @prediction_question
   end
 
   def tags
@@ -46,4 +48,8 @@ class PredictionQuestionsController < ApplicationController
     @prediction_questions = PredictionQuestion.active.tagged_with(tag_name, :on => 'tags').paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
   end
   
+  def set_meta_klass
+    set_current_meta_klass PredictionQuestion
+  end
+
 end

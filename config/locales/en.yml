@@ -592,3 +592,112 @@ en:
       tweeted_by_via: "Tweeted by {{name}} via {{source}}, {{date}} ago"
       tweeted_by_in_topic: "Tweeted By {{name}} in {{topic}}"
       tweeted_by_in_topic_ago: "Tweeted by {{name}} in {{topic}} {{date}} ago"
+  global:
+    audios:
+      posted_in: "Audios"
+      title: "Audios"
+      description: "Audios"
+    idea_boards:
+      posted_in: "Idea Boards"
+      title: "Idea Boards"
+      description: "Idea Boards"
+    gallery_items:
+      posted_in: "Gallery Items"
+      title: "Gallery Items"
+      description: "Gallery Items"
+    urls:
+      posted_in: "Urls"
+      title: "Urls"
+      description: "Urls"
+    resource_sections:
+      posted_in: "Resource Sections"
+      title: "Resource Sections"
+      description: "Resource Sections"
+    questions:
+      posted_in: "Questions"
+      title: "Questions"
+      description: "Questions"
+    comments:
+      posted_in: "Comments"
+      title: "Comments"
+      description: "Comments"
+    classifieds:
+      posted_in: "Classifieds"
+      title: "Classifieds"
+      description: "Classifieds"
+    prediction_guesses:
+      posted_in: "Prediction Guesses"
+      title: "Prediction Guesses"
+      description: "Prediction Guesses"
+    cards:
+      posted_in: "Cards"
+      title: "Cards"
+      description: "Cards"
+    videos:
+      posted_in: "Videos"
+      title: "Videos"
+      description: "Videos"
+    topics:
+      posted_in: "Topics"
+      title: "Topics"
+      description: "Topics"
+    prediction_groups:
+      posted_in: "Prediction Groups"
+      title: "Prediction Groups"
+      description: "Prediction Groups"
+    resources:
+      posted_in: "Resources"
+      title: "Resources"
+      description: "Resources"
+    galleries:
+      posted_in: "Galleries"
+      title: "Galleries"
+      description: "Galleries"
+    events:
+      posted_in: "Events"
+      title: "Events"
+      description: "Events"
+    prediction_scores:
+      posted_in: "Prediction Scores"
+      title: "Prediction Scores"
+      description: "Prediction Scores"
+    images:
+      posted_in: "Images"
+      title: "Images"
+      description: "Images"
+    ideas:
+      posted_in: "Ideas"
+      title: "Ideas"
+      description: "Ideas"
+    newswires:
+      posted_in: "Newswires"
+      title: "Newswires"
+      description: "Newswires"
+    forums:
+      posted_in: "Forums"
+      title: "Forums"
+      description: "Forums"
+    users:
+      posted_in: "Users"
+      title: "Users"
+      description: "Users"
+    prediction_results:
+      posted_in: "Prediction Results"
+      title: "Prediction Results"
+      description: "Prediction Results"
+    contents:
+      posted_in: "Stories"
+      title: "Stories"
+      description: "Stories"
+    prediction_questions:
+      posted_in: "Prediction Questions"
+      title: "Prediction Questions"
+      description: "Prediction Questions"
+    articles:
+      posted_in: "Articles"
+      title: "Articles"
+      description: "Articles"
+    answers:
+      posted_in: "Answers"
+      title: "Answers"
+      description: "Answers"

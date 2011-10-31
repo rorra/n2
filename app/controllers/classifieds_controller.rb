@@ -3,6 +3,7 @@ class ClassifiedsController < ApplicationController
 
   before_filter :find_classified, :only => [:show, :edit, :update, :set_status]
   before_filter :set_categories, :only => [:new]
+  before_filter :set_meta_klass, :only => [:index]
   
   access_control do
     allow all, :to => [:index, :categories]
@@ -142,6 +143,10 @@ class ClassifiedsController < ApplicationController
     
     def set_categories
       @categories = Newscloud::AmazonSearch.categories
+    end
+
+    def set_meta_klass
+      set_current_meta_klass Classified
     end
 
 end

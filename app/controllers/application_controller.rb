@@ -42,6 +42,11 @@ class ApplicationController < ActionController::Base
   helper_method :find_item_by_cache_id
   helper_method :get_current_meta_item
   helper_method :set_current_meta_item
+  helper_method :get_current_meta_klass
+  helper_method :set_current_meta_klass
+  helper_method :page_title
+  helper_method :klass_title
+  helper_method :klass_description
 
   def newscloud_redirect_to(options = {}, response_status = {})
     @enable_iframe_hack = !! @iframe_status
@@ -517,6 +522,34 @@ class ApplicationController < ActionController::Base
 
   def get_current_meta_item
     @current_meta_item
+  end
+
+  def set_current_meta_klass klass
+    @current_meta_klass = klass
+  end
+
+  def get_current_meta_klass
+    @current_meta_klass
+  end
+
+  def klass_title klass
+    I18n.translate("global.#{klass.name.tableize.downcase}.title".to_sym) || klass.name.tableize.downcase.titleize
+  end
+  
+  def klass_description klass
+    I18n.translate("global.#{klass.name.tableize.downcase}.description".to_sym) || klass.name.tableize.downcase.titleize
+  end
+  
+  def page_title options = {}
+    site_title = get_setting_value('site_title')
+    if options[:item] and options[:item].respond_to?(:item_title)
+      title = item.item_title
+    elsif options[:klass] and options[:klass].respond_to?(:name)
+      title = klass_description options[:klass]
+    else
+      title = site_title
+    end
+    @template.text_page_title title
   end
   
 end

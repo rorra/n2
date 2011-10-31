@@ -301,6 +301,10 @@ module ApplicationHelper
     url_for(send("#{item.class.to_s.underscore}_url", item, :canvas => canvas, :only_path => false))
   end
 
+  def path_to_klass(klass, use_canvas = false)
+    url_for(send("#{klass.name.tableize}_url"))
+  end
+
   def path_to_self_no_canvas(item)
     path_to_self(item, false)
   end

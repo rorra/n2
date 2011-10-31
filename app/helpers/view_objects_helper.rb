@@ -26,7 +26,7 @@ module ViewObjectsHelper
   end
 
   def item_model_link item
-    link_to item.model_index_name, send(item.model_index_url_name)
+    link_to klass_title(item.class), send(item.model_index_url_name)
   end
 
   def posted_by item, opts = {}

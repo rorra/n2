@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_filter :set_ad_layout, :only => [:index, :show, :my_questions]
+  before_filter :set_meta_klass, :only => [:index]
 
   cache_sweeper :qanda_sweeper, :only => [:create, :update, :destroy, :create_answer]
 
@@ -94,6 +95,10 @@ class QuestionsController < ApplicationController
 
   def set_current_tab
     @current_tab = 'questions'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Question
   end
 
 end

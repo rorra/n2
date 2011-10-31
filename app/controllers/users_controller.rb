@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_filter :find_page_user, :only => [:edit, :update]
   before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :enable_iframe_urls, :only => [:current]
+  before_filter :set_meta_klass, :only => [:index]
 
   access_control do
     allow all, :to => [:index, :show, :feed, :account_menu, :current]
@@ -115,6 +116,7 @@ class UsersController < ApplicationController
     @articles = @user.articles.active.published.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
     @paginate = true
     @is_owner = current_user && (@user.id == current_user.id)
+    set_current_meta_item @user
     respond_to do |format|
       format.html
       format.atom { @actions = @user.newest_actions }
@@ -206,4 +208,8 @@ class UsersController < ApplicationController
     @page_user ||= User.active.find(params[:id])
   end
   
+  def set_meta_klass
+    set_current_meta_klass User
+  end
+
 end
