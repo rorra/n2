@@ -7,6 +7,13 @@ namespace :n2 do
       Rake::Task['i18n:populate:update_from_rails'].invoke
       Rake::Task['i18n:populate:synchronize_translations'].invoke
     end
+
+    desc "Run misc upgrade scritps after a deploy upgrade"
+    task :post_upgrade => :environment do
+      version = Metadata::Setting.get_setting('version','newscloud').try(:value)
+      code_version = File.read(File.join(Rails.root, 'config', 'version'))
+      puts "Version: #{version} Code Version: #{code_version}"
+    end
   end
 
   namespace :util do

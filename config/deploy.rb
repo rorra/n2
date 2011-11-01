@@ -187,6 +187,12 @@ namespace :deploy do
     run "cd #{path} && bundle exec rake n2:deploy:after RAILS_ENV=#{rails_env}"
   end
 
+  desc "Run rake post upgrade after upgrade_newscloud"
+  task :rake_post_upgrade, :roles => :app do
+    path = rake_post_path || release_path
+    run "cd #{path} && bundle exec rake n2:deploy:post_upgrade RAILS_ENV=#{rails_env}"
+  end
+
   desc "Run server post deploy tasks to restart workers and reload god"
   task :server_post_deploy, :roles => :app do
     if roles[:workers].any?
@@ -211,6 +217,13 @@ namespace :deploy do
   desc "restore sitemap files in public after deploy"
   task :restore_previous_sitemap do
       run "if [ -e #{current_path}/public/sitemap_index.xml.gz ]; then cp #{current_path}/public/sitemap* #{release_path}/public/; fi"
+  end
+
+  desc "Upgrade to the latest stable version of newscloud"
+  task :upgrade_newscloud do
+    deploy.migrations
+    deploy.rake_post_upgrade
+    deploy.restart
   end
 
 end
