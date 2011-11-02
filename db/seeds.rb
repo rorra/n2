@@ -257,8 +257,11 @@ custom_widgets.each do |custom_widget|
   })
 end
 
+version_file = File.join(Rails.root, "config", "version")
+version = File.exist?(version_file) ? File.read(version_file) : "3.4.4"
+
 settings = [
- { :key_sub_type => 'newscloud', :key_name => 'version',  :value => "3.4.2" },
+ { :key_sub_type => 'newscloud', :key_name => 'version',  :value => version },
  { :key_sub_type => 'amazon', :key_name => 'aws_access_key_id',  :value => "1234asdf4321" },
  { :key_sub_type => 'amazon', :key_name => 'aws_secret_key',  :value => "123454321asdf5432112345" },
  { :key_sub_type => 'amazon', :key_name => 'associate_code',  :value => "yourcode-20" },
