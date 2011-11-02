@@ -36,8 +36,8 @@
       - if iframe_facebook_request?
         = link_to t('.register_facebook'), link_user_accounts_users_path(:only_path => false, :canvas => true), :target => '_parent'
       - else
-        = link_to t('.sign_in'), login_path
+        = link_to t('.sign_in'), login_path(:return_to => request.request_uri)
         = pipe_spacer
-        = link_to t('.register'), signup_path
+        = link_to t('.register'), signup_path(:return_to => request.request_uri)
 
   = render :partial => 'shared/page_tabs'

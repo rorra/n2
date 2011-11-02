@@ -67,6 +67,7 @@ class UsersController < ApplicationController
   end
 
   def new
+    store_location params[:return_to] if params[:return_to]
     @user = User.new
   end
  
