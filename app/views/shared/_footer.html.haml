@@ -57,7 +57,7 @@
               %span.admin-links
                 = link_to t('.admin'), admin_path 
   - extended_footer_content = get_setting('extended_footer_content')
-  - if extended_footer_content.present? and extended_footer_content.value != 'false'
+  - if extended_footer_content.present? and extended_footer_content.value
     = raw extended_footer_content.value
   :javascript
     if(top !== self) {
