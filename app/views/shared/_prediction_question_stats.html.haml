@@ -12,8 +12,7 @@
             -# todo - limit to last 5 users who guessed this
             - guess[:users].each do |user|
               .profile-pic.float-left
-                -# todo - size of profile pic not working
-                .profilePic= local_linked_profile_pic user.user, :size => "small"
+                = local_linked_profile_pic user.user, :size => "small"
     - if prediction_question.status == 'open'
       %p.vote-meta
         %a= link_to "Is this question out of date?", new_prediction_question_prediction_result_path(prediction_question)
