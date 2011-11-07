@@ -9,12 +9,10 @@
 - cache_if false, :generic_items_html do
   -#%div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
 
-  .panel-1.float-right
+  .panel-1
     -# change the class where "active" is to switch out the icon in the background.
-    .panel-bar.top-secondary-corners.active
-      .panel-full
-        %h3.float-left
-          = title
+    .panel-bar
+        %h2= title
         - unless button_title === false
           %a.button-panel-bar.float-right{ :href => new_story_path }
             = button_title

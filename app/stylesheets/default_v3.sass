@@ -6,9 +6,9 @@ $primary-body-font: lucida grande, tahoma, verdana, arial, "san-serif"
 $primary-body-size: 12px
 $primary-line-height: 150%
 // headers
-$primary-header-color: #333333
-$secondary-header-color: #222222
-$tertiary-header-color: #111111
+$primary-header-color: #000
+$secondary-header-color: #999
+$tertiary-header-color: #999
 $primary-header-font: lucida grande, tahoma, verdana, arial, "san-serif"
 $primary-header-link: #000000
 // header text sizes
@@ -25,7 +25,7 @@ $tertiary-link-color: #333333
 //layout
 $gutter: 20px
 //borders
-$primary-border-color: #253E72                                                    // .panel-bar,
+$primary-border-color: #253E72
 $secondary-border-color: #CCCCCC
 
 // global ------------------------------ //
@@ -110,7 +110,7 @@ p
   background-repeat: no-repeat
   height: 130px
   padding-bottom: 30px
-  z-index: 1
+  z-index: 10
   #site-name-wrap
     display: block
     position: absolute
@@ -253,6 +253,7 @@ p
   margin-bottom: 10px
   position: relative
   > h2
+    color: $secondary-header-color
     font-size: 12px
     margin-bottom: 0
     text-transform: uppercase
@@ -396,11 +397,6 @@ p
     margin-left: 0
     margin-right: 0
 
-
-
-
-
-
 .thumb
   border: 1px solid #CCC
 
@@ -434,11 +430,39 @@ p
 .info-widget
   background: #f0f0f0
   margin-bottom: $gutter
+  margin-top: -10px
   .item-block
     padding: $gutter * .5
+    border: 1px solid $secondary-border-color
+    border-bottom-width: 0
+    border-top-width: 0
+    min-height: 40px
+    .profile-pic
+      float: left
+      margin-right: 10px
+      margin-bottom: 10px
+  .actions-wrap
+    border: 1px solid $secondary-border-color
+    padding: $gutter * .5
+    text-align: center
+
+// Buttons
+
+.button-link
+  display: inline-block
+  padding: 5px 10px
+  border: 1px solid #777
+  background: #333 image_url("site/btn-gradient.png") center left repeat-x
+  color: #fff
+  font-size: $primary-body-size + 2
+  line-height: $primary-body-size +2
+  &:hover
+    background: #000 image_url("site/btn-gradient.png") center left repeat-x
+    text-decoration: none
+
+
 
 // Ads
-
 #adspace
   +grid(12)
 
@@ -463,7 +487,7 @@ p
 .ad_728
   width: 728px
 
-.ad_160, .ad_200, .ad_250, .ad_300, .ad_336, .ad_468, .ad_728,
+.ad_160, .ad_200, .ad_250, .ad_300, .ad_336, .ad_468, .ad_728
   background-color: #eee
   background-image: image_url("site/bg-ad-texture.gif")
   background-position: top left
