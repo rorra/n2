@@ -1,5 +1,7 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = APP_CONFIG['base_site_url']
+#SitemapGenerator::Sitemap.sitemaps_path = 'system/sitemaps'
+SitemapGenerator::Sitemap.public_path = File.join(Rails.root, "public", "system", "sitemaps").to_s
 
 if Metadata::Setting.find_setting('yahoo_app_id').present?
   SitemapGenerator::Sitemap.yahoo_app_id = Metadata::Setting.find_setting('yahoo_app_id').value
@@ -92,6 +94,11 @@ end
 # eval(open(file).read, binding, file)
 
 
+# Unfortunately, this does not work here.
+# The actual sitemap creation happens after this file, so you're not
+# guaranteed to have a file to upload, and you're guaranteed to not
+# be uploading the latest version of the sitemap.
+=begin
 if File.exist?(File.join(Rails.root, "config", "s3.yml"))
   require 'aws/s3'
   
@@ -105,7 +112,7 @@ if File.exist?(File.join(Rails.root, "config", "s3.yml"))
   
   ["sitemap1.xml.gz", "sitemap_index.xml.gz"].each do |file_name|
     path = "/sitemaps/#{file_name}"
-    file = File.new(File.join(Rails.root, "public", file_name))
+    file = File.new(File.join(Rails.root, "public", "system", "sitemaps", file_name))
     begin
       AWS::S3::S3Object.store(path, file, bucket, :access => :public_read)
       
@@ -118,3 +125,4 @@ if File.exist?(File.join(Rails.root, "config", "s3.yml"))
     puts "Saved #{file_name} to S3"
   end
 end
+=end
