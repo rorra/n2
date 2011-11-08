@@ -155,6 +155,10 @@ class HomeController < ApplicationController
     render :partial => @widget.partial, :locals => locals and return
   end
 
+  def robots
+    render :partial => "shared/robots.txt", :layout => false and return
+  end
+  
   private
   def set_current_tab
     @current_tab = 'home'
