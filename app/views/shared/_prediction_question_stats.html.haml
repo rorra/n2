@@ -2,18 +2,17 @@
 .results-list  
   %ul   
     - prediction_question.get_guess_percentages.each do |guess|
+      -# add .user-choice to above %li if this is user's guess
+      -# check if current_user.present? and is in guess[:users].include?(current_user) 
       %li.results-item
-        -# add .user-choice to above %li if this is user's guess
         .numbers
           %span== #{guess[:guess]}
           %span==  #{number_to_percentage(guess[:percent], :precision => 2)}        
         - unless guess[:users].empty?
           .voter-profiles
-            -# todo - limit to last 5 users who guessed this
-            - guess[:users].each do |user|
+            - guess[:users][0..5].each do |user|
               .profile-pic.float-left
-                -# todo - size of profile pic not working
-                .profilePic= local_linked_profile_pic user.user, :size => "small"
+                = local_linked_profile_pic user.user, :size => "small"
     - if prediction_question.status == 'open'
       %p.vote-meta
         %a= link_to "Is this question out of date?", new_prediction_question_prediction_result_path(prediction_question)
