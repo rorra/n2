@@ -5,7 +5,8 @@
     .list_items
       %ul
         - @items.each do |item|
-          .itemBlock
-            %h4= link_to item.item_title, classified_path(item.item_link, :only_path => false, :canvas => canvas_preference), :target => "_top"
-            .profilePic= local_linked_profile_pic(item.item_user, :only_path => false, :target => "_top", :canvas => canvas_preference)
-            %h3= posted_by_with_date item
+          %li
+            .itemBlock
+              %h4= link_to item.item_title, classified_path(item.item_link, :only_path => false, :canvas => canvas_preference), :target => "_top"
+              .profilePic= local_linked_profile_pic(item.item_user, :only_path => false, :target => "_top", :canvas => canvas_preference)
+              %h3= posted_by_with_date item
