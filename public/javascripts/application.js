@@ -4,6 +4,7 @@ $(document).ajaxSend(function(e, xhr, options) {
   xhr.setRequestHeader("X-CSRF-Token", token);
 });
 
+var config = window.Newscloud.config;
 var fbAppId = window.Newscloud.config.fbAppId;
 
 /*
@@ -629,7 +630,7 @@ function rebuild_facebook_dom() {
   $('.ellipsis_caption_7').ThreeDots({max_rows : 7});
   */
 
-  $('.ellipsis_text').ellipsis();
+  //$('.ellipsis_text').ellipsis();
 })(jQuery);
 
 /** IMAGE VIEWER **/

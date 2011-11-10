@@ -35,6 +35,7 @@
       var Newscloud = {};
       Newscloud.config = {};
       Newscloud.config.fbAppId = "#{APP_CONFIG['omniauth']['providers']['facebook']['key']}";
+      Newscloud.config.settings = #{get_json_app_config}
       window.Newscloud = Newscloud;
 
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', "http://platform.twitter.com/anywhere.js?id=#{get_setting('oauth_key').try(:value)}&v=1","http://s7.addthis.com/js/250/addthis_widget.js"
