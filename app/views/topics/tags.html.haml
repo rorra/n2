@@ -1,7 +1,7 @@
 - content_for :sub_nav do
   = render :partial => 'shared/breadcrumbs', :locals => { :breadcrumbs => forum_breadcrumbs(@forum) }
 
-#col_left
+#left-col
   - page ||= ""
   - cache_if page.present?, "#{@forum.cache_key}_topics_tags_list#{page}" do
     - @paginate ||= false

@@ -2,8 +2,8 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/questions_subnav'
 
-#col_left
-  #itemDetails.panel-2
+#left-col
+  #item-details.panel-2
     - cache "#{@question.cache_key}_top_html" do
       = add_this @question
       .item-block
@@ -55,7 +55,7 @@
     = render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
   = render :partial => 'shared/item_footer', :locals => { :item => @question,:title => @question.question }
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/questions_whatisthis'
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

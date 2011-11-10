@@ -2,11 +2,11 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/stories_subnav'
 
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   = render :partial => 'shared/newswires', :locals => { :newswires => @newswires, :paginate => @paginate, :page => @page }
 
-#col_right.clearfix
+#right-col.clearfix
   = render :partial => 'shared/sidebar/post_story'
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/top_stories', :locals => { :top_stories => @top_stories }

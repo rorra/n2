@@ -1,4 +1,4 @@
-#col_left
+#left-col
   .panel-2
     .panel-bar
       %h2= t('galleries.edit', :gallery => @gallery.title)
@@ -23,6 +23,6 @@
         - form.buttons do
           = form.commit_button  :class => 'float_right', :button_html => { :class => "btn" }
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/newest_galleries'
   = render :partial => 'shared/sidebar/top_galleries'

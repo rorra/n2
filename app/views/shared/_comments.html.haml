@@ -1,15 +1,15 @@
 -# @expects: local 'comments'
-
-%a#commentsListTop{:name => "commentsListTop"}
-.commentThread.panel-2
+.panel-2
+  %a#commentsListTop{:name => "commentsListTop"}
   - if comments.present?
     .panel-bar
-      %h2= t '.comment_title'
       -# TODO:: current refine logic only works on lists
       -# if comments.present? and comments.first.refineable?
-        .refine_link
+        .refine-search-wrap
           = render :partial => 'shared/forms/refine_dropdown'
-    %ul
-      = render :partial => 'shared/comment.html', :collection => comments.active
+      %h2= t '.comment_title'
+    .comment-thread-wrap
+      %ul
+        = render :partial => 'shared/comment.html', :collection => comments.active
   - else
     %p= t '.no_comments_msg'

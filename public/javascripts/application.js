@@ -183,8 +183,8 @@ $(function() {
   	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
 
   	var url = change_url_format($(this).attr('action'));
-  	var parentForm = $(this).parents('.postComment');
-  	var commentThread = parentForm.siblings('.commentThread');
+  	var parentForm = $(this).parents('.post-comment');
+  	var commentThread = parentForm.siblings('.comment-thread-wrap');
 
   	$.post(url, $(this).serialize(), function(data) {
       commentThread.fadeOut("normal", function() {
@@ -195,19 +195,19 @@ $(function() {
 
         rebuild_facebook_dom();
         setTimeout(function() {
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
+          $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
           $('li', commentThread).last().effect('highlight', {color: 'green'}, 3000);
           /*
           // TODO:: FIX THIS
           // here are two different queueing options
           // they are both triggering highlight twice for some reason
           // but the delay on highlighting is much more natural
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'}).queue(function() {
-            $('.commentThread li').last().effect('highlight', {color: 'green'}, 3000);
+          $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'}).queue(function() {
+            $('.comment-thread-wrap li').last().effect('highlight', {color: 'green'}, 3000);
             $(this).dequeue();
           });
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, 'slow', 'swing', function() {
-            $('.commentThread li').last().effect('highlight', {color: 'green'}, 3000);
+          $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, 'slow', 'swing', function() {
+            $('.comment-thread-wrap li').last().effect('highlight', {color: 'green'}, 3000);
             //$(this).dequeue();
           });
           */
@@ -342,10 +342,10 @@ $(function() {
   	event.preventDefault();
   	$('#answerForm').toggle();
   });
-  $('.commentThread, .postComment', $('#answersList')).hide();
+  $('.comment-thread-wrap, .post-comment', $('#answersList')).hide();
   $('.answer_comments_link').click(function(event) {
   	event.preventDefault();
-    $('.commentThread, .postComment', $(this).parents().filter('.answer')).toggle();
+    $('.comment-thread-wrap, .post-comment', $(this).parents().filter('.answer')).toggle();
   });
 
   /* Predictions */
@@ -364,7 +364,7 @@ $(function() {
 
   	var url = change_url_format($(this).attr('action'));
   	var parentForm = $(this).parents('.prediction_question_wrapper');
-  //	var commentThread = parentForm.siblings('.commentThread');
+  //	var commentThread = parentForm.siblings('.comment-thread-wrap');
 
   	$.post(url, $(this).serialize(), function(data) {
       parentForm.fadeOut("normal", function() {
@@ -375,7 +375,7 @@ $(function() {
 
         rebuild_facebook_dom();
         setTimeout(function() {
-          // $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
+          // $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
           $('li', parentForm).last().effect('highlight', {color: 'green'}, 3000);
         }, 500);
       });

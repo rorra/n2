@@ -238,14 +238,14 @@ hr { border: none 0;
 	margin: 0px;
 	}
 
-#col_left {
+#left-col {
 	clear: both;
 	width: 500px;
 	float: left;
 	margin: 0px 0px 15px 0px;
 	}
 
-#col_right {
+#right-col {
 	width: 245px;
 	float: right;
 	margin: 0px 0px 15px 0px;
@@ -727,13 +727,13 @@ ul#nav2-tabs li a:active {
 	max-height: 135px;
 	}
 
-#col_left .featured_story_half .item-block {
+#left-col .featured_story_half .item-block {
 	clear: both;
 	width: 230px;
 	margin: 0px;
 	}
 
-#col_left #featurePanel .item-block {
+#left-col #featurePanel .item-block {
 	float: left;
 	width: 280px;
 	margin: 0px;
@@ -782,7 +782,7 @@ ul#nav2-tabs li a:active {
 	position: relative; top: 45px;
 }
 
-#col_left #readStoryList .item-block, #teamWrap #readStoryList .item-block{
+#left-col #readStoryList .item-block, #teamWrap #readStoryList .item-block{
 	float: left;
 	width: 300px;
 	margin: 10px 0px 0px 0px;
@@ -823,7 +823,7 @@ ul#nav2-tabs li a:active {
 	display: inline-block;
 	}
 
-#col_left #myProfile .item-block {
+#left-col #myProfile .item-block {
 	float: left;
 	width: 300px;
 	margin: 10px 0px 0px 0px;
@@ -848,7 +848,7 @@ ul#nav2-tabs li a:active {
 	float: left;
 	margin: 0px 5px;}
 
-#col_left #commentThread .item-block {
+#left-col #commentThread .item-block {
 	float: left;
 	width: 420px;
 	margin: 0px;
@@ -1055,15 +1055,15 @@ ul#nav2-tabs li a:active {
 	background: url(/images/default/user_platinum.gif) center repeat-x;	}
 
 
-#actionLegend {
+##link-to-item {
 	padding: 10px;
 	margin: 0 0 15px 0;
 	background: url(http://host.newscloud.com/index.php?p=grad&color1=ffffff&color2=D8DFEA&size=100) repeat-x top #D8DFEA;
 	}
 
-#actionLegend .btn_1 { margin: 0 0 10px 20px; float: right; }
+##link-to-item .btn_1 { margin: 0 0 10px 20px; float: right; }
 
-#actionLegend .pointsTable { margin: 10px 0 0 0; }
+##link-to-item .pointsTable { margin: 10px 0 0 0; }
 
 #wideTipPanel,.wideMsgPanel {
 	padding: 0px;
@@ -1203,7 +1203,7 @@ These wrappers cascade to tell .panel-bar to which background to use for the tit
 	font-size:14px;
 	}
 
-#col_right .btn_1 {
+#right-col .btn_1 {
 	display: block;
 	text-align: center;
 	margin: 10px;
@@ -1392,12 +1392,12 @@ li {
 	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 	}
 
-#col_left .item-block {
+#left-col .item-block {
 	width: 390px;
 	float: right;
 	}
 
-#col_right .item-block {
+#right-col .item-block {
 	width: 185px;
 	float: right;
 	}
@@ -1457,7 +1457,7 @@ li {
 
 /* Rewards List */
 
-#col_right .thumb {
+#right-col .thumb {
 	float: left;
 	margin: 0px 10px 0px 0px;
 	}
@@ -1473,7 +1473,7 @@ li {
 	margin: 0px 10px 0px 0px;
 	}
 
-#col_right .top_reward .item-block {
+#right-col .top_reward .item-block {
 	width: 125px;
 	float: right;
 	}

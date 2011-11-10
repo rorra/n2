@@ -7,10 +7,10 @@
   - paginate ||= false
   .panel-2
     .panel-bar
-      %h2= t('.stories_title')
       - if contents.present? and contents.first.refineable?
-        .refine_link
+        .refine-search-wrap
           = render :partial => 'shared/forms/refine_dropdown'
+      %h2= t('.stories_title')
     .subtitle
       %span= t('.stories_subtitle')
     .item-list-wrap
@@ -38,10 +38,8 @@
                       %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
 
     - if paginate
-      .clearfix
+      .panel-2
         = will_paginate contents
-        %br
     - else
-      .clearfix
+      .panel-2
       %p= link_to t('read_more'), stories_path, :class => "float_right"
-      %br

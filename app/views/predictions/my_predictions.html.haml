@@ -2,15 +2,15 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/predictions_subnav'
 
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   - @paginate ||= false
   .panel-2
     .panel-bar
-      %h2= t('predictions.my_list_title')
       - if @prediction_guesses.present? and @prediction_guesses.first.refineable?
-        .refine_link
+        .refine-search-wrap
           = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => PredictionGuess.refineable_select_options }
+      %h2= t('predictions.my_list_title')
     - unless @prediction_guesses.empty?
       .item-list-wrap
         .item-list
@@ -19,6 +19,6 @@
               %li.askPredictionGuessWrap{'data-id' => prediction_guess.cache_key}
                 = render :partial => 'shared/items/prediction_guess', :locals => { :prediction_guess => prediction_guess}
 
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render_ad(:skyscraper, @ad_layout, @ad_skyscraper)

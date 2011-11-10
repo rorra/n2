@@ -3,7 +3,7 @@
 
 - @paginate ||= false
 
-#col_left
+#left-col
   .panel-2
     .panel-bar
       %h2= t('cards.my_received_title')
@@ -30,7 +30,7 @@
         = will_paginate @my_cards
         %br
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/top_sent_cards'
   = render :partial => 'shared/sidebar/newest_sent_cards'
 

@@ -4,7 +4,7 @@
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/cards_subnav'
 
-#col_left
+#left-col
   #selCardStage
     .cards_insideSelStage
       &nbsp;
@@ -17,6 +17,6 @@
           - if @sent_card.card.long_caption.present?
             .long_text= @sent_card.card.long_caption
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/top_sent_cards'
   = render :partial => 'shared/sidebar/newest_sent_cards'

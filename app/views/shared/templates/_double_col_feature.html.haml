@@ -1,17 +1,30 @@
 - item = vo.dataset.first
 .panel-2
-  .panel-content.featured-panel
-    .panel-full
-      .item-with-image.nested
-        - if item
-          .item-thumb
-            %a= image_tag(medium_image_or_default(item))
-          .item-text
-            %h1= link_to sanitize_title(item.item_title), item.item_link
-            %p
-              = item_text(item)
-            .meta-data
-              .profile-pic
-                = local_linked_profile_pic item.item_user
-              %h6= posted_by_with_topic(item)
-              %h6= action_links(item)
+  .panel-bar
+    %h2 Featured Stories
+  .feature-panel.clearfix
+    - if item
+      .feature-item-large.first
+        = image_tag(medium_image_or_default(item))
+        .feature-caption
+          %h2
+            %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link
+          %p.ellipsis_caption_2
+            %span.ellipsis_text= item_text(item)
+
+    - if item
+      .feature-item-wrap
+        .feature-item-small.last
+          = image_tag(medium_image_or_default(item))
+          .feature-caption
+            %h2
+              %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link
+            %p.ellipsis_caption_2
+              %span.ellipsis_text= item_text(item)
+        .feature-item-small.last
+          = image_tag(medium_image_or_default(item))
+          .feature-caption
+            %h2
+              %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link
+            %p.ellipsis_caption_2
+              %span.ellipsis_text= item_text(item)

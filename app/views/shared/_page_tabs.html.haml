@@ -7,8 +7,8 @@
       - else
         %li= link_to image_tag('site/home-icon-off.png'), home_index_path, :class => "tab"
     - if MENU.key? 'stories'
-      %li
-        = link_to t('.stories'), stories_path, :class => "tab #{tab_selected?(@current_tab, 'stories')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'stories')}"}
+        = link_to t('.stories'), stories_path, :class => "#{tab_selected?(@current_tab, 'stories')}"
         - unless MENU['stories'].nil?
           %ul
             - unless MENU['stories']['stories_list'].nil?
@@ -20,8 +20,8 @@
             - unless MENU['stories']['new_article'].nil?
               %li= link_to t('.new_article'), new_article_path
     - if MENU.key? 'articles'
-      %li
-        = link_to t('.articles'), articles_path, :class => "tab #{tab_selected?(@current_tab, 'articles')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'articles')}"}
+        = link_to t('.articles'), articles_path, :class => "#{tab_selected?(@current_tab, 'articles')}"
         - unless MENU['articles'].nil?
           %ul
             - unless MENU['articles']['articles_list'].nil?
@@ -33,15 +33,15 @@
             - if current_user.present? and current_user.is_blogger?
               %li= link_to t('articles.drafts'), drafts_articles_path
     - if MENU.key? 'forums'
-      %li
-        = link_to t('.forums'), forums_path, :class =>"tab #{tab_selected?(@current_tab, 'forums')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'forums')}"}
+        = link_to t('.forums'), forums_path, :class =>"#{tab_selected?(@current_tab, 'forums')}"
         - unless MENU['forums'].nil? or MENU['forums']['sub_forums'].nil?
           %ul
             - Forum.active.positioned.each do |forum|
               %li= link_to forum.name, forum_path(forum)
     - if MENU.key? 'classifieds'
-      %li
-        = link_to t('classifieds.menu_title'), classifieds_path, :class => "tab #{tab_selected?(@current_tab, 'classifieds')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'classifieds')}"}
+        = link_to t('classifieds.menu_title'), classifieds_path, :class => "#{tab_selected?(@current_tab, 'classifieds')}"
         - unless MENU['classifieds'].nil?
           %ul
             - unless MENU['classifieds']['browse'].nil?
@@ -49,8 +49,8 @@
             - unless MENU['classifieds']['new'].nil?
               %li= link_to t('classifieds.menu_new'), new_classified_path
     - if MENU.key? 'questions'
-      %li
-        = link_to t('questions.tab_title'), questions_path, :class => "tab #{tab_selected?(@current_tab, 'questions')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'questions')}"}
+        = link_to t('questions.tab_title'), questions_path, :class => "#{tab_selected?(@current_tab, 'questions')}"
         - unless MENU['questions'].nil?
           %ul
             - unless MENU['questions']['questions_list'].nil?
@@ -60,8 +60,8 @@
             -# - unless MENU['questions']['my_questions'].nil?
               -# %li= link_to t('questions.my_questions'), my_questions_question_path
     - if MENU.key? 'resources'
-      %li
-        = link_to t('.resources'), resources_path, :class => "tab #{tab_selected?(@current_tab, 'resources')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'resources')}"}
+        = link_to t('.resources'), resources_path, :class => "#{tab_selected?(@current_tab, 'resources')}"
         - unless MENU['resources'].nil?
           %ul
             - unless MENU['resources']['resources_list'].nil?
@@ -72,8 +72,8 @@
               - unless MENU['resources']['new_resource'].nil?
                 %li= link_to t('.new_resource'), new_resource_path
     - if MENU.key? 'events'
-      %li
-        = link_to t('.events'), events_path, :class =>"tab #{tab_selected?(@current_tab, 'events')}" 
+      %li{:class => "#{tab_selected?(@current_tab, 'events')}"}
+        = link_to t('.events'), events_path, :class =>"#{tab_selected?(@current_tab, 'events')}" 
         - unless MENU['events'].nil?
           %ul
             - unless MENU['events']['events_list'].nil?
@@ -84,8 +84,8 @@
               - if current_facebook_user
                 %li= link_to t('.import_facebook'), import_facebook_events_path
     - if MENU.key? 'galleries'
-      %li
-        = link_to t('.galleries'), galleries_path, :class => "tab #{tab_selected?(@current_tab, 'galleries')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'galleries')}"}
+        = link_to t('.galleries'), galleries_path, :class => "#{tab_selected?(@current_tab, 'galleries')}"
         - unless MENU['galleries'].nil? or (MENU['galleries']['sub_galleries'].nil? and MENU['galleries']['new_gallery'].nil? and MENU['galleries']['galleries_list'].nil?)
           %ul
             - unless MENU['galleries']['galleries_list'].nil?
@@ -96,8 +96,8 @@
               - Gallery.active.top.each do |gallery|
                 %li= link_to gallery.title, gallery_path(gallery)
     - if MENU.key? 'ideas'
-      %li
-        = link_to t('.ideas'), ideas_path, :class => "tab #{tab_selected?(@current_tab, 'ideas')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'ideas')}"}
+        = link_to t('.ideas'), ideas_path, :class => "#{tab_selected?(@current_tab, 'ideas')}"
         - unless MENU['ideas'].nil?
           %ul
             - unless MENU['ideas']['ideas_list'].nil?
@@ -107,7 +107,8 @@
             - unless MENU['ideas']['new_idea'].nil?
               %li= link_to t('.new_idea'), new_idea_path
     - if MENU.key? 'predictions'
-      %li
-        = link_to t('.predictions'), predictions_path, :class => "tab #{tab_selected?(@current_tab, 'predictions')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'predictions')}"}
+        = link_to t('.predictions'), predictions_path, :class => "#{tab_selected?(@current_tab, 'predictions')}"
     - if MENU.key? 'cards'
-      %li= link_to t('cards.menu_title'), cards_path, :class => "tab #{tab_selected?(@current_tab, 'cards')}"
+      %li{:class => "#{tab_selected?(@current_tab, 'cards')}"}
+        = link_to t('cards.menu_title'), cards_path, :class => "#{tab_selected?(@current_tab, 'cards')}"

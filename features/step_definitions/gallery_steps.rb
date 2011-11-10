@@ -8,7 +8,7 @@ When /^I click on the (.*?) gallery$/ do |title|
 end
 
 Then /^I should see be on the show pizza gallery page$/ do
-	Then "I should see \"#{@gallery.title}\" within \"#itemDetails h1\""
+	Then "I should see \"#{@gallery.title}\" within \"#item-details h1\""
 end
 
 When /^I click on that gallery$/ do

@@ -1,7 +1,7 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
-#col_left
+#left-col
   #myProfile.panel-2.featureWrap
     .panel-bar
       %h2= t('.title', :name => profile_fb_name(@user,false)).html_safe
@@ -75,7 +75,7 @@
     - else
       %br
       %h3= t('articles.user_none')
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   .panel-1
     .panel-bar

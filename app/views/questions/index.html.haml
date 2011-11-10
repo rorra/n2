@@ -2,7 +2,7 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/questions_subnav'
 
-#col_left
+#left-col
   .panel-2
     .panel-bar
       %h2 Ask a question
@@ -27,10 +27,10 @@
     - unless questions.empty?
       .panel-2
         .panel-bar
-          %h2= t('questions.list_title')
           - if questions.present? and questions.first.refineable?
-            .refine_link
+            .refine-search-wrap
               = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => Question.refineable_select_options }
+          %h2= t('questions.list_title')
         .subtitle
           %span= t('questions.list_subtitle')
         .item-list-wrap
@@ -62,7 +62,7 @@
           = will_paginate questions
           %br
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/questions_whatisthis'
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

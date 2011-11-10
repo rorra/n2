@@ -8,11 +8,11 @@
         .item-with-image
           .item-thumb
             %a= image_tag(medium_image_or_default(item1))
-          .item-text
-            %h1
-              %span.ellipsis_title_2= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
-            %p.ellipsis_caption_5
-              %span.ellipsis_text= item1.item_description
+            .item-text
+              %h2
+                %span.ellipsis_title_2= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
+              %p.ellipsis_caption_2
+                %span.ellipsis_text= item1.item_description
             .meta-data
               .profile-pic
                 = local_linked_profile_pic item1.item_user

@@ -39,7 +39,7 @@
 - content_for :sub_nav do
   - unless MENU['stories']['new_article'].nil? and MENU['articles'].nil?
     = render :partial => 'shared/subnav/news_subnav'
-#col_left
+#left-col
   .panel-2
     .panel-bar
       %h2= t('new_story_header')
@@ -104,7 +104,7 @@
                   = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
                   = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
 
-#col_right
+#right-col
   .panel-1
     .panel-bar
       %h2= t('.new_story_bookmarklet_intro')

@@ -2,8 +2,9 @@
 %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   .panel-bar
     %h2= list_title
-  .item-list
-    %ul
-      - item_list.each do |item|
-        %li
-          = render :partial => 'shared/items/small_answer', :locals => { :answer => item }
+  .item-list-wrap
+    .item-list
+      %ul
+        - item_list.each do |item|
+          %li
+            = render :partial => 'shared/items/small_answer', :locals => { :answer => item }

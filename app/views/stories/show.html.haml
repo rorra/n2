@@ -11,27 +11,27 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
-#col_left
+#left-col
   - cache "#{@story.cache_key}_top_html" do
-    #itemDetails.panel-2
+    #item-details.panel-2
       = add_this @story
       .item-block
-
         - if @story.images.present?
           .thumb= image_tag @story.images.first.url(:medium)
-
         %h1= sanitize_title @story.title
         - unless @story.is_article?
-          %h3= stories_posted_by_via @story
+          .meta-data
+            %h6= stories_posted_by_via @story
         - else
-          %h3 
-            = stories_posted_by @story
-            = pipe_spacer
-            %span.moderator-links.hidden{:class => user_css_class(@story.user)}
-              = link_to t('articles.edit_draft'), edit_article_path(@story.article)
-        - if @tags.present?
-          .tag-wrap
-            == Tags: #{tag_list(@tags, (@story.is_article? ? @story.article : @story))}
+          .meta-data
+            %h6
+              = stories_posted_by @story
+              = pipe_spacer
+              %span.moderator-links.hidden{:class => user_css_class(@story.user)}
+                = link_to t('articles.edit_draft'), edit_article_path(@story.article)
+            - if @tags.present?
+              .tag-wrap
+                == Tags: #{tag_list(@tags, (@story.is_article? ? @story.article : @story))}
         - if @story.is_article?
           %p= sanitize nl2br(@story.caption)
         - elsif @story.respond_to?(:twitter_item?) and @story.twitter_item?
@@ -61,7 +61,7 @@
   = render :partial => 'shared/item_footer', :locals => { :item => @story,:title => @story.title }
 
 
-#col_right
+#right-col
   - if  @story.is_article? and @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'
   - if @custom_sidebar_widget

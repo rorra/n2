@@ -2,13 +2,13 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   -# move topics breadcrumbs to here and test 
   
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   = render :partial => 'shared/topics', :locals => { :forum => @forum, :topics => @topics, :page => @page, :paginate => @paginate }
   - if @forum.moderatable?
     = render :partial => 'shared/moderate_form', :locals => { :moderatable => @forum }
 
-#col_right
+#right-col
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'
   = render_ad(:small_square, @ad_layout, @ad_small_square)

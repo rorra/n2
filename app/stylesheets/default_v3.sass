@@ -1,41 +1,57 @@
-// variables --------------------------- //
+// Skin Variables ----------------------------------------- //
 
-// text
-$primary-body-color: #444444
+// Text
+$primary-body-color: #333
 $primary-body-font: lucida grande, tahoma, verdana, arial, "san-serif"
 $primary-body-size: 12px
 $primary-line-height: 150%
-// headers
+// Headers
 $primary-header-color: #000
-$secondary-header-color: #999
-$tertiary-header-color: #999
+$secondary-header-color: #6078A9
+$tertiary-header-color: #666
 $primary-header-font: lucida grande, tahoma, verdana, arial, "san-serif"
 $primary-header-link: #000000
-// header text sizes
+
+// Link Colors
+$primary-link-color: #2462E2
+$secondary-link-color: #2462E2
+$tertiary-link-color: #ff00ff
+// Buttons
+$primary-btn-bg: #3B5998
+$primary-btn-hover: #253E72 
+$secondary-btn-bg: #2462E2
+$secondary-btn-hover: #2462E2
+$tertiary-btn-bg: #ff00ff
+$tertiary-btn-hover: #ff00ff
+// Background Colors
+$primary-bg-color: #FFFFFF
+$secondary-bg-color: #3B5998
+$tertiary-bg-color: #F1F1F1
+// Border Colors
+$primary-border-color: #253E72
+$secondary-border-color: #CCC
+
+
+// Grid Variables ----------------------------------------- //
+// box-shadow
+$box-shadow: 0px 0px 4px #666
+// Layout
+$gutter: 20px
+// Header Font Sizes
 $h1-size: 22px
 $h2-size: 18px
 $h3-size: 14px
 $h4-size: 14px
 $h5-size: 12px
 $h6-size: 11px
-// links
-$primary-link-color: #2462E2                                                      
-$secondary-link-color: #2462E2
-$tertiary-link-color: #333333
-//layout
-$gutter: 20px
-//borders
-$primary-border-color: #253E72
-$secondary-border-color: #CCCCCC
 
+
+// CSS --------------------------------------------------- //
 // global ------------------------------ //
 body
   color: $primary-body-color
   font-family: $primary-body-font
   font-size: $primary-body-size
-
-
-
 
 // text -------------------------------- //
 
@@ -48,7 +64,6 @@ h1, h2, h3, h4, h5, h6
   line-height: $primary-line-height
 h1, h2, h3, h4, h5
   color: $primary-header-color
-  margin-bottom: 10px
   a
     color: $primary-header-color
 h1
@@ -68,6 +83,7 @@ h5
   font-size: $h5-size
 
 h6
+  color: $tertiary-header-color
   font-size: $h6-size
 // text
 a
@@ -82,7 +98,6 @@ a
 p
   color: #444
   line-height: 150%
-  margin-bottom: 10px
 // containers
 #page
   width: 960px
@@ -102,22 +117,23 @@ p
 
 // header ------------------------------ //
 #header
-  border-bottom: 1px solid #253E72
+  border-bottom: 1px solid $primary-border-color
   margin-bottom: 20px
-  background-color: #fff
+  background-color: $primary-bg-color
   background-image: image_url("skin/bg-header.gif")
   background-position: bottom left
   background-repeat: no-repeat
   height: 130px
   padding-bottom: 30px
   z-index: 10
+  // Site name (h1) or <img>
   #site-name-wrap
     display: block
     position: absolute
     top: 10px
     left: 10px
     #site-name
-      color: #fff
+      color: $primary-bg-color
       display: block
   #site-sponsor
     display: none
@@ -145,21 +161,36 @@ p
       margin-left: 1px
       position: relative
       z-index: 10
+      // Dropdown for selected tab
+      &.selected
+        > ul
+          background-color: $primary-bg-color
+          border: 1px solid $primary-border-color
+          > li
+            > a
+              color: $primary-border-color
+              text-shadow: none
+              &:hover
+                color: $primary-bg-color
+                text-shadow: 1px 1px 1px $primary-border-color
       &:hover
+        > a
+          background-color: $primary-border-color
+          position: relative
+          z-index: 10
         > ul
           display: block
       > a
         height: 21px
         padding: 8px 10px 0
-        &:hover
-          
         &.selected
-          background-color: #fff
+          background-color: $primary-bg-color
           height: 22px
-          &:hover
-
+          
+      // Dropdowns
       > ul
-        background-color: #f1f1f1
+        background-color: $primary-border-color
+        box-shadow: $box-shadow
         display: none
         float: none
         padding: 5px
@@ -173,17 +204,21 @@ p
           padding: 0
           z-index: 20
           > a
+            color: $primary-bg-color
             display: block
-            font-size: $primary-body-size - 2px
+            font-size: $primary-body-size
             padding: 5px 10px
             white-space: nowrap
+            text-shadow: 1px 1px 1px $primary-border-color
             &:hover
-              background-color: #666
+              background-color: $secondary-bg-color
+              text-decoration: none
+
 
 // Secondary Navigation
 #secondary-navigation
   +grid(12)
-  border-bottom: 1px solid #253E72
+  border-bottom: 1px solid $primary-border-color
   height: 20px
   margin-bottom: 20px
   > ul
@@ -198,31 +233,34 @@ p
         &.selected
           height: 15px
 
-// Shared
+// Shared Navigation Styles
 #primary-navigation, #secondary-navigation
   > ul > li
     display: block
     float: left
   > ul > li > a
-    background-color: #3B5998
-    border: 1px solid #253E72
+    background-color: $secondary-bg-color
+    border: 1px solid $primary-border-color
     border-bottom-width: 0
-    color: #FFF
+    color: $primary-bg-color
     display: block
     font-weight: bold
     text-decoration: none
+    text-shadow: 1px 1px 1px $primary-border-color
     &.selected
-      border: 1px solid #253E72
+      border: 1px solid $primary-border-color
       border-bottom-width: 0
-      background-color: #FFFFFF
+      background-color: $primary-bg-color
       color: #666
       text-decoration: none
+      text-shadow: none
       &:hover
-        background-color: #FFFFFF
+        background-color: $primary-bg-color
+        text-decoration: none
     &:hover
-      background-color: #253E72
+      background-color: $primary-border-color
 
-// content ----------------------------- //
+// Content ----------------------------- //
 // breadcrumbs
 .breadcrumbs
   +grid(12)
@@ -236,17 +274,21 @@ p
     > span
       color: #666
 
-// panels
-.panel-1, .panel-1
+// Panels
+.panel-1
   +grid(4)
-
-.panel-2, .panel-2
+.panel-2
   +grid(8)
-
-.panel-3, .panel-3
+.panel-3
   +grid(12)
+// Panel Margin Removal
+.panel-1, .panel-2, .panel-3
+  .first
+    +alpha() 
+  .last
+    +omega() 
 
-
+// Panel Bars
 .panel-bar
   border-bottom: 1px solid $secondary-border-color
   padding: 4px 0 0 0
@@ -264,35 +306,38 @@ p
     top: 6px
     right: 0px
 
-
+// Subtitle
+.subtitle
+  border: 1px solid $secondary-border-color
+  background-color: $tertiary-bg-color
+  color: #666
+  margin-bottom: 10px
+  padding: 8px 
 .panel-1, .panel-2, .panel-3
   .subtitle
     margin-top: -11px
 
-.subtitle
-  border: 1px solid #dddddd
-  background-color: #f1f1f1
-  color: #666
-  margin-bottom: 10px
-  padding: 8px
-
-
-// left column column panel interaction
-#left-col, #col_left
+// Left Column (Interior Pages)
+#left-col
   +grid(8)
+  margin-bottom: $gutter * 2
   .panel-2
     margin-left: 0
     margin-right: 0
 
-// two column panel styles
+// Two Column Widgets
 .panel-2
+  // two column item list (interior pages)
   .item-list-wrap
     .item-list
       > ul > li
         border-bottom: 1px solid #f1f1f1
         display: block
         padding-bottom: 10px
-        margin-bottom: 20px
+        margin-bottom: $gutter /2
+        // header vertical spacing
+        h1, h2, h3, h4, h5, h6 
+          margin-bottom: 0
       // shared thumb styling
       .story, .question, .resource, .idea, .article-content, .event-description
         padding-left: 140px
@@ -311,7 +356,7 @@ p
           .profile-pic
             float: left
             margin-left: -50px
-      // styles for events
+      // styles for events (interior pages)
       .event
         display: table-row
         > div
@@ -344,16 +389,61 @@ p
             > span
               display: block
               margin-bottom: 5px
+  // two column featured widgets
+  .feature-panel
+    float: left
+    margin-bottom: $gutter
+    .feature-item-wrap
+      float: left
+    .feature-item-large
+      +grid(5)
+      position: relative
+    .feature-item-medium
+      +grid(4)
+      position: relative
+    .feature-item-small
+      +grid(3)
+      position: relative
+    .feature-item-small, .feature-item-medium, .feature-item-large
+      &.first
+        +alpha() 
+      &.last
+        +omega()
+      > img
+        width: 100%
+        position: relative
+        top: 0
+        left: 0
+      .feature-caption
+        background: rgba(0,0,0, 0.5)
+        padding: 10px
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        h1, h2, h3, h4, h5, h6, p,
+          color: #FFF
+          text-shadow: 1px, 1px, 1px, #000
+          a
+            color: #FFF
+    // two column thee item widget
+    .feature-item-three
+      width: 200px
+      margin-left: 5px
+      margin-right: 5px
+      
 
 
-// right column panel interaction
-#right-col, #col_right
+ 
+// Right Column (Interior Pages)
+#right-col
   +grid(4)
+  margin-bottom: $gutter * 2
   .panel-1
     margin-left: 0
     margin-right: 0
 
-// single column panel styles
+// Single Column Widgets
 .panel-1
   margin-bottom: 10px
   // header bottom margin removal
@@ -370,12 +460,10 @@ p
         display: block
         padding-bottom: 10px
         margin-bottom: 10px
-
-
-  // recent online users
+  // recent online users widget
   .users-online
     background-color: #f1f1f1
-    display: inline-block
+    display: block
     padding: 10px 5px 0
     margin-top: -10px
     margin-bottom: 20px
@@ -387,20 +475,28 @@ p
       > .profile-pic
         height: 30px
         width: 30px
+  // bio widget
+  .bio
+    font-size: 11px
+    .profile-pic
+      float: left
+      margin-right: 10px
+      margin-bottom: 10px
 
 
 
-// full column and triple column widget styles
+// Full Column (Interior Pages)
 #full-col, #col_full
   +grid(12)
   .panel-3, .panel-3
     margin-left: 0
     margin-right: 0
 
+// Thumb
 .thumb
   border: 1px solid #CCC
 
-// profile pic
+// Profile Pics
 .profile-pic
   border: 1px solid #CCC
   width: 38px
@@ -419,97 +515,259 @@ p
     bottom: 2px
     z-index: 3
 
-// meta data
+// Meta Data
 .item-meta-data
-  color: #666
   .meta-data-actions
     font-size: 11px
     padding-top: 5px
 
-// widgets
+// Info Widget (Welcome Panel, What is this? panel, etc...)
 .info-widget
   background: #f0f0f0
   margin-bottom: $gutter
-  margin-top: -10px
   .item-block
     padding: $gutter * .5
     border: 1px solid $secondary-border-color
-    border-bottom-width: 0
-    border-top-width: 0
     min-height: 40px
+  .profile
+    padding-left: 60px
     .profile-pic
       float: left
-      margin-right: 10px
-      margin-bottom: 10px
+      margin-left: -50px
   .actions-wrap
     border: 1px solid $secondary-border-color
+    border-top-width: 0
     padding: $gutter * .5
     text-align: center
 
 // Buttons
-
 .button-link
   display: inline-block
   padding: 5px 10px
   border: 1px solid #777
   background: #333 image_url("site/btn-gradient.png") center left repeat-x
-  color: #fff
+  color: $primary-bg-color
   font-size: $primary-body-size + 2
   line-height: $primary-body-size +2
   &:hover
     background: #000 image_url("site/btn-gradient.png") center left repeat-x
     text-decoration: none
 
+// Comment Rating Buttons
+.thumb-up, .thumb-down, .likes-tally
+  border: 1px solid #ccc
+  display: block
+  float: left
+  height: 16px
+  margin-right: 2px
+.thumb-up, .thumb-down
+  background-color: $primary-bg-color
+  background-position: center 
+  background-repeat: no-repeat
+  width: 24px
+  &:hover
+    background-color: #ccc
+.thumb-up
+  background-image: image_url("site/thumb-up.gif") 
+.thumb-down
+  background-image: image_url("site/thumb-down.gif")
+.likes-tally
+  font-size: 11px
+  line-height: 16px
+  padding: 0 4px
 
+
+// Moderator Styles
+.mod-flag-wrap
+  position: relative
+  z-index: 2
+.flag-wrap
+  display: inline-block
+  position: relative
+  z-index: 1
+  .flag-toggle
+    position: relative
+    z-index: 2
+  .flag-box
+    background: $primary-bg-color
+    border: 1px solid #ccc
+    box-shadow: $box-shadow
+    padding: 30px 10px 10px
+    position: absolute
+    top: -11px
+    right: -11px
+    z-index: 1
+
+
+// Tags
+.top-tags
+  > ul
+    > li
+      float: left
+      margin: 0 5px 10px
+      font-size: 11px
+      color: $tertiary-header-color
+      > a
+        font-size: $primary-body-size
+
+// Item Details Page
+#item-details
+  h1, h2, h3
+    margin-bottom: 0
+  .item-block, .meta-data
+    margin-bottom: 20px
+
+.arrow, .arrow-inner
+  display: block
+  position: absolute
+  border-top-color: transparent
+  border-right-color: transparent
+  border-bottom-color: transparent
+  border-left-color: transparent
+  border-style: solid
+  height: 0
+  width: 0
+
+// Comment Thread
+.comment-thread-wrap
+  padding: 0 20px
+  margin-bottom: $gutter
+  .comment-block
+    margin-bottom: 10px
+    .comment-bubble
+      border: 2px solid #eee
+      padding: 20px
+      position: relative
+      .arrow
+        border-width: 16px
+        border-top-color: #eee
+        border-right-color: #eee
+        bottom: -32px
+        left: 16px
+        .arrow-inner
+          border-width: 16px
+          border-top-color: $primary-bg-color
+          border-right-color: $primary-bg-color
+          top: -21px
+          left: -18px
+    .comment-meta-data
+      height: 40px
+      padding-top: 10px
+      padding-left: 60px
+      position: relative
+      z-index: 1
+      .profile-pic
+        float: left
+        margin-right: 10px
+      .meta-data-actions
+        padding-top: 4px
+      .mod-flag-wrap
+        float: right
+
+// Post Comment
+.post-comment
+  .panel-bar
+    margin-bottom: 0
+  .form-wrap
+    margin-bottom: $gutter
+    fieldset
+      padding: 0 4px
+    textarea
+      margin: 0
+      margin-left: -3px
+      border: 1px solid #ccc
+      width: 100%
+
+// Permalink
+#link-to-item
+  .item-block
+    margin-top: -10px
+    background: #f0f0f0
+    padding: 10px 12px
+    input.text-field
+      margin-left: -2px
+      border: 1px solid #ccc
+      height: 20px
+      width: 100%
+
+
+// refine search 
+.refine-search-wrap
+  font-size: 11px
+  float: right
+  position: relative
+  z-index: 2
+  top: 2px
+.refine-wrap
+  display: inline-block
+  position: relative
+  z-index: 1
+  .refine-toggle
+    position: relative
+    z-index: 2
+  .refine-box
+    background: $primary-bg-color
+    border: 1px solid #ccc
+    box-shadow: $box-shadow
+    padding: 30px 10px 10px
+    position: absolute
+    top: -11px
+    right: -11px
+    z-index: 1
+
+// pagination
+.pagination
+  text-align: right
+  margin-bottom: $gutter
+  font-size: $primary-body-size
+  a, span
+    display: inline-block
+    padding: 2px
+  a
+    color: $primary-btn-bg
+  span
+    &.disabled
+      color: #666
+      background: none
+      &:hover
+        text-decoration: none
+        cursor: default
+    &.current
+      color: #fff
+      background: $primary-btn-bg
+      border: 1px solid $primary-btn-bg
 
 // Ads
-#adspace
-  +grid(12)
-
-.ad_160
-  width: 160px
-
-.ad_200
-  width: 200px
-
-.ad_250
-  width: 250px
-
-.ad_300
-  width: 300px
-
-.ad_336
-  width: 336px
-  
-.ad_468
-  width: 468px
-
-.ad_728
-  width: 728px
-
 .ad_160, .ad_200, .ad_250, .ad_300, .ad_336, .ad_468, .ad_728
-  background-color: #eee
-  background-image: image_url("site/bg-ad-texture.gif")
-  background-position: top left
-  background-repeat: repeat
+  background-color: $tertiary-bg-color
   margin: 0 auto
-  margin-bottom: 20px
+  margin-bottom: $gutter
   padding: 15px 5px 5px
   .test-frame
-    background-color: white
+    background-color: $primary-bg-color
     height: 80px
     width: 100%
     &.sky-scraper
       height: 600px
-  iframe
+  iframe, html, body
     padding: 0
     margin: 0
-    html
-      margin: 0
-      padding: 0
-      body
-        margin: 0
-        padding: 0
+#adspace
+  +grid(12)
+.ad_160
+  width: 160px
+.ad_200
+  width: 200px
+.ad_250
+  width: 250px
+.ad_300
+  width: 300px
+.ad_336
+  width: 336px
+.ad_468
+  width: 468px
+.ad_728
+  width: 728px
 
 // predictions
 .prediction-details 
@@ -558,14 +816,11 @@ p
             font-weight: bold
         .voter-profiles
           margin-left: -1px
-          border-left: 1px solid #fff
+          border-left: 1px solid $primary-bg-color
           float: left
           width: 70%
           .profile-pic
             margin: 0 0 0 10px
-              
-
-
   .pred-nav-bar
     padding: 5px 0
     background-color: #f1f1f1
@@ -585,8 +840,16 @@ p
         float: right
 
 
-
 // footer ----------------------------- //
+#footer
+  border-top: 1px solid $secondary-border-color
+  float: left
+  padding-top: $gutter /2
+  width: 960px
+  background-color: $tertiary-bg-color
+  .footer-panel
+    +grid(4)
+    margin-bottom: $gutter
 
 // jquery related css ----------------- //
 // flash errors
@@ -605,24 +868,45 @@ p
     font-size: 13px
     display: block
     text-align: center
-    color: #fff
-
+    color: $primary-bg-color
   &.flash_error
     p
       border: $flashErrorBorder
       background: $flashErrorBG
-
   &.flash_success
     p
       border: $flashSuccessBorder
       background: $flashSuccessBG
-
   &.flash_notice, &.info
     p
       border: $flashNoticeBorder
       background: $flashNoticeBG
-
   &.flash_warning
     p
       border: $flashWarningBorder
       background: $flashWarningBG
+
+/* Clear Floats and Fixes */
+.clear 
+  clear: both
+  display: block
+  overflow: hidden
+  visibility: hidden
+  width: 0
+  height: 0
+
+.clearfix:after 
+  clear: both
+  content: ' '
+  display: block
+  font-size: 0
+  line-height: 0
+  visibility: hidden
+  width: 0
+  height: 0
+
+* html .clearfix, *:first-child+html .clearfix 
+  zoom: 1
+
+
+

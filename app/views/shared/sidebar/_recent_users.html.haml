@@ -7,10 +7,9 @@
   -# in active_users and recent_users
   
   %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-  .info-widget
     .panel-bar
       %h2= t('recent_users', :user_count => recent_users.size)
-    .userList
+    .users-online.clearfix
       - unless recent_users.empty?
         %ul
           - recent_users.each do |user|

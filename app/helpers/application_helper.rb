@@ -405,7 +405,7 @@ module ApplicationHelper
   end
 
   def default_medium_image
-    'default/medium_watermark.jpg'
+    'skin/medium_watermark.jpg'
   end
 
   def display_facebook_messages

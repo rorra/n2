@@ -2,11 +2,11 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/idea_boards_subnav'
 
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   = render :partial => 'shared/idea_boards', :locals => { :idea_boards => @idea_boards }
 
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/top_ideas'
   = render :partial => 'shared/sidebar/newest_ideas'

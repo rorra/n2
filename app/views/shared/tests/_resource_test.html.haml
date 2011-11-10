@@ -1,5 +1,7 @@
 .panel-2
   .panel-bar
+    .refine-search-wrap
+      = render :partial => 'shared/forms/refine_dropdown'
     %h2 Resource Directory
     %span.bar_link
       %a Post Resource
@@ -7,9 +9,6 @@
       %a My Resources
   .subtitle
     Showing 1-4 of 4 Results
-    .refine_link
-      = render :partial => 'shared/forms/refine_dropdown'
-
 .panel-2.sponsorbox
   .panel-bar
     %h2 Sponsored

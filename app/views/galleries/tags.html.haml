@@ -3,7 +3,7 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   - cache_if @page.present?, "gallery_tags_list#{@page}" do
     - @paginate ||= false
@@ -36,7 +36,7 @@
         %br
 
                       
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/galleries_whatisthis'
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

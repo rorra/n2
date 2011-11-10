@@ -2,8 +2,8 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/predictions_subnav'
 
-#col_left
-  #itemDetails.panel-2
+#left-col
+  #item-details.panel-2
     = add_this @prediction_group
     .item-block
       - if @prediction_group.images.present?
@@ -51,7 +51,7 @@
     = render :partial => 'shared/external/outbrain_wrapper'
   = render :partial => 'shared/item_footer', :locals => { :item => @prediction_group,:title => @prediction_group.title }
 
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/suggest_predictions'
   = render :partial => 'shared/sidebar/newest_prediction_groups', :locals => { :prediction_groups => @newest_prediction_groups }

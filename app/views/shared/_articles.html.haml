@@ -5,10 +5,10 @@
   - paginate ||= false
   .panel-2
     .panel-bar
-      %h2= t('.articles_title')
       -# if refine===true and contents.present? and contents.first.refineable?
-        .refine_link
+        .refine-search-wrap
           = render :partial => 'shared/forms/refine_dropdown'
+      %h2= t('.articles_title')
     .subtitle
       %span= t('.articles_subtitle')
     .item-list-wrap

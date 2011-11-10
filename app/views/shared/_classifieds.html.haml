@@ -3,12 +3,12 @@
 - classifieds ||= Classified.active.available.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
 .panel-2
   .panel-bar
-    %h2= t('classifieds.browse.title')
-    -#.refine_link
+    -#.refine-search-wrap
       %a.classifieds-refine{:href => '#'} Refine
     -# if classifieds.present? and classifieds.first.refineable?
-      .refine_link
+      .refine-search-wrap
         = render :partial => 'shared/forms/refine_dropdown'
+    %h2= t('classifieds.browse.title')
   .subtitle
     %span= t('classifieds.browse.subtitle')
   .item-list-wrap

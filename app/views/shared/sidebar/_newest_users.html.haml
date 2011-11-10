@@ -6,7 +6,7 @@
     %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
       .panel-bar
         %h2= t('.newest_users_title')
-      .item-list
+      .users-online.clearfix
         %ul
           - newest_users.each do |user|
             %li

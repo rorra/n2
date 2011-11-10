@@ -9,9 +9,9 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
-#col_left
+#left-col
   - cache "#{@gallery.cache_key}_html" do
-    #itemDetails.panel-2
+    #item-details.panel-2
       = add_this @gallery
       .item-block
         - if @gallery.moderatable?
@@ -44,7 +44,7 @@
   = render :partial => 'shared/item_footer', :locals => { :item => @gallery,:title => @gallery.title }
 
 
-#col_right
+#right-col
   - if  @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'
   - if @custom_sidebar_widget
