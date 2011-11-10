@@ -821,9 +821,13 @@ view_objects = [
   		:locale_title    => "classifieds.top_classifieds_title",
   		:locale_subtitle => nil,
   		:use_post_button => true,
-  		:kommands        => [
+      :version => 2,
+      :kommands        => [
   		  {
   		    :method_name => "available"
+  		  },
+  		  {
+  		    :method_name => "allow_all"
   		  },
   		  {
           :method_name => "top",
@@ -977,9 +981,13 @@ view_objects = [
   		:locale_title    => "classifieds.newest_classifieds_title",
   		:locale_subtitle => nil,
   		:use_post_button => true,
+      :version => 2,
   		:kommands        => [
   		  {
   		    :method_name => "available"
+  		  },
+  		  {
+  		    :method_name => "allow_all"
   		  },
   		  {
           :method_name => "newest",
