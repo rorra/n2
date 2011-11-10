@@ -148,7 +148,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :topics, :has_many => [:comments]
   map.resources :users, :collection => {:link_user_accounts => :get, :feed => [:get], :invite => [:get, :post], :current => [:get, :post], :update_bio => [:get,:post], :dont_ask_me_invite_friends => :get, :dont_ask_me_for_email => :get }
   map.resources :view_objects, :collection => { :test => :get }
-  map.resources :widgets, :collection => { :newswires => [:get], :questions => [:get], :forum_roll => [:get], :topics => [:get], :blog_roll => [:get], :blogger_profiles => [:get], :fan_application => [:get], :add_bookmark => [:get], :user_articles => [:get], :articles => [:get], :stories => [:get], :activities => [:get]  }, :layout => 'widgets'
+  map.resources :widgets, :collection => { :newswires => [:get], :questions => [:get], :forum_roll => [:get], :topics => [:get], :blog_roll => [:get], :blogger_profiles => [:get], :fan_application => [:get], :add_bookmark => [:get], :user_articles => [:get], :articles => [:get], :stories => [:get], :activities => [:get], :classifieds => :get  }, :layout => 'widgets'
   
   map.received_card '/cards/received/:card_id/from/:user_id.:format', :controller => 'cards', :action => 'received'
   map.root :controller => "home", :action => "index"
