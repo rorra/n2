@@ -13,15 +13,15 @@
             %span.ellipsis_text= item_text(item)
 
     - if item
-      .feature-item-wrap
-        .feature-item-small.last
+      .feature-item-wrap-small.last
+        .feature-item-small.top
           = image_tag(medium_image_or_default(item))
           .feature-caption
             %h2
               %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link
             %p.ellipsis_caption_2
               %span.ellipsis_text= item_text(item)
-        .feature-item-small.last
+        .feature-item-small
           = image_tag(medium_image_or_default(item))
           .feature-caption
             %h2

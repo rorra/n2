@@ -23,14 +23,14 @@
               - if user = User.get_welcome_host
                 = local_linked_profile_pic(user)
               - else
-                = image_tag('default/house-ad-profile.jpg')
+                = image_tag('skin/generic-profile-pic.jpg')
             - when 'thumb'
               - image_url = get_setting('welcome_image_url').try(:value)
               - if image_url.present?
                 = image_tag image_url
               - else
-                = image_tag('default/house-ad-profile.jpg')
+                = image_tag('skin/generic-profile-pic.jpg')
             - else
-              = image_tag('default/house-ad-profile.jpg')
+              = image_tag('skin/generic-profile-pic.jpg')
         %h4= vt.t('shared.sidebar.welcome_panel.welcome_panel_headline')
         %h5= vt.t('shared.sidebar.welcome_panel.welcome_panel_message_fbml').html_safe

@@ -153,6 +153,7 @@ p
   bottom: 0px
   left: 10px
   z-index: 2
+  // parent tabs
   > ul
     float: right
     display: block
@@ -161,7 +162,7 @@ p
       margin-left: 1px
       position: relative
       z-index: 10
-      // Dropdown for selected tab
+      // dropdown for current tab
       &.selected
         > ul
           background-color: $primary-bg-color
@@ -173,6 +174,7 @@ p
               &:hover
                 color: $primary-bg-color
                 text-shadow: 1px 1px 1px $primary-border-color
+      // hover states
       &:hover
         > a
           background-color: $primary-border-color
@@ -187,7 +189,7 @@ p
           background-color: $primary-bg-color
           height: 22px
           
-      // Dropdowns
+      // dropdowns
       > ul
         background-color: $primary-border-color
         box-shadow: $box-shadow
@@ -221,6 +223,7 @@ p
   border-bottom: 1px solid $primary-border-color
   height: 20px
   margin-bottom: 20px
+  // tabs
   > ul
     height: 20px
     padding-left: 10px
@@ -281,12 +284,19 @@ p
   +grid(8)
 .panel-3
   +grid(12)
-// Panel Margin Removal
+
+// panel margin removal
 .panel-1, .panel-2, .panel-3
   .first
-    +alpha() 
+    +alpha()
   .last
-    +omega() 
+    +omega()
+
+  .feature-panel
+    .first
+      +alpha() 
+    .last
+      +omega()
 
 // Panel Bars
 .panel-bar
@@ -306,6 +316,48 @@ p
     top: 6px
     right: 0px
 
+// Featured Panels
+.feature-panel
+  float: left
+  margin-bottom: $gutter
+  .feature-item-large
+    +grid(5)
+    position: relative
+  .feature-item-medium
+    +grid(4)
+    position: relative
+  .feature-item-wrap-small
+    float: left
+    +grid(3)
+    .feature-item-small
+      +grid(3)
+      +alpha()
+      height: 132px
+      overflow: hidden
+      position: relative
+      &.top
+        margin-bottom: $gutter + 1
+  // Shared Styles
+  .feature-item-small, .feature-item-medium, .feature-item-large
+    > img
+      width: 100%
+      position: relative
+      top: 0
+      left: 0
+    .feature-caption
+      background: rgba(0,0,0, 0.5)
+      padding: 10px
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      h1, h2, h3, h4, h5, h6, p,
+        color: #FFF
+        text-shadow: 1px, 1px, 1px, #000
+        a
+          color: #FFF
+
+
 // Subtitle
 .subtitle
   border: 1px solid $secondary-border-color
@@ -317,7 +369,28 @@ p
   .subtitle
     margin-top: -11px
 
-// Left Column (Interior Pages)
+// Item List
+.item-list-wrap
+  .item-list
+    li
+      border-bottom: 1px solid #f1f1f1
+      display: block
+      padding-bottom: 9px
+      margin-bottom: $gutter /2
+      // header vertical spacing
+      h1, h2, h3, h4, h5, h6 
+        margin-bottom: 0
+
+
+// Full Column ------------------------------------------------------ //
+#full-col
+  +grid(12)
+  .panel-3
+    margin-left: 0
+    margin-right: 0
+
+
+// Left Column ------------------------------------------------------ //
 #left-col
   +grid(8)
   margin-bottom: $gutter * 2
@@ -327,17 +400,9 @@ p
 
 // Two Column Widgets
 .panel-2
-  // two column item list (interior pages)
+  // two column item list 
   .item-list-wrap
     .item-list
-      > ul > li
-        border-bottom: 1px solid #f1f1f1
-        display: block
-        padding-bottom: 10px
-        margin-bottom: $gutter /2
-        // header vertical spacing
-        h1, h2, h3, h4, h5, h6 
-          margin-bottom: 0
       // shared thumb styling
       .story, .question, .resource, .idea, .article-content, .event-description
         padding-left: 140px
@@ -389,53 +454,8 @@ p
             > span
               display: block
               margin-bottom: 5px
-  // two column featured widgets
-  .feature-panel
-    float: left
-    margin-bottom: $gutter
-    .feature-item-wrap
-      float: left
-    .feature-item-large
-      +grid(5)
-      position: relative
-    .feature-item-medium
-      +grid(4)
-      position: relative
-    .feature-item-small
-      +grid(3)
-      position: relative
-    .feature-item-small, .feature-item-medium, .feature-item-large
-      &.first
-        +alpha() 
-      &.last
-        +omega()
-      > img
-        width: 100%
-        position: relative
-        top: 0
-        left: 0
-      .feature-caption
-        background: rgba(0,0,0, 0.5)
-        padding: 10px
-        position: absolute
-        bottom: 0
-        left: 0
-        right: 0
-        h1, h2, h3, h4, h5, h6, p,
-          color: #FFF
-          text-shadow: 1px, 1px, 1px, #000
-          a
-            color: #FFF
-    // two column thee item widget
-    .feature-item-three
-      width: 200px
-      margin-left: 5px
-      margin-right: 5px
-      
 
-
- 
-// Right Column (Interior Pages)
+// Right Column ------------------------------------------------------ //
 #right-col
   +grid(4)
   margin-bottom: $gutter * 2
@@ -445,7 +465,7 @@ p
 
 // Single Column Widgets
 .panel-1
-  margin-bottom: 10px
+  margin-bottom: $gutter / 2
   // header bottom margin removal
   h3, h4, h5
     margin-bottom: 0
@@ -485,12 +505,8 @@ p
 
 
 
-// Full Column (Interior Pages)
-#full-col, #col_full
-  +grid(12)
-  .panel-3, .panel-3
-    margin-left: 0
-    margin-right: 0
+
+
 
 // Thumb
 .thumb
@@ -503,7 +519,7 @@ p
   height: 38px
   position: relative
   z-index: 1
-  > a > img
+  img
     width: 100%
     height: 100%
     z-index: 2
@@ -597,6 +613,8 @@ p
     top: -11px
     right: -11px
     z-index: 1
+
+
 
 
 // Tags

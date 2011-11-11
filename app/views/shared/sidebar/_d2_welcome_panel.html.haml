@@ -34,7 +34,7 @@
             .info-widget
               .thumb.welcome
                 - if get_setting('welcome_host').present? and get_setting('welcome_host').value.empty?
-                  = image_tag('default/house-ad-profile.jpg')
+                  = image_tag('skin/generic-profile-pic.jpg')
                 - elsif get_setting('welcome_host').present?
                   - host = get_setting('welcome_host').value
                   - user = User.active.find_by_id(host) || User.active.find_by_id(UserProfile.active.find_by_facebook_user_id(host).id)
@@ -42,7 +42,7 @@
                     - unless user.nil?
                       = local_linked_profile_pic(user)
                     - else
-                      = image_tag('default/house-ad-profile.jpg')
+                      = image_tag('skin/generic-profile-pic.jpg')
               .item-block
                 %h2= t('.welcome_panel_headline')
                 %p= t('.welcome_panel_message_fbml')
@@ -51,7 +51,7 @@
         .info-widget
           .profile-pic
             - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
-              = image_tag('default/house-ad-profile.jpg')
+              = image_tag('skin/generic-profile-pic.jpg')
             - else
               = image_tag(get_setting('welcome_image_url'))
           .item-block
@@ -73,7 +73,7 @@
         .info-widget
           .thumb.welcome
             - unless get_setting('welcome_image_url').value.present? and get_setting('welcome_image_url').value.empty?
-              = image_tag('default/house-ad-profile.jpg')
+              = image_tag('skin/generic-profile-pic.jpg')
             - else
               = image_tag(get_setting('welcome_image_url'))
           .item-block
