@@ -124,6 +124,7 @@ class ClassifiedsController < ApplicationController
     end
 
     def access_denied
+      store_location
       if current_user
       	flash[:notice] = I18n.translate('sessions.invalid_permissions')
       	redirect_to classifieds_path
