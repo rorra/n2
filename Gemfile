@@ -29,7 +29,7 @@ gem "aws-s3"
 gem "acl9"
 gem "paperclip"
 #gem "ruby-aaws"
-gem 'amazon-ecs', :git => 'git://github.com/stipple/amazon-ecs.git'
+gem 'amazon-ecs'
 
 # switched from vendor/plugins
 gem "hoptoad_notifier"
