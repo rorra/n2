@@ -123,7 +123,7 @@ class ViewObject < ActiveRecord::Base
 
   def self.find_by_redis_key key
     return nil unless key =~ /^view_object:([0-9]+)$/
-    ViewObject.find($1)
+    ViewObject.find_by_id($1)
   end
 
   def version
