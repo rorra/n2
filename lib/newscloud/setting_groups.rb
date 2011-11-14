@@ -34,7 +34,6 @@ module Newscloud
     #}
     @@groups = {
       :basic_site_config => {
-        # Complete when site_title, site_topic, contact_us, site_notification_user, app_id are configured
         :title       => "Initial Site Settings",
         :description => "This contains basic site settings like Site Title and Site Description, primary contact info, and your facebook application id.",
         :pages       => [
@@ -98,9 +97,8 @@ module Newscloud
         ]
       },
       :bitly_config => {
-        # hide when bitly_username, bitly_api_key no longer defaulted as username and api_key
         :title => "Bit.ly URL Shortening Settings",
-        :description => "Configuration settings for use with bit.ly in your application.",
+        :description => "Configuration settings for using bit.ly to auto-shorten Twitter URLs.",
         :faq_url => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-bitly-url-shortening",
         :pages => [
           {
@@ -127,7 +125,6 @@ module Newscloud
         ]
       },
       :analytics_config => {
-        # hide when google_analytics_account_id is configured
         :title       => "Google Analytics Config",
         :description => "Configuration options for tracking user statistics with Google Analytics",
         :faq_url => "http://support.newscloud.com/kb/configuring-your-application/how-to-set-up-google-analytics-to-track-activity-on-your-site",
@@ -156,8 +153,6 @@ module Newscloud
         ]
       },
       :sitemap_seo_config => {
-        # hide when google-site-verification is configured
-        # yahoo settings are optional
         :title       => "Search Engine Sitemap Configuration",
         :description => "Configuration options for SEO optimization with Google Sitemaps and Yahoo Sitemaps",
         :faq_url => "http://support.newscloud.com/kb/configuring-your-application/how-to-tell-search-engines-such-as-google-to-index-your-site",
@@ -200,7 +195,6 @@ module Newscloud
         ]
       },
       :google_custom_search_engine_config => {
-        # Hide when google_search_engine_id is configured
         :title       => "Google Custom Search Engine Config",
         :description => "Use this to setup a custom search engine with your app to allow users to more easily find content",
         :faq_url => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-google-search-in-your-navigation-bar",
@@ -222,8 +216,6 @@ module Newscloud
         ]
       },
       :welcome_panel_config => {
-        # Hide when shared.sidebar.welcome_panel.welcome_panel_headline changed from "Welcome to our site"
-        # and when shared.sidebar.welcome_panel.welcome_panel_message_fbml changed from "This is such a wonderful community to keep up on local events. We hope you enjoy yourself here."
         :title       => "Welcome Panel Text Configuration",
         :description => "Customize the headline and blurb that new users see in the welcome panel.",
         :faq_url => nil,

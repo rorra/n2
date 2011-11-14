@@ -142,6 +142,7 @@ class AdminController < ApplicationController
 
   def index
     # Loads dashboard
+    check_dashboard_settings
     @setting_groups = Newscloud::SettingGroups.groups
   end
 
@@ -183,6 +184,32 @@ class AdminController < ApplicationController
     	@iframe_status = false
     	redirect_to admin_path and return false
     end
+  end
+  
+  def check_dashboard_settings
+    @enabled_configs = {}
+    @enabled_configs[:automated_feeds] = Feed.count == 0
+    google_search_engine_id = get_setting('google_search_engine_id')
+    @enabled_configs[:google_search_engine] = google_search_engine_id.present? && google_search_engine_id.value == "your-google-search-engine-id"
+    google_site_verification = get_setting('google-site-verification')
+    @enabled_configs[:google_sitemap] = google_site_verification.present? && google_site_verification.value == 'WS8kMC8-Ds77777777777Xy6QcmRpWAfY'
+    google_analytics_site_id = get_setting('google_analytics_site_id')
+    google_analytics_account_id = get_setting('google_analytics_account_id')
+    @enabled_configs[:google_analytics] = (google_analytics_account_id.present? && google_analytics_account_id.value=='UF-123456890-7') || (google_analytics_site_id.present? && google_analytics_site_id.value=='1231232')
+    bitly_username = get_setting('bitly_username')
+    bitly_api_key = get_setting('bitly_api_key')
+    @enabled_configs[:bitly] = (bitly_username.present? && bitly_username.value =='username') || (bitly_api_key.present? && bitly_api_key.value=='api_key')
+    account_setting = get_setting('account')
+    oauth_key_setting = get_setting('oauth_key')
+    @enabled_configs[:twitter] = (account_setting.present? && account_setting.value == 'userkey_name') || (oauth_key_setting.present? && oauth_key_setting.value == 'U6qjcn193333331AuA')
+    @enabled_configs[:welcome_panel] = (t('shared.sidebar.welcome_panel.welcome_panel_headline') == "Welcome to our site") || (t('shared.sidebar.welcome_panel.welcome_panel_message_fbml')=="This is such a wonderful community to keep up on local events. We hope you enjoy yourself here.")
+    # TODO check for site_notification_user
+    site_title = get_setting('site_title')
+    site_topic = get_setting('site_topic')
+    contact_us_recipient = get_setting('contact_us_recipient')
+    app_id = get_setting('app_id')
+    @enabled_configs[:basic_site_settings] = (site_title.present? && site_title.value == 'Default Site Title') || (site_topic.present? && site_topic.value == 'Default Topic') || (app_id.present? && app_id.value == '111111111111') || (contact_us_recipient.present? && contact_us_recipient.value == 'admin@email.com,me@email.com,support@email.com')
+    @enabled_configs[:user_admins] = !User.admins.any?
   end
 
 end
