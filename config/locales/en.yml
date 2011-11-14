@@ -493,6 +493,9 @@ en:
       title: "Select a listing type"
     status: "Status: {{state}}"
     allow_type:
+      all: "Public"
+      friends: "Just my friends"
+      friends_of_friends: "Friends of my friends"
       title: "Viewable by"
     tags:
       tags_title: "Tags"
