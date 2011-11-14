@@ -317,11 +317,11 @@ class ApplicationController < ActionController::Base
     current_user.touch(:last_active)
     if current_facebook_user
       unless not Rails.env.development? and last_active and current_user.last_active < last_active + 1.hour
-        fb_friends = current_facebook_user.friend_ids.join(',')
-        redis_friends = $redis.get "#{current_user.cache_id}:friends_string"
-        unless fb_friends == redis_friends or (last_active and current_user.last_active < last_active + 4.hours)
-          $redis.set "#{current_user.cache_id}:friends_string", fb_friends
-          current_user.redis_update_friends fb_friends
+        redis_friends = $redis.smembers "#{current_user.cache_id}:friends"
+        unless redis_friends.any? and last_active and current_user.last_active < last_active + 4.hours
+          fb_friends = current_facebook_user.facebook_friend_ids
+          $redis.set "#{current_facebook_user.cache_id}:friends_string", fb_friends.join(',')
+          current_user.redis_update_friends fb_friends.join(',')
         end
         # Expire recent users
         Newscloud::Redcloud.expire_sets($redis.keys("#{User.model_deps_key}:*"))

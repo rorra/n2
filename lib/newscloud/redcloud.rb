@@ -14,7 +14,11 @@ module Newscloud
         keys = $redis.smembers(set)
         keys.each do |key|
           view_object = ViewObject.find_by_redis_key key
-          view_object.expire
+          if view_object
+            view_object.expire
+          else
+            $redis.del(set)
+          end
         end
       end
     end

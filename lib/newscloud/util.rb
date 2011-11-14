@@ -27,7 +27,7 @@ module Newscloud
     end
 
     def current_facebook_user
-      nil
+      (current_user and current_user.facebook_user?) ? current_user : nil
     end
 
     def logged_in?
