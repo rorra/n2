@@ -11,7 +11,7 @@
         - unless guess[:users].empty?
           .voter-profiles
             - guess[:users][0..5].each do |user|
-              .profile-pic.float-left
+              .float-left
                 = local_linked_profile_pic user.user, :size => "small"
     - if prediction_question.status == 'open'
       %p.vote-meta
