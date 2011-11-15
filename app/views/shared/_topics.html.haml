@@ -6,6 +6,7 @@
   - paginate ||= false
   - page ||= ""
   .panel_2
+    = add_this @forum
     .panelBar
       %h2= t('forums.topics.list_title', :forum_name => forum.name)
       -#%span.bar_link= fb_share_item_button(forum)
