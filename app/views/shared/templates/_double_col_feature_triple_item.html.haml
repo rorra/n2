@@ -3,33 +3,20 @@
 - remaining_items = items.slice(1,items.size)
 
 .panel-2
-  .panel-content.featured-panel
-    .panel-full
-      .item-with-image
-        - if item1
-          .item-thumb
-            = link_to image_tag(medium_image_or_default(item1)), item1.item_link
-          .item-text
-            %h1
-              %span.ellipsis_title_3= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
-            %p.ellipsis_caption_5
-              %span.ellipsis_text= item1.item_description
-            .meta-data
-              .profile-pic
-                = local_linked_profile_pic(item1.user)
-              %h6= posted_by_with_date(item1)
-              %h6= action_links(item1)
+  .feature-panel.clearfix
+    -# if item1
+      .feature-item-medium
+        = link_to image_tag(medium_image_or_default(item1)), item1.item_link
+        .feature-caption
+          %h1.ellipsis_title_2
+            %span= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
+          %p.ellipsis_caption_3
+            %span.ellipsis_text= item1.item_description
 
     - if remaining_items
       - remaining_items.each_with_index do |item, index|
-        %div.panel-third{:class => (index == 0 ? "first" : index == 2 ? "last" : "")}
-          .panel-bar.top-secondary-corners.bottom-secondary-corners
-            %h5= item.model_index_name
-            .item-thumb.bottom-secondary-corners
-              = link_to image_tag(medium_image_or_default(item)), item.item_link
-          .item-text
-            %h3
-              %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-          .meta-data
-            %h6= posted_by_with_date(item)
-            %h6= action_links(item)
+        .feature-item-third{:class => (index == 0 ? "first" : index == 2 ? "last" : "")}
+          = link_to image_tag(medium_image_or_default(item)), item.item_link
+          .feature-caption
+            %h5.ellipsis_title_1
+              %span= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'

@@ -1,48 +1,30 @@
-// 960 Grid System ~ Core CSS.
-// Learn more ~ http://960.gs/
-// Licensed under GPL and MIT.
-/**********************************************************************************************/
-// The following generates the default grids provided by the css version of 960.gs
+// 960 Grid System ~ Core CSS. //
+// Learn more ~ http://960.gs. //
+// Licensed under GPL and MIT. //
+
+// Grid Variables ----------------------------------------- //
+// box-shadow
+$box-shadow: 0px 0px 4px rgba(0,0,0, 0.5)
+// Layout
+$gutter: 10px
+
+
+// 960.gs
 $ninesixty_columns: 12
 $ninesixty_grid_width: 760px
 $ninesixty_gutter_width: 10px
-
-/**********************************************************************************************/
-// GRID VARIABLES
-
-$HeaderOne: 200%
-$HeaderTwo: 160%
-$HeaderThree: 140%
-$HeaderFour: 120%
-$HeaderFive: 100%
-$HeaderSix: 10px
-
-$fontsize: 11px
-
-$userPicWidth: 38px
-$userPicHeight: 38px
-
-/**********************************************************************************************/
 // Reset and grid stylesheets
 @import "compass/utilities/general/reset"
 @import 960/grid.sass
 +global-reset
-
-/**********************************************************************************************/
 // App Skin
 @import skin.sass
-
-/**********************************************************************************************/
 // App stylesheets
-
 @import default_v3.sass
 @import application.sass
-//@import formtastic.sass
-
+@import formtastic.sass
 @import jquery.jcarousel.sass
 @import jcarousel.skin.sass
 @import flowplayer_tabs.sass
 @import scrollable.sass
 @import addthis.sass
-
-

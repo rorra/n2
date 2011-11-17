@@ -5,9 +5,10 @@
 %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   .panel-bar
     %h2= list_title
-  .item-list
-    %ul
-      - unless scores.empty?
+  - unless scores.empty?
+  .item-list-wrap
+    .item-list
+      %ul
         - scores.each do |score|
           - user = score.user
           - if item_type == 'activity'
@@ -23,8 +24,6 @@
                 -#%h3= "City and State"
               .float_right
                 %h4.userPoints= score.total_score
-      - else
-        %li
-          .item-block
-            .float_left
-              %p= list_empty
+  - else
+    .subtitle
+      %span= list_empty

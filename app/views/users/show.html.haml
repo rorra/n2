@@ -2,16 +2,24 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
 #left-col
-  #myProfile.panel-2.featureWrap
+  #my-profile.panel-2
     .panel-bar
       %h2= t('.title', :name => profile_fb_name(@user,false)).html_safe
-    .half-panel
-      .thumb.user-details      
-        -#= local_linked_profile_pic @user, :destination => fb_profile_link(@user), :width => '180', :size => 'normal', :target => '_top'
-        = local_linked_profile_pic @user, :destination => '#', :width => '180', :size => 'normal', :target => '_top'        
-    .half-panel
+    .profile
       .item-block
+        .profile-pic.large
+          -#= local_linked_profile_pic @user, :destination => fb_profile_link(@user), :width => '180', :size => 'normal', :target => '_top'
+          = local_linked_profile_pic @user, :destination => '#', :width => '180', :size => 'normal', :target => '_top'        
         %h1= external_linked_profile_name(@user)
+      .bio
+        .panel-bar
+          %h2= t('.bio_title')
+          - if @is_owner
+            .panel-bar-actions= link_to t('.bio_edit'), '#', :class => "update-bio"
+        = render :partial => 'users/bio_form'
+        %p= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
+    .statistics
+      .item-block
         .pointsTable_profile
           %table
             %tbody
@@ -47,16 +55,8 @@
                 %td.bold= link_to 'RSS', user_path(@user, :format => :atom), :class => 'rss_link', :target => "_blank"
                 %td
               -# TODO:: add challenges
-  .panel-2
-    .panel-bar
-      %h2= t('.bio_title')
-      - if @is_owner
-        .bar_link= link_to t('.bio_edit'), '#', :class => "update-bio"
-        = render :partial => 'users/bio_form'
-    .panel_block
-      .item-block.current-bio
-        %p= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
-  = render_ad(:banner, @ad_layout, @ad_banner)
+    
+  =# render_ad(:banner, @ad_layout, @ad_banner)
   .panel-2
     .panel-bar
       %h2= t('articles.my_articles')
@@ -76,7 +76,7 @@
       %br
       %h3= t('articles.user_none')
 #right-col
-  = render_ad(:small_square, @ad_layout, @ad_small_square)
+  =# render_ad(:small_square, @ad_layout, @ad_small_square)
   .panel-1
     .panel-bar
       %h2= t('.action_feeds')

@@ -10,7 +10,8 @@
     %h2= t post_locale
   .form-wrap
     - unless current_user.present?
-      %p== #{t '.logged_in_error'} #{link_to 'Login now', login_path}
+      .subtitle
+        %span== #{t '.logged_in_error'} #{link_to 'Login now', login_path}
     - else
       - semantic_form_for [commentable, Comment.new] do |form|
         - form.inputs do

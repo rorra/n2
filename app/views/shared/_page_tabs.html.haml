@@ -3,7 +3,8 @@
   %ul
     - if MENU.key? 'home'
       - if @current_tab == 'home'
-        %li= link_to image_tag('site/home-icon-selected.png'), home_index_path, :class => "tab #{tab_selected?(@current_tab, 'home')}"
+        %li{:class => "#{tab_selected?(@current_tab, 'home')}"}
+          = link_to image_tag('site/home-icon-selected.png'), home_index_path, :class => "tab #{tab_selected?(@current_tab, 'home')}"
       - else
         %li= link_to image_tag('site/home-icon-off.png'), home_index_path, :class => "tab"
     - if MENU.key? 'stories'
