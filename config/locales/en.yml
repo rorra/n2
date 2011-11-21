@@ -699,9 +699,9 @@ en:
       title: "Stories"
       description: "Stories"
     prediction_questions:
-      posted_in: "Prediction Questions"
-      title: "Prediction Questions"
-      description: "Prediction Questions"
+      posted_in: "Predictions"
+      title: "Predictions"
+      description: "Predictions"
     articles:
       posted_in: "Articles"
       title: "Articles"
