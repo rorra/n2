@@ -6,9 +6,9 @@ class GalleryItem < ActiveRecord::Base
 
   accepts_nested_attributes_for :galleryable
 
-  default_scope :order => "position desc, created_at asc"
+  default_scope :order => "created_at desc"
 
-  named_scope :positioned, :order => "position desc, created_at asc"
+  named_scope :positioned, :order => "position desc, created_at desc"
   #validates_presence_of :user, :gallery, :title
   #validates_presence_of :item_url
   before_validation :gallery_user
