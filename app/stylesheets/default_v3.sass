@@ -19,7 +19,7 @@ h1, h2
   a
     color: $primary-header-color
     &:hover
-      color: scale-color($primary-header-color, $lightness: -50%)
+      color: scale-color($primary-header-color, $lightness:  -50%)
       text-decoration: none
 h3, h4, h5
   color: $secondary-header-color
@@ -359,6 +359,8 @@ p
         padding-top: $gutter / 2
       &.last
         border-bottom: none
+        padding-bottom: 0
+        margin-bottom: 0
       // header vertical spacing
       h1, h2, h3, h4, h5, h6, p
         margin-bottom: 0
@@ -666,6 +668,34 @@ p
     margin-bottom: 0
   .item-block, .meta-data
     margin-bottom: $gutter
+  //Story content area
+  .item-details-content
+    line-height: $primary-line-height
+    margin-bottom: $gutter
+  // Story Thumbnail
+  .thumb
+    float: right
+    margin-left: $gutter
+    margin-bottom: $gutter
+    height: 225px
+    width: 300px
+  // Add This wrapper
+  .add-this-wrap
+    margin-bottom: $gutter
+  // media curtain
+  .media-wrap
+    position: relative
+    background: #000 image_url("site/curtain.png") top left repeat-x
+    margin-bottom: $gutter
+  // media on the show page
+  .video
+    width: 480px
+    margin: 0 auto
+    z-index: 1
+    object
+      width: 480px
+      z-index: 1
+
 
 // Shared Arrow Styling
 .arrow, .arrow-inner

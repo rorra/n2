@@ -14,7 +14,8 @@
 #left-col
   - cache "#{@story.cache_key}_top_html" do
     #item-details.panel-2
-      = add_this @story
+      .subtitle.add-this-wrap
+        = add_this @story
       .item-block
         - if @story.images.present?
           .thumb= image_tag @story.images.first.url(:medium)
@@ -33,7 +34,7 @@
               .tag-wrap
                 == Tags: #{tag_list(@tags, (@story.is_article? ? @story.article : @story))}
         - if @story.is_article?
-          %p= sanitize nl2br(@story.caption)
+          %div.item-details-content= sanitize nl2br(@story.caption)
         - elsif @story.respond_to?(:twitter_item?) and @story.twitter_item?
           %p= tweet_blurb @story
         - elsif @story.full_html?
@@ -48,8 +49,9 @@
 
     - if @story.moderatable?
       .mod-panel.panel-2
-        .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
-        .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
+        .subtitle
+          .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
+          .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
 
     = render_ad(:banner, @ad_layout, @ad_banner)
     = render :partial => 'shared/comments', :locals => { :comments => @story.comments }

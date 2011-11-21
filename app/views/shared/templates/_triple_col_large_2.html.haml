@@ -2,9 +2,9 @@
 - item2 = vo.dataset[1]
 - item3 = vo.dataset.last
 .panel-3
-  // Feature Panel Wrap
+  / Feature Panel Wrap - 3 Column 1 large story w/ img, 2 small w/ img and 3 listed stories 
   .feature-panel
-    // One Large Story 
+    / One Large Story 
     - if item1
       .feature-item-large.first   
         = image_tag(medium_image_or_default(item1))
@@ -14,7 +14,7 @@
           %p.ellipsis_caption_2
             %span.ellipsis_text= item1.item_description
 
-      // Two Small Stories 
+      / Two Small Stories 
       .feature-item-wrap-small
         - if item2
           .feature-item-small.top
@@ -29,7 +29,7 @@
               %h3.ellipsis_title_2
                 %span= link_to sanitize_title(item3.item_title), item3.item_link, :class => 'ellipsis_text'
 
-    // list of stories
+    / list of stories 
     .feature-item-medium.last
       .item-list-wrap
         .item-list
