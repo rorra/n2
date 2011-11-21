@@ -1,0 +1,12 @@
+.main-content
+  %h1 Choose your menu items
+
+  %ol.menu-items
+    - MenuItem.all.each do |menu_item|
+      %li
+        .menu-item{"data-id" => menu_item.id}
+          = check_box_tag menu_item.name_slug, nil, menu_item.enabled
+          = menu_item.name
+
+  %a#toArray To Array
+  %pre#toArrayOutput

@@ -1294,3 +1294,317 @@ unless home_view_object.edge_children.any?
     home_view_object.add_child! ViewObject.find_by_name(name)
   end
 end
+
+
+#######################################################################
+# Menu Items
+#######################################################################
+menu_items = {
+  :home => {
+    :data => {
+      :name          => "Home Page",
+      :position      => 0,
+      :resource_path => "home_index_path",
+      :locale_string => "shared.page_tabs.home"
+    }
+  },
+  :stories => {
+    :data => {
+      :name          => "Stories Page",
+      :position      => 1,
+      :resource_path => "stories_path",
+      :locale_string => "shared.page_tabs.stories"
+    },
+    :children => {
+      :stories_list => {
+        :data => {
+          :name          => "Stories Page",
+          :position      => 1,
+          :resource_path => "stories_path",
+          :locale_string => "shared.page_tabs.stories_list"
+        }
+      },
+      :newswires => {
+        :data => {
+          :name          => "Newswires Page",
+          :position      => 2,
+          :resource_path => "newswires_path",
+          :locale_string => "shared.page_tabs.newswire"
+        }
+      },
+      :new_story => {
+        :data => {
+          :name          => "New Story Page",
+          :position      => 3,
+          :resource_path => "new_story_path",
+          :locale_string => "shared.page_tabs.new_story"
+        }
+      },
+      :new_article => {
+        :data => {
+          :name          => "New Article Page",
+          :position      => 4,
+          :resource_path => "new_article_path",
+          :locale_string => "shared.page_tabs.newswire",
+          :enabled       => false
+        }
+      }
+    }
+  },
+  :articles => {
+    :data => {
+      :name          => "Articles Page",
+      :position      => 2,
+      :resource_path => "articles_path",
+      :locale_string => "shared.page_tabs.articles"
+    },
+    :children => {
+      :articles_list => {
+        :data => {
+          :name          => "Articles Page",
+          :position      => 1,
+          :resource_path => "articles_path",
+          :locale_string => "shared.page_tabs.articles_list"
+        }
+      },
+      :users_list => {
+        :data => {
+          :name          => "Users Page",
+          :position      => 2,
+          :resource_path => "users_path",
+          :locale_string => "shared.page_tabs.users_list"
+        }
+      },
+      :new_article => {
+        :data => {
+          :name          => "New Article Page",
+          :position      => 3,
+          :resource_path => "new_article_path",
+          :locale_string => "shared.page_tabs.new_article"
+        }
+      }
+    }
+  },
+  :forums => {
+    :data => {
+      :name          => "Forums Page",
+      :position      => 3,
+      :resource_path => "forums_path",
+      :locale_string => "shared.page_tabs.forums"
+    }
+  },
+  :classifieds => {
+    :data => {
+      :name          => "Classifieds Page",
+      :position      => 4,
+      :resource_path => "classifieds_path",
+      :locale_string => "shared.page_tabs.classifieds"
+    },
+    :children => {
+      :classifieds_list => {
+        :data => {
+          :name          => "Classifieds Page",
+          :position      => 1,
+          :resource_path => "classifieds_path",
+          :locale_string => "shared.page_tabs.classifieds_list"
+        }
+      },
+      :new_classified => {
+        :data => {
+          :name          => "New Classified Page",
+          :position      => 2,
+          :resource_path => "new_classified_path",
+          :locale_string => "shared.page_tabs.new_classified"
+        }
+      }
+    }
+  },
+  :questions => {
+    :data => {
+      :name          => "Questions Page",
+      :position      => 5,
+      :resource_path => "questions_path",
+      :locale_string => "shared.page_tabs.questions"
+    },
+    :children => {
+      :questions_list => {
+        :data => {
+          :name          => "Questions Page",
+          :position      => 1,
+          :resource_path => "questions_path",
+          :locale_string => "shared.page_tabs.questions_list"
+        }
+      },
+      :my_questions_list => {
+        :data => {
+          :name          => "My Questions Page",
+          :position      => 2,
+          :resource_path => "my_questions_question_path",
+          :locale_string => "questions.my_questions",
+          :enabled       => false
+        }
+      },
+      :new_question => {
+        :data => {
+          :name          => "New Question Page",
+          :position      => 3,
+          :resource_path => "new_question_path",
+          :locale_string => "shared.page_tabs.new_question"
+        }
+      }
+    }
+  },
+  :resources => {
+    :data => {
+      :name          => "Resources Page",
+      :position      => 6,
+      :resource_path => "resources_path",
+      :locale_string => "shared.page_tabs.resources"
+    },
+    :children => {
+      :resources_list => {
+        :data => {
+          :name          => "Resources Page",
+          :position      => 1,
+          :resource_path => "resources_path",
+          :locale_string => "shared.page_tabs.resources_list"
+        }
+      },
+      :new_resource => {
+        :data => {
+          :name          => "New Resource Page",
+          :position      => 2,
+          :resource_path => "new_resource_path",
+          :locale_string => "shared.page_tabs.new_resource"
+        }
+      }
+    }
+  },
+  :events => {
+    :data => {
+      :name          => "Events Page",
+      :position      => 7,
+      :resource_path => "events_path",
+      :locale_string => "shared.page_tabs.events"
+    },
+    :children => {
+      :events_list => {
+        :data => {
+          :name          => "Events Page",
+          :position      => 1,
+          :resource_path => "events_path",
+          :locale_string => "shared.page_tabs.events_list"
+        }
+      },
+      :my_events_list => {
+        :data => {
+          :name          => "My Events Page",
+          :position      => 2,
+          :resource_path => "my_events_event_path",
+          :locale_string => "share.subnav.events_subnav.my_events",
+          :enabled       => false
+        }
+      },
+      :new_event => {
+        :data => {
+          :name          => "New Event Page",
+          :position      => 3,
+          :resource_path => "new_event_path",
+          :locale_string => "shared.page_tabs.new_event"
+        }
+      }
+    }
+  },
+  :galleries => {
+    :data => {
+      :name          => "Galleries Page",
+      :position      => 8,
+      :resource_path => "galleries_path",
+      :locale_string => "shared.page_tabs.galleries"
+    },
+    :children => {
+      :galleries_list => {
+        :data => {
+          :name          => "Galleries Page",
+          :position      => 1,
+          :resource_path => "galleries_path",
+          :locale_string => "shared.page_tabs.galleries_list"
+        }
+      },
+      :new_gallery => {
+        :data => {
+          :name          => "New Gallery Page",
+          :position      => 2,
+          :resource_path => "new_gallery_path",
+          :locale_string => "shared.page_tabs.new_gallery"
+        }
+      }
+    }
+  },
+  :ideas => {
+    :data => {
+      :name          => "Ideas Page",
+      :position      => 9,
+      :resource_path => "ideas_path",
+      :locale_string => "shared.page_tabs.ideas"
+    },
+    :children => {
+      :ideas_list => {
+        :data => {
+          :name          => "Ideas Page",
+          :position      => 1,
+          :resource_path => "ideas_path",
+          :locale_string => "shared.page_tabs.ideas_list"
+        }
+      },
+      :my_ideas_list => {
+        :data => {
+          :name          => "My Ideas Page",
+          :position      => 2,
+          :resource_path => "my_ideas_idea_path",
+          :locale_string => "share.subnav.ideas_subnav.my_ideas",
+          :enabled       => false
+        }
+      },
+      :new_idea => {
+        :data => {
+          :name          => "New Idea Page",
+          :position      => 3,
+          :resource_path => "new_idea_path",
+          :locale_string => "shared.page_tabs.new_idea"
+        }
+      }
+    }
+  },
+  :predictions => {
+    :data => {
+      :name          => "Predictions Page",
+      :position      => 10,
+      :resource_path => "predictions_path",
+      :locale_string => "shared.page_tabs.predictions"
+    }
+  },
+  :cards => {
+    :data => {
+      :name          => "Cards Page",
+      :position      => 11,
+      :resource_path => "cards_path",
+      :locale_string => "cards.menu_title"
+    }
+  }
+}
+
+menu_items.each do |name, menu_item_data|
+  data = menu_item_data[:data]
+  data[:name_slug] = name.to_s
+  menu_item = MenuItem.find_or_create_by_name_slug(data)
+
+  if menu_item_data[:children].present?
+    menu_item_data[:children].each do |child_name, child_menu_item_data|
+      child_data = child_menu_item_data[:data]
+      child_data[:name_slug] = child_name.to_s
+      child_data[:parent_id] = menu_item.id
+      child_menu_item = MenuItem.find_or_create_by_name_slug(child_data)
+    end
+  end
+end

@@ -33,3 +33,34 @@ $(function() {
 
   }, 3500);
 });
+
+(function($) {
+  setTimeout(function() {
+    $('ol.menu-items').nestedSortable({
+      disableNesting: 'no-nest',
+      forcePlaceholderSize: true,
+      handle: 'div.menu-item',
+      helper:	'clone',
+      items: 'li',
+      maxLevels: 2,
+      opacity: .6,
+      placeholder: 'placeholder',
+      revert: 250,
+      tabSize: 25,
+      tolerance: 'pointer',
+      toleranceElement: '> div'
+    });
+		$('#toArray').click(function(e){
+                  console.log("Dumping data");
+			arraied = $('ol.menu-items').nestedSortable('toArray', {startDepthCount: 0});
+                  console.log(arraied);
+			//arraied = dump(arraied);
+			//(typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
+			//$('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
+		});
+  }, 1000);
+  
+
+
+})(jQuery);
+
