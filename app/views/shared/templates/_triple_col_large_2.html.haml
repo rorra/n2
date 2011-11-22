@@ -9,10 +9,8 @@
       .feature-item-large.first   
         = image_tag(medium_image_or_default(item1))
         .feature-caption
-          %h2
-            %span.ellipsis_title_2= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
-          %p.ellipsis_caption_2
-            %span.ellipsis_text= item1.item_description
+          %h2= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
+          %p= item1.item_description
 
       / Two Small Stories 
       .feature-item-wrap-small
@@ -20,14 +18,12 @@
           .feature-item-small.top
             = image_tag(thumb_image_or_default(item2))
             .feature-caption
-              %h3.ellipsis_title_2
-                %span= link_to sanitize_title(item2.item_title), item2.item_link, :class => 'ellipsis_text'
+              %h3= link_to sanitize_title(item2.item_title), item2.item_link, :class => 'ellipsis_text'
         - if item3
           .feature-item-small
             = image_tag(thumb_image_or_default(item3))
             .feature-caption
-              %h3.ellipsis_title_2
-                %span= link_to sanitize_title(item3.item_title), item3.item_link, :class => 'ellipsis_text'
+              %h3= link_to sanitize_title(item3.item_title), item3.item_link, :class => 'ellipsis_text'
 
     / list of stories 
     .feature-item-medium.last
@@ -35,23 +31,17 @@
         .item-list
           %ul
             %li
-              %h4.ellipsis_title_2
-                %span
-                  %a.ellipsis_text{ :href => "#"} 
-                    Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
-              %p.ellipsis_caption_2
-                %span.ellipsis_text Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
+              %h4
+                %a{ :href => "#"} 
+                  Sit volup tatem accus antium dolorem que 
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
             %li
-              %h4.ellipsis_title_2
-                %span
-                  %a.ellipsis_text{ :href => "#"} 
-                    Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
-              %p.ellipsis_caption_2
-                %span.ellipsis_text Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
+              %h4
+                %a{ :href => "#"} 
+                  Sit volup tatem accus antium dolorem
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
             %li.last
-              %h4.ellipsis_title_2
-                %span
-                  %a.ellipsis_text{ :href => "#"} 
-                    Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
-              %p.ellipsis_caption_2
-                %span.ellipsis_text Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
+              %h4
+                %a{ :href => "#"} 
+                  Sit volup tatem accus antium dolorem que volup 
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem

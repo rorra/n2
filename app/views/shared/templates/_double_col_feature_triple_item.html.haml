@@ -8,15 +8,12 @@
       .feature-item-medium
         = link_to image_tag(medium_image_or_default(item1)), item1.item_link
         .feature-caption
-          %h1.ellipsis_title_2
-            %span= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
-          %p.ellipsis_caption_3
-            %span.ellipsis_text= item1.item_description
+          %h1= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
+          -#%p= item1.item_description
 
     - if remaining_items
       - remaining_items.each_with_index do |item, index|
         .feature-item-third{:class => (index == 0 ? "first" : index == 2 ? "last" : "")}
           = link_to image_tag(medium_image_or_default(item)), item.item_link
           .feature-caption
-            %h5.ellipsis_title_1
-              %span= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+            %h5= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'

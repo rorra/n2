@@ -10,8 +10,7 @@
           = content.article.preamble
         - else
           = content.caption
-    .meta-data
-      .profile-pic= local_linked_profile_pic content.user
+    .item-meta-data      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
       %h6 
         %span.count== #{like_link content} #{content.votes_tally}
@@ -29,8 +28,7 @@
           = content.article.preamble
         - else
           = content.caption
-    .meta-data
-      .profile-pic= local_linked_profile_pic content.user
+    .item-meta-data      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
       %h6 
         %span.count== #{like_link content} #{content.votes_tally}

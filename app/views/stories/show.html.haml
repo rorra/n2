@@ -21,11 +21,9 @@
           .thumb= image_tag @story.images.first.url(:medium)
         %h1= sanitize_title @story.title
         - unless @story.is_article?
-          .meta-data
-            %h6= stories_posted_by_via @story
+          .item-meta-data            %h6= stories_posted_by_via @story
         - else
-          .meta-data
-            %h6
+          .item-meta-data            %h6
               = stories_posted_by @story
               = pipe_spacer
               %span.moderator-links.hidden{:class => user_css_class(@story.user)}

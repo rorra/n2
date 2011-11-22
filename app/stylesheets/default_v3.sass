@@ -275,6 +275,8 @@ p
 
 // panel margin removal
 .panel-1, .panel-2, .panel-3
+  min-height: 80px 
+
   .first
     +alpha()
   .last
@@ -293,7 +295,7 @@ p
   padding: 4px 0 0 0
   position: relative
   > h2
-    color: $secondary-header-color
+    color: $tertiary-header-color
     font-size: 12px
     margin-bottom: 0
     text-transform: uppercase
@@ -307,6 +309,9 @@ p
 // Thumb
 .thumb
   border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+  img
+    max-width: 300px
+    border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
 
 // Profile Pics
 .profile-pic
@@ -329,9 +334,9 @@ p
 
 // Meta Data
 .item-meta-data
+  margin-bottom: $gutter / 2
   .meta-data-actions
     font-size: 11px
-    padding-top: 5px
 
 
 // Subtitle
@@ -351,7 +356,6 @@ p
     li
       border-bottom: 1px solid scale-color($primary-bg-color, $lightness: -10%)
       display: block
-      padding-bottom: 9px
       margin-bottom: $gutter / 2
       // for featured panels only
       &.first
@@ -362,8 +366,11 @@ p
         padding-bottom: 0
         margin-bottom: 0
       // header vertical spacing
-      h1, h2, h3, h4, h5, h6, p
+      h1, h2, h3, h4, h5, h6
         margin-bottom: 0
+      // paragraph vertical spacing
+      p
+        margin-bottom: $gutter / 2
 
 // Featured Panels --------------------- //
 .feature-panel
@@ -392,13 +399,15 @@ p
         margin-bottom: $gutter + 1
   // Featured Panel Shared Styles
   .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-third
+    .item-list-wrap
+      padding-top: 0
     img
       width: 100%
       position: relative
       top: 0
       left: 0
     .feature-caption
-      background: rgba(0,0,0, 0.5) // make black png tile for compatability
+      background: rgba(0,0,0, 0.8) // make black png tile for compatability
       padding: 10px
       position: absolute
       bottom: 0
@@ -498,6 +507,24 @@ p
             > span
               display: block
               margin-bottom: 5px
+// Gallery
+.gallery-content
+  padding-top: $gutter / 2
+  li
+    +grid(2)
+    margin-bottom: $gutter
+    img
+      width: 100%
+    &.hide-strong
+      display: none
+  .single-gallery-item
+    +grid(4)
+    +alpha()
+    +omega()
+    margin-bottom: $gutter
+    margin-top: -$gutter / 2
+    img
+      width: 100%
 
 // Right Column ------------------------ //
 #right-col
@@ -666,7 +693,7 @@ p
 #item-details
   h1, h2, h3, h4
     margin-bottom: 0
-  .item-block, .meta-data
+  .item-block, .item-meta-data
     margin-bottom: $gutter
   //Story content area
   .item-details-content
@@ -708,6 +735,7 @@ p
   border-style: solid
   height: 0
   width: 0
+
 
 // Comment Thread
 .comment-thread-wrap

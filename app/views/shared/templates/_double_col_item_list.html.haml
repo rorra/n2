@@ -14,10 +14,8 @@
       .feature-item-medium.first
         = link_to image_tag(medium_image_or_default(item1)), item1.item_link
         .feature-caption
-          %h3
-            %span.ellipsis_title_2= link_to sanitize_title(item1.item_title), item1.item_link
-          %p.ellipsis_caption_1
-            %span.ellipsis_text= item_text(item1)
+          %h3= link_to sanitize_title(item1.item_title), item1.item_link
+          %p= item_text(item1)
 
 
     .feature-item-medium.last
@@ -27,7 +25,6 @@
             - if remaining_items
               - remaining_items.each do |item|
                 %li
-                  %h4
-                    %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-                  .meta-data
+                  %h4= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+                  .item-meta-data
                     %h6= posted_by_with_topic(item)
