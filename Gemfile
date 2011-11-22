@@ -4,8 +4,8 @@ gem "rails", "2.3.11"
 gem "rack", '1.1.0'
 
 
-gem "haml", "3.0.25"
-gem 'compass', '~> 0.10.0'
+gem "haml", "3.1.3"
+gem 'compass', '0.11.5'
 gem 'compass-960-plugin'
 gem 'json', '1.4.6'
 gem 'mogli'
