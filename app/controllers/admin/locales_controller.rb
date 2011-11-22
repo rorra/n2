@@ -93,7 +93,7 @@ class Admin::LocalesController < AdminController
     # This is a serious issue that needs to be addressed
     # Cached fragments depend on locales and need to be invalidated with the locales
     # but how? doing a flush_all is a terrible solution.
-    Rails.cache.clear
+    Newscloud::Redcloud.expire_views
     flash[:success] = "Refreshed locales"
     redirect_to admin_locales_path
   end

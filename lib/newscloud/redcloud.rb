@@ -23,5 +23,13 @@ module Newscloud
       end
     end
 
+    def self.expire_views()
+      ["views/*", "view-tree*"].map do |wkeys|
+        $redis.keys(wkeys).map do |key|
+          $redis.del(key)
+        end.size
+      end
+    end
+
   end
 end
