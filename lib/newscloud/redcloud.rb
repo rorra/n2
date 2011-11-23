@@ -31,5 +31,13 @@ module Newscloud
       end
     end
 
+    def self.expire_locales()
+      Locale.all.map(&:code).map do |locale|
+        $redis.keys("#{locale}:*").map do |translation|
+          $redis.del(translation)
+        end.size
+      end
+    end
+
   end
 end
