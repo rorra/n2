@@ -35,10 +35,10 @@
             %h3== #{t('classifieds.status', :state => @classified.state)}
             - if @classified.location_text.present?
               %h3== Location: #{@classified.location_text}
-        .float_left.classified_button_margin= link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "btn")
+        .float-left.classified_button_margin= link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "btn")
         -# change to amazon_asin
         - if @classified.amazon_item.present?
-          .float_left.classified_button_margin= link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon", :class => "btn"
+          .float-left.classified_button_margin= link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon", :class => "btn"
       - if @classified.media_item?
         = render_media_items @classified, :size => 'large'
 
@@ -47,8 +47,9 @@
       = link_to t('classifieds.edit'), edit_classified_path(@classified)
     - if @classified.moderatable?
       .mod-panel.panel-2
-        .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
-        .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
+        .subtitle.clearfix
+          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
+          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
 
     = render_ad(:banner, @ad_layout, @ad_banner)
   = render :partial => 'shared/comments', :locals => { :comments => @classified.comments }

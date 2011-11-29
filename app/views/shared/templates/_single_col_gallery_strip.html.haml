@@ -4,7 +4,7 @@
     %div.panel-bar.panel-full.top-secondary-corners{:class => vo.setting.css_class}
       %h2= gallery_name vo
       .panel-bar-actions
-        = link_to t('galleries.see_full_gallery'), gallery_path(gallery), :class => "button-panel-bar center"
+        = link_to t('galleries.see_full_gallery'), gallery_path(gallery)
       -#
         - if vo.setting.locale_title
           %h2= vt.t(vo.setting.locale_title)

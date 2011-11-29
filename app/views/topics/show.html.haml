@@ -15,16 +15,16 @@
       - if @tags.present?
         .subtitle
           %h3== Tags #{tag_list(@tags, @topic)}
-      .item-list-wrap
-        .item-list
-          %ul
-            - @topic.posts.each do |post|
-              = render :partial => 'shared/comment', :locals => { :comment => post}
+      .comment-thread-wrap
+        %ul
+          - @topic.posts.each do |post|
+            = render :partial => 'shared/comment', :locals => { :comment => post}
 
 
       - if @topic.moderatable?
         .mod-panel.panel-2
-          .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @topic }
+          .subtitle.clearfix
+            .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @topic }
   .topic-form= render :partial => 'shared/comment_form', :locals => { :commentable => @topic , :post_locale => 'forums.topics.post_comment', :commit_text => 'forums.topics.commit_reply' }
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'

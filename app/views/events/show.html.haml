@@ -46,8 +46,9 @@
       = render_media_items @event
     - if @event.moderatable?
       .mod-panel.panel-2
-        .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
-        .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
+        .subtitle.clearfix
+          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
+          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
 
     = render_ad(:banner, @ad_layout, @ad_banner)
     = render :partial => 'shared/comments', :locals => { :comments => @event.comments }

@@ -4,6 +4,7 @@
   .feature-panel.clearfix
     - items.each_with_index do |item, index|
       .feature-item-third{:class => (index == 0 ? "first" : index == 2 ? "last" : "")}
-        = link_to image_tag(medium_image_or_default(item)), item.item_link
-        
-      %h4= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+        = link_to sanitize_title(item.item_title), item.item_link, :class => 'overlay-link'
+        = image_tag(medium_image_or_default(item))
+        .feature-caption
+          %h4= link_to sanitize_title(item.item_title), item.item_link

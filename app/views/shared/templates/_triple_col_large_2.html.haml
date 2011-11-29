@@ -6,24 +6,27 @@
   .feature-panel
     / One Large Story 
     - if item1
-      .feature-item-large.first   
+      .feature-item-large.first
+        = link_to sanitize_title(item1.item_title), item1.item_link, :class => 'overlay-link'
         = image_tag(medium_image_or_default(item1))
         .feature-caption
-          %h2= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
+          %h2= link_to sanitize_title(item1.item_title), item1.item_link
           %p= item1.item_description
 
       / Two Small Stories 
       .feature-item-wrap-small
         - if item2
           .feature-item-small.top
+            = link_to sanitize_title(item2.item_title), item2.item_link, :class => 'overlay-link'
             = image_tag(thumb_image_or_default(item2))
             .feature-caption
-              %h3= link_to sanitize_title(item2.item_title), item2.item_link, :class => 'ellipsis_text'
+              %h3= link_to sanitize_title(item2.item_title), item2.item_link
         - if item3
           .feature-item-small
+            = link_to sanitize_title(item3.item_title), item3.item_link, :class => 'overlay-link'
             = image_tag(thumb_image_or_default(item3))
             .feature-caption
-              %h3= link_to sanitize_title(item3.item_title), item3.item_link, :class => 'ellipsis_text'
+              %h3= link_to sanitize_title(item3.item_title), item3.item_link
 
     / list of stories 
     .feature-item-medium.last

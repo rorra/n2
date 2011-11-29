@@ -208,9 +208,9 @@ hr { border: none 0;
 
 .clearfix {display:inline-block;}
 
-.float_left {float: left;}
+.float-left {float: left;}
 
-.float_right {float: right;}
+.float-right {float: right;}
 
 
 /*********************************

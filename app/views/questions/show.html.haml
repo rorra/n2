@@ -20,8 +20,9 @@
         = render_media_items @question
       - if @question.moderatable?
         .mod-panel.panel-2
-          .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
-          .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @question }
+          .subtitle.clearfix
+            .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
+            .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @question }
 
       = render_ad(:banner, @ad_layout, @ad_banner)
   - if @question.answers.active.present?
@@ -48,7 +49,7 @@
           - form.inputs do
             = form.input :answer, :label => false
           - form.buttons do
-            = form.commit_button :class => 'float_right', :button_html => { :class => "btn" }
+            = form.commit_button :class => 'float-right', :button_html => { :class => "btn" }
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
   - if @question.moderatable?

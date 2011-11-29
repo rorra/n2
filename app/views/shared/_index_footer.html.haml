@@ -1,5 +1,7 @@
 .panel-2#link-to-item
   .share_and_hide
-    %h4
-      =t('link_here')
-    %input{:type => "text", :value => "#{index_path}",:onclick =>"this.focus();this.select();" }
+    .panel-bar
+      %h2
+        =t('link_here')
+    .item-block
+      %input.text-field{:type => "text", :value => "#{index_path}",:onclick =>"this.focus();this.select();" }

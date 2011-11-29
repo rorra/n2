@@ -16,7 +16,7 @@
             = form.input :tags_string, :label => t('tags'), :required => false, :hint => t('tags_hint')
             = render :partial => 'shared/forms/wall_postable', :locals => { :form => form }
           - form.buttons do
-            = form.commit_button  :class => 'float_right', :button_html => { :class => "btn" }
+            = form.commit_button  :class => 'float-right', :button_html => { :class => "btn" }
 
 #right-col
   = render :partial => 'shared/sidebar/newest_questions'

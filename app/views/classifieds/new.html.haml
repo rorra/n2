@@ -77,7 +77,7 @@
                     = form.input :details, :hint => t('.hint_classified_details')
                     = form.input :location_text, :label => 'Location', :hint => t('.hint_classified_location'), :required => false
                 - form.buttons do
-                  = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
+                  = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'form-btn next' }
               .panel2
                 %h1.title= t('classifieds.new.item_setting')
                 %fieldset
@@ -107,9 +107,9 @@
                     .items
                   %a.next.browse.right_scroll
                 - form.buttons do
-                  = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
-                  = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
-                  = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
+                  = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'form-btn next' }
+                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'form-btn' }
+                  = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'form-btn prev' }
               .panel3
                 = render :partial => 'shared/forms/images_simple', :locals => { :form => form, :item => @classified }
                 #scrollbox
@@ -118,11 +118,11 @@
                     .items
                   %a.next.browse.right_scroll
                 - form.buttons do
-                  = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
-                  = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
-                  = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
+                  = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'form-btn next' }
+                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'form-btn' }
+                  = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'form-btn prev' }
               .panel4
                 = render :partial => 'shared/forms/media_items_simple', :locals => { :form => form, :item => @classified }
                 - form.buttons do
-                  = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
-                  = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
+                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'form-btn' }
+                  = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'form-btn prev' }

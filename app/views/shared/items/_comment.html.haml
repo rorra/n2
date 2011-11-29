@@ -9,4 +9,4 @@
       %h3= generic_posted_by comment
       %span= votes_link(comment, comment.votes_tally)
       - if comment.moderatable?
-        = render :partial => 'shared/flag_form', :class => "btnComment, float_left", :locals => { :flaggable => comment }
+        = render :partial => 'shared/flag_form', :class => "btnComment, float-left", :locals => { :flaggable => comment }

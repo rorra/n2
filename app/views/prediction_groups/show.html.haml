@@ -11,8 +11,9 @@
           = image_tag @prediction_group.images.first.url(:medium)
       - if @prediction_group.moderatable?
         .mod-panel
-          .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @prediction_group }
-          .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @prediction_group }
+          .subtitle.clearfix
+            .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @prediction_group }
+            .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @prediction_group }
       %h1= @prediction_group.title
       %h3= generic_posted_by @prediction_group
       - if @tags.present?
@@ -23,9 +24,9 @@
         %p= sanitize @prediction_group.description
       %p
         - unless @next_prediction_group.nil?
-          = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float_right"
+          = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float-right"
         - unless @previous_prediction_group.nil?
-          = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float_right", :class => "btn"
+          = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float-right", :class => "btn"
   = render_ad(:banner, @ad_layout, @ad_banner)
   -# expects prediction_group,
   - if not current_user.present?
@@ -40,9 +41,9 @@
       %p =t('predictions.empty_group')
   %p
     - unless @next_prediction_group.nil?
-      = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float_right"
+      = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float-right"
     - unless @previous_prediction_group.nil?
-      = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float_right", :class => "btn"
+      = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float-right", :class => "btn"
   %br
   %br
   = render :partial => 'shared/comments', :locals => { :comments => @prediction_group.comments }

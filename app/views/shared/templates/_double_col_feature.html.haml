@@ -13,6 +13,7 @@
     - if item
       .feature-item-wrap-small.last
         .feature-item-small.top
+          .link-overlay= link_to sanitize_title(item.item_title), item.item_link
           = image_tag(medium_image_or_default(item))
           .feature-caption
             %h2= link_to sanitize_title(item.item_title), item.item_link

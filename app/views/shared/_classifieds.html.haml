@@ -2,44 +2,48 @@
 - paginate ||= false
 - classifieds ||= Classified.active.available.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
 .panel-2
-  .panel-bar
+  -#.panel-bar
     -#.refine-search-wrap
-      %a.classifieds-refine{:href => '#'} Refine
+      -#%a.classifieds-refine{:href => '#'} Refine
     -# if classifieds.present? and classifieds.first.refineable?
-      .refine-search-wrap
-        = render :partial => 'shared/forms/refine_dropdown'
-    %h2= t('classifieds.browse.title')
+      -#.refine-search-wrap
+        -#= render :partial => 'shared/forms/refine_dropdown'
+
   .subtitle
     %span= t('classifieds.browse.subtitle')
   .item-list-wrap
     .item-list
-      %ul.classifieds
+      %ul
         - classifieds.each do |classified|
-          %li.complexBlock{'data-id' => classified.cache_key}
-            .complexDetailsBlock
-              .thumb
-                = link_to image_tag(thumb_image_or_default(classified)), classified
-              .item-block
-                %h2= link_to classified.title, classified_path(classified)
-                %p= linked_item_details classified              
-                .profile-pic= local_linked_profile_pic classified.user
+          %li{'data-id' => classified.cache_key}
+            .classified
+              .item-description
+                .thumb
+                  = image_tag(thumb_image_or_default(classified))
+                .item-content
+                  %h2= link_to classified.title, classified_path(classified)
+                  %p= linked_item_details classified              
+             
                 .item-meta-data
-                  %h3= classifieds_posted_by classified
-                  %span== #{like_link classified} #{classified.votes_count}
-                  %span== #{link_to t('comments'), classified_path(classified, :anchor => "commentListTop")} #{classified.comments_count}
-            .complexMiniBlock
-              %ul
-                %li 
-                  %b== #{classified_listing_type(classified)}
-                %li
-                  == #{t('classifieds.status', :state => classified.state)}
-                - if classified.location_text.present?
-                  %li== Location: #{classified.location_text}
-  - if paginate
-    .clearfix
-      = will_paginate classifieds
-      %br
-  - else
-    .clearfix
-    %p= link_to t('read_more'), classifieds_path, :class => "float_right"
-    %br
+                  .profile-pic= local_linked_profile_pic classified.user
+                  %h6= classifieds_posted_by classified
+                  .meta-data-actions
+                    %span== #{like_link classified} #{classified.votes_count}
+                    %span.pipe
+                      |
+                    %span== #{link_to t('comments'), classified_path(classified, :anchor => "commentListTop")} #{classified.comments_count}
+              .item-details
+                %h5== #{classified_listing_type(classified)}
+                %p
+                  %span.detail
+                    == #{t('classifieds.status', :state => classified.state)}
+                  - if classified.location_text.present?
+                    %span.detail
+                      == Location: #{classified.location_text}
+- if paginate
+  .panel-2
+    = will_paginate classifieds
+- else
+  .panel-2
+    .subtitle
+      = link_to t('read_more'), classifieds_path, :class => "float-right"

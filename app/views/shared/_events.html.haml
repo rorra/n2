@@ -16,7 +16,7 @@
               // event item wrapper
               .event
                 // event description
-                .event-description
+                .item-description
                   .thumb
                     - if event.images.present?
                       = image_tag event.images.first.url(:thumb)
@@ -35,8 +35,8 @@
                       %span.pipe
                         |
                       %span== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
-                // event-details
-                .event-details
+                // item-details
+                .item-details
                   %h5
                     == #{event.location}
                   %p

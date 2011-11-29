@@ -105,9 +105,9 @@ module ViewObjectsHelper
       ].join(' ').html_safe)
   end
 
-  def post_something klass_name, css_class = "float-right"
+  def post_something klass_name, css_class = "nill"
     klass = klass_name.constantize
-    link_to(I18n.translate("generic.post.#{klass_name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => "button-panel-bar #{css_class}")
+    link_to(I18n.translate("generic.post.#{klass_name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => "#{css_class}")
   end
 
   def publish_newswire item

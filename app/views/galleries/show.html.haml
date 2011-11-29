@@ -16,8 +16,9 @@
       .item-block
         - if @gallery.moderatable?
           .mod-panel
-            .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @gallery }
-            .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @gallery }
+            .subtitle.clearfix
+              .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @gallery }
+              .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @gallery }
 
         %h1= @gallery.title
         %h3 

@@ -13,6 +13,7 @@
             - most_discussed_stories.each do |story|
               %li
                 .story
+                  .profile-pic= local_linked_profile_pic story.user
                   %h5
                     %span.ellipsis_title_2= link_to sanitize_title(story.title), story_path(story)
                   .item-meta-data

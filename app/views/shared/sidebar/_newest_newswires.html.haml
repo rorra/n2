@@ -4,7 +4,7 @@
   - newest_newswires ||= Newswire.active.unpublished.newest 15
   - unless newest_newswires.empty?
     %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panel-bar.clearfix
+      .panel-bar
         %h2= t('newest_newswires_title')
       - box_list = [0, 5, 10]
       .item-list.clearfix

@@ -7,9 +7,10 @@
 - item_type ||= "topic" 
 %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => hide_titlebar, :title => list_title}
-  .item-list
-    %ul
-      - item_list.each_with_index do |item, index|
-        - unless index > count
-          %li
-            = render :partial => 'shared/items/micro_topic', :locals => { :item => item, :external_widget => external_widget, :canvas_preference => canvas_preference, :item_type => item_type }
+  .item-list-wrap
+    .item-list
+      %ul
+        - item_list.each_with_index do |item, index|
+          - unless index > count
+            %li
+              = render :partial => 'shared/items/micro_topic', :locals => { :item => item, :external_widget => external_widget, :canvas_preference => canvas_preference, :item_type => item_type }
