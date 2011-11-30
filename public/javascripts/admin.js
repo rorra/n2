@@ -40,12 +40,13 @@ $(function() {
    */
 
   setTimeout(function() {
-    $('ol.menu-items').nestedSortable({
+    $('ul.menu-items').nestedSortable({
       disableNesting: 'no-nest',
       forcePlaceholderSize: true,
       handle: 'div.menu-item',
       helper:	'clone',
       items: 'li',
+      listType: 'ul',
       maxLevels: 2,
       opacity: .6,
       placeholder: 'placeholder',
