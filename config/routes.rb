@@ -168,6 +168,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :activity_scores
     admin.resources :ad_layouts
     admin.resources :ads
+    admin.resources :menu_items, :collection => { :save => :post }
     admin.resources :announcements
     admin.resources :answers    
     admin.resources :cards
