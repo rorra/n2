@@ -11,8 +11,9 @@
     .panel-bar
       %h2= title
     .subtitle
-      %span= subtitle
-    .item-list
-      %ul
-        - collection.each do |item|
-          %li= raw render_generic_small_item(item)
+      = subtitle
+    .item-list-wrap
+      .item-list
+        %ul
+          - collection.each do |item|
+            %li= raw render_generic_small_item(item)

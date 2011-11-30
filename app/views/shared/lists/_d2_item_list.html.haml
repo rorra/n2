@@ -17,7 +17,8 @@
           %a{ :href => new_story_path }
             = button_title
 
-    .panel-content
-      %ul.item-list
-        - collection.each do |item|
-          %li= d2_render_generic_item item
+    .item-list-wrap
+      .item-list
+        %ul
+          - collection.each do |item|
+            %li= d2_render_generic_item item

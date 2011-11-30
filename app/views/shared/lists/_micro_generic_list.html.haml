@@ -5,15 +5,15 @@
 - hide_titlebar =  (not @hide_titlebar.nil? and @hide_titlebar ) || false
 %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => hide_titlebar, :title => list_title}
-  .item-list
-    %ul
-      - unless item_list.empty?
-        - item_list.each_with_index do |item, index|
-          - unless index > count
-            %li
-              = render :partial => 'shared/items/micro_generic', :locals => { :item => item, :external_widget => external_widget, :canvas_preference => canvas_preference }
-      - else
-        %li
-          .item-block
-            %p= t('empty.default')
+  - unless item_list.empty?
+    .item-list-wrap
+      .item-list
+        %ul
+          - item_list.each_with_index do |item, index|
+            - unless index > count
+              %li
+                = render :partial => 'shared/items/micro_generic', :locals => { :item => item, :external_widget => external_widget, :canvas_preference => canvas_preference }
+  - else
+    .subtitle
+      = t('empty.default')
         

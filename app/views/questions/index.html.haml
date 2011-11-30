@@ -6,7 +6,7 @@
   .panel-2
     .panel-bar
       %h2 Ask a question
-    .formBox
+    .form-wrap.clearfix
       - unless current_user.present?
         %p== #{t 'questions.logged_in_error'} #{link_to 'Login now', login_path}
       - else
@@ -58,9 +58,8 @@
                           -#%span= fb_share_item_button question
 
       - if @paginate
-        .clearfix
+        .panel-2
           = will_paginate questions
-          %br
 
 #right-col
   = render :partial => 'shared/sidebar/questions_whatisthis'

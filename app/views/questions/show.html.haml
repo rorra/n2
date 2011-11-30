@@ -5,55 +5,56 @@
 #left-col
   #item-details.panel-2
     - cache "#{@question.cache_key}_top_html" do
-      = add_this @question
+      .subtitle.add-this-wrap
+        = add_this @question
       .item-block
         - if @question.images.present?
           .thumb= image_tag @question.images.first.url(:medium)
         %h1.askQuestionHead= @question.question
-
-        %h3= asked_by @question
-        - if @tags.present?
-          .tag-wrap
-            %h3== Tags: #{tag_list(@tags, @question)}
-        = sanitize @question.details
+        %div.item-details-content= sanitize @question.details
+        .item-meta-data
+          %h6= asked_by @question
+          - if @tags.present?
+            .tag-wrap
+              %h6== Tags: #{tag_list(@tags, @question)}
       - if @question.media_item?
         = render_media_items @question
       - if @question.moderatable?
         .mod-panel.panel-2
           .subtitle.clearfix
-            .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
-            .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @question }
+            .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
+            .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @question }
 
       = render_ad(:banner, @ad_layout, @ad_banner)
   - if @question.answers.active.present?
     - cache "#{@question.cache_key}_bottom_html" do
-      #answersList.panel-2
+      .panel-2
         .panel-bar
           %h2== Showing #{pluralize @question.answers.active.size, 'Answer'}
-        .item-list-wrap
-          .item-list
-            %ul
-              - @question.answers.active.each do |answer|
-                = render :partial => 'shared/answer', :locals => { :answer => answer }
-  #answerForm.panel-2
+        .answer-thread-wrap
+          %ul
+            - @question.answers.active.each do |answer|
+              = render :partial => 'shared/answer', :locals => { :answer => answer }
+  .panel-2
     .panel-bar
       - if @question.answers.present?
         %h2= t('add_your_own_answer')
       - else
         %h2= t('be_first_to_answer')          
-    .formBox
       - unless current_user.present?
-        %p== #{t 'questions.logged_in_error'} #{link_to 'Login now', login_path}
+        .subtitle
+          == #{t 'questions.logged_in_error'} #{link_to 'Login now', login_path}
       - else
-        - semantic_form_for @answer, :url => create_answer_question_path(@question) do |form|
-          - form.inputs do
-            = form.input :answer, :label => false
-          - form.buttons do
-            = form.commit_button :class => 'float-right', :button_html => { :class => "btn" }
+
+    .form-wrap
+      - semantic_form_for @answer, :url => create_answer_question_path(@question) do |form|
+        - form.inputs do
+          = form.input :answer, :label => false
+        - form.buttons do
+          = form.commit_button :class => 'float-right', :button_html => { :class => "btn" }
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
-  - if @question.moderatable?
-    = render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
+
   = render :partial => 'shared/item_footer', :locals => { :item => @question,:title => @question.question }
 
 #right-col

@@ -8,8 +8,8 @@
   - @paginate ||= false
   .panel-2
     .panel-bar
-        .refine-search-wrap
-          = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => Question.refineable_select_options }
+      .refine-search-wrap
+        = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => Question.refineable_select_options }
       %h2= t('questions.my_list_title')
       - if @questions.present? and @questions.first.refineable?
     .subtitle
@@ -37,9 +37,8 @@
                       -#%span= fb_share_item_button question
 
       - if @paginate
-        .clearfix
+        .panel-2
           = will_paginate @questions
-          %br
 
 #right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)

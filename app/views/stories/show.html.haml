@@ -42,16 +42,17 @@
         - else
           %p= sanitize caption(@story.caption, 500)
         - if @story.url.present?
-          .float-left= link_to t('.read_story'), @story.url, :target => "_cts", :class => "btn"
-        .fb-like{"data-href" => story_path(@story, :only_path => false), "data-send" => "true", "data-width" => "450", "data-show-faces" => "false"}
+          .item-block.clearfix
+            .float-left= link_to t('.read_story'), @story.url, :target => "_cts", :class => "button-link"
+            .float-right.fb-like{"data-href" => story_path(@story, :only_path => false), "data-send" => "true", "data-width" => "450", "data-show-faces" => "false"}
       - if @story.media_item?
         = render_media_items @story, :size => 'large'
 
     - if @story.moderatable?
       .mod-panel.panel-2
         .subtitle.clearfix
-          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
-          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
+          .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
 
     = render_ad(:banner, @ad_layout, @ad_banner)
     = render :partial => 'shared/comments', :locals => { :comments => @story.comments }

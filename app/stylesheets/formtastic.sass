@@ -1,20 +1,19 @@
-/**********************************************************************************************/
-/* GENERAL FORM STYLES*/
+// General Form Styles
 form.formtastic
-  background-color: #f1f1f1
-  padding: 10px
-  
+  padding: $gutter / 2
+  padding-bottom: 0
+  // general errors
   ul.errors
-    color: #cc0000
+    color: #CC0000
     margin: 0.5em 0 0 25%
     list-style: square
-
     li
-      padding: 0
       border: none
-      display: list-item
-
+      display: block
+  // general form fields
   fieldset
+    display: block
+    // legend
     legend
       font-size: 11px
       color: #333
@@ -22,32 +21,49 @@ form.formtastic
     p
       .strong
         font-weight: bold
-                
+    // fieldset.buttons
+    &.buttons
+      display: inline-block
+      width: 100%
+      margin-bottom: $gutter / 2
+      .commit
+        float: right
+      input
+        width: auto
+        text-align: right
+    // fieldset.inputs
     &.inputs
       li
         display: block
-        margin: 0 auto 10px
+        float: left
+        margin-bottom: $gutter / 2
+        width: 100%
         &.date-picker
           width: 50%
         &.error
           label
-            color: #cc0000
+            color: #CC0000
 
         label
           display: block
           margin: 6px
           font-size: 12px
           font-weight: bold
-
+        input, textarea
+          padding: 0
+          width: 100%
+          margin-left: -1px
+          line-height: 150%
         input
-          width: 80%
+          border: 1px inset #CCC
+          height: 24px
           &.browse-media-item
             border: none
 
         textarea
-          width: 100%
+          border: 1px inset #CCC
           resize: vertical
-          min-height: 170px
+          min-height: 60px
           max-height: 300px
 
         p

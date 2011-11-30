@@ -8,11 +8,11 @@
     .panel-bar
       %h2= t(locale_var)
     - unless klass.send("#{category_type}_counts").count == 0
-      .item-list-wrap
+      .top-categories
         %ul
           - klass.send("#{category_type}_counts").each do |categorization|
             %li
-              %h5== (#{categorization.count})  #{link_to categorization.category.name, url_for(send("categorized_#{klass_name.underscore.pluralize}_path", CGI.escape(categorization.category.name))) }
+              == (#{categorization.count})  #{link_to categorization.category.name, url_for(send("categorized_#{klass_name.underscore.pluralize}_path", CGI.escape(categorization.category.name))) }
     - else
       .subtitle
         = t('categories.no_items')

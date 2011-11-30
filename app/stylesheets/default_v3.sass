@@ -296,6 +296,7 @@ p
   border-bottom: 1px solid $secondary-border-color
   padding: 4px 0 0 0
   position: relative
+  bottom: -1px
   > h2
     color: $tertiary-header-color
     font-size: 12px
@@ -341,15 +342,17 @@ p
     line-height: 170%
 
 
+// Form Wrapper
+.form-wrap
+  background: $tertiary-bg-color
+  margin-bottom: $gutter
+
 // Subtitle
 .subtitle
   border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
   background-color: $tertiary-bg-color
   color: $tertiary-body-color
   padding: 8px 
-.panel-1, .panel-2, .panel-3
-  .subtitle
-    margin-top: -1px
 
 // Item List
 .item-list-wrap
@@ -485,6 +488,19 @@ p
 
 // Two Column Widgets
 .panel-2
+  // listing filter
+  .list-filter
+    padding-bottom: 0
+    li
+      float: left
+      margin-bottom: $gutter / 2
+      margin-right: $gutter / 2
+      &.keywords
+        width: 100%
+        margin-right: 0
+        input
+          height: 18px
+          width: 75%
   // two column item list 
   .item-list-wrap
     .item-list
@@ -581,7 +597,7 @@ p
 
   // Item List widgets
   .item-list
-    .story
+    .story, .generic-item
       padding-left: 50px
       .profile-pic
         float: left
@@ -609,7 +625,8 @@ p
       float: left
       margin-right: 10px
       margin-bottom: 10px
-
+  // classified items list
+  
 
 // Info Widget (Welcome Panel, What is this? panel, etc...)
 .info-widget
@@ -720,7 +737,7 @@ p
     z-index: 1
 
 // Tags
-.top-tags
+.top-tags, .top-categories
   padding-top: 10px
   > ul
     > li
@@ -751,6 +768,7 @@ p
   // Add This wrapper
   .add-this-wrap
     margin-bottom: $gutter
+    padding: 5px
   // media curtain
   .media-wrap
     position: relative
@@ -779,8 +797,8 @@ p
   width: 0
 
 
-// Comment Thread
-.comment-thread-wrap
+// Comment/Answer Threads
+.comment-thread-wrap, .answer-thread-wrap
   padding: $gutter / 2 $gutter 0 $gutter
   margin-bottom: $gutter
   .comment-block
@@ -819,16 +837,8 @@ p
         float: right
 
 // Post Comment
-.post-comment
-  .form-wrap
-    margin-bottom: $gutter
-    fieldset
-      padding: 0 4px
-    textarea
-      margin: 0
-      margin-left: -3px
-      border: 1px solid #ccc
-      width: 100%
+
+        
 
 // Permalink
 #link-to-item

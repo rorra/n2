@@ -1,12 +1,11 @@
 -# @expects: local 'comment' %>
 
-.comment.large
-  %blockquote
-    .quotes= nl2br linkify(comment.comments)
-  .profile-pic= local_linked_profile_pic comment.user
-  .item-block
-    .item-meta-data
-      %h3= generic_posted_by comment
-      %span= votes_link(comment, comment.votes_tally)
-      - if comment.moderatable?
-        = render :partial => 'shared/flag_form', :class => "btnComment, float-left", :locals => { :flaggable => comment }
+%blockquote
+  .quotes= nl2br linkify(comment.comments)
+.profile-pic= local_linked_profile_pic comment.user
+.item-block
+  .item-meta-data
+    %h3= generic_posted_by comment
+    %span= votes_link(comment, comment.votes_tally)
+    - if comment.moderatable?
+      = render :partial => 'shared/flag_form', :class => "btnComment, float-left", :locals => { :flaggable => comment }
