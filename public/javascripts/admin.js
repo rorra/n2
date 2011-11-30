@@ -66,13 +66,14 @@ $(function() {
       $(this).removeClass('ui-state-active');
     }).click(function(event) {
       event.preventDefault();
-      var items = $('ol.menu-items > li').map(function(idx, item) {
+      $('h3#menu-status').html("Saving...")
+      var items = $('ul.menu-items > li').map(function(idx, item) {
         var tag = $('> .menu-item input', item);
         return {
           id : $('> .menu-item', item).attr('data-id'),
           enabled : $(tag).is(':checked') ? "1" : "0",
           name_slug : $(tag).attr('id'),
-          children : $('> .menu-item > ol > li', item).map(function(idx, subitem) {
+          children : $('> .menu-item > ul > li', item).map(function(idx, subitem) {
             var subtag = $('> .menu-item input', subitem);
             return {
               id : $('> .menu-item', subitem).attr('data-id'),
@@ -85,6 +86,7 @@ $(function() {
       }).get();
       $.post("/admin/menu_items/save.json", {items: items}, function(data) {
         if (typeof(data.success) !== 'undefined') {
+          $('#menu-status').fadeOut();
           alert(data.success);
         } else {
           alert('There was a problem saving your page');

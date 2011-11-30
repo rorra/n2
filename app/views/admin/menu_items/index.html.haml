@@ -4,6 +4,9 @@
   #admin-actions
     %a#menu-save-button.admin-btn.float_right{:type => "button"} Save Menu Layout
 
+    .status.clear
+      %h3.float_right#menu-status
+
   %ul.menu-items
     - MenuItem.root_items.positioned.each do |menu_item|
       %li
