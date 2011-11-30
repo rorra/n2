@@ -35,6 +35,10 @@ $(function() {
 });
 
 (function($) {
+  /*
+   * Admin menu_items functionality
+   */
+
   setTimeout(function() {
     $('ol.menu-items').nestedSortable({
       disableNesting: 'no-nest',
@@ -50,17 +54,45 @@ $(function() {
       tolerance: 'pointer',
       toleranceElement: '> div'
     });
-		$('#toArray').click(function(e){
-                  console.log("Dumping data");
-			arraied = $('ol.menu-items').nestedSortable('toArray', {startDepthCount: 0});
-                  console.log(arraied);
-			//arraied = dump(arraied);
-			//(typeof($('#toArrayOutput')[0].textContent) != 'undefined') ?
-			//$('#toArrayOutput')[0].textContent = arraied : $('#toArrayOutput')[0].innerText = arraied;
-		});
+
+  $('#menu-save-button')
+    .hover(
+      function() { $(this).addClass('ui-state-hover'); },
+      function() { $(this).removeClass('ui-state-hover'); }
+    ).mousedown(function() {
+      $(this).addClass('ui-state-active');
+    }).mouseup(function() {
+      $(this).removeClass('ui-state-active');
+    }).click(function(event) {
+      event.preventDefault();
+      var items = $('ol.menu-items > li').map(function(idx, item) {
+        var tag = $('> .menu-item input', item);
+        return {
+          id : $('> .menu-item', item).attr('data-id'),
+          enabled : $(tag).is(':checked') ? "1" : "0",
+          name_slug : $(tag).attr('id'),
+          children : $('> .menu-item > ol > li', item).map(function(idx, subitem) {
+            var subtag = $('> .menu-item input', subitem);
+            return {
+              id : $('> .menu-item', subitem).attr('data-id'),
+              enabled : $(subtag).is(':checked') ? "1" : "0",
+              name_slug : $(subtag).attr('id'),
+              parent_id : $(item).attr('id')
+            };
+          }).get()
+        };
+      }).get();
+      $.post("/admin/menu_items/save.json", {items: items}, function(data) {
+        if (typeof(data.success) !== 'undefined') {
+          alert(data.success);
+        } else {
+          alert('There was a problem saving your page');
+        }
+      }, "json");
+    });
+
   }, 1000);
   
-
 
 })(jQuery);
 
