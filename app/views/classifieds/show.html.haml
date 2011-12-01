@@ -13,12 +13,11 @@
 #left-col
   - cache "#{@classified.cache_key}_top_html" do
     #item-details.panel-2
-      = add_this @classified
+      .add-this-wrap
+        = add_this @classified
       .item-block
-
         - if @classified.images.present?
           .thumb= image_tag @classified.images.first.url(:medium)
-
         %h1= @classified.title
         %h3
           = classifieds_posted_by @classified
@@ -35,25 +34,34 @@
             %h3== #{t('classifieds.status', :state => @classified.state)}
             - if @classified.location_text.present?
               %h3== Location: #{@classified.location_text}
-        .float-left.classified_button_margin= link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "btn")
-        -# change to amazon_asin
-        - if @classified.amazon_item.present?
-          .float-left.classified_button_margin= link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon", :class => "btn"
-      - if @classified.media_item?
-        = render_media_items @classified, :size => 'large'
 
-    %span.moderator-links.hidden{:class => "user-#{@classified.user.id}"}
-      = pipe_spacer
-      = link_to t('classifieds.edit'), edit_classified_path(@classified)
+    .panel-2
+      .details-action-wrap.clearfix
+        .float-right
+          = link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "button-link")
+          -# change to amazon_asin
+          - if @classified.amazon_item.present?
+            = link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon", :class => "button-link"
+
+    - if @classified.media_item?
+      = render_media_items @classified, :size => 'large'
+
+
     - if @classified.moderatable?
-      .mod-panel.panel-2
-        .subtitle.clearfix
-          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
-          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
+      .panel-2
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
+          .float-right
+            = render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
+            %span{:class => "user-#{@classified.user.id}"}
+              = pipe_spacer
+              = link_to t('classifieds.edit'), edit_classified_path(@classified)
 
     = render_ad(:banner, @ad_layout, @ad_banner)
-  = render :partial => 'shared/comments', :locals => { :comments => @classified.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @classified }
+  .panel-2.comment-section
+    = render :partial => 'shared/comments', :locals => { :comments => @classified.comments }
+  .panel-2.comment-form
+    = render :partial => 'shared/comment_form', :locals => { :commentable => @classified }
 
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'

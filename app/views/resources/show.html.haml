@@ -4,37 +4,50 @@
 
 #left-col
   - cache "#{@resource.cache_key}_html" do
-    #item-details.panel-2
-      = add_this @resource
+    .panel-2#item-details
+      .add-this-wrap
+        = add_this @resource
       .item-block
         - if @resource.images.present?
           .thumb
             = image_tag @resource.images.first.url(:medium)
         %h1= @resource.title
-        %h3
-          = generic_posted_by @resource
-          - if @resource.resource_section.present?
-            = t('in')
-            = link_to(@resource.resource_section.name, @resource.resource_section)
-        - if @tags.present?
-          .tag-wrap
-            == Tags: #{tag_list(@tags, @resource)}
+        .item-meta-data
+          %h6
+            = generic_posted_by @resource
+            - if @resource.resource_section.present?
+              = t('in')
+              = link_to(@resource.resource_section.name, @resource.resource_section)
+          - if @tags.present?
+            .tag-wrap
+              %h6== Tags: #{tag_list(@tags, @resource)}
         - unless @resource.details.empty?
-          = sanitize @resource.details
-      - if @resource.url.present?
-        %div.float-left= link_to t('.visit_url'), @resource.url, :target => "_resource", :class => "btn"
+          .item-details-content= sanitize @resource.details
+
+    - if @resource.url.present?
+      .panel-2
+        .details-action-wrap.clearfix
+          .float-right= link_to t('.visit_url'), @resource.url, :target => "_resource", :class => "button-link"
+
     - if @resource.media_item?
       = render_media_items @resource
     - if @resource.moderatable?
-      .mod-panel.panel-2
-        .subtitle.clearfix
-          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @resource }
-          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @resource }
+      .panel-2
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @resource }
+          .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @resource }
+
     = render_ad(:banner, @ad_layout, @ad_banner)
-    = render :partial => 'shared/comments', :locals => { :comments => @resource.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @resource }
+
+    .panel-2.comment-section
+      = render :partial => 'shared/comments', :locals => { :comments => @resource.comments }
+
+    .panel-2.comment-form
+      = render :partial => 'shared/comment_form', :locals => { :commentable => @resource }
+
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
+
   = render :partial => 'shared/item_footer', :locals => { :item => @resource, :title => @resource.title }
 
 #right-col

@@ -381,25 +381,50 @@ p
 .feature-panel
   float: left
   margin-bottom: $gutter
+  &.xlarge
+    > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
+      // $feature-item-large-height
+      min-height: 285px 
+      .item-list-wrap
+        // $feature-item-large-height
+        min-height: 285px - (16px + $gutter)
+  &.large
+    > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
+      // $feature-item-large-height
+      min-height: 285px 
+      .item-list-wrap
+        // $feature-item-large-height
+        min-height: 285px - (16px + $gutter)
+  &.medium
+    > .feature-item-small, .feature-item-medium
+      // $feature-item-medium-height
+      min-height: 225px 
+      .item-list-wrap
+        // $feature-item-medium-height
+        min-height: 225px - (16px + $gutter)
+
   .item-list-wrap
     .item-list
       ul
         padding-top: 0
+  .feature-item-xlarge, .feature-item-small
+    overflow: hidden
   .feature-item-xlarge
     +grid(6)
+    // $feature-item-large-height
+    height: 285px 
   .feature-item-large
     +grid(5)
   .feature-item-medium
     +grid(4)
-    min-height: 225px
-  .feature-item-wrap-small
-    float: left
+  .feature-item-wrap-small, .feature-item-small
     +grid(3)
     .feature-item-small
       +grid(3)
       +alpha()
-      height: 132px
-      overflow: hidden
+      +omega()
+      // $feature-item-small-height
+      height: 132px 
       &.top
         margin-bottom: $gutter + 1
   // Featured Panel Shared Styles
@@ -409,6 +434,8 @@ p
       background: $tertiary-bg-color
       border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
       border-bottom-width: 0
+      bottom: 0px
+      height: 20px
       h2
         padding: 0px $gutter / 4
         color: scale-color($tertiary-bg-color, $lightness: -60%)
@@ -418,6 +445,9 @@ p
       border-top-width: 0
       padding: $gutter / 2
       padding-bottom: 0
+      position: relative
+      top: 0px
+      left: 0px
 
     .overlay-link
       background: transparent image_url ("site/alpha.gif") top left repeat
@@ -485,6 +515,8 @@ p
   .panel-2
     margin-left: 0
     margin-right: 0
+    &.section-wrap
+      margin-bottom: $gutter
 
 // Two Column Widgets
 .panel-2
@@ -716,6 +748,7 @@ p
 // Moderator Styles
 .mod-panel
   margin-bottom: $gutter
+  padding: 5px
 .mod-flag-wrap
   position: relative
   z-index: 2
@@ -765,8 +798,10 @@ p
     margin-bottom: $gutter
     height: 225px
     width: 300px
-  // Add This wrapper
+  // spacing wrappers
   .add-this-wrap
+    border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
+    background-color: $tertiary-bg-color
     margin-bottom: $gutter
     padding: 5px
   // media curtain
@@ -782,7 +817,10 @@ p
     object
       width: 480px
       z-index: 1
-
+// details actions wrapper
+.details-action-wrap
+  margin-bottom: $gutter
+  padding: 5px
 
 // Shared Arrow Styling
 .arrow, .arrow-inner
@@ -798,9 +836,10 @@ p
 
 
 // Comment/Answer Threads
+.comment-section
+  margin-bottom: $gutter
 .comment-thread-wrap, .answer-thread-wrap
   padding: $gutter / 2 $gutter 0 $gutter
-  margin-bottom: $gutter
   .comment-block
     margin-bottom: 10px
     .comment-bubble

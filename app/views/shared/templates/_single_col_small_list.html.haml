@@ -10,7 +10,6 @@
       %ul
         - vo.dataset.each_with_index do |item, index|
           %li
-            %h5
-              %span.ellipsis_title_1= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+            %h5= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
             .item-meta-data
               %h6= action_links(item)

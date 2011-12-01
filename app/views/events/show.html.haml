@@ -4,8 +4,9 @@
 
 #left-col
   - cache "#{@event.cache_key}_html" do
-    #item-details.panel-2
-      = add_this @event
+    .panel-2#item-details
+      .add-this-wrap
+        = add_this @event
       .item-block
         .thumb
           - if @event.images.present?
@@ -13,49 +14,53 @@
           - if !@event.images.present? && @event.pic.present?
             = image_tag @event.pic
         %h1= @event.name
-        %h3
+        %h6
           = generic_posted_by @event
-        - if @tags.present?
-          .tag-wrap
-            %h3== Tags: #{tag_list(@tags,@event)}
-        .eventMetaBlock
-          .eventMeta.time
-            %h4
-              = t('.date_time') 
-            %h3 
-              == #{@event.start_time.to_s :short_with_time}
-              - if @event.end_time.present?
-                == - #{@event.end_time.to_s :short_time} 
-          .eventMeta.location
-            %h4
-              = t('.location') 
-            %h3
-              =h @event.location
-              %br
-              =h @event.street
-              %br
-              == #{h @event.city}, #{h @event.state}
+          - if @tags.present?
+            .tag-wrap
+              %h6== Tags: #{tag_list(@tags,@event)}
+      .item-meta-data
+        %h5
+          = t('.date_time')  
+        %p
+          == #{@event.start_time.to_s :short_with_time}
+          - if @event.end_time.present?
+            == - #{@event.end_time.to_s :short_time} 
+        %h5
+          = t('.location') 
+        %p
+          =h @event.location
+          =h @event.street
+          == #{h @event.city}, #{h @event.state}
           -# only show if both event urls are present
           - if @event.alt_url.present? and @event.url.present?
             .eventMeta.website
               %h4
                 = link_to t('.website'), @event.get_url
             = link_to(t('.view'), @event.get_view_button_url, :class=>"btn", :target=>"_new") if @event.url.present? or @event.alt_url.present?
-      %div.item-block= sanitize @event.description
+      .item-details-content= sanitize @event.description
+
     - if @event.media_item?
       = render_media_items @event
-    - if @event.moderatable?
-      .mod-panel.panel-2
-        .subtitle.clearfix
-          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
-          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
 
-    = render_ad(:banner, @ad_layout, @ad_banner)
+    - if @event.moderatable?
+      .panel-2
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
+          .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
+
+  = render_ad(:banner, @ad_layout, @ad_banner)
+   
+  .panel-2.comment-section
     = render :partial => 'shared/comments', :locals => { :comments => @event.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @event }
+  .panel-2.comment-form
+    = render :partial => 'shared/comment_form', :locals => { :commentable => @event }
+
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
+
   = render :partial => 'shared/item_footer', :locals => { :item => @event, :title =>@event.name }
+
 #right-col
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

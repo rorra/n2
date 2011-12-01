@@ -5,7 +5,7 @@
 #left-col
   #item-details.panel-2
     - cache "#{@question.cache_key}_top_html" do
-      .subtitle.add-this-wrap
+      .add-this-wrap
         = add_this @question
       .item-block
         - if @question.images.present?
@@ -20,8 +20,8 @@
       - if @question.media_item?
         = render_media_items @question
       - if @question.moderatable?
-        .mod-panel.panel-2
-          .subtitle.clearfix
+        .panel-2
+          .mod-panel.clearfix
             .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @question }
             .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @question }
 
