@@ -6,24 +6,24 @@
   .panel-bar
     %h2= list_title
   - unless scores.empty?
-  .item-list-wrap
-    .item-list
-      %ul
-        - scores.each do |score|
-          - user = score.user
-          - if item_type == 'activity'
-            - display_score = score.total_score
-          - elsif item_type == 'prediction'
-            - display_score = accuracy << "%"
-          %li
-            .item-block
-              .profile-pic= local_linked_profile_pic user
-              .float-left
-                %h4== #{local_linked_profile_name(user)}
-                -#TODO:: add something in here
-                -#%h3= "City and State"
-              .float-right
-                %h4.userPoints= score.total_score
+    .item-list-wrap
+      .item-list
+        %ul
+          - scores.each do |score|
+            - user = score.user
+            - if item_type == 'activity'
+              - display_score = score.total_score
+            - elsif item_type == 'prediction'
+              - display_score = accuracy << "%"
+            %li
+              .item-block
+                .profile-pic= local_linked_profile_pic user
+                .float-left
+                  %h4== #{local_linked_profile_name(user)}
+                  -#TODO:: add something in here
+                  -#%h3= "City and State"
+                .float-right
+                  %h4.userPoints= score.total_score
   - else
     .subtitle
       %span= list_empty
