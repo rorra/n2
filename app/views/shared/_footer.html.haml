@@ -2,17 +2,18 @@
   #footer.clearfix
     .foot-wrap
       // first footer col
-      .footer-panel.first
-        %p
-          = link_to t('post_story_button'), new_story_path, :class => ""
+      .footer-panel.one
+        -#.foot-item-wrap.first
+          -#= link_to t('post_story_button'), new_story_path, :class => "button-link"
+
         - app_id_setting = get_setting('app_id')
         - if app_id_setting.present?
           - if app_id_setting.value != '111111111111'
             %iframe{:src => "http://www.facebook.com/connect/connect.php?id=#{get_setting('app_id').value}&connections=0&stream=0", :frameborder => 0, :scrolling => "no", :class => "fb-fanapp", :allowtransparency => "true"}
           - else
-            .admin-actions-wrap
-              %p
-                = link_to t('footer.setup_app_id', :setup_app_id_path => edit_admin_metadata_setting_path(app_id_setting), :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-setup-your-facebook-application-id" ).html_safe
+            .foot-item-wrap.first
+              = link_to t('footer.setup_app_id', :setup_app_id_path => edit_admin_metadata_setting_path(app_id_setting), :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-setup-your-facebook-application-id" ).html_safe
+
         - account_setting = get_setting('account')
         - oauth_key_setting = get_setting('oauth_key')
         - if account_setting.present? && !oauth_key_setting.present?
@@ -27,32 +28,35 @@
             %span.twt_ft_wrap
               %a.twitter_link{:style=>"display:none;",:target => "_tweet", :title => t('.twitter_title'), :href => twitter_url(account_setting.value) }= t('.twitter')
           - else
-            .admin-actions-wrap
-              %p
-                = link_to t('footer.setup_twitter', :setup_twitter_path => admin_twitter_settings_path, :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere" ).html_safe            
+            .foot-item-wrap.last
+              = link_to t('footer.setup_twitter', :setup_twitter_path => admin_twitter_settings_path, :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere" ).html_safe            
       // second footer col
-      .footer-panel
-        = link_to t('footer.contact'), contact_us_path, :class => ""
-        -#= link_to t('account_menu.invite_friends'), invite_users_path(:format => 'html'), :class => "icon-link friends"
-        %a{:target => "_blank", :title => t('.rss_title'), :href => stories_path(:format => :atom)}= t('.rss')
-      // third footer col
-      .footer-panel.last
-        %ul
+      .footer-panel.two
+
+        %ul.footer-list
           - if current_user.present?
-            %li
+            %li.first
               = link_to t('footer.share_email'), edit_user_path(current_user, :format => 'html')
-          %li
-            = link_to t('.faq'), faq_path
           %li
             = link_to t('.terms'), terms_path
           %li
+            = link_to t('.developers'), "http://opensource.newscloud.com", :target => "_cts"
+
+        %ul.footer-list
+          %li.first
+            = link_to t('footer.contact'), contact_us_path, :class => ""
+          -#%li
+            = link_to t('account_menu.invite_friends'), invite_users_path(:format => 'html'), :class => ""
+          %li
             = link_to t('.about'), about_path
           %li
-            = link_to t('.developers'), "http://opensource.newscloud.com", :target => "_cts"
+            = link_to t('.faq'), faq_path
+          %li
+            %a{:target => "_blank", :title => t('.rss_title'), :href => stories_path(:format => :atom)}= t('.rss')
           - if current_user.present?
             %li
-              %span.admin-links
-                = link_to t('.admin'), admin_path 
+              = link_to t('.admin'), admin_path 
+
   :javascript
     if(top !== self) {
       $("#twitter-link").attr("href", $("#twitter-link").attr("burl"));

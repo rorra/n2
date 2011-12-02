@@ -1,10 +1,11 @@
 .panel-1
   -#change the class where "active" is to switch out the icon in the background.
-  %div.panel-bar{:class => vo.setting.css_class}
+  .panel-bar{:class => vo.setting.css_class}
     - if vo.setting and vo.setting.locale_title
       %h2= vt.t(vo.setting.locale_title)
-      - if vo.setting.use_post_button
-        = post_something vo.setting.klass_name
+      .panel-bar-actions
+        - if vo.setting.use_post_button
+          = post_something vo.setting.klass_name
   .item-list-wrap
     .item-list
       %ul

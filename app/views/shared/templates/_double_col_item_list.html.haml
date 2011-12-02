@@ -3,15 +3,10 @@
 - remaining_items = items.slice(1,items.size)
 
 .panel-2
-  .panel-bar
-    - if vo.setting and vo.setting.locale_title
-      %h2= vt.t(vo.setting.locale_title)
-      - if vo.setting.use_post_button
-        .panel-bar-actions
-          = post_something vo.setting.klass_name, "center"
-  .feature-panel
+  .feature-panel.medium
     - if item1
       .feature-item-medium.first
+        = link_to sanitize_title(item1.item_title), item1.item_link, :class => 'overlay-link'
         = link_to image_tag(medium_image_or_default(item1)), item1.item_link
         .feature-caption
           %h3= link_to sanitize_title(item1.item_title), item1.item_link
@@ -19,12 +14,15 @@
 
 
     .feature-item-medium.last
+      .panel-bar
+        - if vo.setting and vo.setting.locale_title
+          %h2= vt.t(vo.setting.locale_title)
       .item-list-wrap
         .item-list
           %ul
             - if remaining_items
               - remaining_items.each do |item|
                 %li
-                  %h4= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+                  %h4= link_to sanitize_title(item.item_title), item.item_link
                   .item-meta-data
                     %h6= posted_by_with_topic(item)
