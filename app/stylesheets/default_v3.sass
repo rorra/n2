@@ -616,6 +616,8 @@ p
 // Single Column Widgets
 .panel-1
   margin-bottom: $gutter / 2
+  &.twitter-wrap
+    margin-bottom: $gutter
   // header bottom margin removal
   h3, h4, h5
     margin-bottom: 0
@@ -1071,15 +1073,36 @@ p
 
 // footer ----------------------------- //
 #footer
-  border-top: 1px solid $secondary-border-color
+  border-top: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
   margin: 0 auto
-  padding-top: $gutter /2
+  padding-top: $gutter / 2
   width: $ninesixty_grid_width
-  background-color: $tertiary-bg-color
   .footer-panel
-    +grid(4)
     margin-bottom: $gutter
-
+    &.one
+      +grid(7)
+      .foot-item-wrap
+        float: left
+        margin-right: $gutter
+        &.first
+          +alpha()
+        &.last
+          +omega()
+    &.two
+      +grid(5)
+    .footer-list
+      +grid(5)
+      +alpha()
+      +omega()
+      margin-bottom: $gutter
+      > li
+        border-right: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
+        float: right
+        padding-left: $gutter / 2
+        padding-right: $gutter / 2
+        &.first
+          border-right: 0
+          padding-right: 0
 // jquery related css ----------------- //
 // flash errors
 .flash

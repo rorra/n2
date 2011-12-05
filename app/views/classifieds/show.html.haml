@@ -36,12 +36,16 @@
               %h3== Location: #{@classified.location_text}
 
     .panel-2
-      .details-action-wrap.clearfix
+      .subtitle.clearfix
         .float-right
-          = link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "button-link")
+          = link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook")
+          = pipe_spacer
           -# change to amazon_asin
           - if @classified.amazon_item.present?
-            = link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon", :class => "button-link"
+            = link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon"
+          %span{:class => "user-#{@classified.user.id}"}
+            = pipe_spacer
+            = link_to t('classifieds.edit'), edit_classified_path(@classified)
 
     - if @classified.media_item?
       = render_media_items @classified, :size => 'large'
@@ -53,9 +57,7 @@
           .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
           .float-right
             = render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
-            %span{:class => "user-#{@classified.user.id}"}
-              = pipe_spacer
-              = link_to t('classifieds.edit'), edit_classified_path(@classified)
+
 
     = render_ad(:banner, @ad_layout, @ad_banner)
   .panel-2.comment-section
