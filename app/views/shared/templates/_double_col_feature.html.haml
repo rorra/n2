@@ -1,25 +1,15 @@
 - item = vo.dataset.first
 .panel-2
-  .feature-panel.large.clearfix
+  .panel-bar
+    - if vo.setting and vo.setting.locale_title
+      %h2= vt.t(vo.setting.locale_title)
+  .feature-panel.small.clearfix
     - if item
-      .feature-item-large.first
-        = link_to sanitize_title(item.item_title), item.item_link, :class => 'overlay-link'
+      .feature-item-small.first
         = image_tag(medium_image_or_default(item))
-        .feature-caption
-          %h2= link_to sanitize_title(item.item_title), item.item_link
-          %p= item_text(item)
+      .feature-item-large.last
+        %h4= link_to sanitize_title(item.item_title), item.item_link
+        .item-meta-data
+          %h6= posted_by_with_topic(item)
+        %p= item_text(item)
 
-    - if item
-      .feature-item-wrap-small.last
-        .feature-item-small.top
-          = link_to sanitize_title(item.item_title), item.item_link, :class => 'overlay-link'
-          = image_tag(medium_image_or_default(item))
-          .feature-caption
-            %h2= link_to sanitize_title(item.item_title), item.item_link
-            %p= item_text(item)
-        .feature-item-small
-          = link_to sanitize_title(item.item_title), item.item_link, :class => 'overlay-link'
-          = image_tag(medium_image_or_default(item))
-          .feature-caption
-            %h2= link_to sanitize_title(item.item_title), item.item_link
-            %p= item_text(item)

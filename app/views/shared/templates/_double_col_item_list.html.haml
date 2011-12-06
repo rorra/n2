@@ -10,7 +10,7 @@
         = link_to image_tag(medium_image_or_default(item1)), item1.item_link
         .feature-caption
           %h3= link_to sanitize_title(item1.item_title), item1.item_link
-          %p= item_text(item1)
+          -#%p= item_text(item1)
 
 
     .feature-item-medium.last

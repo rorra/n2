@@ -10,6 +10,8 @@ form.formtastic
     li
       border: none
       display: block
+      margin: 0
+      padding: 0
   // general form fields
   fieldset
     display: block
@@ -31,6 +33,11 @@ form.formtastic
       input
         width: auto
         text-align: right
+    // for use in admin
+    ol
+      > li
+        margin: 0
+        list-style: none
     // fieldset.inputs
     &.inputs
       li
