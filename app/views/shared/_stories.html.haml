@@ -20,22 +20,23 @@
             -# todo hack to fix drafts appearing until we can switch articles out of this widget
             - unless content.article.present? and content.article.is_draft?
               %li{'data-id' => content.cache_key}
-                .story
+                .item-image
                   .thumb
                     - if content.images.present?
                       = image_tag content.images.first.url(:thumb)
                     -else
                       = image_tag ('skin/watermark.jpg')
-                  %h3= link_to sanitize_title(content.title), story_path(content)
-                  %p= linked_story_caption content
-                  .item-meta-data
-                    .profile-pic= local_linked_profile_pic content.user
-                    %h6= stories_posted_by content
-                    .meta-data-actions
-                      %span== #{like_link content} #{content.votes_tally}
-                      %span.pipe
-                        |
-                      %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
+                  .content
+                    %h3= link_to sanitize_title(content.title), story_path(content)
+                    %p= linked_story_caption content
+                    .meta-profile
+                      .profile-pic= local_linked_profile_pic content.user
+                      %h6= stories_posted_by content
+                      .meta-actions
+                        %span== #{like_link content} #{content.votes_tally}
+                        %span.pipe
+                          |
+                        %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
 
     - if paginate
       .panel-2

@@ -269,14 +269,6 @@ p
     > span
       color: #666
 
-// Panels
-.panel-1
-  +grid(4)
-.panel-2
-  +grid(8)
-.panel-3
-  +grid(12)
-
 // panel margin removal
 .panel-1, .panel-2, .panel-3
   .first, &.first
@@ -311,8 +303,8 @@ p
 
 // Thumb
 .thumb
-  border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
   img
+    border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
     max-width: 300px
 
 // Profile Pics
@@ -335,12 +327,18 @@ p
     z-index: 3
 
 // Meta Data
-.item-meta-data
-  margin-bottom: $gutter / 2
-  .meta-data-actions
+.item-meta-data, .meta-data, .meta-profile
+  padding-top: 5px
+  .meta-data-actions, .meta-actions
     font-size: 11px
-    line-height: 170%
+    line-height: 180%
 
+.meta-profile
+  padding-left: 50px
+  min-height: 40px
+  .profile-pic
+    float: left
+    margin-left: -50px
 
 // Form Wrapper
 .form-wrap
@@ -354,31 +352,25 @@ p
   color: $tertiary-body-color
   padding: 8px 
 
-// Item List
-.item-list-wrap
+// Single Item
+.item-single-wrap
   padding-top: $gutter / 2
+
+// List of Items
+.item-list-wrap
   .item-list
     li
       border-bottom: 1px solid scale-color($primary-bg-color, $lightness: -10%)
       display: block
-      margin-bottom: $gutter / 2
-      // for list items with only a header tag/headline
-      &.pad-bottom
-        padding-bottom: ($gutter / 2) - 1
+      padding: ($gutter / 2) 0
       // for featured panels only
-      &.first
-        border-top: 1px solid scale-color($primary-bg-color, $lightness: -10%)
-        padding-top: $gutter / 2
       &.last
         border-bottom: none
         padding-bottom: 0
         margin-bottom: 0
       // header vertical spacing
-      h1, h2, h3, h4, h5, h6
+      h1, h2, h3, h4, h5, h6, p
         margin-bottom: 0
-      // paragraph vertical spacing
-      p
-        margin-bottom: $gutter / 2
 
 // Featured Panels --------------------- //
 .feature-panel
@@ -540,58 +532,63 @@ p
           width: 75%
   // two column item list 
   .item-list-wrap
+    float: left
+    margin-bottom: $gutter
     .item-list
-      // shared thumb styling
-      .story, .question, .resource, .idea, .article-content, .item-description, .forum
-        padding-left: 140px
-        min-height: 90px
-        .thumb
-          float: left
-          margin-left: -140px
-          img
-            width: 118px
-            height: 88px
-      // styles for news stories, questions, resources and ideas
-      .story, .question, .resource, .idea, .item-description
-        .item-meta-data
-          padding-left: 50px
-          min-height: 40px
-          .profile-pic
-            float: left
-            margin-left: -50px
-      // styles for events (interior pages)
-      .event, .classified
-        display: table-row
-        > div
-          display: table-cell
-        .item-description
-          padding-left: 0
-          width: 75%
+      li
+        float: left
+        // simple item with image
+        .item-image
+          .title
+            +grid(8)
+            +alpha()
+            +omega()
+            margin-bottom: 5px
           .thumb
-            margin-left: 0
-          .item-content, .item-meta-data
-            margin-left: 140px
-            margin-right: 10px
-        .item-meta-data
-          padding-left: 50px
-          min-height: 40px
-          .profile-pic
-            float: left
-            margin-left: -50px
-        .item-details
-          border-left: 1px solid scale-color($primary-bg-color, $lightness: -10%)
-          width: 25%
-          font-size: 11px
-          h5
-            font-weight: bold
-            margin-bottom: 5px
-            margin-left: 10px
-          > p
-            margin-bottom: 5px
-            padding-left: 10px
-            > span
-              display: block
-              margin-bottom: 5px
+            +grid(2)
+            +alpha()
+            > img
+              width: 100%
+          .content
+            +grid(6)
+            +omega()
+        // simple item with no image
+        .item-no-image
+          .content
+            +grid(8)
+            +alpha()
+            +omega()
+        // complex item with image
+        .item-complex-image
+          .thumb
+            +grid(2)
+            +alpha()
+            > img
+              width: 100%
+          .content
+            +grid(4)
+          .details
+            +grid(2)
+            +omega()
+        // complex item with no image
+        .item-complex-no-image
+          .content
+            +grid(5)
+            +alpha()
+          .details
+            +grid(3)
+            +omega()
+        // complex item details wrap
+        .item-complex-no-image, .item-complex-image
+          .details
+            .details-wrap
+              border-left: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+              font-size: $primary-body-size - 1px
+              padding-left: 9px
+              p
+                margin-bottom: 5px
+                &.title
+                  font-weight: bold
 
 
 // Gallery

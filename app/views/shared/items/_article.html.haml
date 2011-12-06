@@ -1,29 +1,28 @@
 - content = article.is_a?(Article) ? article.content : article
-.article
-  %h2= link_to content.title, story_path(content)
-  .item-meta-data
-    %h6= generic_posted_by content, (article.is_a?(Article) ? article.author : article.user)
-  .article-content
+.item-image
+  .title
+    %h2= link_to content.title, story_path(content)
+    .meta-data
+      %h6= generic_posted_by content, (article.is_a?(Article) ? article.author : article.user)
+  .thumb
     - if content.images.present?
-      .thumb
-        = image_tag content.images.first.url(:thumb)
+      = image_tag content.images.first.url(:thumb)
     - else
-      .thumb
-        = image_tag ('skin/watermark.jpg')
-    %p
-      - unless content.article.preamble.nil? or content.article.preamble.empty?
-        = raw content.article.preamble
-      - else
-        = raw content.caption
-  .item-meta-data
-    .meta-data-actions
-      %span== #{like_link content} #{content.votes_tally}
-      %span.pipe
-        |
-      %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
-      %span.pipe
-        |
-      - if content.article.preamble_complete
-        %span== #{link_to t('articles.permalink'), story_path(content)} 
-      - else
-        %span== #{link_to t('articles.read_full'), story_path(content)} 
+      = image_tag ('skin/watermark.jpg')
+  .content
+    - unless content.article.preamble.nil? or content.article.preamble.empty?
+      = raw content.article.preamble
+    - else
+      = raw content.caption
+    .meta-data
+      .meta-actions
+        %span== #{like_link content} #{content.votes_tally}
+        %span.pipe
+          |
+        %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
+        %span.pipe
+          |
+        - if content.article.preamble_complete
+          %span== #{link_to t('articles.permalink'), story_path(content)} 
+        - else
+          %span== #{link_to t('articles.read_full'), story_path(content)} 
