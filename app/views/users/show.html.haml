@@ -1,17 +1,56 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
-
 #left-col
-  #my-profile.panel-2
-    .panel-bar
-      %h2= t('.title', :name => profile_fb_name(@user,false)).html_safe
+  #my-profile.panel-1.first
+    -#.panel-bar
+      -#%h2= t('.title', :name => profile_fb_name(@user,false)).html_safe
     .profile
       .item-block
         .profile-pic.large
           -#= local_linked_profile_pic @user, :destination => fb_profile_link(@user), :width => '180', :size => 'normal', :target => '_top'
           = local_linked_profile_pic @user, :destination => '#', :width => '180', :size => 'normal', :target => '_top'        
-        %h1= external_linked_profile_name(@user)
-      .bio
+        %h2= external_linked_profile_name(@user)
+        %h6= link_to 'RSS', user_path(@user, :format => :atom), :class => 'rss_link', :target => "_blank"
+    .statistics
+      .pointsTable_profile
+        %table
+          %tbody
+            %tr
+              %td
+                %span.pointValue
+                  = @user.karma_score
+                  %span.pts= t('.karma')
+              %td
+            -# TODO:: Friends needs to be loaded from Facebooker into user_profile
+            -# - if @user.user_profile.present?
+            -#  %tr
+            -#    %td.bold== #{@user.user_profile.memberFriends.split(/,/).size} friends
+            -#    %td
+            -#      - if @is_owner
+            -#        = link_to t('.invite_friends'), '#'
+            %tr
+              %td.bold== #{@user.contents.size} stories
+              %td
+                - if @is_owner
+                  = link_to t('.post_story'), new_story_path
+            %tr
+              %td.bold== #{@user.comments.size} comments
+              %td
+                - if @is_owner
+                  = link_to t('.comment_stories'), stories_path
+            %tr
+              %td.bold== #{@user.votes.size} likes
+              %td
+                - if @is_owner
+                  = link_to t('.find_stories'), newswires_path
+            %tr
+              %td.bold
+              %td
+            -# TODO:: add challenges  
+  =# render_ad(:banner, @ad_layout, @ad_banner)
+  .panel-1.last
+    .feature-panel
+      .feature-item-wrap
         .panel-bar
           %h2= t('.bio_title')
           - if @is_owner
@@ -69,12 +108,13 @@
               %li{'data-id' => content.cache_key}
                 = render :partial => 'shared/items/article', :locals => { :article => article} 
       - if @paginate
-        .clearfix
+        .panel-2
           = will_paginate @articles
-          %br
     - else
-      %br
-      %h3= t('articles.user_none')
+      .subtitle
+        = t('articles.user_none')
+/ #left-col
+
 #right-col
   =# render_ad(:small_square, @ad_layout, @ad_small_square)
   .panel-1
@@ -93,3 +133,4 @@
   = render :partial => 'shared/sidebar/user_posts', :locals => { :user => @user }
   = render :partial => 'shared/sidebar/top_tags', :locals => { :klass => @user.articles , :locale_var => 'popular_tags' }
   = render_ad(:skyscraper, @ad_layout, @ad_skyscraper)
+/ #right-col

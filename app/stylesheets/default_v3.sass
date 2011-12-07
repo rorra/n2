@@ -269,25 +269,17 @@ p
     > span
       color: #666
 
-// Panels
-.panel-1
-  +grid(4)
-.panel-2
-  +grid(8)
-.panel-3
-  +grid(12)
-
 // panel margin removal
 .panel-1, .panel-2, .panel-3
-  .first
+  .first, &.first
     +alpha()
-  .last
+  .last, &.last
     +omega()
   // panel margin removal for feature panels
   .feature-panel
-    .first
+    .first, &.first
       +alpha() 
-    .last
+    .last, &.last
       +omega()
 
 // Shared Classes ---------------------- //
@@ -311,8 +303,8 @@ p
 
 // Thumb
 .thumb
-  border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
   img
+    border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
     max-width: 300px
 
 // Profile Pics
@@ -335,12 +327,18 @@ p
     z-index: 3
 
 // Meta Data
-.item-meta-data
-  margin-bottom: $gutter / 2
-  .meta-data-actions
+.item-meta-data, .meta-data, .meta-profile
+  padding-top: 5px
+  .meta-data-actions, .meta-actions
     font-size: 11px
-    line-height: 170%
+    line-height: 180%
 
+.meta-profile
+  padding-left: 50px
+  min-height: 40px
+  .profile-pic
+    float: left
+    margin-left: -50px
 
 // Form Wrapper
 .form-wrap
@@ -354,28 +352,25 @@ p
   color: $tertiary-body-color
   padding: 8px 
 
-// Item List
-.item-list-wrap
+// Single Item
+.item-single-wrap
   padding-top: $gutter / 2
+
+// List of Items
+.item-list-wrap
   .item-list
     li
       border-bottom: 1px solid scale-color($primary-bg-color, $lightness: -10%)
       display: block
-      margin-bottom: $gutter / 2
+      padding: ($gutter / 2) 0
       // for featured panels only
-      &.first
-        border-top: 1px solid scale-color($primary-bg-color, $lightness: -10%)
-        padding-top: $gutter / 2
       &.last
         border-bottom: none
         padding-bottom: 0
         margin-bottom: 0
       // header vertical spacing
-      h1, h2, h3, h4, h5, h6
+      h1, h2, h3, h4, h5, h6, p
         margin-bottom: 0
-      // paragraph vertical spacing
-      p
-        margin-bottom: $gutter / 2
 
 // Featured Panels --------------------- //
 .feature-panel
@@ -399,7 +394,10 @@ p
       min-height: $feature-item-medium-height
       .item-list-wrap
         min-height: $feature-item-medium-height - (16px + $gutter)
-
+  &.small
+    padding-top: $gutter / 2
+    > .feature-item-small, .feature-item-large
+      min-height: $feature-item-small-height
   .item-list-wrap
     .item-list
       ul
@@ -419,12 +417,12 @@ p
       +grid(3)
       +alpha()
       +omega()
-      // 
-      height: $feature-item-small-height
+      // small featured item height when wrapped
+      height: $feature-item-small-wrap-height
       &.top
         margin-bottom: $gutter + 1
   // Featured Panel Shared Styles
-  .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-third, .feature-item-xlarge
+  .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-third, .feature-item-xlarge, .feature-item-wrap
     position: relative
     .panel-bar
       background: $tertiary-bg-color
@@ -433,10 +431,12 @@ p
       bottom: 0px
       height: 20px
       h2
-        padding: 0px $gutter / 4
+        padding: 0px 5px
         color: scale-color($tertiary-bg-color, $lightness: -60%)
+      .panel-bar-actions
+        padding-right: 5px
 
-    .item-list-wrap
+    .item-list-wrap, .user-bio-wrap
       border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
       border-top-width: 0
       padding: $gutter / 2
@@ -488,7 +488,7 @@ p
     .feature-item-third
       float: left
       position: relative
-      width: 200px
+      width: $feature-item-panel-third-width
       &.first
         margin-right: 10px
       &.last
@@ -532,58 +532,65 @@ p
           width: 75%
   // two column item list 
   .item-list-wrap
+    float: left
+    margin-bottom: $gutter
     .item-list
-      // shared thumb styling
-      .story, .question, .resource, .idea, .article-content, .item-description, .forum
-        padding-left: 140px
-        min-height: 90px
-        .thumb
-          float: left
-          margin-left: -140px
-          img
-            width: 118px
-            height: 88px
-      // styles for news stories, questions, resources and ideas
-      .story, .question, .resource, .idea, .item-description
-        .item-meta-data
-          padding-left: 50px
-          min-height: 40px
-          .profile-pic
-            float: left
-            margin-left: -50px
-      // styles for events (interior pages)
-      .event, .classified
-        display: table-row
-        > div
-          display: table-cell
-        .item-description
-          padding-left: 0
-          width: 75%
+      li
+        float: left
+        // simple item with image
+        .item-image
+          .title
+            +grid(8)
+            +alpha()
+            +omega()
+            margin-bottom: 5px
           .thumb
-            margin-left: 0
-          .item-content, .item-meta-data
-            margin-left: 140px
-            margin-right: 10px
-        .item-meta-data
-          padding-left: 50px
-          min-height: 40px
-          .profile-pic
-            float: left
-            margin-left: -50px
-        .item-details
-          border-left: 1px solid scale-color($primary-bg-color, $lightness: -10%)
-          width: 25%
-          font-size: 11px
-          h5
-            font-weight: bold
-            margin-bottom: 5px
-            margin-left: 10px
-          > p
-            margin-bottom: 5px
-            padding-left: 10px
-            > span
-              display: block
-              margin-bottom: 5px
+            +grid(2)
+            +alpha()
+            > img
+              width: 100%
+          .content
+            +grid(6)
+            +omega()
+        // simple item with no image
+        .item-no-image
+          .content
+            +grid(8)
+            +alpha()
+            +omega()
+        // complex item with image
+        .item-complex-image
+          .thumb
+            +grid(2)
+            +alpha()
+            > img
+              width: 100%
+          .content
+            +grid(4)
+          .details
+            +grid(2)
+            +omega()
+        // complex item with no image
+        .item-complex-no-image
+          .content
+            +grid(5)
+            +alpha()
+          .details
+            +grid(3)
+            +omega()
+        // complex item details wrap
+        .item-complex-no-image, .item-complex-image
+          .details
+            .details-wrap
+              border-left: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+              font-size: $primary-body-size - 1px
+              padding-left: 9px
+              p
+                margin-bottom: 5px
+                &.title
+                  font-weight: bold
+
+
 // Gallery
 .gallery-content
   padding-top: $gutter / 2
@@ -599,9 +606,15 @@ p
     +alpha()
     +omega()
     margin-bottom: $gutter
-    margin-top: -$gutter / 2
     img
       width: 100%
+
+// bio widget
+.bio, .user-bio-wrap
+  padding-top: $gutter / 2
+
+
+
 
 // Right Column ------------------------ //
 #right-col
@@ -656,7 +669,6 @@ p
       float: left
       margin-right: 10px
       margin-bottom: 10px
-  // classified items list
   
 
 // Info Widget (Welcome Panel, What is this? panel, etc...)
@@ -1049,22 +1061,14 @@ p
 
 // My Profile
 #my-profile
-  .profile, .statistics
-    padding-top: $gutter / 2
   .profile
-    +grid(4)
-    +alpha()
-    .item-block
-      padding-left: 50px
-      margin-bottom: $gutter
-      .profile-pic
-        float: left
-        margin-left: -50px
-    .bio-block
-      
+    padding-top: $gutter / 2
+    padding-left: 50px
+    .profile-pic
+      float: left
+      margin-left: -50px
   .statistics
-    +grid(4)
-    +omega()
+    margin-bottom: $gutter
     table
       width: 100%
       td
@@ -1077,21 +1081,25 @@ p
   margin: 0 auto
   padding-top: $gutter / 2
   width: $ninesixty_grid_width
+  .fb-fanapp
+    height: 60px
   .footer-panel
     margin-bottom: $gutter
     &.one
-      +grid(7)
+      +grid(6)
       .foot-item-wrap
-        float: left
-        margin-right: $gutter
+        +grid(6)
+        +alpha()
+        +omega()
+        margin-bottom: $gutter / 2
         &.first
           +alpha()
         &.last
           +omega()
     &.two
-      +grid(5)
+      +grid(6)
     .footer-list
-      +grid(5)
+      +grid(6)
       +alpha()
       +omega()
       margin-bottom: $gutter

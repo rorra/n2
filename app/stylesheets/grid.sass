@@ -22,10 +22,13 @@ $panel-one-input-width: 270px
 $panel-two-input-width: 590px
 $panel-three-input-width: 910px
 // Widget Heights
-$feature-item-small-height: 132px
+$feature-item-small-height: 165px
+$feature-item-small-wrap-height: 132px
 $feature-item-medium-height: 225px
 $feature-item-large-height: 285px
 $feature-item-xlarge-height: 285px
+// 3 item widget width
+$feature-item-panel-third-width: 200px
 // Imports ---------------------------------------------- //
 // Reset
 @import "compass/utilities/general/reset"
@@ -43,3 +46,11 @@ $feature-item-xlarge-height: 285px
 @import flowplayer_tabs.sass
 @import scrollable.sass
 @import addthis.sass
+// CSS ------------------------------------------------- //
+// Panels
+.panel-1
+  +grid(4)
+.panel-2
+  +grid(8)
+.panel-3
+  +grid(12)

@@ -8,14 +8,12 @@
         .panel-bar-actions
           = post_something vo.setting.klass_name
 
-  .panel-half.pad-left
-    .panel-content
-      .item-with-image.flip
-        - if item
-          .item-thumb
-            %a= image_tag(thumb_image_or_default(item))
-          .item-text
-            %h4= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-          .item-meta-data
-            %h6= posted_by_with_topic(item)
-            %h6= action_links(item)
+  .feature-panel.small.clearfix
+    - if item
+      .feature-item-small.first
+        = image_tag(medium_image_or_default(item))
+      .feature-item-large.last
+        %h4= link_to sanitize_title(item.item_title), item.item_link
+        .item-meta-data
+          %h6= posted_by_with_topic(item)
+          %h6= action_links(item)
