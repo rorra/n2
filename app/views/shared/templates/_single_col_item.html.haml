@@ -1,21 +1,20 @@
 - item = vo.dataset.first
 
 .panel-1
-  .panel-bar
-    - if vo.setting and vo.setting.locale_title
-      %h2= vt.t(vo.setting.locale_title)
-      .panel-bar-actions
-        - if vo.setting.use_post_button
-          = post_something vo.setting.klass_name
-          %span.pipe
-            |
-          %a View
-
-  - if vo.setting.locale_subtitle
-    .subtitle
-      = vt.t(vo.setting.locale_subtitle)
-  .panel-content
-    - if item
-      %h4.bold
-        %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-        %h6= posted_by_with_topic(item)
+  .feature-panel
+    .feature-item-medium
+      .panel-bar
+        - if vo.setting and vo.setting.locale_title
+          %h2= vt.t(vo.setting.locale_title)
+          .panel-bar-actions
+            - if vo.setting.use_post_button
+              = post_something vo.setting.klass_name
+              = pipe_spacer
+              %a View
+      - if vo.setting.locale_subtitle
+        .subtitle
+          = vt.t(vo.setting.locale_subtitle)
+      .single-item-wrap
+        - if item
+          %h4= link_to sanitize_title(item.item_title), item.item_link
+          %h6= posted_by_with_topic(item)

@@ -30,13 +30,15 @@ h3, h4, h5
       text-decoration: none
 h1
   font-size: $h1-size
+  font-weight: bold
 h2
   font-size: $h2-size
+  font-weight: bold
 h3
   font-size: $h3-size
+  font-weight: bold
 h4
   font-size: $h4-size
-  font-weight: bold
 h5
   font-size: $h5-size
 h6
@@ -54,7 +56,7 @@ a
     text-decoration: underline
 p
   line-height: $primary-line-height
-  margin-bottom: $gutter / 2
+  margin-bottom: $ninesixty_gutter_width / 2
 
 
 // containers -------------------------- //
@@ -292,6 +294,7 @@ p
   > h2
     color: $tertiary-header-color
     font-size: 12px
+    font-weight: normal
     margin-bottom: 0
     text-transform: uppercase
   > .panel-bar-actions
@@ -326,13 +329,9 @@ p
     bottom: 2px
     z-index: 3
 
-// Meta Data
-.item-meta-data, .meta-data, .meta-profile
+// Meta Data containers
+.meta-data, .meta-profile
   padding-top: 5px
-  .meta-data-actions, .meta-actions
-    font-size: 11px
-    line-height: 180%
-
 .meta-profile
   padding-left: 50px
   min-height: 40px
@@ -343,18 +342,18 @@ p
 // Form Wrapper
 .form-wrap
   background: $tertiary-bg-color
-  margin-bottom: $gutter
+  margin-bottom: $ninesixty_gutter_width
 
 // Subtitle
 .subtitle
-  border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
   background-color: $tertiary-bg-color
   color: $tertiary-body-color
   padding: 8px 
 
 // Single Item
 .item-single-wrap
-  padding-top: $gutter / 2
+  padding-top: $ninesixty_gutter_width / 2
 
 // List of Items
 .item-list-wrap
@@ -362,46 +361,51 @@ p
     li
       border-bottom: 1px solid scale-color($primary-bg-color, $lightness: -10%)
       display: block
-      padding: ($gutter / 2) 0
+      float: left
+      padding: ($ninesixty_gutter_width / 2) 0
+      width: 100%
       // for featured panels only
       &.last
         border-bottom: none
-        padding-bottom: 0
-        margin-bottom: 0
       // header vertical spacing
       h1, h2, h3, h4, h5, h6, p
         margin-bottom: 0
 
 // Featured Panels --------------------- //
+
+.panel-1
+  margin-bottom: $ninesixty_gutter_width
+  .feature-panel
+    margin-bottom: 0
+    .feature-item-medium
+      +alpha()
+      +omega()
+      .single-item-wrap
+        padding-bottom: $ninesixty_gutter_width / 2
+        padding-top: $ninesixty_gutter_width / 2
+
 .feature-panel
   float: left
-  margin-bottom: $gutter
+  margin-bottom: $ninesixty_gutter_width
   &.xlarge
     > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
-      // $feature-item-large-height
       min-height: $feature-item-large-height 
       .item-list-wrap
-        // 
-        min-height: $feature-item-large-height - (16px + $gutter)
+        min-height: $feature-item-large-height - 26px
   &.large
     > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
       min-height: $feature-item-large-height 
       .item-list-wrap
-        // 
-        min-height: $feature-item-large-height - (16px + $gutter)
+        min-height: $feature-item-large-height - 26px
   &.medium
     > .feature-item-small, .feature-item-medium
       min-height: $feature-item-medium-height
       .item-list-wrap
-        min-height: $feature-item-medium-height - (16px + $gutter)
+        min-height: $feature-item-medium-height - 26px
   &.small
-    padding-top: $gutter / 2
+    padding-top: $ninesixty_gutter_width / 2
     > .feature-item-small, .feature-item-large
       min-height: $feature-item-small-height
-  .item-list-wrap
-    .item-list
-      ul
-        padding-top: 0
   .feature-item-xlarge, .feature-item-small
     overflow: hidden
   .feature-item-xlarge
@@ -420,7 +424,7 @@ p
       // small featured item height when wrapped
       height: $feature-item-small-wrap-height
       &.top
-        margin-bottom: $gutter + 1
+        margin-bottom: $ninesixty_gutter_width + 1px
   // Featured Panel Shared Styles
   .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-third, .feature-item-xlarge, .feature-item-wrap
     position: relative
@@ -436,11 +440,12 @@ p
       .panel-bar-actions
         padding-right: 5px
 
-    .item-list-wrap, .user-bio-wrap
+    .item-list-wrap, .user-bio-wrap, .single-item-wrap
       border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
       border-top-width: 0
-      padding: $gutter / 2
+      padding: $ninesixty_gutter_width / 2
       padding-bottom: 0
+      padding-top: 0
       position: relative
       top: 0px
       left: 0px
@@ -468,7 +473,7 @@ p
       left: 0
       z-index: 1
     .feature-caption
-      background: rgba(0,0,0, 0.8) // make black png tile for compatability
+      background: rgba(0,0,0, 0.75) // make black png tile for compatability
       padding: 10px
       position: absolute
       bottom: 0
@@ -478,7 +483,7 @@ p
       h1, h2, h3, h4, h5, h6, p,
         color: #FFF
         margin-bottom: 0
-        text-shadow: 1px, 1px, 1px, #000
+        text-shadow: 0px 0px 4px #000
         a
           color: #FFF
 
@@ -508,12 +513,12 @@ p
 // Left Column ------------------------- //
 #left-col
   +grid(8)
-  margin-bottom: $gutter * 2
+  margin-bottom: $ninesixty_gutter_width * 2
   .panel-2
     margin-left: 0
     margin-right: 0
     &.section-wrap
-      margin-bottom: $gutter
+      margin-bottom: $ninesixty_gutter_width
 
 // Two Column Widgets
 .panel-2
@@ -522,8 +527,8 @@ p
     padding-bottom: 0
     li
       float: left
-      margin-bottom: $gutter / 2
-      margin-right: $gutter / 2
+      margin-bottom: $ninesixty_gutter_width / 2
+      margin-right: $ninesixty_gutter_width / 2
       &.keywords
         width: 100%
         margin-right: 0
@@ -532,8 +537,6 @@ p
           width: 75%
   // two column item list 
   .item-list-wrap
-    float: left
-    margin-bottom: $gutter
     .item-list
       li
         float: left
@@ -590,13 +593,12 @@ p
                 &.title
                   font-weight: bold
 
-
 // Gallery
 .gallery-content
-  padding-top: $gutter / 2
+  padding-top: $ninesixty_gutter_width / 2
   li
     +grid(2)
-    margin-bottom: $gutter
+    margin-bottom: $ninesixty_gutter_width
     img
       width: 100%
     &.hide-strong
@@ -605,13 +607,13 @@ p
     +grid(4)
     +alpha()
     +omega()
-    margin-bottom: $gutter
+    margin-bottom: $ninesixty_gutter_width
     img
       width: 100%
 
 // bio widget
 .bio, .user-bio-wrap
-  padding-top: $gutter / 2
+  padding-top: $ninesixty_gutter_width / 2
 
 
 
@@ -619,25 +621,22 @@ p
 // Right Column ------------------------ //
 #right-col
   +grid(4)
-  margin-bottom: $gutter * 2
+  margin-bottom: $ninesixty_gutter_width * 2
   .panel-1
     margin-left: 0
     margin-right: 0
-    .info-widget
-      margin-bottom: $gutter / 2
 
 // Single Column Widgets
 .panel-1
-  margin-bottom: $gutter / 2
   &.twitter-wrap
-    margin-bottom: $gutter
+    margin-bottom: $ninesixty_gutter_width
   // header bottom margin removal
   h3, h4, h5
     margin-bottom: 0
   // panel-content styles
   .panel-content
-    padding-top: $gutter / 2
-    margin-bottom: $gutter / 2
+    padding-top: $ninesixty_gutter_width / 2
+    margin-bottom: $ninesixty_gutter_width / 2
 
   // Item List widgets
   .item-list
@@ -663,7 +662,7 @@ p
         width: 30px
   // bio widget
   .bio
-    padding-top: $gutter / 2
+    padding-top: $ninesixty_gutter_width / 2
     font-size: 11px
     .profile-pic
       float: left
@@ -674,9 +673,9 @@ p
 // Info Widget (Welcome Panel, What is this? panel, etc...)
 .info-widget
   background: $tertiary-bg-color
-  margin-bottom: $gutter / 2
+  margin-bottom: $ninesixty_gutter_width / 2
   .item-block
-    padding: $gutter / 2
+    padding: $ninesixty_gutter_width / 2
     border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
     min-height: 40px
   .profile
@@ -687,12 +686,12 @@ p
   .actions-wrap
     border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
     border-top-width: 0
-    padding: $gutter / 2
+    padding: $ninesixty_gutter_width / 2
     text-align: center
 
 // Bookmarklet Styles //
 .bookmarklet
-  padding: $gutter / 2 $gutter /2 0 
+  padding: $ninesixty_gutter_width / 2 $ninesixty_gutter_width /2 0 
   border-bottom: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
   background: $tertiary-bg-color
   > h2
@@ -701,8 +700,8 @@ p
     text-align: center
   .demo
     background: #FFF
-    margin-bottom: $gutter / 2
-    padding: $gutter / 2 0px
+    margin-bottom: $ninesixty_gutter_width / 2
+    padding: $ninesixty_gutter_width / 2 0px
     position: relative
     text-align: center
     .demo-img
@@ -712,8 +711,8 @@ p
   .button-link
     font-size: $primary-body-size
     position: absolute
-    left: $gutter / 2
-    bottom: $gutter
+    left: $ninesixty_gutter_width / 2
+    bottom: $ninesixty_gutter_width
     z-index: 10
 
 // Buttons (Button styling for links only)
@@ -740,7 +739,7 @@ p
   height: 16px
   margin-right: 2px
 .thumb-up, .thumb-down
-  background-color: #FFF
+  background-color: $primary-bg-color
   background-position: center 
   background-repeat: no-repeat
   width: 24px
@@ -758,7 +757,7 @@ p
 
 // Moderator Styles
 .mod-panel
-  margin-bottom: $gutter
+  margin-bottom: $ninesixty_gutter_width
   padding: 5px
 .mod-flag-wrap
   position: relative
@@ -781,8 +780,8 @@ p
     z-index: 1
 
 // Tags
-.top-tags, .top-categories
-  padding-top: 10px
+.top-tags, .top-categories, .category-list
+  padding-top: $ninesixty_gutter_width / 2
   > ul
     > li
       float: left
@@ -794,43 +793,40 @@ p
 
 // Item Details Page
 #item-details
-  h1, h2, h3, h4
+  h1, h2, h3, h4, h5, h6
     margin-bottom: 0
-  .item-block, .item-meta-data
-    margin-bottom: $gutter
+  // bottom margin
+  .meta-data, .content, .add-this-wrap, .media-wrap
+    margin-bottom: $ninesixty_gutter_width
   //Story content area
-  .item-details-content
+  .content
     line-height: $primary-line-height
-    margin-bottom: $gutter
   // Story Thumbnail
   .thumb
+    +grid(4)
+    +omega()
     float: right
-    margin-left: $gutter
-    margin-bottom: $gutter
-    height: 225px
-    width: 300px
+    margin-bottom: $ninesixty_gutter_width / 2
   // spacing wrappers
   .add-this-wrap
     border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
     background-color: $tertiary-bg-color
-    margin-bottom: $gutter
     padding: 5px
   // media curtain
   .media-wrap
     position: relative
     background: #000 image_url("site/curtain.png") top left repeat-x
-    margin-bottom: $gutter
-  // media on the show page
-  .video
-    width: 480px
-    margin: 0 auto
-    z-index: 1
-    object
+    // media on the show page
+    .video
       width: 480px
+      margin: 0 auto
       z-index: 1
+      object
+        width: 480px
+        z-index: 1
 // details actions wrapper
-.details-action-wrap
-  margin-bottom: $gutter
+.action-wrap
+  margin-bottom: $ninesixty_gutter_width
   padding: 5px
 
 // Shared Arrow Styling
@@ -847,10 +843,10 @@ p
 
 
 // Comment/Answer Threads
-.comment-section
-  margin-bottom: $gutter
+.comment-list
+  margin-bottom: $ninesixty_gutter_width
 .comment-thread-wrap, .answer-thread-wrap
-  padding: $gutter / 2 $gutter 0 $gutter
+  padding: $ninesixty_gutter_width / 2 $ninesixty_gutter_width 0 $ninesixty_gutter_width
   .comment-block
     margin-bottom: 10px
     .comment-bubble
@@ -892,14 +888,10 @@ p
 
 // Permalink
 #link-to-item
-  .item-block
-    background: $tertiary-bg-color
-    padding: 10px 12px
-    input.text-field
-      margin-left: -2px
-      border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
-      height: 20px
-      width: 100%
+  fieldset
+    margin-bottom: 0
+    &.inputs
+      padding-bottom: $ninesixty_gutter_width / 2
 
 
 // refine search 
@@ -929,7 +921,7 @@ p
 // pagination
 .pagination
   text-align: right
-  margin-bottom: $gutter
+  margin-bottom: $ninesixty_gutter_width
   font-size: $primary-body-size
   a, span
     display: inline-block
@@ -954,7 +946,7 @@ p
   border: 5px solid #CCC
   border-top-width: 0
   margin: 0 auto
-  margin-bottom: $gutter
+  margin-bottom: $ninesixty_gutter_width
   padding-top: 15px
   box-shadow: 0px 0px 4px rgba(0,0,0, .25)
   -moz-box-shadow: 0px 0px 4px rgba(0,0,0, .25)
@@ -991,7 +983,7 @@ p
 // predictions
 .prediction-details 
   .item-details
-    margin-bottom: $gutter * .5
+    margin-bottom: $ninesixty_gutter_width * .5
   .vote-options
     border: 1px solid #ccc
     padding: 10px 10px 0
@@ -1015,11 +1007,11 @@ p
           background-color: #666
         label
           display: block
-          padding:  $gutter * .5 $gutter * .5 $gutter * .5 $gutter * 1.15
+          padding:  $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * 1.15
           font-weight: bold
         input
           float: left
-          margin: $gutter * .5 0 $gutter * .5 $gutter * .25
+          margin: $ninesixty_gutter_width * .5 0 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .25
     .results-list
       li.results-item
         background-color: #999
@@ -1062,13 +1054,13 @@ p
 // My Profile
 #my-profile
   .profile
-    padding-top: $gutter / 2
+    padding-top: $ninesixty_gutter_width / 2
     padding-left: 50px
     .profile-pic
       float: left
       margin-left: -50px
   .statistics
-    margin-bottom: $gutter
+    margin-bottom: $ninesixty_gutter_width
     table
       width: 100%
       td
@@ -1079,19 +1071,19 @@ p
 #footer
   border-top: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
   margin: 0 auto
-  padding-top: $gutter / 2
+  padding-top: $ninesixty_gutter_width / 2
   width: $ninesixty_grid_width
   .fb-fanapp
     height: 60px
   .footer-panel
-    margin-bottom: $gutter
+    margin-bottom: $ninesixty_gutter_width
     &.one
       +grid(6)
       .foot-item-wrap
         +grid(6)
         +alpha()
         +omega()
-        margin-bottom: $gutter / 2
+        margin-bottom: $ninesixty_gutter_width / 2
         &.first
           +alpha()
         &.last
@@ -1102,12 +1094,12 @@ p
       +grid(6)
       +alpha()
       +omega()
-      margin-bottom: $gutter
+      margin-bottom: $ninesixty_gutter_width
       > li
         border-right: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
         float: right
-        padding-left: $gutter / 2
-        padding-right: $gutter / 2
+        padding-left: $ninesixty_gutter_width / 2
+        padding-right: $ninesixty_gutter_width / 2
         &.first
           border-right: 0
           padding-right: 0

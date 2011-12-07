@@ -8,7 +8,7 @@
     %h2= link_to prediction_group.title, prediction_group_path(prediction_group)
     -#%p= linked_item_details prediction_group
     .profile-pic= local_linked_profile_pic prediction_group.user
-    .item-meta-data
+    .meta-data
       %h3= generic_posted_by prediction_group
       %span== #{like_link prediction_group} #{prediction_group.votes_tally}
       %span== #{link_to t('comments'), prediction_group_path(prediction_group, :anchor => "commentListTop")} #{prediction_group.comments_count}

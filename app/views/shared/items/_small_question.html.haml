@@ -1,9 +1,9 @@
 .question
   .item-block
     %h5= link_to caption(question.question,80), question_path(question)
-    .item-meta-data
+    .meta-data
       %h6= asked_by question
-      .meta-data-actions
+      %h6
         %span== #{like_link question} #{question.votes_tally}
         %span.pipe
           |

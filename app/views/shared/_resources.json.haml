@@ -10,7 +10,7 @@
       .item-block
         %h2= link_to resource.title, resource_path(resource)
         %p= linked_item_details resource
-        .item-meta-data
+        .meta-data
           .profile-pic= local_linked_profile_pic resource.user
           %h3= generic_posted_by resource
           %span== #{like_link resource} #{resource.votes_tally}

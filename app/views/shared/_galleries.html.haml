@@ -17,11 +17,11 @@
                   = link_to image_tag(thumb_image_or_default(gallery)), gallery
                 %h3= link_to gallery.title, gallery
                 %p= gallery.description
-                .item-meta-data
+                .meta-data
                   .profile-pic= local_linked_profile_pic gallery.user
                   -#%h3= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
                   %h6= generic_posted_by gallery
-                  .meta-data-actions
+                  %h6
                     %span== #{like_link gallery} #{gallery.votes_tally}
                     %span== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
                     -#%span= t('galleries.topics_count', :topics_count => gallery.topics_count)

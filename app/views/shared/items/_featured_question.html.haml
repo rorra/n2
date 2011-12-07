@@ -8,7 +8,7 @@
         %h2
           %span.ellipsis_title_2
             = link_to item.item_title, path_to_self(item.item_link), {:class => 'ellipsis_text'}
-        .item-meta-data
+        .meta-data
           %h3= generic_posted_by item
           %span== #{like_link item} #{item.votes_tally}
           %span== #{link_to answer_translate(item.answers.count), question_path(item, :anchor => "commentListTop")}

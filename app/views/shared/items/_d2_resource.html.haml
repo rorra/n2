@@ -4,7 +4,7 @@
       %a= image_tag resource.images.first.url(:thumb)
     .item-text
       %h3= link_to resource.title, resource_path(resource)
-    .item-meta-data      .profile-pic= local_linked_profile_pic resource.user
+    .meta-data      .profile-pic= local_linked_profile_pic resource.user
       %h6= generic_posted_by resource
       %h6 
         %span.count== #{like_link resource} #{resource.votes_tally}
@@ -14,7 +14,7 @@
   .item-with-no-image
     .item-text
       %h3= link_to resource.title, resource_path(resource)
-    .item-meta-data      .profile-pic= local_linked_profile_pic resource.user
+    .meta-data      .profile-pic= local_linked_profile_pic resource.user
       %h6= generic_posted_by resource
       %h6 
         %span.count== #{like_link resource} #{resource.votes_tally}

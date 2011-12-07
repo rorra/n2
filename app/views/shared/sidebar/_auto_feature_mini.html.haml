@@ -29,7 +29,7 @@
                     %p.ellipsis_caption_4
                       %span.ellipsis_text
                         = caption(sanitize(strip_tags(item.featured_blurb)),limit_caption)
-                    .item-meta-data
+                    .meta-data
                       .profile-pic= local_linked_profile_pic item.user
                       %h3= generic_posted_by item
                       %span== #{like_link item.item_link} #{item.votes_tally}

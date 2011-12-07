@@ -19,10 +19,10 @@
               .item-block
                 %h3= link_to idea.title, idea_path(idea)
                 %p= linked_item_details idea
-              .item-meta-data
+              .meta-data
                 .profile-pic= local_linked_profile_pic idea.user
                 %h3= generic_posted_by idea
-                .meta-data-actions
+                %h6
                   %span== #{like_link idea} #{idea.votes_tally}
                   %span.pipe
                     |

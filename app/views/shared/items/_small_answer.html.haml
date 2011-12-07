@@ -1,9 +1,9 @@
 .answer.small
   .item-block
     %h5= link_to caption(answer.answer,80), question_path(answer.question)
-    .item-meta-data
+    .meta-data
       %h6= answered_by answer
-      .meta-data-actions
+      %h6
         %span== #{like_link answer} #{answer.votes_tally}
         %span.pipe
           |

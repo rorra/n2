@@ -23,14 +23,14 @@
                 .item-block
                   %h3= link_to idea.title, idea_path(idea)
                   %p= linked_item_details idea
-                  .item-meta-data
+                  .meta-data
                     .profile-pic= local_linked_profile_pic idea.user
                     %h6
                       = generic_posted_by idea
                       - if idea.idea_board.present?
                         in
                         = link_to(idea.idea_board.name, idea.idea_board)
-                    .meta-data-actions
+                    %h6
                       %span== #{like_link idea} #{idea.votes_tally}
                       %span.pipe
                         |

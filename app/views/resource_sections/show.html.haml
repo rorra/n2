@@ -23,7 +23,7 @@
                   %h2= link_to resource.title, [@resource_section, resource]
                   %p= linked_item_details resource
                   .profile-pic= local_linked_profile_pic resource.user
-                  .item-meta-data
+                  .meta-data
                     %h3= generic_posted_by resource
                     %span== #{like_link resource} #{resource.votes_tally}
                     %span== #{link_to t('comments'), [@resource_section, resource]} #{resource.comments_count}

@@ -1,8 +1,8 @@
 .generic-item
   .profile-pic= local_linked_profile_pic item.user
   %h4= link_to item.item_title, path_to_self(item.item_link)
-  .item-meta-data
+  .meta-data
     %h6= generic_posted_by item
-    -#.meta-data-actions
+    -#%h6
       -#%span== #{like_link item} #{item.votes_tally}
       -#%span== #{link_to t('comments'), path_to_self_with_anchor(item, "commentListTop")} #{item.comments_count}

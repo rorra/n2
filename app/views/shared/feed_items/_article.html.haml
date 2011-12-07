@@ -10,7 +10,7 @@
     %h2= link_to article.title, article_path(article)
     %p= linked_story_caption article
     .profile-pic= local_linked_profile_pic article.author
-    .item-meta-data
+    .meta-data
       %h3= generic_posted_by article, article.author
       %span== #{like_link article} #{article.votes_tally}
       %span== #{link_to t('comments'), story_path(article, :anchor => "commentListTop")} #{article.comments_count}

@@ -7,7 +7,7 @@
           -# could be used to show type of event e.g. Lecture, Party, etc.                    
           = link_to event.name, event_path(event)
         .profile-pic= local_linked_profile_pic event.user, :size => :square
-        .item-meta-data
+        .meta-data
           %h3= generic_posted_by event
           %span== #{like_link event} #{event.votes_tally}
           %span== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}

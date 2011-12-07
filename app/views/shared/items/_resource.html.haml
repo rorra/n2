@@ -8,7 +8,7 @@
     %h2= link_to resource.title, resource_path(resource)
     %p= linked_item_details resource
     .profile-pic= local_linked_profile_pic resource.user
-    .item-meta-data
+    .meta-data
       %h3= generic_posted_by resource
       %span== #{like_link resource} #{resource.votes_tally}
       %span== #{link_to t('.resources_comments'), resource_path(resource, :anchor => "commentListTop")} #{resource.comments_count}

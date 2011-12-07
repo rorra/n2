@@ -50,7 +50,7 @@
   .panel-3
     .panel-bar
       %h2= t '.header'
-    .formBox
+    .form-wrap
       #wizard
         #flowplayer-block
           %ul.arrows
@@ -69,7 +69,7 @@
                   - form.semantic_fields_for :content do |content_form|
                     - content_form.inputs do
                       = content_form.input :title
-                      %p= form.input :body
+                      = form.input :body
                 - form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'form-btn next' }
               .panel2

@@ -24,7 +24,7 @@
                     .profile-pic= local_linked_profile_pic my_card.to_user
                   - else
                     .profile-pic= fb_profile_pic my_card.to_fb_user_id
-                  .item-meta-data
+                  .meta-data
                     - if my_card.to_user
                       %h3= t('cards.sent_to', :fb_name => local_linked_profile_name(my_card.to_user), :date => timeago(my_card.created_at)).html_safe
                     - else

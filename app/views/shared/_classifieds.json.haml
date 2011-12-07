@@ -12,7 +12,7 @@
             %h2= link_to classified.title, classified_path(classified, :format => 'html')
             %p= linked_item_details classified              
             .profile-pic= local_linked_profile_pic classified.user, :format => 'html'
-            .item-meta-data
+            .meta-data
               %h3= classifieds_posted_by classified
               %span== #{like_link classified, :format => 'html'} #{classified.votes_count}
               %span== #{link_to t('comments'), classified_path(classified, :anchor => "commentListTop", :format => 'html')} #{classified.comments_count}

@@ -2,7 +2,7 @@
   .item-block
     %h4= link_to article.content.title, content_path(article.content)
     .profile-pic= local_linked_profile_pic article.author
-    .item-meta-data
+    .meta-data
       %h3= generic_posted_by article, article.author
       %span== #{like_link article.content} #{article.content.votes_tally}
       %span== #{link_to t('comments'), content_path(article.content, :anchor => "commentListTop")} #{article.content.comments_count}

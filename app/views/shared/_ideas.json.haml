@@ -12,7 +12,7 @@
           %h2= link_to idea.title, idea_path(idea)
           %p= linked_item_details idea
           .profile-pic= local_linked_profile_pic idea.user
-          .item-meta-data
+          .meta-data
             %h3
               = generic_posted_by idea
               - if idea.idea_board.present?

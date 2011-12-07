@@ -47,10 +47,10 @@
                     .item-block
                       %h3= link_to question.question, question
                       %p= linked_item_details question
-                      .item-meta-data
+                      .meta-data
                         .profile-pic= local_linked_profile_pic question.user
                         %h6= asked_by question
-                        .meta-data-actions
+                        %h6
                           %span== #{like_link question} #{question.votes.size}
                           %span.pipe
                             |

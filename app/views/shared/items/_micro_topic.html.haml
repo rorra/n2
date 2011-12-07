@@ -7,5 +7,5 @@
     %h4= link_to item.title, path_to_self(item)
   - else
     %h4= link_to item.title, path_to_self(item, canvas_preference), :target => "_top"
-  .item-meta-data
+  .meta-data
     %h6= forum_posted_by_with_topic item

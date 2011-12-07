@@ -24,10 +24,10 @@
                   %h2= link_to classified.title, classified_path(classified)
                   %p= linked_item_details classified              
              
-                .item-meta-data
+                .meta-data
                   .profile-pic= local_linked_profile_pic classified.user
                   %h6= classifieds_posted_by classified
-                  .meta-data-actions
+                  %h6
                     %span== #{like_link classified} #{classified.votes_count}
                     %span.pipe
                       |

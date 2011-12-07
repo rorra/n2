@@ -9,7 +9,7 @@
         = image_tag(medium_image_or_default(item))
       .feature-item-large.last
         %h4= link_to sanitize_title(item.item_title), item.item_link
-        .item-meta-data
+        .meta-data
           %h6= posted_by_with_topic(item)
         %p= item_text(item)
 

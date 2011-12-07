@@ -4,7 +4,7 @@
       %a= image_tag content.images.first.url(:thumb)
     .item-text
       %h3= link_to content.title, story_path(content)
-    .item-meta-data      .profile-pic= local_linked_profile_pic content.user
+    .meta-data      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
       %h6 
         %span.count== #{like_link content} #{content.votes_tally}
@@ -13,7 +13,7 @@
   .item-with-no-image
     .item-text
       %h3= link_to content.title, story_path(content)
-    .item-meta-data      .profile-pic= local_linked_profile_pic content.user
+    .meta-data      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
       %h6 
         %span.count== #{like_link content} #{content.votes_tally}

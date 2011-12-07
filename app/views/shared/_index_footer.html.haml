@@ -1,7 +1,10 @@
 .panel-2#link-to-item
-  .share_and_hide
-    .panel-bar
-      %h2
-        =t('link_here')
-    .item-block
-      %input.text-field{:type => "text", :value => "#{index_path}",:onclick =>"this.focus();this.select();" }
+  .panel-bar
+    %h2
+      =t('link_here')
+  .form-wrap.clearfix
+    %form.formtastic
+      %fieldset.inputs
+        %ol
+          %li
+            %input.text-field{:type => "text", :value => "#{index_path}",:onclick =>"this.focus();this.select();" }

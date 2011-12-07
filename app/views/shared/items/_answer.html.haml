@@ -9,7 +9,7 @@
       - if @answer.moderatable?
         = render :partial => 'shared/moderate_form', :locals => { :moderatable => answer }
     %h6= answered_by answer
-    .meta-data-actions
+    %h6
       %span= link_to answer_comments_translate(answer.comments.size), '#', :class => 'answer_comments_link'
   - if show_comments.present?
     %li= render :partial => 'shared/comments', :locals => { :comments => answer.comments }
