@@ -16,7 +16,7 @@
           %h2= t('.bio_title')
           - if @is_owner
             .panel-bar-actions= link_to t('.bio_edit'), '#', :class => "update-bio"
-        = render :partial => 'users/bio_form'
+            = render :partial => 'users/bio_form'
         %p= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
     .statistics
       .item-block

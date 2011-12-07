@@ -1,0 +1,12 @@
+- items = vo.dataset
+= panel3 do
+  = xlarge_feature_panel do
+    - if item = items.shift
+      = xlarge_featured_item(item, :class => 'first')
+    - if items.size >= 4
+      = small_featured_item_block() do
+        = small_featured_item items.shift, :class => 'top'
+        = small_featured_item items.shift
+      = small_featured_item_block(:class => 'last') do
+        = small_featured_item items.shift, :class => 'top'
+        = small_featured_item items.shift

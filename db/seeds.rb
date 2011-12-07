@@ -480,108 +480,150 @@ end
 #
 # View Object Templates
 #
-view_object_templates = [
-  {
-  	:name        => "v2_welcome_panel",
-  	:pretty_name => "Version 2 Welcome Panel",
-  	:template    => "shared/templates/single_col_welcome_panel"
-  },
-  {
-  	:name        => "v2_single_col_list",
-  	:pretty_name => "Version 2 Single Column List",
-  	:template    => "shared/templates/single_col_list"
-  },
-  {
-  	:name        => "v2_single_facebook_widget",
-  	:pretty_name => "Version 2 Single Column Facebook Widget",
-  	:template    => "shared/templates/single_col_facebook_widget"
-  },
-  {
-  	:name        => "v2_triple_col_large_2",
-  	:pretty_name => "Version 2 Triple Column Large Feature With 2 Sub Items",
-  	:template    => "shared/templates/triple_col_large_2"
-  },
-  {
-  	:name        => "v2_double_col_feature",
-  	:pretty_name => "Version 2 Double Column Feature",
-  	:template    => "shared/templates/double_col_feature"
-  },
-  {
-  	:name        => "v2_single_col_user_list",
-  	:pretty_name => "Version 2 Single Column User List",
-  	:template    => "shared/templates/single_col_user_list"
-  },
-  {
-  	:name        => "v2_single_col_small_list",
-  	:pretty_name => "Version 2 Single Column Small List",
-  	:template    => "shared/templates/single_col_small_list"
-  },
-  {
-  	:name        => "v2_single_col_gallery_strip",
-  	:pretty_name => "Version 2 Single Column Gallery Strip",
-  	:template    => "shared/templates/single_col_gallery_strip"
-  },
-  {
-  	:name        => "v2_single_col_item",
-  	:pretty_name => "Version 2 Single Column Item",
-  	:template    => "shared/templates/single_col_item"
-  },
-  {
-  	:name        => "v2_double_col_item",
-  	:pretty_name => "Version 2 Double Column Item",
-  	:template    => "shared/templates/double_col_item"
-  },
-  {
-  	:name        => "v2_double_col_item_list",
-  	:pretty_name => "Version 2 Double Column Item List",
-  	:template    => "shared/templates/double_col_item_list"
-  },
-  {
-  	:name        => "v2_single_col_gallery_big_image",
-  	:pretty_name => "Version 2 Single Column Gallery Big Image",
-  	:template    => "shared/templates/single_col_gallery_big_image"
-  },
-  {
-  	:name        => "v2_double_col_gallery_strip",
-  	:pretty_name => "Version 2 Double Column Gallery Strip",
-  	:template    => "shared/templates/double_col_gallery_strip"
-  },
-  {
-  	:name        => "v2_double_col_triple_item",
-  	:pretty_name => "Version 2 Double Column Triple Item",
-  	:template    => "shared/templates/double_col_triple_item"
-  },
-  {
-  	:name        => "v2_double_col_feature_triple_item",
-  	:pretty_name => "Version 2 Double Column Feature With Triple Item",
-  	:template    => "shared/templates/double_col_feature_triple_item"
-  },
-  {
-  	:name        => "old_twitter_standard_list",
-  	:pretty_name => "Old Twitter Standard List",
-  	:template    => "shared/sidebar/twitter_standard_list"
-  },
-  {
-  	:name        => "v2_ad_template",
-  	:pretty_name => "Version 2 Ad Template",
-  	:template    => "shared/templates/ad_template"
-  },
-  {
-  	:name        => "v2_single_col_custom_widget",
-  	:pretty_name => "Version 2 Single Column Custom Widget",
-  	:template    => "shared/templates/single_col_custom_widget"
-  },
-  {
-  	:name        => "v2_double_col_custom_widget",
-  	:pretty_name => "Version 2 Double Column Custom Widget",
-  	:template    => "shared/templates/double_col_custom_widget"
-  },
-  {
-  	:name        => "v2_triple_col_custom_widget",
-  	:pretty_name => "Version 2 Triple Column Custom Widget",
-  	:template    => "shared/templates/triple_col_custom_widget"
-  }
-]
+view_object_templates =
+  [
+   {
+     :name        => "v2_welcome_panel",
+     :pretty_name => "Version 2 Welcome Panel",
+     :template    => "shared/templates/single_col_welcome_panel"
+   },
+   {
+     :name        => "v2_single_col_list",
+     :pretty_name => "Version 2 Single Column List",
+     :template    => "shared/templates/single_col_list"
+   },
+   {
+     :name        => "v2_single_facebook_widget",
+     :pretty_name => "Version 2 Single Column Facebook Widget",
+     :template    => "shared/templates/single_col_facebook_widget"
+   },
+   {
+     :name        => "v2_triple_col_large_2",
+     :pretty_name => "Version 2 Triple Column Large Feature With 2 Sub Items",
+     :template    => "shared/templates/triple_col_large_2"
+   },
+   {
+     :name        => "v2_double_col_feature",
+     :pretty_name => "Version 2 Double Column Feature",
+     :template    => "shared/templates/double_col_feature"
+   },
+   {
+     :name        => "v2_single_col_user_list",
+     :pretty_name => "Version 2 Single Column User List",
+     :template    => "shared/templates/single_col_user_list"
+   },
+   {
+     :name        => "v2_single_col_small_list",
+     :pretty_name => "Version 2 Single Column Small List",
+     :template    => "shared/templates/single_col_small_list"
+   },
+   {
+     :name        => "v2_single_col_gallery_strip",
+     :pretty_name => "Version 2 Single Column Gallery Strip",
+     :template    => "shared/templates/single_col_gallery_strip"
+   },
+   {
+     :name        => "v2_single_col_item",
+     :pretty_name => "Version 2 Single Column Item",
+     :template    => "shared/templates/single_col_item"
+   },
+   {
+     :name        => "v2_double_col_item",
+     :pretty_name => "Version 2 Double Column Item",
+     :template    => "shared/templates/double_col_item"
+   },
+   {
+     :name        => "v2_double_col_item_list",
+     :pretty_name => "Version 2 Double Column Item List",
+     :template    => "shared/templates/double_col_item_list"
+   },
+   {
+     :name        => "v2_single_col_gallery_big_image",
+     :pretty_name => "Version 2 Single Column Gallery Big Image",
+     :template    => "shared/templates/single_col_gallery_big_image"
+   },
+   {
+     :name        => "v2_double_col_gallery_strip",
+     :pretty_name => "Version 2 Double Column Gallery Strip",
+     :template    => "shared/templates/double_col_gallery_strip"
+   },
+   {
+     :name        => "v2_double_col_triple_item",
+     :pretty_name => "Version 2 Double Column Triple Item",
+     :template    => "shared/templates/double_col_triple_item"
+   },
+   {
+     :name        => "v2_double_col_feature_triple_item",
+     :pretty_name => "Version 2 Double Column Feature With Triple Item",
+     :template    => "shared/templates/double_col_feature_triple_item"
+   },
+   {
+     :name        => "old_twitter_standard_list",
+     :pretty_name => "Old Twitter Standard List",
+     :template    => "shared/sidebar/twitter_standard_list"
+   },
+   {
+     :name        => "v2_ad_template",
+     :pretty_name => "Version 2 Ad Template",
+     :template    => "shared/templates/ad_template"
+   },
+   {
+     :name        => "v2_single_col_custom_widget",
+     :pretty_name => "Version 2 Single Column Custom Widget",
+     :template    => "shared/templates/single_col_custom_widget"
+   },
+   {
+     :name        => "v2_double_col_custom_widget",
+     :pretty_name => "Version 2 Double Column Custom Widget",
+     :template    => "shared/templates/double_col_custom_widget"
+   },
+   {
+     :name        => "v2_triple_col_custom_widget",
+     :pretty_name => "Version 2 Triple Column Custom Widget",
+     :template    => "shared/templates/triple_col_custom_widget"
+   },
+   # V3 widgets
+   {
+     :name        => "v3_triple_col_1_large_4_small",
+     :pretty_name => "Version 3 Triple Column 1 Large 4 Small Widget",
+     :template    => "shared/templates/v3/triple_col_1_large_4_small"
+   },
+   {
+     :name        => "v3_triple_col_2_large",
+     :pretty_name => "Version 3 Triple Column 2 Large Widget",
+     :template    => "shared/templates/v3/triple_col_2_large"
+   },
+   {
+     :name        => "v3_triple_col_1_large_2_small_3_links",
+     :pretty_name => "Version 3 Triple Column 1 Large 2 Small 3 Links Widget",
+     :template    => "shared/templates/v3/triple_col_1_large_2_small_3_links"
+   },
+   {
+     :name        => "v3_triple_col_2_medium_2_links",
+     :pretty_name => "Version 3 Triple Column 2 medium 2 links",
+     :template    => "shared/templates/v3/triple_col_2_medium_2_links"
+   },
+   {
+     :name        => "v3_double_col_1_large_2_small",
+     :pretty_name => "Version 3 Double Column 1 Large 2 Small",
+     :template    => "shared/templates/v3/double_col_1_large_2_small"
+   },
+   {
+     :name        => "v3_double_col_2_medium",
+     :pretty_name => "Version 3 Double Column 2 Medium",
+     :template    => "shared/templates/v3/double_col_2_medium"
+   },
+   {
+     :name        => "v3_double_col_2_small_3_medium_links",
+     :pretty_name => "Version 3 Double Column 2 small 3 medium links",
+     :template    => "shared/templates/v3/double_col_2_small_3_medium_links"
+   },
+   {
+     :name        => "v3_double_col_3_medium_links_2_small",
+     :pretty_name => "Version 3 Double Column 3 Medium Links 2 Small",
+     :template    => "shared/templates/v3/double_col_3_medium_links_2_small"
+   },
+  ]
 view_object_templates.each do |view_object_template|
   puts "Creating View Object Template: #{view_object_template[:name]} (#{view_object_template[:template]})" if debug and ViewObjectTemplate.find_by_name(view_object_template[:name]).nil?
   ViewObjectTemplate.find_or_create_by_name(view_object_template)
@@ -770,6 +812,134 @@ view_objects = [
   		  {
           :method_name => "top_items",
           :args        => [5, false]
+        }
+  		]
+  	}
+                },
+                  {
+  	:name          => "V3-TEST: Newest V3 Stories Triple Col",
+  	:template_name => "v3_triple_col_1_large_4_small",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [5]
+        }
+  		]
+  	}
+                },
+                                  {
+  	:name          => "V3-TEST: Newest V3 Stories Triple Col 1 large 2 small 3 links",
+  	:template_name => "v3_triple_col_1_large_2_small_3_links",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [6]
+        }
+  		]
+  	}
+                },
+                {
+  	:name          => "V3-TEST: Newest V3 Stories Triple Col 2 medium 2 links",
+  	:template_name => "v3_triple_col_2_medium_2_links",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [4]
+        }
+  		]
+  	}
+                },
+                {
+  	:name          => "V3-TEST: Newest V3 Stories Double Col 2 Small 3 Medium Links",
+  	:template_name => "v3_double_col_2_small_3_medium_links",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [5]
+        }
+  		]
+  	}
+                },
+                {
+  	:name          => "V3-TEST: Newest V3 Stories Double Col 3 Medium Links 2 Small",
+  	:template_name => "v3_double_col_3_medium_links_2_small",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [5]
+        }
+  		]
+  	}
+                },
+                                  {
+  	:name          => "V3-TEST: Newest V3 Stories Triple Col 2 large",
+  	:template_name => "v3_triple_col_2_large",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [2]
+        }
+  		]
+  	}
+  },
+                {
+  	:name          => "V3-TEST: Newest V3 Stories Double Col 1 large 2 Small",
+  	:template_name => "v3_double_col_1_large_2_small",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [3]
+        }
+  		]
+  	}
+  },
+                {
+  	:name          => "V3-TEST: Newest V3 Stories Double Col 2 Medium",
+  	:template_name => "v3_double_col_2_medium",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [2]
         }
   		]
   	}
