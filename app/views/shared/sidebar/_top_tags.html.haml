@@ -8,7 +8,7 @@
     .panel-bar
       %h2= t(locale_var)
     - unless klass.send("top_#{tag_type}").count == 0
-      .top-tags
+      .category-list
         %ul        
           - klass.send("top_#{tag_type}").each do |tag|
             %li

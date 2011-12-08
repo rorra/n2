@@ -5,30 +5,29 @@
     .panel-bar
       %h2= t('galleries.title')
     .subtitle
-      %span= t('galleries.subtitle')
-      
+      = t('galleries.subtitle')
     .item-list-wrap
       .item-list
         %ul
           - galleries.each do |gallery|
             %li{'data-id' => gallery.cache_key}
-              .story
+              .item-image
                 .thumb
                   = link_to image_tag(thumb_image_or_default(gallery)), gallery
-                %h3= link_to gallery.title, gallery
-                %p= gallery.description
-                .meta-data
-                  .profile-pic= local_linked_profile_pic gallery.user
-                  -#%h3= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
-                  %h6= generic_posted_by gallery
-                  %h6
-                    %span== #{like_link gallery} #{gallery.votes_tally}
-                    %span== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
-                    -#%span= t('galleries.topics_count', :topics_count => gallery.topics_count)
-                    -#%span= t('galleries.posts_count', :posts_count => gallery.comments_count)
-
+                .content
+                  %h3= link_to gallery.title, gallery
+                  %p= gallery.description
+                  .meta-profile
+                    .profile-pic= local_linked_profile_pic gallery.user
+                    -#%h6= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
+                    %h6= generic_posted_by gallery
+                    %h6
+                      %span== #{like_link gallery} #{gallery.votes_tally}
+                      = pipe_spacer
+                      %span== #{link_to t('comments'), gallery_path(gallery, :anchor => "commentListTop")} #{gallery.comments_count}
+                      -#%span= t('galleries.topics_count', :topics_count => gallery.topics_count)
+                      -#%span= t('galleries.posts_count', :posts_count => gallery.comments_count)
     - if paginate
-      .panel-2
-        = will_paginate galleries
+      .panel-2= will_paginate galleries
 
-= render :partial => 'shared/index_footer', :locals => { :index_path => galleries_path(:only_path => false,:canvas => iframe_facebook_request?), :title => t('galleries.title') }
+  = render :partial => 'shared/index_footer', :locals => { :index_path => galleries_path(:only_path => false,:canvas => iframe_facebook_request?), :title => t('galleries.title') }

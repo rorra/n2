@@ -16,30 +16,25 @@
       %ul
         - classifieds.each do |classified|
           %li{'data-id' => classified.cache_key}
-            .classified
-              .item-description
-                .thumb
-                  = image_tag(thumb_image_or_default(classified))
-                .item-content
-                  %h2= link_to classified.title, classified_path(classified)
-                  %p= linked_item_details classified              
-             
-                .meta-data
+            .item-complex-image
+              .thumb
+                = image_tag(thumb_image_or_default(classified))
+              .content
+                %h2= link_to classified.title, classified_path(classified)
+                %p= linked_item_details classified              
+                .meta-profile
                   .profile-pic= local_linked_profile_pic classified.user
                   %h6= classifieds_posted_by classified
                   %h6
                     %span== #{like_link classified} #{classified.votes_count}
-                    %span.pipe
-                      |
+                    = pipe_spacer
                     %span== #{link_to t('comments'), classified_path(classified, :anchor => "commentListTop")} #{classified.comments_count}
-              .item-details
-                %h5== #{classified_listing_type(classified)}
-                %p
-                  %span.detail
-                    == #{t('classifieds.status', :state => classified.state)}
+              .details
+                .details-wrap
+                  %p.title== #{classified_listing_type(classified)}
+                  %p== #{t('classifieds.status', :state => classified.state)}
                   - if classified.location_text.present?
-                    %span.detail
-                      == Location: #{classified.location_text}
+                    %p== Location: #{classified.location_text}
 - if paginate
   .panel-2
     = will_paginate classifieds

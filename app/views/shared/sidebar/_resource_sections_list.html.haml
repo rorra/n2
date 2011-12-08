@@ -3,9 +3,8 @@
 .panel-1
   .panel-bar
     %h2= t('.title')
-  .item-list
+  .category-list
     %ul
       - ResourceSection.active.newest(5).each do |resource_section|
         %li
-          .item-block
-            %h4= link_to resource_section.name, resource_section
+          = link_to resource_section.name, resource_section

@@ -307,7 +307,6 @@ p
 // Thumb
 .thumb
   img
-    border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
     max-width: 300px
 
 // Profile Pics
@@ -342,7 +341,6 @@ p
 // Form Wrapper
 .form-wrap
   background: $tertiary-bg-color
-  margin-bottom: $ninesixty_gutter_width
 
 // Subtitle
 .subtitle
@@ -517,14 +515,15 @@ p
   .panel-2
     margin-left: 0
     margin-right: 0
-    &.section-wrap
-      margin-bottom: $ninesixty_gutter_width
+    margin-bottom: $ninesixty_gutter_width
+    .panel-2
 
 // Two Column Widgets
 .panel-2
   // listing filter
   .list-filter
     padding-bottom: 0
+    border-bottom: 0
     li
       float: left
       margin-bottom: $ninesixty_gutter_width / 2
@@ -550,7 +549,7 @@ p
           .thumb
             +grid(2)
             +alpha()
-            > img
+            img
               width: 100%
           .content
             +grid(6)
@@ -566,7 +565,7 @@ p
           .thumb
             +grid(2)
             +alpha()
-            > img
+            img
               width: 100%
           .content
             +grid(4)
@@ -607,7 +606,6 @@ p
     +grid(4)
     +alpha()
     +omega()
-    margin-bottom: $ninesixty_gutter_width
     img
       width: 100%
 
@@ -645,6 +643,16 @@ p
       .profile-pic
         float: left
         margin-left: -50px
+    // generic item with image
+    .item-image
+      .thumb
+        +grid(1)
+        +alpha()
+        img
+          width: 100%
+      .content
+        +grid(3)
+        +omega()
 
   // users online widget
   .users-online
@@ -673,12 +681,11 @@ p
 // Info Widget (Welcome Panel, What is this? panel, etc...)
 .info-widget
   background: $tertiary-bg-color
-  margin-bottom: $ninesixty_gutter_width / 2
-  .item-block
+  .content, .content-profile
     padding: $ninesixty_gutter_width / 2
     border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
     min-height: 40px
-  .profile
+  .content-profile
     padding-left: 60px
     .profile-pic
       float: left
@@ -806,7 +813,7 @@ p
     +grid(4)
     +omega()
     float: right
-    margin-bottom: $ninesixty_gutter_width / 2
+    margin-bottom: $ninesixty_gutter_width
   // spacing wrappers
   .add-this-wrap
     border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
@@ -888,9 +895,9 @@ p
 
 // Permalink
 #link-to-item
-  fieldset
-    margin-bottom: 0
-    &.inputs
+  form.formtastic
+    fieldset.inputs
+      margin-bottom: 0
       padding-bottom: $ninesixty_gutter_width / 2
 
 

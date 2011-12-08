@@ -7,37 +7,33 @@
     .panel-2#item-details
       .add-this-wrap
         = add_this @event
-      .item-block
-        .thumb
-          - if @event.images.present?
-            = image_tag @event.images.first.url(:medium)
-          - if !@event.images.present? && @event.pic.present?
-            = image_tag @event.pic
-        %h1= @event.name
-        %h6
-          = generic_posted_by @event
-          - if @tags.present?
-            .tag-wrap
-              %h6== Tags: #{tag_list(@tags,@event)}
+      .thumb
+        - if @event.images.present?
+          = image_tag @event.images.first.url(:medium)
+        - if !@event.images.present? && @event.pic.present?
+          = image_tag @event.pic
+      %h1= @event.name
+      %h6
+        = generic_posted_by @event
+        - if @tags.present?
+          .tag-wrap
+            %h6== Tags: #{tag_list(@tags,@event)}
       .meta-data
-        %h5
-          = t('.date_time')  
-        %p
+        %h5= t('.date_time')  
+        %h6
           == #{@event.start_time.to_s :short_with_time}
           - if @event.end_time.present?
             == - #{@event.end_time.to_s :short_time} 
-        %h5
-          = t('.location') 
-        %p
+        %h6= t('.location') 
+        %h6
           =h @event.location
           =h @event.street
           == #{h @event.city}, #{h @event.state}
           -# only show if both event urls are present
           - if @event.alt_url.present? and @event.url.present?
-            .eventMeta.website
-              %h4
-                = link_to t('.website'), @event.get_url
-            = link_to(t('.view'), @event.get_view_button_url, :class=>"btn", :target=>"_new") if @event.url.present? or @event.alt_url.present?
+            %h6
+              = link_to t('.website'), @event.get_url
+              = link_to(t('.view'), @event.get_view_button_url, :class=>"btn", :target=>"_new") if @event.url.present? or @event.alt_url.present?
       .content= sanitize @event.description
 
     - if @event.media_item?

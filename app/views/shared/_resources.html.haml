@@ -14,23 +14,21 @@
         %ul
           - resources.each do |resource|
             %li{'data-id' => resource.cache_key}
-              .resource
+              .item-image
                 .thumb
                   - if resource.images.present?
                     = image_tag resource.images.first.url(:thumb)
                   - else
                     = image_tag ('skin/watermark.jpg')
-                .item-block
+                .content
                   %h3= link_to resource.title, resource_path(resource)
                   %p= linked_item_details resource
-
-                  .meta-data
+                  .meta-profile
                     .profile-pic= local_linked_profile_pic resource.user
                     %h6= generic_posted_by resource
                     %h6
                       %span== #{like_link resource} #{resource.votes_tally}
-                      %span.pipe
-                        |
+                      = pipe_spacer
                       %span== #{link_to t('.resources_comments'), resource_path(resource, :anchor => "commentListTop")} #{resource.comments_count}
                       -#%span= fb_share_item_button(resource)
  

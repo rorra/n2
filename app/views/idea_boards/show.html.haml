@@ -11,7 +11,7 @@
     .subtitle
       %span= @idea_board.description
     .item-list-wrap
-      #front-stories.item-list
+      #.item-list
         %ul
           - @ideas.each do |idea|
             %li{'data-id' => idea.cache_key}

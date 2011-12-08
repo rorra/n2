@@ -2,7 +2,7 @@
 
 .panel-1
   .info-widget
-    .item-block
+    .content
       %h2= t('classifieds.actions.title', :state => classified.state.to_s.humanize)
       %p= t('classifieds.actions.details')
       - classified_actions(classified).each do |title, action_url|

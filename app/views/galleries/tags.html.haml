@@ -13,23 +13,23 @@
         -# if galleries.present? and galleries
           -#%span.bar_link= fb_share_item_button(galleries)
       .subtitle
-        %span= t('galleries.subtitle')
-        
+        = t('galleries.subtitle')
       .item-list-wrap
         .item-list
-          %ul.galleries
+          %ul
             - @galleries.each do |gallery|
               %li{'data-id' => gallery.cache_key}
-                .thumb
-                  = link_to image_tag(thumb_image_or_default(gallery)), gallery
-                .item-block
-                  %h2= link_to gallery.title, gallery
-                  %p= gallery.description
-                  -#.profile-pic= local_linked_profile_pic gallery.user
-                  .meta-data
-                    -#%h3= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
-                    -#%span= t('galleries.topics_count', :topics_count => gallery.topics_count)
-                    -#%span= t('galleries.posts_count', :posts_count => gallery.comments_count)
+                .item-image
+                  .thumb
+                    = link_to image_tag(thumb_image_or_default(gallery)), gallery
+                  .content
+                    %h2= link_to gallery.title, gallery
+                    %p= gallery.description
+                    .meta-profile
+                      -#.profile-pic= local_linked_profile_pic gallery.user
+                      -#%h3= t('galleries.last_active', :fb_name => local_linked_profile_name(gallery.user), :date => timeago(gallery.created_at))
+                      -#%span= t('galleries.topics_count', :topics_count => gallery.topics_count)
+                      -#%span= t('galleries.posts_count', :posts_count => gallery.comments_count)
     - if @paginate
       .clearfix
         = will_paginate @galleries
