@@ -25,14 +25,13 @@ form.formtastic
         font-weight: bold
     // fieldset.buttons
     &.buttons
+      border-top: 1px solid #CCC
       display: inline-block
       width: 100%
       margin-bottom: $ninesixty_gutter_width / 2
-      .commit
-        float: right
-      input
+      padding-top: $ninesixty_gutter_width / 2
+      li.commit
         width: auto
-        text-align: right
     // for use in admin
     ol
       > li
@@ -51,7 +50,10 @@ form.formtastic
         &.error
           label
             color: #CC0000
-
+        &.file, &.boolean
+          input
+            border: 0
+            height: auto
         label
           display: block
           margin: 6px

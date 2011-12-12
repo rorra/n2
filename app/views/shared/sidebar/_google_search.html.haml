@@ -10,7 +10,7 @@
         %script{:type => "text/javascript", :src => "http://www.google.com/jsapi"}  
         :javascript
           var masonryCallback = function() {
-            $('#col_full').masonry({
+            $('#full-col').masonry({
               columnWidth: #{iframe_facebook_request? ? 250 : 313},
               itemSelector: '.box'
             });
