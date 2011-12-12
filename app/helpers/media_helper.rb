@@ -1,6 +1,14 @@
 
 module MediaHelper
 
+  def default_image
+    'skin/watermark.jpg'
+  end
+
+  def default_medium_image
+    'skin/medium_watermark.jpg'
+  end
+
   def external_thumb_image image
     base_url("/images/#{thumb_image_or_default(image)}")
   end

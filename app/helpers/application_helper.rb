@@ -400,14 +400,6 @@ module ApplicationHelper
     end
   end
 
-  def default_image
-    'skin/watermark.jpg'
-  end
-
-  def default_medium_image
-    'skin/medium_watermark.jpg'
-  end
-
   def display_facebook_messages
     flash[:notice] = flash[:success] if flash[:notice].nil? and flash[:success].present?
 
