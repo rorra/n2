@@ -13,21 +13,22 @@
         %ul
           - @resource_section.resources.active.newest(10).each do |resource|
             %li{'data-id' => resource.cache_key}
-              .item_1
+              .item-image
                 .thumb
                   - if resource.images.present?
                     = image_tag resource.images.first.url(:thumb)
                   - else
                     = image_tag ('skin/watermark.jpg')
-                .item-block
+                .content
                   %h2= link_to resource.title, [@resource_section, resource]
                   %p= linked_item_details resource
-                  .profile-pic= local_linked_profile_pic resource.user
-                  .meta-data
-                    %h3= generic_posted_by resource
-                    %span== #{like_link resource} #{resource.votes_tally}
-                    %span== #{link_to t('comments'), [@resource_section, resource]} #{resource.comments_count}
-                    -#%span= fb_share_item_button(resource)
+                  .meta-profile
+                    .profile-pic= local_linked_profile_pic resource.user
+                    %h6= generic_posted_by resource\
+                    %h6
+                      %span== #{like_link resource} #{resource.votes_tally}
+                      %span== #{link_to t('comments'), [@resource_section, resource]} #{resource.comments_count}
+                      -#%span= fb_share_item_button(resource)
 
   = render :partial => 'shared/index_footer', :locals => { :index_path => resource_section_path(:only_path => false, :canvas => iframe_facebook_request?), :title => @resource_section.name }
                   
