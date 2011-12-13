@@ -633,6 +633,11 @@ view_object_templates =
      :pretty_name => "Version 3 Double Column 1 Medium 2 Medium Links",
      :template    => "shared/templates/v3/double_col_1_medium_2_medium_links"
    },
+   {
+     :name        => "v3_double_col_item_list",
+     :pretty_name => "Version 3 Double Column Item List",
+     :template    => "shared/templates/v3/double_col_item_list"
+   },
   ]
 view_object_templates.each do |view_object_template|
   puts "Creating View Object Template: #{view_object_template[:name]} (#{view_object_template[:template]})" if debug and ViewObjectTemplate.find_by_name(view_object_template[:name]).nil?
@@ -893,6 +898,22 @@ view_objects = [
                 {
   	:name          => "V3-TEST: Newest V3 Stories Double Col 2 Small 3 Medium Links",
   	:template_name => "v3_double_col_2_small_3_medium_links",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => "shared.sidebar.top_stories.top_stories_title",
+  		:locale_subtitle => nil,
+  		:use_post_button => true,
+  		:kommands        => [
+  		  {
+          :method_name => "newest",
+          :args        => [5]
+        }
+  		]
+  	}
+                },
+                {
+  	:name          => "V3-TEST: Newest V3 Stories Double Col Item List",
+  	:template_name => "v3_double_col_item_list",
   	:settings      => {
   		:klass_name      => "Content",
   		:locale_title    => "shared.sidebar.top_stories.top_stories_title",

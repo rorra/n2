@@ -1,4 +1,10 @@
-.panel-2
+- items = vo.dataset
+= panel2 do
+  = panel_bar vt.t(vo.setting.locale_title)
+  = double_col_item_list items
+
+-# examples for two column list items
+-#.panel-2
   .panel-bar
     %h2 Two Column List Item Examples
   .item-list-wrap
@@ -119,11 +125,3 @@
                 %p Volup tatem accuse
                 %p Volup tatem 
                 %p Volup tatem 
-
-
-
-
-
-
-
-
