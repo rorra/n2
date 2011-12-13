@@ -4,15 +4,15 @@
   .subtitle
     %span= t('.subtitle')
   .item-list-wrap
-    .item-list.clearfix
+    .item-list
       %ul
         - resource_sections.each do |resource_section|
           %li
-            .item-block
-              %p= link_to resource_section.name, resource_section
-              %p= resource_section.description
+            .item-no-image
+              .content
+                %h3= link_to resource_section.name, resource_section
+                %p= resource_section.description
 
-  - unless @no_paginate
-    .clearfix
-      = will_paginate resource_sections
-      %br
+- unless @no_paginate
+  .panel-2
+    = will_paginate resource_sections

@@ -6,14 +6,15 @@
     %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
       .panel-bar
         %h2= t('.newest_events_title')
-      .item-list
-        %ul
-          - newest_events.each do |event|
-            %li
-              .item-block
+      .item-list-wrap
+        .item-list
+          %ul
+            - newest_events.each do |event|
+              %li
                 %h4= link_to event.name, event_path(event)
-                .profile-pic= local_linked_profile_pic event.user
-                .complexBlockMeta
-                  %h3= generic_posted_by event
-                  %span== #{like_link event} #{event.votes_tally}
-                  %span== #{link_to t('comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
+                .meta-profile
+                  .profile-pic= local_linked_profile_pic event.user
+                  %h6= generic_posted_by event
+                  %h6
+                    %span== #{like_link event} #{event.votes_tally}
+                    %span== #{link_to t('comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}

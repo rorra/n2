@@ -17,7 +17,7 @@
         %script{:type => "text/javascript", :src => "http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"}  
         :javascript
           var masonryCallback = function() {
-            $('#col_full').masonry({
+            $('#full-col').masonry({
               columnWidth: #{iframe_facebook_request? ? 250 : 313},
               itemSelector: '.box'
             });

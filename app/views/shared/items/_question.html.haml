@@ -8,7 +8,7 @@
     %h2= link_to question.question, question
     %p= linked_item_details question
     .profile-pic= local_linked_profile_pic question.user
-    .item-meta-data
+    .meta-data
       %h3= t('asked_by', :fb_name => local_linked_profile_name(question.user), :date => timeago(question.created_at)).html_safe
       %span== #{like_link question} #{question.votes.size}
       %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}

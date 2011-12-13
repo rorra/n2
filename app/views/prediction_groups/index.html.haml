@@ -9,7 +9,7 @@
   -# .panel-2.moderator-links
     = link_to t('predictions.new_group'), new_admin_prediction_group_path(), :class => "btn", :target => '_parent'
     = link_to t('predictions.new_question'), new_admin_prediction_question_path(), :class => "btn", :target => '_parent'
-
+  = render :partial => 'shared/index_footer', :locals => { :index_path => prediction_groups_path(:only_path => false,:canvas => iframe_facebook_request?), :title => t('predictions') }
 #right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/suggest_predictions'
@@ -20,4 +20,4 @@
   = render_ad(:skyscraper, @ad_layout, @ad_skyscraper)
 
 
-= render :partial => 'shared/index_footer', :locals => { :index_path => prediction_groups_path(:only_path => false,:canvas => iframe_facebook_request?), :title => t('predictions') }
+

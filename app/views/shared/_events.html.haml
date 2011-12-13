@@ -29,7 +29,7 @@
                   .meta-profile
                     .profile-pic= local_linked_profile_pic event.user, :size => :square
                     %h6= generic_posted_by event
-                    .meta-data-actions
+                    %h6
                       %span== #{like_link event} #{event.votes_tally}
                       %span.pipe
                         |

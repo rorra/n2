@@ -1,6 +1,6 @@
 // General Form Styles
 form.formtastic
-  padding: $gutter / 2
+  padding: $ninesixty_gutter_width / 2
   padding-bottom: 0
   // general errors
   ul.errors
@@ -25,32 +25,35 @@ form.formtastic
         font-weight: bold
     // fieldset.buttons
     &.buttons
+      border-top: 1px solid #CCC
       display: inline-block
       width: 100%
-      margin-bottom: $gutter / 2
-      .commit
-        float: right
-      input
+      margin-bottom: $ninesixty_gutter_width / 2
+      padding-top: $ninesixty_gutter_width / 2
+      li.commit
         width: auto
-        text-align: right
     // for use in admin
     ol
       > li
         margin: 0
         list-style: none
+        margin-left: 1%
+        margin-right: 1%
+        width: 98%
     // fieldset.inputs
     &.inputs
       li
         display: block
-        float: left
-        margin-bottom: $gutter / 2
-        width: 100%
+        margin-bottom: $ninesixty_gutter_width / 2
         &.date-picker
           width: 50%
         &.error
           label
             color: #CC0000
-
+        &.file, &.boolean
+          input
+            border: 0
+            height: auto
         label
           display: block
           margin: 6px
@@ -96,7 +99,13 @@ form.formtastic
           margin: 0 5px 0 0
           width: auto
 
-form.formtastic.question
+div.wysiwyg 
+  border: 1px inset #CCC
+  background-color: #FFF
+  padding-top: 5px
+
+form.formtastic.question 
+
 
   .fullQuestionForm
     fieldset

@@ -1,14 +1,16 @@
-.prediction_group.large
+.item-image
   .thumb
     - if prediction_group.images.present?
       = image_tag prediction_group.images.first.url(:thumb)
     - else
       = image_tag ('skin/watermark.jpg')
-  .item-block
-    %h2= link_to prediction_group.title, prediction_group_path(prediction_group)
+  .content
+    %h3= link_to prediction_group.title, prediction_group_path(prediction_group)
     -#%p= linked_item_details prediction_group
-    .profile-pic= local_linked_profile_pic prediction_group.user
-    .item-meta-data
-      %h3= generic_posted_by prediction_group
-      %span== #{like_link prediction_group} #{prediction_group.votes_tally}
-      %span== #{link_to t('comments'), prediction_group_path(prediction_group, :anchor => "commentListTop")} #{prediction_group.comments_count}
+    .meta-profile
+      .profile-pic= local_linked_profile_pic prediction_group.user
+      %h6= generic_posted_by prediction_group
+      %h6
+        %span== #{like_link prediction_group} #{prediction_group.votes_tally}
+        = pipe_spacer
+        %span== #{link_to t('comments'), prediction_group_path(prediction_group, :anchor => "commentListTop")} #{prediction_group.comments_count}

@@ -12,5 +12,5 @@
         - vo.dataset.each_with_index do |item, index|
           %li
             %h5= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-            .item-meta-data
+            .meta-data
               %h6= action_links(item)

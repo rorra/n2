@@ -6,17 +6,18 @@
 - list_empty ||= t('empty.default')
 %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => hide_titlebar, :title => list_title}
-  .item-list.bullet_list
-    %ul
-      - unless item_list.empty?
-        - item_list.each_with_index do |item,index|
-          - unless external_widget
-            %li
-              = link_to item.featured_title, path_to_self(item)
-          - else
-            - unless index > count
+  - unless item_list.empty?
+    .item-list-wrap
+      .bullet-list
+        %ul
+          - item_list.each_with_index do |item,index|
+            - unless external_widget
               %li
-                = link_to item.featured_title, path_to_self(item, canvas_preference), :target => "_top"
-      - else
-        %li
-          = list_empty
+                %h5= link_to item.featured_title, path_to_self(item)
+            - else
+              - unless index > count
+                %li
+                  %h5= link_to item.featured_title, path_to_self(item, canvas_preference), :target => "_top"
+  - else
+    .subtitle
+      = list_empty

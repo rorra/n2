@@ -4,4 +4,4 @@
   - form_tag nil, :class => "refine-form", :id => 'refine-form' do
     = label_tag :sort_by, 'Sort By:'
     = select_tag :sort_by, options_for_select(select_options)
-    = submit_tag "Go"
+    = submit_tag "Go", :class => "button-input"

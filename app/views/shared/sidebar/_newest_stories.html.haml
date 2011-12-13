@@ -13,7 +13,7 @@
               .item-block
                 %h4= link_to sanitize_title(story.title), story_path(story)
                 .profile-pic= local_linked_profile_pic story.user
-                .item-meta-data
+                .meta-data
                   %h3= generic_posted_by story
                   %span== #{like_link story} #{story.votes_tally}
                   %span== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}

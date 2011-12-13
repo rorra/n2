@@ -6,11 +6,11 @@
       %h2= t('galleries.voices_title')
     .subtitle
       %span= t('galleries.voices_subtitle')
-    .item-list
-      %ul
-        - gallery.user_voices.uniq.each do |user|
-          %li
-            .item-block
-              .profile-pic= local_linked_profile_pic user
-              .item-meta-data
+    .item-list-wrap
+      .item-list
+        %ul
+          - gallery.user_voices.uniq.each do |user|
+            %li
+              .meta-profile
+                .profile-pic= local_linked_profile_pic user
                 %h3== #{local_linked_profile_name(user)}

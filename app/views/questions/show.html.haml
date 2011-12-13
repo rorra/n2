@@ -11,8 +11,8 @@
         - if @question.images.present?
           .thumb= image_tag @question.images.first.url(:medium)
         %h1.askQuestionHead= @question.question
-        %div.item-details-content= sanitize @question.details
-        .item-meta-data
+        %div.content= sanitize @question.details
+        .meta-data
           %h6= asked_by @question
           - if @tags.present?
             .tag-wrap

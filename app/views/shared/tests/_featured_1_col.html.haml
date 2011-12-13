@@ -1,0 +1,101 @@
+// 1 col featured single item 
+.panel-1
+  .feature-panel
+    .feature-item-medium
+      .panel-bar
+        %h2 Featured Single Item
+      .single-item-wrap
+        %h2 
+          %a Sit volup tatem accus antium dolore
+        .meta-profile
+          .profile-pic
+            = image_tag('skin/medium_watermark.jpg')
+          %h6
+            Posted by
+            %a Someone
+          %h6
+            %h6
+              %a Comment
+              %span.pipe
+                |
+              %a View
+
+// 1 col featured single item with image
+.panel-1
+  .feature-panel
+    / Medium story
+    .feature-item-medium
+      %a.overlay-link{:href => '#'}
+      = image_tag('skin/medium_watermark.jpg')
+      .feature-caption
+        %h3
+          %a Sit volup tatem accus antium dolorem
+
+
+// 1 col featured list
+.panel-1
+  .feature-panel
+    / medium list
+    .feature-item-medium.first
+      .panel-bar
+        %h2 Latest
+      .item-list-wrap.clearfix
+        .item-list
+          %ul
+            %li
+              %h3 
+                %a Sit volup tatem accus antium dolorem
+              .meta-data
+                %h6
+                  Posted by
+                  %a Someone
+                  in
+                  %a Something
+            %li
+              %h4 
+                %a Sit volup tatem accus antium dolorem
+              .meta-data
+                %h6
+                  Posted by
+                  %a Someone
+                  in
+                  %a Something
+            %li
+              %h4 
+                %a Sit volup tatem accus antium dolorem
+              .meta-data
+                %h6
+                  Posted by
+                  %a Someone
+                  in
+                  %a Something
+            %li.last
+              %h4 
+                %a Sit volup tatem accus antium dolorem
+              .meta-data
+                %h6
+                  Posted by
+                  %a Someone
+                  in
+                  %a Something
+
+// give us your email widget
+.panel-1
+  .info-widget
+    .content
+      %h2 Give us your email!
+      %form.email-widget
+        %input{:type =>'text'}
+      %p Stuff about why you should give us your email!
+
+// post content widget
+.panel-1
+  .info-widget
+    .content
+      %h2 Post stuff to Site Name!
+      %p Stuff about why you should post to Site Name!
+    .actions-wrap
+      %a.button-link Post Content
+
+
+

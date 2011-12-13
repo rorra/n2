@@ -19,11 +19,11 @@
                     .story
                       .profile-pic= local_linked_profile_pic story.user
                       %h5= link_to sanitize_title(story.title), story_path(story)
-                      .item-meta-data
+                      .meta-data
                         %h6= stories_posted_by story
                   - else
                     %h5= link_to story.title, story_path(story)
-                    .item-meta-data
+                    .meta-data
                       %h6= stories_posted_by story
       .itemActions
         = link_to t('read_more'), stories_path

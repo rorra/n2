@@ -32,15 +32,14 @@
                     .meta-profile
                       .profile-pic= local_linked_profile_pic content.user
                       %h6= stories_posted_by content
-                      .meta-actions
+                      %h6
                         %span== #{like_link content} #{content.votes_tally}
                         %span.pipe
                           |
                         %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
-
-    - if paginate
-      .panel-2
-        = will_paginate contents
-    - else
-      .panel-2
+  - if paginate
+    .panel-2
+      = will_paginate contents
+  - else
+    .panel-2
       %p= link_to t('read_more'), stories_path, :class => "float-right"

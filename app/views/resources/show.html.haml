@@ -12,7 +12,7 @@
           .thumb
             = image_tag @resource.images.first.url(:medium)
         %h1= @resource.title
-        .item-meta-data
+        .meta-data
           %h6
             = generic_posted_by @resource
             - if @resource.resource_section.present?
@@ -22,11 +22,11 @@
             .tag-wrap
               %h6== Tags: #{tag_list(@tags, @resource)}
         - unless @resource.details.empty?
-          .item-details-content= sanitize @resource.details
+          .content= sanitize @resource.details
 
     - if @resource.url.present?
       .panel-2
-        .details-action-wrap.clearfix
+        .actions-wrap.clearfix
           .float-right= link_to t('.visit_url'), @resource.url, :target => "_resource", :class => "button-link"
 
     - if @resource.media_item?
@@ -39,7 +39,7 @@
 
     = render_ad(:banner, @ad_layout, @ad_banner)
 
-    .panel-2.comment-section
+    .panel-2.comment-list
       = render :partial => 'shared/comments', :locals => { :comments => @resource.comments }
 
     .panel-2.comment-form

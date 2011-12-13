@@ -15,16 +15,16 @@
           - if index == 0
             %li
               %h4= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-              .item-meta-data
+              .meta-data
                 %h6= posted_by_with_topic(item)
           - elsif index == 1
             %li
               %h5= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-              .item-meta-data
+              .meta-data
                 %h6= posted_by_with_date_and_topic(item)
 
           - else
             %li
               %h5= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
-              .item-meta-data
+              .meta-data
                 %h6= posted_by_with_date_and_topic(item)

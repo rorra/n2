@@ -4,11 +4,11 @@
     %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
       .panel-bar
         %h2= t('predictions.high_scores')
-      .item-list
-        %ul
-          - top_prediction_scores.each do |prediction_score|
-            %li
-              .item-block
-                .profile-pic= local_linked_profile_pic prediction_score.user
-                .item-meta-data
+      .item-list-wrap
+        .item-list
+          %ul
+            - top_prediction_scores.each do |prediction_score|
+              %li
+                .meta-profile
+                  .profile-pic= local_linked_profile_pic prediction_score.user
                   %h3== Accuracy: #{number_to_percentage(prediction_score.accuracy * 100)}

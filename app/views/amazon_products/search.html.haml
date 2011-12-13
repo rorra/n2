@@ -22,9 +22,9 @@
           %ul
             - @items.each do |item|
               %li
-                .article
-                  .thumb{:style => "height: 103px"}
+                .item-image
+                  .thumb
                     = image_tag(thumb_image_or_default item[:thumb_image_url])
-                  .item-block
+                  .content
                     %h2= link_to item[:title], item[:url], :target => "_amazon"
                     %p item details

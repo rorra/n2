@@ -4,7 +4,7 @@
     %li.askQuestionWrap
       .item-block
         %p.askQuestionHead= link_to event.name, event_path(event)
-        .item-meta-data
+        .meta-data
           .profile-pic= local_linked_profile_pic event.user, :size => :square
           %h3= generic_posted_by event
           %span== #{like_link event} #{event.votes_tally}

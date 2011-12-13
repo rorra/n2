@@ -10,7 +10,7 @@
       - if comment.moderatable?
         %span= render :partial => 'shared/flag_form.html', :locals => { :flaggable => comment }
     %h6= generic_posted_by comment
-    .meta-data-actions
+    %h6
       %span= votes_link(comment, comment.votes_tally)
 
 -#  .comment_reply
