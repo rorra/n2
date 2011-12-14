@@ -1,5 +1,6 @@
 class IdeasController < ApplicationController
   before_filter :logged_in_to_facebook_and_app_authorized, :only => [:new, :create, :update, :my_ideas], :if => :request_comes_from_facebook?
+  before_filter :set_meta_klass, :only => [:index]
 
   cache_sweeper :idea_sweeper, :only => [:create, :update, :destroy]
 
@@ -92,6 +93,10 @@ class IdeasController < ApplicationController
 
   def set_current_tab
     @current_tab = 'ideas'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Idea
   end
 
 end

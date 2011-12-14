@@ -5,6 +5,7 @@ class StoriesController < ApplicationController
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy, :like]
 
   before_filter :set_current_tab
+  before_filter :set_meta_klass, :only => [:index]
   before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :set_custom_sidebar_widget, :only => [:index, :show]
 
@@ -19,6 +20,7 @@ class StoriesController < ApplicationController
   end
 
   def index
+    page_title :klass => Content
     @page = params[:page].present? ? (params[:page].to_i < 3 ? "page_#{params[:page]}_" : "") : "page_1_"
     @current_sub_tab = 'Browse Stories'
     if get_setting('exclude_articles_from_news').try(:value)
@@ -138,6 +140,10 @@ class StoriesController < ApplicationController
   
   def set_current_tab
     @current_tab = 'stories'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Content
   end
 
 end

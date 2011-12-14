@@ -36,14 +36,6 @@ GIT
       nokogiri (> 0.0.0)
 
 GIT
-  remote: git://github.com/stipple/amazon-ecs.git
-  revision: 5a0403b9a31dcea8f67f9f8b73ed1ef599695169
-  specs:
-    amazon-ecs (1.1.0)
-      nokogiri
-      ruby-hmac
-
-GIT
   remote: git://github.com/taf2/curb.git
   revision: a47439ae72397f5cf14a028c82cbb8878e21f1db
   specs:
@@ -69,6 +61,9 @@ GEM
     activesupport (2.3.11)
     acts-as-taggable-on (2.0.0.rc1)
     addressable (2.2.4)
+    amazon-ecs (2.2.1)
+      nokogiri (>= 1.4.0)
+      ruby-hmac (>= 0.3.2)
     awesome_print (0.3.2)
     aws-s3 (0.6.2)
       builder
@@ -162,7 +157,7 @@ GEM
     net-ssh-gateway (1.0.1)
       net-ssh (>= 1.99.1)
     newrelic_rpm (2.14.1)
-    nokogiri (1.4.4)
+    nokogiri (1.4.7)
     oa-basic (0.2.6)
       oa-core (= 0.2.6)
       rest-client (~> 1.6.0)
@@ -293,7 +288,7 @@ DEPENDENCIES
   aasm
   acl9
   acts-as-taggable-on (= 2.0.0.rc1)
-  amazon-ecs!
+  amazon-ecs
   awesome_print
   aws-s3
   bitly

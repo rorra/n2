@@ -1,5 +1,6 @@
 class ResourcesController < ApplicationController
   before_filter :logged_in_to_facebook_and_app_authorized, :only => [:new, :create, :update, :like], :if => :request_comes_from_facebook?
+  before_filter :set_meta_klass, :only => [:index]
 
   cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
@@ -91,5 +92,9 @@ class ResourcesController < ApplicationController
     @current_tab = 'resources'
   end
 
+
+  def set_meta_klass
+    set_current_meta_klass Resource
+  end
 
 end

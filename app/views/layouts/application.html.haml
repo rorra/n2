@@ -8,9 +8,9 @@
       %meta{:name => 'google-site-verification', :content => "#{get_setting('google-site-verification').value}"}
     - if get_setting('yahoo-site-verification').present?
       %meta{:name => 'y_key', :content => "#{get_setting('yahoo-site-verification').value}"}
-    %meta{:name => 'description', :content => (out = yield(:meta_description)) ? out : ""}
+    %meta{:name => 'description', :content => (out = yield(:meta_description)) ? out : get_setting_value('site_topic')}
     %meta{:name => 'medium', :content => 'news'}
-    = item_meta_tags
+    = page_meta_tags
 
     = csrf_meta_tag
 
@@ -35,11 +35,16 @@
       var Newscloud = {};
       Newscloud.config = {};
       Newscloud.config.fbAppId = "#{APP_CONFIG['omniauth']['providers']['facebook']['key']}";
+      Newscloud.config.settings = #{get_json_app_config}
       window.Newscloud = Newscloud;
 
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', "http://platform.twitter.com/anywhere.js?id=#{get_setting('oauth_key').try(:value)}&v=1","http://s7.addthis.com/js/250/addthis_widget.js"
-    = raw javascript_include_merged :base
+    - native_voting = get_setting('native_voting')
+    - if native_voting.present? and native_voting.value
+      = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', "http://platform.twitter.com/anywhere.js?id=#{get_setting('oauth_key').try(:value)}&v=1","http://s7.addthis.com/js/250/addthis_widget.js"
+    - else
+      = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js',"http://s7.addthis.com/js/250/addthis_widget.js", "http://platform.twitter.com/widgets.js"
 
+    = raw javascript_include_merged :base
 
     = javascript_include_tag 'jquery.ellipsis'
     - if iframe_facebook_request?

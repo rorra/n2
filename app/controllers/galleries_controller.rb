@@ -3,6 +3,7 @@ class GalleriesController < ApplicationController
   before_filter :check_valid_user, :only => [:edit, :update]
   before_filter :find_gallery, :only => [:edit, :update]
   before_filter :set_enable_file_uploads
+  before_filter :set_meta_klass, :only => [:index]
 
   access_control do
     allow all, :to => [:index, :show, :tags]
@@ -162,4 +163,8 @@ class GalleriesController < ApplicationController
     @gallery ||= Gallery.active.find(params[:id])
   end
   
+  def set_meta_klass
+    set_current_meta_klass Gallery
+  end
+
 end

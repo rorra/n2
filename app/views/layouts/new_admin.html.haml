@@ -12,6 +12,7 @@
     = javascript_include_tag 'hoverIntent'
     = javascript_include_tag 'superfish'
     = javascript_include_tag 'jquery.tablesorter.min'
+    = javascript_include_tag 'jquery.ui.nestedSortable'
     = javascript_include_tag 'admin.js'
 
     -# IE Debugging 
@@ -165,6 +166,7 @@
                   %li= link_to 'Locales', admin_locales_path
                   %li= link_to 'Translations', admin_translations_path
                   %li= link_to 'Refresh changes', refresh_admin_locales_path
+              %li= link_to 'Menu Items', admin_menu_items_path
           %li
             %a{:href => "#links"} Your Site
             %ul

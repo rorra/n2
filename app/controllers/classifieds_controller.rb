@@ -3,6 +3,7 @@ class ClassifiedsController < ApplicationController
 
   before_filter :find_classified, :only => [:show, :edit, :update, :set_status]
   before_filter :set_categories, :only => [:new]
+  before_filter :set_meta_klass, :only => [:index]
   
   access_control do
     allow all, :to => [:index, :categories]
@@ -123,11 +124,12 @@ class ClassifiedsController < ApplicationController
     end
 
     def access_denied
+      store_location
       if current_user
-      	flash[:notice] = "Access Denied"
+      	flash[:notice] = I18n.translate('sessions.invalid_permissions')
       	redirect_to classifieds_path
       else
-      	flash[:notice] = "Access Denied. Try logging in first."
+      	flash[:notice] = I18n.translate('sessions.access_denied')
       	redirect_to new_session_path
       end
     end
@@ -142,6 +144,10 @@ class ClassifiedsController < ApplicationController
     
     def set_categories
       @categories = Newscloud::AmazonSearch.categories
+    end
+
+    def set_meta_klass
+      set_current_meta_klass Classified
     end
 
 end

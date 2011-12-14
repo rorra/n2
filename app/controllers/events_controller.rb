@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_filter :logged_in_to_facebook_and_app_authorized, :only => [:new, :create, :update, :like], :if => :request_comes_from_facebook?
+  before_filter :set_meta_klass, :only => [:index]
 
   cache_sweeper :event_sweeper, :only => [:create, :update, :destroy, :import_facebook]
 
@@ -100,6 +101,10 @@ class EventsController < ApplicationController
 
   def set_current_tab
     @current_tab = 'events'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Event
   end
 
 end

@@ -84,7 +84,7 @@ class Admin::PredictionQuestionsController < AdminController
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
     	:item => prediction_question,
     	:model => PredictionQuestion,
-    	:fields => [:title, lambda {|f| f.input :prediction_type, :as => :select, :collection => @type_list}, lambda {|f| f.input :choices, :required => false }, :status, :is_approved, :is_blocked, :user_id, :prediction_group_id],
+    	:fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],
     	:associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
     }
   end
@@ -93,7 +93,7 @@ class Admin::PredictionQuestionsController < AdminController
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
     	:item => prediction_question,
     	:model => PredictionQuestion,
-    	:fields => [:title, lambda {|f| f.input :prediction_type, :as => :select, :collection => @type_list}, lambda {|f| f.input :choices, :required => false } , :status, :is_approved, :is_blocked, :user_id, :prediction_group_id, :created_at],
+      :fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],
     	:associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
     }
   end

@@ -26,7 +26,7 @@ module ViewObjectsHelper
   end
 
   def item_model_link item
-    link_to item.model_index_name, send(item.model_index_url_name)
+    link_to klass_title(item.class), send(item.model_index_url_name)
   end
 
   def posted_by item, opts = {}
@@ -46,7 +46,9 @@ module ViewObjectsHelper
     end
 
     locale << 'by'
-    if format
+    if item.respond_to?(:twitter_item?) and item.twitter_item?
+      interpolation_args[:name] = link_to(user.twitter_name, tweet_url(item))
+    elsif format
       interpolation_args[:name] = local_linked_profile_name(user, :format => format)
     else
       interpolation_args[:name] = local_linked_profile_name(user)
@@ -105,9 +107,19 @@ module ViewObjectsHelper
       ].join(' ').html_safe)
   end
 
-  def post_something klass_name, css_class = "nill"
+  def tally_link item
+    # Add wrapper span tag for vote link ajax purposes
+    count = ItemAction.tally_for_item item
+    content_tag(:span,
+                [
+                 content_tag(:span, count, :class => "count"),
+                 link_to('Points', item)
+                ].join(' ').html_safe)
+  end
+
+  def post_something klass_name, css_class = nil
     klass = klass_name.constantize
-    link_to(I18n.translate("generic.post.#{klass_name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => "#{css_class}")
+    link_to(I18n.translate("generic.post.#{klass_name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => css_class)
   end
 
   def publish_newswire item

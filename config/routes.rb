@@ -13,6 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   # Omniauth
   map.auth_provider_callback "/auth/:provider/callback", :controller => "sessions", :action => "create"
 
+  map.robots "/robots.txt", :controller => "home", :action => "robots"
+
   # TEST DESIGN ROUTE
   map.test_design '/test_design.:format', :controller => 'home', :action => 'test_design'
 
@@ -131,7 +133,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :forums, :has_many => [:topics]
   map.resources :galleries, :has_many => [:comments, :flags, :related_items], :member => { :add_gallery_item => [:get, :post] }
   map.resources :go, :only => :show
-  map.resources :home, :collection => { :preview_widgets => :get, :index => [:get, :post], :app_tab => [:get, :post], :google_ads => [:get],:openx_ads => [:get],:helios_ads => [:get],:helios_alt2_ads => [:get],:helios_alt3_ads => [:get],:helios_alt4_ads => [:get], :about => :get, :faq => :get, :terms => :get, :contact_us => [:get, :post] }, :member => { :render_widget => [:get, :post] }
+  map.resources :home, :collection => { :preview_widgets => :get, :index => [:get, :post], :app_tab => [:get, :post], :default_ads => [:get],:google_ads => [:get],:openx_ads => [:get],:helios_ads => [:get],:helios_alt2_ads => [:get],:helios_alt3_ads => [:get],:helios_alt4_ads => [:get], :about => :get, :faq => :get, :terms => :get, :contact_us => [:get, :post] }, :member => { :render_widget => [:get, :post] }
   map.resources :idea_boards, :has_many => :ideas
   map.resources :ideas, :member => { :like => [:get, :post],:my_ideas => [:get, :post] },:collection => { :index => [:get, :post] }, :has_many => [:comments, :flags, :related_items ]
   map.resources :newswires, :member => { :quick_post => [:get, :post] }
@@ -146,7 +148,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :topics, :has_many => [:comments]
   map.resources :users, :collection => {:link_user_accounts => :get, :feed => [:get], :invite => [:get, :post], :current => [:get, :post], :update_bio => [:get,:post], :dont_ask_me_invite_friends => :get, :dont_ask_me_for_email => :get }
   map.resources :view_objects, :collection => { :test => :get }
-  map.resources :widgets, :collection => { :newswires => [:get], :questions => [:get], :forum_roll => [:get], :topics => [:get], :blog_roll => [:get], :blogger_profiles => [:get], :fan_application => [:get], :add_bookmark => [:get], :user_articles => [:get], :articles => [:get], :stories => [:get], :activities => [:get]  }, :layout => 'widgets'
+  map.resources :widgets, :collection => { :newswires => [:get], :questions => [:get], :forum_roll => [:get], :topics => [:get], :blog_roll => [:get], :blogger_profiles => [:get], :fan_application => [:get], :add_bookmark => [:get], :user_articles => [:get], :articles => [:get], :stories => [:get], :activities => [:get], :classifieds => :get, :events => :get  }, :layout => 'widgets'
   
   map.received_card '/cards/received/:card_id/from/:user_id.:format', :controller => 'cards', :action => 'received'
   map.root :controller => "home", :action => "index"
@@ -166,6 +168,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :activity_scores
     admin.resources :ad_layouts
     admin.resources :ads
+    admin.resources :menu_items, :collection => { :save => :post }
     admin.resources :announcements
     admin.resources :answers    
     admin.resources :cards

@@ -9,7 +9,7 @@
       - unless prediction_question.user_guessed? current_user
         = render :partial => 'shared/prediction_question', :locals => { :prediction_question => prediction_question, :from_groups => from_groups }
       - else
-        .your_guess
+        %p.your_guess
           =t('predictions.your_guess', :guess => prediction_question.prediction_guesses.find_by_user_id(current_user.id).guess)
         - cache "#{prediction_question.cache_key}_stats_html" do
           = render :partial => 'shared/prediction_question_stats', :locals => { :prediction_question => prediction_question }

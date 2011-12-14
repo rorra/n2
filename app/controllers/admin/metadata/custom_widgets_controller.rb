@@ -22,6 +22,7 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
   def update
     @custom_widget = Metadata::CustomWidget.find(params[:id])
     if @custom_widget.update_attributes(params[:metadata_custom_widget])
+      @custom_widget.metadatable.expire if @custom_widget.metadatable and @custom_widget.metadatable.respond_to?(:expire)
       flash[:success] = "Successfully updated your custom widget."
       redirect_to admin_metadata_custom_widget_path(@custom_widget)
     else

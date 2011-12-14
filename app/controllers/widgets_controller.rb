@@ -22,6 +22,7 @@ class WidgetsController < ApplicationController
   
   def activities
     @title = t('widgets.activities_title', :site_title => get_setting('site_title').value)
+    @items = ItemAction.top_items :limit => @count, :minimum => @count
   end
   
   def user_articles
@@ -65,6 +66,11 @@ class WidgetsController < ApplicationController
     end
   end
 
+  def classifieds
+    @title = t("widgets.classifieds_newest_title", :site_title => get_setting_value('site_title'))
+    @classifieds = Classified.for_user(current_user).paginate :page => 1, :per_page => @count
+  end
+  
   def stories
     unless @filter
       case @sort
@@ -94,6 +100,17 @@ class WidgetsController < ApplicationController
     else
       @questions = Question.active.featured @count
       @title = t('widgets.questions_featured_title', :site_title => get_setting('site_title').value)      
+    end
+  end
+
+  def events
+    case @sort
+      when "newest"
+        @events = Event.active.newest @count
+        @title = t('widgets.events_newest_title', :site_title => get_setting('site_title').value)
+      when "upcoming"
+        @events = Event.active.upcoming @count
+        @title = t('widgets.events_upcoming_title', :site_title => get_setting('site_title').value)
     end
   end
 

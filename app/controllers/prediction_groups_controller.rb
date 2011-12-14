@@ -1,5 +1,6 @@
 class PredictionGroupsController < ApplicationController
   before_filter :set_ad_layout, :only => [:index, :show]
+  before_filter :set_meta_klass, :only => [:index]
 
   cache_sweeper :prediction_sweeper, :only => [:create, :update, :destroy]
   
@@ -72,4 +73,8 @@ class PredictionGroupsController < ApplicationController
     @prediction_groups = PredictionGroup.active.tagged_with(tag_name, :on => 'tags').paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
   end
     
+  def set_meta_klass
+    set_current_meta_klass PredictionGroup
+  end
+
 end

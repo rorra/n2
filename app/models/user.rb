@@ -382,7 +382,7 @@ class User < ActiveRecord::Base
   end
 
   def mogli_user
-    return nil unless fb_oauth_active?
+    return nil unless authentications.for_facebook.any?
     @mogli_user ||= Mogli::User.find("me", mogli_client)
   end
   
@@ -390,6 +390,10 @@ class User < ActiveRecord::Base
     return [] unless mogli_user
 
     mogli_user.friends
+  end
+
+  def mogli_friend_ids
+    mogli_friends.map(&:id)
   end
 
   def facebook_friends
@@ -426,9 +430,9 @@ class User < ActiveRecord::Base
   # REDIS FUNCTIONS
   #
   def redis_update_friends friends_string
-    friends = friend_ids friends_string.split(',')
+    friends = redis_friends friends_string.split(',')
     $redis.multi do
-      friends.each {|f| $redis.sadd "#{self.cache_id}:friends", f }
+      friends.each {|f| $redis.sadd "#{self.cache_id}:friends", f.id }
     end
   end
 
@@ -480,7 +484,10 @@ class User < ActiveRecord::Base
                                  :provider           => omniauth['provider'],
                                  :uid                => omniauth['uid'],
                                  :credentials_token  => omniauth['credentials']['token'],
-                                 :credentials_secret => omniauth['credentials']['secret']
+                                 :credentials_secret => omniauth['credentials']['secret'],
+                                 :nickname           => omniauth['user_info']['nickname'],
+                                 :description        => omniauth['user_info']['description'],
+                                 :raw_output         => omniauth.except('extra').to_json
                                })
   end
 
@@ -499,7 +506,9 @@ class User < ActiveRecord::Base
   private
 
   def mogli_client
-    @mogli_client ||= Mogli::Client.new fb_oauth_key
+    authentication = authentications.for_facebook.first
+    return nil unless authentication
+    @mogli_client ||= Mogli::Client.new authentication.credentials_token
   end
 
   def check_profile

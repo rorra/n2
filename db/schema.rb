@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012215608) do
+ActiveRecord::Schema.define(:version => 20111116005258) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -81,6 +81,9 @@ ActiveRecord::Schema.define(:version => 20111012215608) do
     t.string   "credentials_secret"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nickname"
+    t.string   "description"
+    t.text     "raw_output"
   end
 
   add_index "authentications", ["provider"], :name => "index_authentications_on_provider"
@@ -493,10 +496,12 @@ ActiveRecord::Schema.define(:version => 20111012215608) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_blocked",      :default => false
   end
 
   add_index "item_actions", ["action_type"], :name => "index_item_actions_on_action_type"
   add_index "item_actions", ["actionable_type", "actionable_id"], :name => "index_item_actions_on_actionable_type_and_actionable_id"
+  add_index "item_actions", ["is_blocked"], :name => "index_item_actions_on_is_blocked"
   add_index "item_actions", ["user_id"], :name => "index_item_actions_on_user_id"
 
   create_table "item_tweets", :force => true do |t|
@@ -517,6 +522,26 @@ ActiveRecord::Schema.define(:version => 20111012215608) do
   end
 
   add_index "locales", ["code"], :name => "index_locales_on_code"
+
+  create_table "menu_items", :force => true do |t|
+    t.string   "menuitemable_type"
+    t.integer  "menuitemable_id"
+    t.integer  "parent_id"
+    t.boolean  "enabled",           :default => true
+    t.integer  "position",          :default => 0
+    t.string   "resource_path"
+    t.string   "url"
+    t.string   "name"
+    t.string   "name_slug"
+    t.string   "locale_string"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "menu_items", ["enabled"], :name => "index_menu_items_on_enabled"
+  add_index "menu_items", ["menuitemable_type", "menuitemable_id"], :name => "index_menu_items_on_menuitemable_type_and_menuitemable_id"
+  add_index "menu_items", ["name_slug"], :name => "index_menu_items_on_name_slug"
+  add_index "menu_items", ["parent_id"], :name => "index_menu_items_on_parent_id"
 
   create_table "messages", :force => true do |t|
     t.string   "subject"

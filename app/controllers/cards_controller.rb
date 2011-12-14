@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
 
+  before_filter :set_meta_klass, :only => [:index]
   access_control do
     allow anonymous, :to => [:received]
     allow :admin, :of => :current_user
@@ -16,6 +17,7 @@ class CardsController < ApplicationController
   def show
     @current_sub_tab = 'Send a Card'
     @card = Card.active.find(params[:id])
+    set_current_meta_item @card
   end
 
   def post_sent
@@ -67,6 +69,10 @@ class CardsController < ApplicationController
 
   def set_current_tab
     @current_tab = 'cards'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Card
   end
 
 end
