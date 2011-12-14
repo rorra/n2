@@ -34,7 +34,7 @@
         .subtitle
           %span= t('questions.list_subtitle')
         .item-list-wrap
-          #.item-list
+          .item-list
             %ul
               - questions.each do |question|
                 %li.askQuestionWrap{'data-id' => question.cache_key}
