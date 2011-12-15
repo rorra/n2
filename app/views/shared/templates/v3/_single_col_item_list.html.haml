@@ -1,0 +1,6 @@
+- items = vo.dataset
+= panel1 do
+  = feature_panel do
+    = medium_featured_item_block(:class => 'first') do
+      = panel_bar vt.t(vo.setting.locale_title)
+      = featured_item_list items

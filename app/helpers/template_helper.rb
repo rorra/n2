@@ -213,5 +213,12 @@ module TemplateHelper
       content
     end
   end
+
+  def single_featured_item item, extra_options = {}, &block
+    content_tag(:div, :class => 'single-item-wrap') do
+      content = content_tag(:h2, link_to(item.item_title, item.item_link))
+      content << item_meta_profile(item)
+    end
+  end
   
 end
