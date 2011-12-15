@@ -16,26 +16,25 @@
         .foot-item-wrap.last
           - account_setting = get_setting('account')
           - oauth_key_setting = get_setting('oauth_key')
-          - if account_setting.present? && !oauth_key_setting.present?
-            %a{:target => "_blank", :title => t('.twitter_title'), :href => twitter_url(account_setting.value) }= t('.twitter')
+          -# if account_setting.present? && !oauth_key_setting.present?
+          -#  %a{:target => "_blank", :title => t('.twitter_title'), :href => twitter_url(account_setting.value) }= t('.twitter')
 
           %span#follow-twitterapi
-            %span#follow-twitterapi
-            - native_voting = get_setting('native_voting')
-            - if native_voting.present? and native_voting.value
-              -if account_setting.present? && oauth_key_setting.present?
-                - if oauth_key_setting.value != 'U6qjcn193333331AuA'
-                  :javascript
-                    twttr.anywhere(function (T) {
-                      T('#follow-twitterapi').followButton("#{account_setting.value}");
-                    });
-                  %span.twt_ft_wrap
-                    %a.twitter_link{:style=>"display:none;",:target => "_tweet", :title => t('.twitter_title'), :href => base_twitter_url(account_setting.value) }= t('.twitter')
-                - else
-                  = link_to t('footer.setup_twitter', :setup_twitter_path => admin_twitter_settings_path, :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere" ).html_safe            
-            - else
-              %span.twt_ft_wrap
-                %a.twitter-follow-button{:href => base_twitter_url(account_setting.value), "data-width" => "200px", "data-align" => "center" }= t('footer.twitter_follow', :twitter_account => base_twitter_url(account_setting.value))
+          - native_voting = get_setting('native_voting')
+          - if native_voting.present? and native_voting.value
+            -if account_setting.present? && oauth_key_setting.present?
+              - if oauth_key_setting.value != 'U6qjcn193333331AuA'
+                :javascript
+                  twttr.anywhere(function (T) {
+                    T('#follow-twitterapi').followButton("#{account_setting.value}");
+                  });
+                %span.twt_ft_wrap
+                  %a.twitter_link{:style=>"display:none;",:target => "_tweet", :title => t('.twitter_title'), :href => base_twitter_url(account_setting.value) }= t('.twitter')
+              - else
+                = link_to t('footer.setup_twitter', :setup_twitter_path => admin_twitter_settings_path, :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere" ).html_safe            
+          - else
+            %span.twt_ft_wrap
+              %a.twitter-follow-button{:href => base_twitter_url(account_setting.value), "data-width" => "200px", "data-align" => "center" }= t('footer.twitter_follow', :twitter_account => base_twitter_url(account_setting.value))
 
       // second footer col
       .footer-panel.two
@@ -43,39 +42,33 @@
         %ul.footer-list
           - if current_user.present?
             %li.first
+              %span.admin-links
+                = link_to t('.admin'), admin_path 
+            %li
               = link_to t('footer.share_email'), edit_user_path(current_user, :format => 'html')
             %li
-              = link_to t('.terms'), terms_path
+              = link_to t('footer.contact'), contact_us_path, :class => ""
           - else
             %li.first
-              = link_to t('.terms'), terms_path
+              = link_to t('footer.contact'), contact_us_path, :class => ""
           %li
             = link_to t('.developers'), "http://opensource.newscloud.com", :target => "_cts"
 
         %ul.footer-list
           %li.first
-            = link_to t('footer.contact'), contact_us_path, :class => ""
-          -#%li
-            = link_to t('account_menu.invite_friends'), invite_users_path(:format => 'html'), :class => ""
-          %li
             = link_to t('.about'), about_path
+          %li
+            = link_to t('.terms'), terms_path
           %li
             = link_to t('.faq'), faq_path
           %li
             %a{:target => "_blank", :title => t('.rss_title'), :href => stories_path(:format => :atom)}= t('.rss')
-          - if current_user.present?
-            %li
-              = link_to t('.admin'), admin_path 
-          %li
-            = link_to t('.developers'), "http://opensource.newscloud.com", :target => "_cts"
           - rackspace_hosting_credit = get_setting('rackspace_hosting_credit').try(:value)
           - if rackspace_hosting_credit == true           
             %li
               %i= link_to t('footer.rackspace_hosting_credit'), "http://www.rackspacestartups.com/", :target => "_cts"
-          - if current_user.present?
-            %li
-              %span.admin-links
-                = link_to t('.admin'), admin_path 
+          -#%li
+            = link_to t('account_menu.invite_friends'), invite_users_path(:format => 'html'), :class => ""
   - extended_footer_content = get_setting('extended_footer_content')
   - if extended_footer_content.present? and extended_footer_content.value
     = raw extended_footer_content.value
