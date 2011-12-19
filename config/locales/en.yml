@@ -14,6 +14,8 @@ en:
     share_email: "Update your email address"
     setup_app_id: "<a href=\"{{setup_app_id_path}}\">Setup your Facebook app id</a> (<a target=\"_blank\" href=\"{{learn_more_path}}\">Learn more</a>)"
     setup_twitter: "<a href=\"{{setup_twitter_path}}\">Setup Twitter integration</a> (<a target=\"_blank\" href=\"{{learn_more_path}}\">Learn more</a>)"
+    twitter_follow: "Follow @{{twitter_account}}"
+    rackspace_hosting_credit: "Powered by Rackspace"
   account_menu:
     sign_in: "Sign in"
     sign_out: "Sign out"
@@ -141,6 +143,7 @@ en:
   invite_users_title: "Invite Your Friends"
   invite_users_detail: "Choose Facebook friends to invite to our application"
   invite_users_button: "Send Invitations"
+  invite_users_message: "Come join our community"
   save_user_settings: "Update settings"
   label_bio_edit: "Tell us about yourself"
   tags: "Tags"
@@ -218,6 +221,8 @@ en:
   sessions:
     use_fb_connect: "Use Facebook Connect"
     request_offline_access: "Tell Facebook to keep me signed in"
+    invalid_permissions: "Sorry, you do not have access to this feature. If you have questions, please contact your site administrator."
+    access_denied: "Please sign in to access this feature."
   forums:
     title: "Forums"
     subtitle: "Community Discussion"
@@ -314,8 +319,8 @@ en:
     top_users: "Top Members"
     new_group: "Add a Topic"
     new_question: "Add a Question"
-    next_topic: "Next Topic"
-    previous_topic: "Previous Topic"
+    next_topic: "Next topic &raquo;"
+    previous_topic: "&laquo; Previous topic"
     newest_questions: "Newest Questions"
     top_questions: "Top Questions"
     closed_questions: "Recently Closed Predictions"
@@ -376,6 +381,8 @@ en:
     activities_title: "Latest activities from {{site_title}}"
     articles_newest_title: "Latest posts from {{site_title}}"
     articles_top_title: "Top posts from {{site_title}}"
+    classifieds_newest_title: "Latest classifieds from {{site_title}}"
+    classifieds_top_title: "Top classifieds from {{site_title}}"
     articles_featured_title: "Featured posts from {{site_title}}"
     articles_yours_title: "Articles by {{name}}"
     my_articles_title: "My articles from {{site_title}}"
@@ -383,6 +390,9 @@ en:
     contents_newest_title: "Latest stories from {{site_title}}"
     contents_top_title: "Top stories from {{site_title}}"
     contents_featured_title: "Featured stories from {{site_title}}"
+    events_newest_title: "Latest events from {{site_title}}"
+    events_upcoming_title: "Upcoming events from {{site_title}}"
+    events_empty: "There are no upcoming events"
     questions_newest_title: "Latest questions from {{site_title}}"
     questions_top_title: "Top questions from {{site_title}}"
     questions_featured_title: "Featured questions from {{site_title}}"
@@ -402,6 +412,11 @@ en:
     images: "Images"
     multimedia: "Multimedia"
     more: "More"
+    add_story:
+      title: "Add a story URL"
+      instructions: "Copy and paste the link to the story you would like to post in the text field below."
+      details_title: "Story details"
+      details_instructions: "Customize your story by editing the title, creating your own summary caption, and add tags to your story that will help other site users to find the story you posted."
   who_liked:
     title: "{{user_count}} people like this"
     none: "Be the first to like this"  
@@ -481,6 +496,9 @@ en:
       title: "Select a listing type"
     status: "Status: {{state}}"
     allow_type:
+      all: "Public"
+      friends: "Just my friends"
+      friends_of_friends: "Friends of my friends"
       title: "Viewable by"
     tags:
       tags_title: "Tags"
@@ -583,3 +601,112 @@ en:
       tweeted_by_via: "Tweeted by {{name}} via {{source}}, {{date}} ago"
       tweeted_by_in_topic: "Tweeted By {{name}} in {{topic}}"
       tweeted_by_in_topic_ago: "Tweeted by {{name}} in {{topic}} {{date}} ago"
+  global:
+    audios:
+      posted_in: "Audios"
+      title: "Audios"
+      description: "Audios"
+    idea_boards:
+      posted_in: "Idea Boards"
+      title: "Idea Boards"
+      description: "Idea Boards"
+    gallery_items:
+      posted_in: "Gallery Items"
+      title: "Gallery Items"
+      description: "Gallery Items"
+    urls:
+      posted_in: "Urls"
+      title: "Urls"
+      description: "Urls"
+    resource_sections:
+      posted_in: "Resource Sections"
+      title: "Resource Sections"
+      description: "Resource Sections"
+    questions:
+      posted_in: "Questions"
+      title: "Questions"
+      description: "Questions"
+    comments:
+      posted_in: "Comments"
+      title: "Comments"
+      description: "Comments"
+    classifieds:
+      posted_in: "Classifieds"
+      title: "Classifieds"
+      description: "Classifieds"
+    prediction_guesses:
+      posted_in: "Prediction Guesses"
+      title: "Prediction Guesses"
+      description: "Prediction Guesses"
+    cards:
+      posted_in: "Cards"
+      title: "Cards"
+      description: "Cards"
+    videos:
+      posted_in: "Videos"
+      title: "Videos"
+      description: "Videos"
+    topics:
+      posted_in: "Topics"
+      title: "Topics"
+      description: "Topics"
+    prediction_groups:
+      posted_in: "Prediction Groups"
+      title: "Prediction Groups"
+      description: "Prediction Groups"
+    resources:
+      posted_in: "Resources"
+      title: "Resources"
+      description: "Resources"
+    galleries:
+      posted_in: "Galleries"
+      title: "Galleries"
+      description: "Galleries"
+    events:
+      posted_in: "Events"
+      title: "Events"
+      description: "Events"
+    prediction_scores:
+      posted_in: "Prediction Scores"
+      title: "Prediction Scores"
+      description: "Prediction Scores"
+    images:
+      posted_in: "Images"
+      title: "Images"
+      description: "Images"
+    ideas:
+      posted_in: "Ideas"
+      title: "Ideas"
+      description: "Ideas"
+    newswires:
+      posted_in: "Newswires"
+      title: "Newswires"
+      description: "Newswires"
+    forums:
+      posted_in: "Forums"
+      title: "Forums"
+      description: "Forums"
+    users:
+      posted_in: "Users"
+      title: "Users"
+      description: "Users"
+    prediction_results:
+      posted_in: "Prediction Results"
+      title: "Prediction Results"
+      description: "Prediction Results"
+    contents:
+      posted_in: "Stories"
+      title: "Stories"
+      description: "Stories"
+    prediction_questions:
+      posted_in: "Predictions"
+      title: "Predictions"
+      description: "Predictions"
+    articles:
+      posted_in: "Articles"
+      title: "Articles"
+      description: "Articles"
+    answers:
+      posted_in: "Answers"
+      title: "Answers"
+      description: "Answers"

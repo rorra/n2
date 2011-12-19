@@ -11,10 +11,10 @@
                 %li
                   .profile-pic= local_linked_profile_pic user.user, :width => '30', :height => '30'
     - if prediction_question.status == 'open'
-      %p.clearleft.suggest_answer
+      %p.vote-meta
         %a= link_to "Is this question out of date?", new_prediction_question_prediction_result_path(prediction_question)
     - else
-      %p.clearleft
+      %p.vote-meta
         %br
         - if (result = prediction_question.get_accepted_result)
           = t('predictions.final_result', :accepted_time => result.accepted_at.to_s(:short_with_time), :accepted_result => result.result )

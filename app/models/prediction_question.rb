@@ -36,8 +36,8 @@ class PredictionQuestion < ActiveRecord::Base
     return true unless self.new_record? or self.list_of_choices.present? or self.start_range.present? or self.end_range.present?
     case self.prediction_type
       when 'multi'
-        unless list_of_choices =~ /^([-a-zA-Z0-9_ ]+,?)+$/
-          errors.add(:list_of_choices, 'Please provide a comma separated list of options')
+        unless list_of_choices =~ /^([-a-zA-Z0-9_ \.]+,?)+$/
+          errors.add(:list_of_choices, 'Please provide a comma separated list of options. (Valid characters are letters, numbers, hyphens, underscores, spaces, and periods)')
         else
           self.choices = list_of_choices.split(',').map(&:strip)
         end

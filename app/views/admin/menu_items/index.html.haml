@@ -1,0 +1,22 @@
+.main-content
+  %h1 Choose your menu items
+
+  #admin-actions
+    %a#menu-save-button.admin-btn.float_right{:type => "button"} Save Menu Layout
+
+    .status.clear
+      %h3.float_right#menu-status
+
+  %ul.menu-items
+    - MenuItem.root_items.positioned.each do |menu_item|
+      %li
+        .menu-item{"data-id" => menu_item.id}
+          = check_box_tag menu_item.name_slug, nil, menu_item.enabled
+          = menu_item.name
+          - if menu_item.root? and menu_item.children.any?
+            %ul
+              - menu_item.children.positioned.each do |child|
+                %li
+                  .menu-item{"data-id" => child.id}
+                    = check_box_tag child.name_slug, nil, child.enabled
+                    = child.name

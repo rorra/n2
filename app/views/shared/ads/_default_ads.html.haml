@@ -1,0 +1,69 @@
+-# @expects: local 'slot_name'
+- associate_code = Metadata::Setting.get_setting("associate_code", "amazon").try(:value) || "default-20"
+!!!
+
+%html
+  %head
+  %body{:style => "margin: 0px; padding: 0px;"}
+    - case slot_name
+      - when "slot_leaderboard"
+        - case rand(3)
+          - when 0
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=48&l=ur1&category=amazonhomepage&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 728px; height: 90px;"}
+          - when 1
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=48&l=ur1&category=electronics&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 728px; height: 90px;"}
+          - when 2
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=48&l=ur1&category=gift_certificates&banner=1J95RP5SP9MDBFSH63R2&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 728px; height: 90px;"}
+          - when 3
+            %script{:type => "text/javascript"}
+              <!--
+              var amazon_ad_tag = "#{associate_code}";
+              var amazon_ad_width = "728";
+              var amazon_ad_height = "90";
+              // -->
+            = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"
+      - when "slot_small_square"
+      - when "slot_skyscraper"
+        - case rand(3)
+          - when 0
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=14&l=ur1&category=amazonhomepage&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 160px; height: 600px;"}
+          - when 1
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=14&l=ur1&category=gift_certificates&banner=0S32YAVKXXKQGNQSSGG2&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 160px; height: 600px;"}
+          - when 2
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=14&l=ur1&category=electronics&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 160px; height: 600px;"}
+          - when 3
+            %script{:type => "text/javascript"}
+              <!--
+              var amazon_ad_tag = "#{associate_code}";
+              var amazon_ad_width = "160";
+              var amazon_ad_height = "600";
+              // -->
+            = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"
+      - when "slot_small_square"
+      - when "slot_square"
+      - when "slot_medium_rectangle"
+        - case rand(2)
+          - when 0
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=12&l=ur1&category=amazonhomepage&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 300px; height: 250px;"}
+          - when 1
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=12&l=ur1&category=gift_certificates&banner=127JF9E4530CSFRCY4R2&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 300px; height: 250px;"}
+          - when 2
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=12&l=ur1&category=electronics&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 300px; height: 250px;"}
+      - when "slot_large_rectangle"
+      - else 
+        -# small banner
+        - case rand(3)
+          - when 0
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=13&l=ur1&category=gift_certificates&banner=180TQ0K9X17QCCZQS4R2&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 468px; height: 60px;"}
+          - when 1
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=13&l=ez&f=ifr&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 468px; height: 60px;"}
+          - when 2
+            %iframe{:src => "http://rcm.amazon.com/e/cm?t=#{associate_code}&o=1&p=13&l=ur1&category=electronics&f=ifr", :frameborder => 0, :marginwidth => 0, :scrolling => "no", :style => "border: none; width: 468px; height: 60px;"}
+          - when 3
+            %script{:type => "text/javascript"}
+              <!--
+              var amazon_ad_tag = "#{associate_code}";
+              var amazon_ad_width = "300";
+              var amazon_ad_height = "250";
+              // -->
+            = javascript_include_tag "http://www.assoc-amazon.com/s/ads.js"

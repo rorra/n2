@@ -4,6 +4,7 @@ $(document).ajaxSend(function(e, xhr, options) {
   xhr.setRequestHeader("X-CSRF-Token", token);
 });
 
+var config = window.Newscloud.config;
 var fbAppId = window.Newscloud.config.fbAppId;
 
 /*
@@ -47,7 +48,7 @@ function rebuild_facebook_dom() {
   } catch(error) { }
 }
 
-$(function() {
+(function($) {
   $('.hide').hide();
   $('.unhide').show().removeClass('hidden');
 
@@ -180,7 +181,7 @@ $(function() {
   	var submitBtn = $('input[type=submit]', this);
   	submitBtn.attr('disabled', 'disabled');
   	submitBtn.hide();
-  	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
+  	submitBtn.parent().append('<img style="float: left;" src="/images/site/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
 
   	var url = change_url_format($(this).attr('action'));
   	var parentForm = $(this).parents('.post-comment');
@@ -225,7 +226,7 @@ $(function() {
 		var flag_form = $(this);
  		var flag_parent = flag_form.parent().parent().parent();
     if ( $('[name=flag_type]', this).val() != 'choose_flag') {
-		  $(this).parent().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		  $(this).parent().html("<img src=\"/images/site/spinner-tiny.gif\" />");
       var url = change_url_format(flag_form.attr('action'));
       $.post(url, flag_form.serialize(), function(data) {
 				flag_parent.html('<span class="flag-toggle btnComment">'+data.msg+'</span>').fadeIn("normal");
@@ -236,7 +237,7 @@ $(function() {
 	$('.voteLink, .voteUp, .voteDown, .thumb-up, .thumb-down').live('click', function(event) {
 		event.preventDefault();
 		var span = $(this).parent();
-		$(this).parent().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		$(this).parent().html("<img src=\"/images/site/spinner-tiny.gif\" />");
 		var url = $(this).attr("href");
     url = url.replace(/\?return_to=.*$/, '');
     if (url.substring(url.length - 5) == '.html') {
@@ -285,7 +286,7 @@ $(function() {
 		event.preventDefault();
 		var span = $(this).parent();
     var $li_parent = $(this).parents().filter('li').first();
-		$(this).parent().html("<img src=\"/images/default/spinner.gif\" />");
+		$(this).parent().html("<img src=\"/images/site/spinner.gif\" />");
 		var url = $(this).attr("href");
     url = url.replace(/\?return_to=.*$/, '');
     if (url.substring(url.length - 5) == '.html') {
@@ -360,7 +361,7 @@ $(function() {
   	var submitBtn = $('input[type=submit]', this);
   	submitBtn.attr('disabled', 'disabled');
   	submitBtn.hide();
-  	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your guess...</p>');
+  	submitBtn.parent().append('<img style="float: left;" src="/images/site/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your guess...</p>');
 
   	var url = change_url_format($(this).attr('action'));
   	var parentForm = $(this).parents('.prediction_question_wrapper');
@@ -387,13 +388,13 @@ $(function() {
   });
 
 
-});
+})(jQuery);
 
 
 /* 
  * Post Story Functionality
  */
-$(function() {
+(function($) {
 	var my_carousel = null;
 	function set_carousel(carousel) {
 		my_carousel = carousel;
@@ -629,11 +630,11 @@ $(function() {
   $('.ellipsis_caption_7').ThreeDots({max_rows : 7});
   */
 
-  $('.ellipsis_text').ellipsis();
-});
+  //$('.ellipsis_text').ellipsis();
+})(jQuery);
 
 /** IMAGE VIEWER **/
-$(function() {
+(function($) {
 	$("#thumbnails").scrollable({size: 3, clickable: false}).find("img").each(function(index) {
 
 			// thumbnail images trigger the overlay
@@ -659,7 +660,7 @@ $(function() {
 			});
 		});
 	$("#images").scrollable();
-});
+})(jQuery);
 
 window.fbAsyncInit = function() {
   FB.init({appId: fbAppId, status: true, cookie: true, xfbml: true});

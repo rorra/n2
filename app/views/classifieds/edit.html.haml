@@ -68,10 +68,10 @@
                     = form.input :location_text, :label => 'Location', :hint => t('classifieds.new.hint_classified_location'), :required => false
                     %li
                       %label{:for => "classified_listing_type"}= t('classifieds.listing_type.title')
-                      = form.select :listing_type, options_for_select(Classified.listing_types.map {|c| [t("classifieds.listing_type_strings.#{c}"), c] }, @classified.listing_type)
+                      = form.select :listing_type, options_for_select(Classified.listing_types.map {|c| [t("classifieds.listing_type_strings.#{c.to_s}"), c.to_s] }, @classified.listing_type)
                     %li
                       %label{:for => "classified_allow_type"}= t('classifieds.allow_type.title')
-                      = form.select :allow, options_for_select(Classified.allow_types.map {|c| c.to_s }, @classified.allow)
+                      = form.select :allow, options_for_select(Classified.allow_types.map {|c| [t("classifieds.allow_type.#{c.to_s}"), c.to_s] }, @classified.allow)
                 - @classified.categorizations.build if @classified.categorizations.empty?
                 %fieldset
                   - form.semantic_fields_for :categorizations do |category_form|

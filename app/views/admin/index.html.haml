@@ -1,87 +1,96 @@
-.left-dashboard{:style => "width: 48%; float: left; border-right: 1px solid black; padding-right: 10px;"}
-  %h1 Site Configuration
+- if @enabled_configs.select {|k,v| v}.any?
+  .left-dashboard{:style => "width: 48%; float: left; border-right: 1px solid black; padding-right: 10px;"}
+    %h1 Initial Setup Wizards
+    -# HACK:: TODO:: rebuild setting groups into an orderable customizable dsl
+    - display_setting_group = Proc.new do |name|
+      - setting_group = Newscloud::SettingGroups.group name
+      %h4= link_to setting_group[:title], edit_admin_setting_group_path(:id => name)
+      %p= setting_group[:description]
 
-  -# HACK:: TODO:: rebuild setting groups into an orderable customizable dsl
-  - display_setting_group = Proc.new do |name|
-    - setting_group = Newscloud::SettingGroups.group name
-    %h4= link_to setting_group[:title], edit_admin_setting_group_path(:id => name)
-    %p= setting_group[:description]
+    - if @enabled_configs[:user_admins]
+      %h4 You need to add an admin user.
+      %p== First register #{link_to 'here', signup_path} if you have not done so already. Next add set an admin user #{link_to 'here', admin_users_path}.
 
-  - unless User.admins.any?
-    %h4 You need to add an admin user.
-    %p== First register #{link_to 'here', signup_path} if you have not done so already. Next add set an admin user #{link_to 'here', admin_users_path}.
-  - unless false and FACEBOOKER["api_key"] and FACEBOOKER["secret_key"]
-    %h4 Facebook application configuration
+    -# unless true or FACEBOOKER["api_key"] and FACEBOOKER["secret_key"]
+      %h4 Facebook application configuration
+      %p
+        == Please provide your application name, callback url, api key and secret key in the file config/facebooker.yml, and then restart your newscloud application. If you do not have a facebook application,#{link_to "create one now", "http://www.facebook.com/developers/createapp.php", :target => "_blank"}.
+
+    - if @enabled_configs[:basic_site_settings]
+      - display_setting_group.call :basic_site_config
+  
+    - if @enabled_configs[:welcome_panel]
+      - display_setting_group.call :welcome_panel_config
+
+    - if @enabled_configs[:twitter]
+      %h4= link_to "Twitter Integration", admin_twitter_settings_path
+      %p== Integrate a twitter account with your newscloud application. If you do not yet have a twitter dev application, #{link_to "create one now", "https://dev.twitter.com/apps/new", :target => "_blank"} | #{link_to "learn more", "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere", :target => "_blank"}.
+
+    - if @enabled_configs[:bitly]
+      - display_setting_group.call :bitly_config
+
+    - if @enabled_configs[:google_analytics]
+      - display_setting_group.call :analytics_config
+
+    - if @enabled_configs[:google_sitemap]
+      - display_setting_group.call :sitemap_seo_config
+    
+    - if @enabled_configs[:google_search_engine]
+      - display_setting_group.call :google_custom_search_engine_config
+
+    - if @enabled_configs[:automated_feeds]
+      %h4= link_to 'Automated News Feeds', news_topics_admin_content_dashboard_path
+      %p Add feeds from various news sources to automatically populate your application.
+
+    -# TODO: Not sure why this is here...
+    -# @setting_groups.each do |name, setting_group|
+      %h4= link_to setting_group[:title], edit_admin_setting_group_path(:id => name)
+      %p= setting_group[:description]
+
+  .right-dashboard{:style => "width: 45%; float: right;"}
+    %h1 Managing #{get_setting('site_title').try(:value)}
+    %p Please use the menus above to manage your Facebook application but here are some links that may be helpful to get you started:
+    %ul
+      %li
+        %a= link_to 'Community Guide to the NewsCloud Open Source Facebook Platform','http://blog.newscloud.com/community-guide-to-the-newscloud-open-source-facebook-platform.html',:target=>'_blank'
+      %li
+        %a= link_to 'Read our Frequently Asked Questions','http://support.newscloud.com/faqs/managing-your-application',:target=>'_blank'
+      %li
+        %a= link_to 'Submit a problem to NewsCloud technical support','http://support.newscloud.com/discussions/problems',:target=>'_blank'
+      -# %li
+        %a= link_to 'Configure the layout of widgets on your front page',admin_featured_items_path
+      -# %li
+        %a= link_to 'Feature a story on your front page',admin_widgets_path
+      %li
+        %a= link_to 'Set up the text in your application',admin_locale_translations_path(:locale_id => 'en')
+      %li
+        %a= link_to 'Set up HTML for default pages such as About, FAQ and Terms of Services', admin_locale_translations_path(:locale_id => 'en',:type => 'static_pages')
+      - if get_setting('app_id').present?
+        - app_id = get_setting('app_id').value
+        %li
+          %a= link_to 'Author the Application\'s page in Facebook for its directory listing',"http://www.facebook.com/apps/application.php?id=#{app_id}",:target=>'_blank'
+        %li
+          %a= link_to 'Visit your Facebook application statistics',"http://www.facebook.com/business/insights/app.php?id=#{app_id}",:target=>'_blank'
     %p
-      == Please provide your application name, callback url, api key and secret key in the file config/facebooker.yml, and then restart your newscloud application. If you do not have a facebook application,#{link_to "create one now", "http://www.facebook.com/developers/createapp.php", :target => "_blank"}.
-
-  - display_setting_group.call :basic_site_config
-  - display_setting_group.call :welcome_panel_config
-
-  - display_setting_group.call :bitly_config
-  -# Twitter config
-  -# to do - hide when twitter is configured
-    -# if account_setting.present? && oauth_key_setting.present?
-      -# if oauth_key_setting.value != 'U6qjcn193333331AuA'          
-  %h4= link_to "Twitter Integration", admin_twitter_settings_path
-  %p== Integrate a twitter account with your newscloud application. If you do not yet have a twitter dev application, #{link_to "create one now", "https://dev.twitter.com/apps/new", :target => "_blank"} | #{link_to "learn more", "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere", :target => "_blank"}.
-
-  - display_setting_group.call :analytics_config
-  - display_setting_group.call :sitemap_seo_config
-  - display_setting_group.call :google_custom_search_engine_config
-
-  %h4= link_to 'Automated News Feeds', news_topics_admin_content_dashboard_path
-  %p Add feeds from various news sources to automatically populate your application.
-
-  -# @setting_groups.each do |name, setting_group|
-    %h4= link_to setting_group[:title], edit_admin_setting_group_path(:id => name)
-    %p= setting_group[:description]
-
-  -#
-    %h4= link_to "Twitter Integration", admin_twitter_settings_path
-    %p== Integrate a twitter account with your newscloud application. If you do not yet have a twitter dev application, #{link_to "create one now", "https://dev.twitter.com/apps/new", :target => "_blank"}.
-
-.right-dashboard{:style => "width: 45%; float: right;"}
-  %h1 Administer #{get_setting('site_title').try(:value)}
-  %p Please use the menus above to manage your Facebook application but here are some links that may be helpful to get you started:
-  %ul
-    %li
-      %a= link_to 'Community Guide to the NewsCloud Open Source Facebook Platform','http://blog.newscloud.com/community-guide-to-the-newscloud-open-source-facebook-platform.html',:target=>'_blank'
-    %li
-      %a= link_to 'Read our Frequently Asked Questions','http://support.newscloud.com/faqs/managing-your-application',:target=>'_blank'
-    %li
-      %a= link_to 'Submit a problem to NewsCloud technical support','http://support.newscloud.com/discussions/problems',:target=>'_blank'
-    -# %li
-      %a= link_to 'Configure the layout of widgets on your front page',admin_featured_items_path
-    -# %li
-      %a= link_to 'Feature a story on your front page',admin_widgets_path
-    %li
-      %a= link_to 'Set up the text in your application',admin_locale_translations_path(:locale_id => 'en')
-    %li
-      %a= link_to 'Set up HTML for default pages such as About, FAQ and Terms of Services', admin_locale_translations_path(:locale_id => 'en',:type => 'static_pages')
-    - if get_setting('app_id').present?
-      - app_id = get_setting('app_id').value
-      %li
-        %a= link_to 'Author the Application\'s page in Facebook for its directory listing',"http://www.facebook.com/apps/application.php?id=#{app_id}",:target=>'_blank'
-      %li
-        %a= link_to 'Visit your Facebook application statistics',"http://www.facebook.com/business/insights/app.php?id=#{app_id}",:target=>'_blank'
-  %p
-    Please be sure to 
-    %a= link_to 'follow @NewsCloud on Twitter', 'http://twitter.com/newscloud',:target=>'_blank'
-    for regular updates or visit our
-    %a= link_to 'blog','http://opensource.newscloud.com',:target=>'_blank'
-  %p
-    %i
-      %b Note: 
-      Preferred browsers for the administration area are 
-      %b
-        %a= link_to 'Google Chrome', 'http://www.google.com/chrome', :target=>'_blank'
-      ,
-      %b
-        %a= link_to 'Safari', 'http://www.apple.com/safari/download/', :target=>'_blank'
-      and
-      %b
-        %a= link_to 'Firefox', 'http://www.mozilla.com/en-US/firefox/firefox.html', :target=>'_blank'
-      \. Internet Explorer 7.x does not work at this time.
-
+      Please be sure to follow
+      %a= link_to '@NewsCloud', 'http://twitter.com/newscloud',:target=>'_blank'
+      for regular updates or visit our
+      %a= link_to 'blog','http://opensource.newscloud.com',:target=>'_blank'
+    %p
+      %i
+        %b Note: 
+        Preferred browsers for the administration area are 
+        %b
+          %a= link_to 'Google Chrome', 'http://www.google.com/chrome', :target=>'_blank'
+        ,
+        %b
+          %a= link_to 'Safari', 'http://www.apple.com/safari/download/', :target=>'_blank'
+        and
+        %b
+          %a= link_to 'Firefox', 'http://www.mozilla.com/en-US/firefox/firefox.html', :target=>'_blank'
+        \. Internet Explorer 7.x does not work at this time.
+- else
+  %h1 Welcome
+  %p Your initial configuration is complete. Use the menus above to update settings.
+  %p A moderation dashboard is coming soon...
     

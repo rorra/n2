@@ -1,6 +1,7 @@
 class ResourceSectionsController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show]
+  before_filter :set_meta_klass, :only => [:index]
   
   access_control do
     allow all, :to => [:index, :show, :tags]
@@ -26,13 +27,18 @@ class ResourceSectionsController < ApplicationController
     	:order    => "votes.count desc"
     })
     @newest_resources = @resource_section.resources.active.newest 5
-    set_sponsor_zone('resources', @resource_section.item_title.underscore)    
+    set_sponsor_zone('resources', @resource_section.item_title.underscore)
+    set_current_meta_item @resource_section
   end
 
   private
 
   def set_current_tab
     @current_tab = 'resources'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass ResourceSection
   end
 
 end

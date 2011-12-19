@@ -27,6 +27,10 @@ class Admin::Metadata::SettingsController < Admin::MetadataController
       if @setting.key_name.include? "welcome_"
         WidgetSweeper.expire_item "welcome_panel"
       end
+      if @setting.key_name.include? "extended_footer"
+        controller = ActionController::Base.new
+        controller.expire_fragment "footer_html"
+      end
       if @setting.key_name.include? "predictions_"
         PredictionSweeper.expire_static
       end

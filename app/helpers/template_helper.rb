@@ -162,4 +162,63 @@ module TemplateHelper
     end
   end
 
+  def double_col_item_list items, extra_options = {}, &block
+    options = {
+      :title_tag => :h3,
+      :class     => nil,
+      :title     => nil,
+      :panel_bar => true
+    }.merge(extra_options)
+
+    content_tag(:div, :class => "item-list-wrap") do
+      content_tag(:div, :class => "item-list") do
+        content_tag(:ul) do
+          content = items.map {|i| double_col_item_list_item(i) }
+          content.join.html_safe
+        end
+      end
+    end
+  end
+
+  def double_col_item_list_item item, extra_options = {}
+    options = {
+      :class => nil,
+      :title_tag => :h3
+    }.merge(extra_options)
+
+    content_tag(:li, :class => options[:class]) do
+      content_tag(:div, :class => 'item-image') do
+        item_image_content = content_tag(:div, link_to(image_tag(medium_image_or_default(item)), item.item_link), :class => 'thumb')
+        item_image_content << content_tag(:div, :class => 'content') do
+          content = content_tag(options[:title_tag], link_to(item.item_title, item.item_link))
+          content << content_tag(:p, item.item_description)
+          content << item_meta_profile(item)
+        end
+      end
+    end
+  end
+
+  def item_meta_profile item, extra_options = {}, &block
+    options = {
+      :posted_by_tag => :h6,
+      :posted_by_tag => :h6,
+      :class         => nil,
+      :extra_info    => true
+    }.merge(extra_options)
+    
+    content_tag(:div, :class => 'meta-profile') do
+      content = content_tag(:div, local_linked_profile_pic(item.item_user), :class => 'profile-pic')
+      content << content_tag(:h6, generic_posted_by(item))
+      # TODO add extra comment items
+      content
+    end
+  end
+
+  def single_featured_item item, extra_options = {}, &block
+    content_tag(:div, :class => 'single-item-wrap') do
+      content = content_tag(:h2, link_to(item.item_title, item.item_link))
+      content << item_meta_profile(item)
+    end
+  end
+  
 end

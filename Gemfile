@@ -8,6 +8,7 @@ gem "haml", "3.1.3"
 gem 'compass', '0.11.5'
 gem 'compass-960-plugin'
 gem 'json', '1.4.6'
+gem 'json_pure', '1.5.1'
 gem 'mogli'
 
 gem "formtastic", "1.1.0"
@@ -29,7 +30,7 @@ gem "aws-s3"
 gem "acl9"
 gem "paperclip"
 #gem "ruby-aaws"
-gem 'amazon-ecs', :git => 'git://github.com/stipple/amazon-ecs.git'
+gem 'amazon-ecs'
 
 # switched from vendor/plugins
 gem "hoptoad_notifier"

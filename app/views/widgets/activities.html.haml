@@ -1,7 +1,12 @@
+- canvas_preference ||= false
 - cache "widgets_activities_#{@count}_html", :expires_in => 5.minutes do
-  - latest_pfeeds ||= PfeedItem.find(:all, :conditions => ["participant_type != ?", Chirp.active.name ], :order => "created_at desc", :limit => @count)
   %div{:class => "panel-1"}
     = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => @hide_titlebar, :title => t('pfeeds.latest.title')}
     .item-list
       %ul
-        = render :partial => "pfeeds/pfeed", :collection => latest_pfeeds
+        - @items.each do |item|
+          %li
+            .itemBlock
+              %h4= link_to item.item_title, classified_path(item.item_link, :only_path => false, :canvas => canvas_preference), :target => "_top"
+              .profilePic= local_linked_profile_pic(item.item_user, :only_path => false, :target => "_top", :canvas => canvas_preference)
+              %h3= posted_by_with_date item

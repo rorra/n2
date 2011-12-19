@@ -14,8 +14,28 @@ module Newscloud
         keys = $redis.smembers(set)
         keys.each do |key|
           view_object = ViewObject.find_by_redis_key key
-          view_object.expire
+          if view_object
+            view_object.expire
+          else
+            $redis.del(set)
+          end
         end
+      end
+    end
+
+    def self.expire_views()
+      ["views/*", "view-tree*"].map do |wkeys|
+        $redis.keys(wkeys).map do |key|
+          $redis.del(key)
+        end.size
+      end
+    end
+
+    def self.expire_locales()
+      Locale.all.map(&:code).map do |locale|
+        $redis.keys("#{locale}:*").map do |translation|
+          $redis.del(translation)
+        end.size
       end
     end
 

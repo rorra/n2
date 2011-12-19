@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_filter :logged_in_to_facebook_and_app_authorized, :only => [:new, :drafts, :create, :edit, :update, :like], :if => :request_comes_from_facebook?
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy, :like]
 
+  before_filter :set_meta_klass, :only => [:index]
   before_filter :find_article, :only => [:edit, :update]
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :drafts, :user_index]
@@ -143,4 +144,8 @@ class ArticlesController < ApplicationController
     @article ||= Article.active.find(params[:id])
   end
   
+  def set_meta_klass
+    set_current_meta_klass Article
+  end
+
 end

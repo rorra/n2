@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_filter :find_forum
+  before_filter :set_meta_klass, :only => [:index]
   
   access_control do
     allow all, :to => [:index, :show, :tags]
@@ -20,6 +21,7 @@ class TopicsController < ApplicationController
     @topic.viewed!
     tag_cloud @topic
     set_outbrain_item @topic
+    set_current_meta_item @topic
   end
 
   def create
@@ -68,6 +70,10 @@ class TopicsController < ApplicationController
 
   def set_current_tab
     @current_tab = 'forums'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Topic
   end
 
 end

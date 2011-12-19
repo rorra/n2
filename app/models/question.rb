@@ -67,8 +67,9 @@ class Question < ActiveRecord::Base
 
   def action_links
     links = []
-    links << lambda {|klass| vote_link(klass) }
-    links << lambda {|klass| answer_link(klass) }
+    #links << lambda {|klass| vote_link(klass) }
+    #links << lambda {|klass| tally_link(klass) }
+    #links << lambda {|klass| answer_link(klass) }
     links
   end
 

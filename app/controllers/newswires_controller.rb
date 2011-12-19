@@ -1,6 +1,7 @@
 class NewswiresController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index]
+  before_filter :set_meta_klass, :only => [:index]
 
   access_control do
     allow all, :to => [:index, :show, :feed_index]
@@ -47,6 +48,10 @@ class NewswiresController < ApplicationController
 
   def set_current_tab
     @current_tab = 'stories'
+  end
+
+  def set_meta_klass
+    set_current_meta_klass Newswire
   end
 
 end

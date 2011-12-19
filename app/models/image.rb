@@ -2,6 +2,19 @@ require 'open-uri'
 require 'timeout'
 
 class Image < ActiveRecord::Base
+  
+  if File.exist?(File.join(Rails.root, "config", "s3.yml"))
+    PAPERCLIP_STORAGE_OPTIONS = {
+      :storage        => :s3,
+      :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
+      :path           => "/:attachment/:id/:style.jpg"
+    }
+  else
+    PAPERCLIP_STORAGE_OPTIONS = {
+      :path => ":rails_root/public/system/:attachment/:id/:style.jpg",
+      :url  => "/system/:attachment/:id/:style.jpg"
+    }
+  end
 
   acts_as_moderatable
   acts_as_voteable
@@ -24,7 +37,7 @@ class Image < ActiveRecord::Base
     }
 =end
 
-  has_attached_file :image,
+  has_attached_file :image, {
     :styles => {
       :thumb => {
         :geometry => "100x75",
@@ -53,10 +66,9 @@ class Image < ActiveRecord::Base
       :media_item => ['-background white', '-gravity center', '-extent 75x56'],
       :medium => ['-background white', '-gravity center', '-extent 320x240'],
       :large => ['-background white', '-gravity center', '-extent 610x458']
-    },
-    :storage => :s3,
-    :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
-    :path => "/:attachment/:id/:style.jpg"
+    }
+  }.merge(PAPERCLIP_STORAGE_OPTIONS)
+
   validate :download_image, :if => :remote_image_url?
   validates_presence_of :image, :image_file_name, :image_content_type, :image_file_size
 

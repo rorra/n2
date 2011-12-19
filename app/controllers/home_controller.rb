@@ -68,9 +68,14 @@ class HomeController < ApplicationController
     return
   end
 
+  def default_ads
+    slot_name = params[:slot_name] || "default"
+    render :partial => 'shared/ads/default_ads', :locals => { :slot_name => slot_name },:layout => false
+  end
+
   def google_ads
     slot_name = params[:slot_name] || get_setting('google_adsense_slot_name').try(:value)
-    render :partial => 'shared/google_ads', :locals => { :slot_name => slot_name },:layout => false
+    render :partial => 'shared/ads/google_ads', :locals => { :slot_name => slot_name },:layout => false
   end
 
   def openx_ads
@@ -150,6 +155,10 @@ class HomeController < ApplicationController
     render :partial => @widget.partial, :locals => locals and return
   end
 
+  def robots
+    render :partial => "shared/robots.txt", :layout => false and return
+  end
+  
   private
   def set_current_tab
     @current_tab = 'home'
