@@ -1,8 +1,8 @@
 - canvas_preference ||= false
 - cache "widgets_activities_#{@count}_html", :expires_in => 5.minutes do
-  %div{:class => "panel_1"}
+  %div{:class => "panel-1"}
     = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => @hide_titlebar, :title => t('pfeeds.latest.title')}
-    .list_items
+    .item-list
       %ul
         - @items.each do |item|
           %li

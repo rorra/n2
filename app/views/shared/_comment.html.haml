@@ -1,15 +1,17 @@
 -# @expects: local 'comment' %>
-
-%li.comment_block
-  %blockquote
-    .quotes= nl2br linkify(comment.comments)
-  .profilePic= local_linked_profile_pic comment.user
-  .itemBlock
-    .itemMeta
-      %h3= generic_posted_by comment
-      %span.btnComment= votes_link(comment, comment.votes_tally)
+%li.comment-block
+  .comment-bubble
+    .comment-quote= nl2br linkify(comment.comments)
+    .arrow
+      .arrow-inner
+  .comment-meta-data
+    .profile-pic= local_linked_profile_pic comment.user
+    .mod-flag-wrap
       - if comment.moderatable?
-        .float_left= render :partial => 'shared/flag_form.html', :locals => { :flaggable => comment }
+        %span= render :partial => 'shared/flag_form.html', :locals => { :flaggable => comment }
+    %h6= generic_posted_by comment
+    %h6
+      %span= votes_link(comment, comment.votes_tally)
 
 -#  .comment_reply
 -#    %a.commentReply{:href => '#'}= "Reply" 

@@ -2,13 +2,18 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/predictions_subnav'
 
-#col_left
-  .panel_2.prediction-details
-    .item-details
-      = add_this @prediction_group
+#left-col
+  #item-details.panel-2
+    = add_this @prediction_group
+    .item-block
       - if @prediction_group.images.present?
         .thumb
           = image_tag @prediction_group.images.first.url(:medium)
+      - if @prediction_group.moderatable?
+        .mod-panel
+          .subtitle.clearfix
+            .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @prediction_group }
+            .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @prediction_group }
       %h1= @prediction_group.title
       %h3= generic_posted_by @prediction_group
       - if @tags.present?
@@ -17,41 +22,37 @@
         =render_media_items @prediction_group, :size => 'large'        
       - unless @prediction_group.description.empty?
         %p= sanitize @prediction_group.description
-    .pred-nav-bar
-      - unless @next_prediction_group.nil?
-        = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "next"
-      - unless @previous_prediction_group.nil?
-        = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float_right", :class => "previous"
-      .clearfix
-    = render_ad(:banner, @ad_layout, @ad_banner)
-    -# expects prediction_group,
-    - if not current_user.present?
-      %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
-      %br
-    .predictions.question_block
-      - if @prediction_group.prediction_questions.present?    
-        %ul
-          - @prediction_group.prediction_questions.find(:all,:conditions => "is_approved=1 and is_blocked = 0 and status = 'open' ").each do |prediction_question|
-            = render :partial => 'shared/prediction_question_container', :locals => { :prediction_question => prediction_question }
-      - else
-        %p =t('predictions.empty_group')
-    .pred-nav-bar
-      - unless @next_prediction_group.nil?
-        = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "next"
-      - unless @previous_prediction_group.nil?
-        = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float_right", :class => "previous"
-      .clearfix
-    - if @prediction_group.moderatable?
-      .mod-panel
-        .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @prediction_group }
-        .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @prediction_group }
+      %p
+        - unless @next_prediction_group.nil?
+          = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float-right"
+        - unless @previous_prediction_group.nil?
+          = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float-right", :class => "btn"
+  = render_ad(:banner, @ad_layout, @ad_banner)
+  -# expects prediction_group,
+  - if not current_user.present?
+    %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
+    %br
+  .predictions.question_block
+    - if @prediction_group.prediction_questions.present?    
+      %ul
+        - @prediction_group.prediction_questions.find(:all,:conditions => "is_approved=1 and is_blocked = 0 and status = 'open' ").each do |prediction_question|
+          = render :partial => 'shared/prediction_question_container', :locals => { :prediction_question => prediction_question }
+    - else
+      %p =t('predictions.empty_group')
+  %p
+    - unless @next_prediction_group.nil?
+      = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float-right"
+    - unless @previous_prediction_group.nil?
+      = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float-right", :class => "btn"
+  %br
+  %br
   = render :partial => 'shared/comments', :locals => { :comments => @prediction_group.comments }
   = render :partial => 'shared/comment_form', :locals => { :commentable => @prediction_group }
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
   = render :partial => 'shared/item_footer', :locals => { :item => @prediction_group,:title => @prediction_group.title }
 
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/suggest_predictions'
   = render :partial => 'shared/sidebar/newest_prediction_groups', :locals => { :prediction_groups => @newest_prediction_groups }

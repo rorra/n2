@@ -2,8 +2,8 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/predictions_subnav'
 
-#col_left
-  .panel_2.prediction-details
+#left-col
+  #item-details.panel-2
     = add_this @prediction_question
     - if not current_user.present?
       %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
@@ -21,7 +21,7 @@
     = render :partial => 'shared/external/outbrain_wrapper'
   = render :partial => 'shared/item_footer', :locals => { :item => @prediction_question,:title => @prediction_question.title }
 
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/predictions_high_scores', :locals => { :top_scorers => nil }
   = render :partial => 'shared/sidebar/newest_prediction_groups', :locals => { :prediction_groups => @newest_prediction_groups }

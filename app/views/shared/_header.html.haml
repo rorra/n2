@@ -1,10 +1,10 @@
 #header
-  .sponsor
+  #sponsor
     %a
-  .headerTitle
-    %a{:title => "Front Page - #{get_setting('site_title').try(:value)}", :href => "#{home_index_path(:only_path => false)}"}
-      %h1= get_setting('site_title').try(:value)
-  .meta-links
+  %h1#site-name-wrap
+    %a#site-name{:title => "Front Page - #{get_setting('site_title').try(:value)}", :href => "#{home_index_path(:only_path => false)}"}= get_setting('site_title').try(:value)
+      
+  #header-actions
     - cache :google_search_header_html, :expires_in => 180.minute do
       - if Metadata::Setting.find_setting('google_search_engine_id').present?
         - search_engine_id = Metadata::Setting.find_setting('google_search_engine_id').value
@@ -17,23 +17,18 @@
         %script{:type => "text/javascript", :src => "http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"}  
         :javascript
           var masonryCallback = function() {
-            $('#col_full').masonry({
+            $('#full-col').masonry({
               columnWidth: #{iframe_facebook_request? ? 250 : 313},
               itemSelector: '.box'
             });
           };
     - if logged_in?
-      .account-dropdown
+      %span.account-dropdown
         = link_to t('header.account'), account_menu_path, :class => "account-toggle"
         .account-links{:style => 'display:none'}
-      %span.admin-links
+      - if current_user and current_user.is_admin?
         = pipe_spacer
-        - if iframe_facebook_request?
-          = link_to t('.admin'), admin_path, :target => '_admin'
-        - else
-          = link_to t('.admin'), admin_path, :target => '_admin'
-        =# pipe_spacer
-        =# link_to t('invite_users_title'), '#', :class => 'invite-link'
+        = link_to t('.admin'), admin_path, :target => '_admin'
     - else
       - if iframe_facebook_request?
         = link_to t('.register_facebook'), link_user_accounts_users_path(:only_path => false, :canvas => true), :target => '_parent'

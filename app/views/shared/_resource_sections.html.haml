@@ -1,18 +1,18 @@
-.panel_2
-  .panelBar.clearfix
+.panel-2
+  .panel-bar.clearfix
     %h2= t('.title')
   .subtitle
     %span= t('.subtitle')
-  .itemListWrap
-    .list_items.clearfix
+  .item-list-wrap
+    .item-list
       %ul
         - resource_sections.each do |resource_section|
           %li
-            .itemBlock
-              %p= link_to resource_section.name, resource_section
-              %p= resource_section.description
+            .item-no-image
+              .content
+                %h3= link_to resource_section.name, resource_section
+                %p= resource_section.description
 
-  - unless @no_paginate
-    .clearfix
-      = will_paginate resource_sections
-      %br
+- unless @no_paginate
+  .panel-2
+    = will_paginate resource_sections

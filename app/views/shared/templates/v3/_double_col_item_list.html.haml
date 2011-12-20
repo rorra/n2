@@ -1,0 +1,127 @@
+- items = vo.dataset
+= panel2 do
+  = panel_bar vt.t(vo.setting.locale_title)
+  = double_col_item_list items
+
+-# examples for two column list items
+-#.panel-2
+  .panel-bar
+    %h2 Two Column List Item Examples
+  .item-list-wrap
+    .item-list
+      %ul
+        %li
+          // simple item with image
+          .item-image
+            .thumb
+              = image_tag('skin/medium_watermark.jpg')
+            .content
+              %h3
+                %a Sit volup tatem accus antium dolorem
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem accus antium dolorem que Sit volup tatem accus
+              .meta-profile
+                .profile-pic
+                  = image_tag('skin/medium_watermark.jpg')
+                %h6
+                  Posted by
+                  %a Someone
+                  in
+                  %a Somewhere
+                  some time ago
+                %h6
+                  %a Comment
+                  %span.pipe
+                    |
+                  %a View
+        %li
+          // simple item with image variant
+          .item-image
+            .title
+              %h2 
+                %a Sit volup tatem accus antium dolorem
+              %h6
+                Posted by
+                %a Someone
+                in
+                %a Somewhere
+                some time ago
+            .thumb
+              = image_tag('skin/medium_watermark.jpg')
+            .content
+
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem accus antium dolorem que Sit volup tatem accus
+              .meta-data
+                %h6
+                  %a Comment
+                  %span.pipe
+                    |
+                  %a View
+        %li
+          // simple item with no image
+          .item-no-image
+            .content
+              %h2
+                %a Sit volup tatem accus antium dolorem
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem accus antium dolorem que Sit volup tatem accus
+              .meta-data
+                %h6
+                  Posted by
+                  %a Someone
+                  in
+                  %a Somewhere
+                  some time ago
+                %h6
+                  %a Comment
+                  %span.pipe
+                    |
+                  %a View
+        %li
+          // complex item with image
+          .item-complex-image
+            .thumb
+              = image_tag('skin/medium_watermark.jpg')
+            .content
+              %h3
+                %a Sit volup tatem accus antium dolorem
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem accus antium dolorem que Sit volup tatem accus
+              .meta-profile
+                .profile-pic
+                  = image_tag('skin/medium_watermark.jpg')
+                %h6
+                  Posted by
+                  %a Someone
+                %h6
+                  %a Comment
+                  %span.pipe
+                    |
+                  %a View
+            .details
+              .details-wrap
+                %p.title Volup tatem accus antium dolorem que
+                %p Volup tatem accuse
+                %p Volup tatem 
+                %p Volup tatem 
+        %li
+          // complex item with image
+          .item-complex-no-image
+            .content
+              %h3
+                %a Sit volup tatem accus antium dolorem
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem accus antium dolorem que Sit volup tatem accus
+              .meta-profile
+                .profile-pic
+                  = image_tag('skin/medium_watermark.jpg')
+                %h6
+                  Posted by
+                  %a Someone
+                %h6
+                  %a Comment
+                  %span.pipe
+                    |
+                  %a View
+            .details
+              .details-wrap
+                %p.title Volup tatem accus antium dolorem que
+                %p Volup tatem accuse
+                %p Volup tatem 
+                %p Volup tatem 

@@ -1,6 +1,6 @@
-#col_left
-  .panel_2
-    .panelBar
+#left-col
+  .panel-2
+    .panel-bar
       %h2= t('galleries.edit', :gallery => @gallery.title)
     .formBox
       - semantic_form_for @gallery, :html => { :multipart => true } do |form|
@@ -21,8 +21,8 @@
         - form.inputs do
           = add_gallery_item_simple(form, true)
         - form.buttons do
-          = form.commit_button  :class => 'float_right', :button_html => { :class => "btn" }
+          = form.commit_button  :class => 'float-right', :button_html => { :class => "btn" }
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/newest_galleries'
   = render :partial => 'shared/sidebar/top_galleries'

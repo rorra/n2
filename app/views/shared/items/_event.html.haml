@@ -1,16 +1,16 @@
 .event.large
   .complexBlock
     .complexDetailsBlock
-      .itemBlock
+      .item-block
         %h4
           -# %span.tag
           -# could be used to show type of event e.g. Lecture, Party, etc.                    
           = link_to event.name, event_path(event)
-        .profilePic= local_linked_profile_pic event.user, :size => :square
-        .itemMeta
+        .profile-pic= local_linked_profile_pic event.user, :size => :square
+        .meta-data
           %h3= generic_posted_by event
-          %span.btnComment== #{like_link event} #{event.votes_tally}
-          %span.btnComment== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
+          %span== #{like_link event} #{event.votes_tally}
+          %span== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
     .complexMiniBlock
       %ul
         %li 

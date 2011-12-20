@@ -3,34 +3,34 @@
 
 - @paginate ||= false
 
-#col_left
-  .panel_2
-    .panelBar
+#left-col
+  .panel-2
+    .panel-bar
       %h2= t('cards.my_received_title')
     .subtitle
       %span= t('cards.my_received_subtitle')
-    .itemListWrap
-      .list_items
-        .item_1
-          %ul
-            - @my_cards.each do |my_card|
-              %li
+    .item-list-wrap
+      .item-list
+        %ul
+          - @my_cards.each do |my_card|
+            %li
+              .item-image
                 .thumb
                   = image_tag my_card.card.image_path
-                .itemBlock
+                .content
                   %h2= link_to my_card.card.name, card_path(my_card.card)
-                  %p.storyCaption= my_card.card.short_caption
-                  .profilePic= local_linked_profile_pic my_card.from_user
-                  .itemMeta
-                    %h3= t('cards.sent_by', :fb_name => local_linked_profile_name(my_card.from_user), :date => timeago(my_card.created_at)).html_safe
-                    -#%span.btnComment== #{link_to t('.stories_like'), like_story_path(card.id), :class => "voteUp"} #{card.votes_tally}
-                    -#%span.btnComment== #{link_to t('comments'), story_path(card, :anchor => "commentListTop")} #{card.comments_count}
+                  %p= my_card.card.short_caption
+                  .meta-profile
+                    .profile-pic= local_linked_profile_pic my_card.from_user
+                    %h6= t('cards.sent_by', :fb_name => local_linked_profile_name(my_card.from_user), :date => timeago(my_card.created_at)).html_safe
+                    -#%h6
+                      -#%span== #{link_to t('.stories_like'), like_story_path(card.id), :class => "voteUp"} #{card.votes_tally}
+                      -#%span== #{link_to t('comments'), story_path(card, :anchor => "commentListTop")} #{card.comments_count}
     - if @paginate
-      .clearfix
+      .panel-2
         = will_paginate @my_cards
-        %br
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/top_sent_cards'
   = render :partial => 'shared/sidebar/newest_sent_cards'
 

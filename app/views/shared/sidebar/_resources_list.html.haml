@@ -1,13 +1,15 @@
 -# @expects: local @resources, @title
 
-.panel_1
-  .panelBar
+.panel-1
+  .panel-bar
     %h2= title
-
-  .list_items
-    %ul.listTags
-      - Resource.active.top(5).each do |resource|
-        %li
-          .itemBlock
-            .profilePic= local_linked_profile_pic resource.user
-            = link_to resource.title, resource_path(resource)
+  .item-list-wrap
+    .item-list
+      %ul
+        - Resource.active.top(5).each do |resource|
+          %li
+            .meta-profile
+              .profile-pic= local_linked_profile_pic resource.user
+              %h5= link_to resource.title, resource_path(resource)
+           
+              

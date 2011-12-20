@@ -35,6 +35,14 @@ module LayoutHelper
     content_tag(:meta, nil, :property => tag, :content => content)
   end
 
+  def icon_fan_app_location
+    'skin/icon-fan-app.gif'
+  end
+
+  def icon_fan_app_url
+    base_url(path_to_image(icon_fan_app_location))
+  end
+
   def item_page_title item
     page_title :item => item
   end

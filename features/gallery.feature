@@ -23,7 +23,7 @@ Feature: Gallery
 
 		When I am on the galleries page
 		And I click on that gallery
-		Then I should see "Pizza" within "#itemDetails h1"
+		Then I should see "Pizza" within "#item-details h1"
 		And I should see 5 images on the page
 		And I should see the widget user bio
 		#TODO::

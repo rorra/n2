@@ -2,11 +2,11 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'subnav'
 
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   = render :partial => 'shared/resources', :locals => { :resources => @resources, :paginate => @paginate, :page => @page }
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/resources_whatisthis'
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

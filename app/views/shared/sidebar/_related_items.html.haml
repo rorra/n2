@@ -1,7 +1,7 @@
 -# @expects: local 'related_items','relatable'
-%div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+%div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   - unless related_items.empty?
-    .panelBar
+    .panel-bar
       %h2= t('related_items_title')
     %ul.bullet_list
       - related_items.each do |related_item|
@@ -9,4 +9,4 @@
           %h4= link_to related_item.title, related_item.url, :title => related_item.notes
   - if current_user.present?
     - if (current_user.is_moderator? or current_user.is_host?)
-      %h3.btn= link_to t('add_related_item'), new_polymorphic_path([relatable, :related_item])
+      = link_to t('add_related_item'), new_polymorphic_path([relatable, :related_item]), {:class => 'button-link'}

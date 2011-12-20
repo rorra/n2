@@ -3,17 +3,20 @@
 - cache :top_articles_html do
   - top_articles ||= Article.active.published.find( :all, :limit => 5, :order => "created_at desc" )  
   - unless top_articles.empty?
-    %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+    %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+      .panel-bar
         %h2= t('articles.top_title')
-      .list_items
-        %ul
-          - top_articles.each do |article|
-            %li
-              .itemBlock
-                %h4= link_to article.content.title, content_path(article.content)
-                .profilePic= local_linked_profile_pic article.author
-                .itemMeta
-                  %h3= generic_posted_by article, article.author
-                  %span.btnComment== #{like_link article.content} #{article.content.votes_tally}
-                  %span.btnComment== #{link_to t('comments'), content_path(article.content, :anchor => "commentListTop")} #{article.content.comments_count}
+      .item-list-wrap
+        .item-list
+          %ul
+            - top_articles.each do |article|
+              %li
+                .item-block
+                  %h5= link_to article.content.title, content_path(article.content)
+                .meta-data
+                  %h6= generic_posted_by article, article.author
+                  %h6
+                    %span== #{like_link article.content} #{article.content.votes_tally}
+                    %span.pipe
+                      |
+                    %span== #{link_to t('comments'), content_path(article.content, :anchor => "commentListTop")} #{article.content.comments_count}

@@ -1,8 +1,10 @@
-.question.small
-  .itemBlock
-    %h4= link_to caption(question.question,80), question_path(question)
-    .profilePic= local_linked_profile_pic question.user
-    .itemMeta
-      %h3= asked_by question
-      %span.btnComment== #{like_link question} #{question.votes_tally}
-      %span.btnComment== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
+.question
+  .item-block
+    %h5= link_to caption(question.question,80), question_path(question)
+    .meta-data
+      %h6= asked_by question
+      %h6
+        %span== #{like_link question} #{question.votes_tally}
+        %span.pipe
+          |
+        %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}

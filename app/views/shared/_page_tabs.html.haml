@@ -1,34 +1,32 @@
 -# Expects @current_tab to be set, done by default in app_controller
-#pageTabs
-  .tabs
-    .tab-float
-      %ul#toggle_tabs_unused.toggle_tabs
-        - MenuItem.root_items.enabled.positioned.each do |menu_item|
-          - if menu_item.name_slug == 'home'
-            - if @current_tab == 'home'
-              %li.first= link_to image_tag('default/home-icon-selected.png'), home_index_path, :class => "tab #{tab_selected?(@current_tab, 'home')}"
-            - else
-              %li.first= link_to image_tag('default/home-icon-off.png'), home_index_path, :class => "tab"
-          - else
-            %li.menu_item
-              = link_to_menu_item menu_item, @current_tab
-              - if menu_item.children.enabled.any?
-                %ul.dropdown
-                  - menu_item.children.enabled.positioned.each do |child_item|
-                    %li= link_to_menu_item child_item, @current_tab
-                  - if menu_item.name_slug == 'resources'
-                    - ResourceSection.alpha.each do |item|
-                      %li= link_to item.featured_title, path_to_self(item)
-                  - elsif menu_item.name_slug == 'articles'
-                    - if current_user.present? and current_user.is_blogger?
-                      %li= link_to t('articles.drafts'), drafts_articles_path
-                  - elsif menu_item.name_slug == 'events'
-                    - if current_facebook_user
-                      %li= link_to t('.import_facebook'), import_facebook_events_path
-                  - elsif menu_item.name_slug == 'galleries'
-                    - Gallery.active.top.each do |gallery|
-                      %li= link_to gallery.title, gallery_path(gallery)
-              - elsif menu_item.name_slug == 'forums'
-                %ul.dropdown
-                  - Forum.active.positioned.each do |forum|
-                    %li= link_to forum.name, forum_path(forum)
+#primary-navigation
+  %ul
+    - MenuItem.root_items.enabled.positioned.each do |menu_item|
+      - if menu_item.name_slug == 'home'
+        - if @current_tab == 'home'
+          %li= link_to image_tag('site/home-icon-selected.png'), home_index_path, :class => "tab #{tab_selected?(@current_tab, 'home')}"
+        - else
+          %li= link_to image_tag('site/home-icon-off.png'), home_index_path, :class => "tab"
+      - else
+        %li
+          = link_to_menu_item menu_item, @current_tab
+          - if menu_item.children.enabled.any?
+            %ul.dropdown
+              - menu_item.children.enabled.positioned.each do |child_item|
+                %li= link_to_menu_item child_item, @current_tab
+              - if menu_item.name_slug == 'resources'
+                - ResourceSection.alpha.each do |item|
+                  %li= link_to item.featured_title, path_to_self(item)
+              - elsif menu_item.name_slug == 'articles'
+                - if current_user.present? and current_user.is_blogger?
+                  %li= link_to t('articles.drafts'), drafts_articles_path
+              - elsif menu_item.name_slug == 'events'
+                - if current_facebook_user
+                  %li= link_to t('.import_facebook'), import_facebook_events_path
+              - elsif menu_item.name_slug == 'galleries'
+                - Gallery.active.top.each do |gallery|
+                  %li= link_to gallery.title, gallery_path(gallery)
+          - elsif menu_item.name_slug == 'forums'
+            %ul.dropdown
+              - Forum.active.positioned.each do |forum|
+                %li= link_to forum.name, forum_path(forum)

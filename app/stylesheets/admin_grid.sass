@@ -1,0 +1,40 @@
+// 960 Grid System ~ Core CSS. //
+// Learn more ~ http://960.gs. //
+// Licensed under GPL and MIT. //
+// Grid Variables ----------------------------------------- //
+$ninesixty_columns: 12
+$ninesixty_grid_width: 960px
+$ninesixty_gutter_width: 20px
+// Default Variables -------------------------------------- //
+// Header Font Sizes
+$h1-size: 22px
+$h2-size: 18px
+$h3-size: 14px
+$h4-size: 14px
+$h5-size: 12px
+$h6-size: 11px
+// box-shadow
+$box-shadow: 0px 0px 4px rgba(0,0,0, 0.5)
+// Layout
+$ninesixty_gutter_width: $ninesixty_gutter_width
+// Forms
+$panel-one-input-width: 270px
+$panel-two-input-width: 590px
+$panel-three-input-width: 910px
+// Widget Heights
+$feature-item-small-height: 132px
+$feature-item-medium-height: 225px
+$feature-item-large-height: 285px
+$feature-item-xlarge-height: 285px
+// Imports ---------------------------------------------- //
+// Reset
+@import "compass/utilities/general/reset"
+// Grid
+@import 960/grid.sass
++global-reset
+
+// App stylesheets
+@import formtastic.sass
+@import flowplayer_tabs.sass
+// Admin
+@import admin.sass

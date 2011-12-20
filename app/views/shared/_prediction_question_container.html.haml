@@ -1,7 +1,9 @@
 -# expects prediction_question
 - from_groups ||= false
-.vote-options
-  %h4= prediction_question.title
+%li
+  .generic.small
+    .item-block
+      %h4= prediction_question.title
   .prediction_question_wrapper    
     - if current_user.present? and prediction_question.status == 'open'
       - unless prediction_question.user_guessed? current_user

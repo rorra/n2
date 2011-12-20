@@ -10,56 +10,63 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/classifieds_subnav'
 
-#col_left
+#left-col
   - cache "#{@classified.cache_key}_top_html" do
-    #itemDetails.panel_2
-      = add_this @classified
-      .itemBlock
+    .panel-2#item-details
+      .add-this-wrap
+        = add_this @classified
+      - if @classified.images.present?
+        .thumb= image_tag @classified.images.first.url(:medium)
+      %h1= @classified.title
+      .meta-data
+      %h6
+        = classifieds_posted_by @classified
+        %span.moderator-links.hidden{:class => "user-#{@classified.user.id}"}
+          = pipe_spacer
+          = link_to t('classifieds.edit'), edit_classified_path(@classified)
+      - if @tags.present?
+        %h6== Tags: #{tag_list(@tags, @classified)}
+      %p= sanitize caption(@classified.details, 500)
+      .meta-data
+        %h5== #{classified_listing_type(@classified)}
+        %h6== #{t('classifieds.status', :state => @classified.state)}
+        - if @classified.location_text.present?
+          %h6== Location: #{@classified.location_text}
 
-        - if @classified.images.present?
-          .thumb= image_tag @classified.images.first.url(:medium)
-
-        %h1= @classified.title
-        %h3
-          = classifieds_posted_by @classified
-          %span.moderator-links.hidden{:class => "user-#{@classified.user.id}"}
+    .panel-2
+      .subtitle.clearfix
+        .float-right
+          = link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook")
+          = pipe_spacer
+          -# change to amazon_asin
+          - if @classified.amazon_item.present?
+            = link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon"
+          %span{:class => "user-#{@classified.user.id}"}
             = pipe_spacer
             = link_to t('classifieds.edit'), edit_classified_path(@classified)
-        - if @tags.present?
-          .tag-wrap
-            == Tags: #{tag_list(@tags, @classified)}
-        %p= sanitize caption(@classified.details, 500)
-        .eventMetaBlock
-          .eventMeta
-            %h4== #{classified_listing_type(@classified)}
-            %h3== #{t('classifieds.status', :state => @classified.state)}
-            - if @classified.location_text.present?
-              %h3== Location: #{@classified.location_text}
-        .float_left.classified_button_margin= link_to(t('classifieds.contact_owner', :fb_user => @classified.user.public_name).html_safe, external_profile_link(@classified.user), :target => "_facebook", :class => "btn")
-        -# change to amazon_asin
-        - if @classified.amazon_item.present?
-          .float_left.classified_button_margin= link_to t('classifieds.view_amazon'), @classified.amazon_item.url, :target => "_amazon", :class => "btn"
-      - if @classified.media_item?
-        = render_media_items @classified, :size => 'large'
 
-    %span.moderator-links.hidden{:class => "user-#{@classified.user.id}"}
-      = pipe_spacer
-      = link_to t('classifieds.edit'), edit_classified_path(@classified)
+    - if @classified.media_item?
+      = render_media_items @classified, :size => 'large'
+
     - if @classified.moderatable?
-      .mod-panel.panel_2
-        .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
-        .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
+      .panel-2
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @classified }
+          .float-right
+            = render :partial => 'shared/flag_form', :locals => { :flaggable => @classified }
 
     = render_ad(:banner, @ad_layout, @ad_banner)
-  = render :partial => 'shared/comments', :locals => { :comments => @classified.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @classified }
+  .panel-2.comment-list
+    = render :partial => 'shared/comments', :locals => { :comments => @classified.comments }
+  .panel-2.comment-form
+    = render :partial => 'shared/comment_form', :locals => { :commentable => @classified }
 
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
 
   = render :partial => 'shared/item_footer', :locals => { :item => @classified,:title => @classified.title }
 
-#col_right
+#right-col
   - if @classified.is_owner?(current_user) or (current_user and current_user.is_moderator?)
     = render :partial => "actions", :locals => { :classified => @classified }
   - if @custom_sidebar_widget

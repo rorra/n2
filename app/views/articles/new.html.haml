@@ -21,13 +21,13 @@
       var api = $("ul.arrows", wizard).data("tabs");
 
       // "next tab" button
-      $("input.form-btn.next", wizard).click(function(event) {
+      $("input.button-input.next", wizard).click(function(event) {
       	event.preventDefault();
         api.next();
       });
 
       // "previous tab" button
-      $("input.form-btn.prev", wizard).click(function() {
+      $("input.button-input.prev", wizard).click(function() {
       	event.preventDefault();
         api.prev();
       });
@@ -46,11 +46,11 @@
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/news_subnav'
 
-#col_full
-  .panel_3
-    .panelBar
+#full-col
+  .panel-3
+    .panel-bar
       %h2= t '.header'
-    .formBox
+    .form-wrap
       #wizard
         #flowplayer-block
           %ul.arrows
@@ -69,9 +69,9 @@
                   - form.semantic_fields_for :content do |content_form|
                     - content_form.inputs do
                       = content_form.input :title
-                      %p= form.input :body
+                      = form.input :body
                 - form.buttons do
-                  = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
+                  = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
               .panel2
                 - form.semantic_fields_for :content do |content_form|
                   - content_form.inputs do
@@ -80,9 +80,9 @@
                     #article_status= label_tag :status, t('articles.status')
                     = select_tag :is_draft, options_for_select( { t('articles.draft') => 1, t('articles.publish') => 0  }, (@article.is_draft ? 1 : 0) ) 
                 - form.buttons do
-                  = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
-                  = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
-                  = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
+                  = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
+                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
+                  = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
 
               .panel3
                 - form.semantic_fields_for :content do |content_form|
@@ -93,16 +93,16 @@
                       .items
                     %a.next.browse.right_scroll
                 - form.buttons do
-                  = form.commit_button t('wizard.continue'), :class => 'float_right', :button_html => { :class => 'form-btn next' }
-                  = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
-                  = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
+                  = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
+                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
+                  = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
 
               .panel4
                 - form.semantic_fields_for :content do |content_form|
                   = render :partial => 'shared/forms/media_items_simple', :locals => { :form => content_form, :item => @article.content }
                 - form.buttons do
-                  = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
-                  = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }
+                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
+                  = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
 
 = stylesheet_link_tag 'jquery.wysiwyg'  
 = javascript_include_tag 'jquery.wysiwyg'

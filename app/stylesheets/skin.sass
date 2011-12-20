@@ -1,266 +1,79 @@
-//****************************************************************************************************
-// NEWSCLOUD SITE SKIN
-//****************************************************************************************************
-//****************************************************************************************************
-//Globals
-$colorOne:     #3B5998    // Headers, V2 .panel-bar BG
-$colorTwo:     #E6ECF3    // .panel-featured BG
-$colorThree:   #55761B    // Page tab color
-$colorFour:    #333333    // Body font color
-$colorFive:    #888888    // Subtitle color
-$colorSix:     #3B5998    // links 
-$colorSeven:   #55761b    // #pageTab BG, button BG
-$colorEight:   #F1F1F1    // Meta Panel, Subtitle BG,
-$colorNine:    #999999    // general Border color
-$colorTen:     #ffffff    // body BG, #bodyWrapper BG, V1 .panelBar BG, button TXT
-//Globals
-//****************************************************************************************************
-//****************************************************************************************************
+// NewsCloud Default Skin #1 ------------------------------ //
+//
+// Site Skin Variables ------------------------------------ //
+// 
+// Colors --------------------------------- //
+// Background Colors
+$primary-bg-color: #FFFFFF
+$secondary-bg-color: #3B5998
+$tertiary-bg-color: #F1F1F1
+// Border Colors
+$primary-border-color: #253E72
+// Header Colors
+$primary-header-color: #000
+$secondary-header-color: #3B5998
+$tertiary-header-color: #666666  
+// Text Colors
+$primary-body-color: #333 
+$secondary-body-color: #555 
+$tertiary-body-color: #777 
+// Link Colors
+$primary-link-color: #2462E2 
+$secondary-link-color: #2462E2 
+$tertiary-link-color: #2462E2 
+// Tab Colors
+$primary-tab-off: #3B5998
+$primary-tab-on: #FFFFFF
+$tab-border-lightness: -35%
+// Button Colors
+$primary-btn: #3B5998
+$secondary-btn: #428519
+$tertiary-btn: #666
 
-//****************************************************
-// ALERTS
+// Fonts & Text Sizes --------------------- //
+// Header Font
+$primary-header-font: lucida grande, tahoma, verdana, arial, "san-serif"
+// Body Font
+$primary-body-font: lucida grande, tahoma, verdana, arial, "san-serif"
+$primary-body-size: 12px
+$primary-line-height: 150%
 
-// Message Flash Variables //
+// Header / Logo / Sponsor -------------------------------- //
+//
+// Header --------------------------------- //
+$header-image: image_url("skin/bg-header.gif")
+
+// Site Name ------------------------------ //
+$site-name-image: image_url("skin/header-logo.png")
+// Logo Position
+$site-name-y-position: 50px
+$site-name-x-position: 50px
+// Logo Dimensions
+$site-name-height: 60px
+$site-name-width: 300px
+// Logo Text Options
+$site-name-text-color: #FFF
+// Logo Text Hide (-9999px or 0px)
+$hide-text: -9999px
+
+// Sponsor -------------------------------- //
+$sponsor-image: image_url("skin/sponsor.png")
+// display - none or block
+$sponsor-hide: none
+// Sponsor Position
+$sponsor-y-position: 0
+$sponsor-x-position: 0
+// Sponsor Dimensions
+$sponsor-height: 0
+$sponsor-width: 0
+
+// System Options ----------------------------------------- //
+// Message Flash Variables ---------------- //
 $flashErrorBorder: 2px solid #640000
-$flashErrorBG: #bc0b0b
+$flashErrorBG: #BC0B0B
 $flashSuccessBorder: 2px solid #296003
-$flashSuccessBG: #54be0d
+$flashSuccessBG: #54BE0D
 $flashNoticeBorder: 2px solid #0B5B9E
-$flashNoticeBG: #3b91ae
-$flashWarningBorder: 2px solid #b46a06
-$flashWarningBG: #f79410
-
-
-//****************************************************
-// FONTS & TEXT
-
-// Font Families
-$copyFont: lucida grande, tahoma, verdana, arial, "san-serif"
-$headerFont: lucida grande, tahoma, verdana, arial, "san-serif"
-$headerWeight: bold // TypeKit work-around for single family fonts.
-
-// Text Color
-$headerColor: $colorOne
-$headerLinkHover: $colorOne
-$subheadColor: $colorFive
-$linkColor: $colorSix
-$bodyColor: $colorFour
-
-
-//****************************************************
-// HEADER
-
-// Header Container
-$headerBG: image_url("default/hdr_bg.gif") bottom left repeat-x
-$headerHeight: 110px
-
-// Site Title
-$headerTitleColor: $colorOne
-$headerTitleDisplay: visible
-$headerTitleLogoHeight: 50px
-$headerTitleLogoWidth: 400px
-$headerTitleLogoPosTop: 30px
-$headerTitleLogoPosLeft: 20px
-$headerTitleLogoImage: none
-
-// Site Sponsor 
-$sponsorDisplay: none
-$sponsorHeight: 30px
-$sponsorWidth: 140px
-$sponsorTop: 20px
-$sponsorLeft: 300px
-$sponsorLogoImage: image_url("default/sponsor-logo.png") center left no-repeat
-
-// Page Tab Float
-$pagetabFloat: right
-
-// Page Tab Width
-$pageTabWidth: 100px
-
-// Page Tabs
-$tabBG: $colorSeven image_url("default/site/btn-gradient.png") top left repeat-x
-$tabBGHover: $colorSeven - #222 image_url("default/site/btn-gradient.png") top left repeat-x
-$tabBorder: 1px solid $colorSeven
-$tabTextColor: $colorTen
-$tabSelectedBG: $colorTen
-$tabSelectedTextColor: $colorSeven
-// Non-Tab navigation
-$PageTabRoundedCorners: none
-
-// Page Tab Dropdowns
-$PageTabDropDownBG: $colorSeven + #444
-$PageTabDropDownBGHover: $colorSeven - #222
-
-// Page Sub-Navigation Tabs
-$subTabBG: $colorOne 
-$subTabBGHover: $colorOne - #222 
-$subTabBorder: 1px solid $colorNine
-$subTabTextColor: $colorTen
-$subTabSelectedBG: $colorTen
-$subTabSelectedTextColor: $colorOne
-
-
-//****************************************************
-// BODY
-
-// Body Containers
-$bodyBG: $colorTen
-$bodyBGImage: none
-$bodyWrapperBG: $colorTen
-
-
-//****************************************************
-// WIDGETS
-
-//Panel Featured 
-$PanelFeaturedBG: $colorTwo
-$PanelBarFeaturedBG: $colorTwo
-
-//Panel Generic (V2)
-$PanelBarBG: $colorOne
-$PaneBarHeaderColor: $colorTen
-
-$PanelBorderColor: 1px solid $PanelBarFeaturedBG - #222
-
-//Panel Generic (V1)
-$subTitleBG: $colorEight - #010101
-$panelListBorder: 1px solid $colorEight - #010101
-//Panel Bar (V1)
-$pbh2: 11px
-$fbpbh2: 10px
-$panelBarBG: $colorTen
-$panelBarBorder: 1px solid $colorOne
-$panelBarHeader: $colorNine
-$panelBarHeaderLink: $linkColor
-$panelBarHeaderWeight: normal
-$panelBarTextTransform: uppercase
-
-//Panel Meta
-$PanelMetaBackground: $colorEight
-
-// Pagination
-$paginationAlign: right
-$paginationLinkOn: $colorOne
-$paginationLinkOff: $colorTen
-$paginationLinkDisabled: $colorFive
-$paginationBgOn: $colorTen
-$paginationBgOff: $colorOne
-$paginationBgDisabled: $colorTen
-$paginationBdrOn: 1px solid $colorOne
-$paginationBdrOff: 1px solid $colorOne
-$paginationBdrDisabled: 1px solid $colorFive
-
-
-//Buttons (V2)
-//General Button
-$BtnBG: $colorOne
-$BtnBGHover: $colorOne - #222
-$BtnBorder: $colorOne
-$BtnTextColor: $colorTen
-//Panel Bar Button
-$PanelBarBtnBG: $colorTen
-$PanelBarBtnTextColor: $colorOne
-$PanelBarBtnTextColorHover: $colorTen
-
-//Buttons (V1)
-$btnBG: $colorSeven image_url("default/site/btn-gradient.png") top left repeat-x
-$btnBGHover: $colorSeven - #222 image_url("default/site/btn-gradient.png") top left repeat-x
-$btnBorder:  1px solid $colorSeven
-$btnTextColor: $colorTen
-
-//Advertisments (V2)
-$AdvertBG: $colorEight
-
-// Advertisments (V1)
-$AdBG: #ccc image_url("default/ad-bg-title.gif") top center no-repeat
-
-// Forms 
-$formInputBorder: 1px solid $colorFive
-
-// Footer
-$footerBG: $colorEight
-
-//Pop Overs
-$popOverBG: $colorOne
-$popOverTabBG: $colorTwo
-
-
-
-
-
-
-
-
-
-
-
-// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //
-// text dropdown styles //
-$AccountArrow: transparent image_url("default/dropdown_arrow.gif") center right no-repeat
-$RefineArrow: transparent image_url("default/dropdown_arrow.gif") center right no-repeat
-
-// Text Dropdown Panel //
-$DropDownBorder: 1px solid $colorOne
-$DropDownBorderBot: 1px solid $colorTen
-$DropDownBG: $colorTen
-$DropDownLinkHover: $colorTwo
-
-
-// refine drop down form button variables //
-$refineInputBorder: 1px solid $colorOne
-$refineInputBG: $colorTwo
-$refineInputText: $colorOne
-$refineInputHoverText: $colorTen
-$refineInputHoverBG: $colorOne
-// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //// ** UNSURE OF WHAT TO DO ** //
-
-// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //
-// House Ad Variables //
-$featureH2Text: $colorOne
-$featureBodyText: $colorOne
-$WelcomePanelBG: #fff image_url("default/house-ad-bg.gif") top center repeat-x
-$featureBorder: 2px solid $colorTwo
-$featureBorderTop: $featureBorder
-$featureBorderBot: $featureBorder
-$featureBorderLeft: $featureBorder
-$featureBorderRight: $featureBorder
-$featureBorderRadius: none
-// Bookmarklet Variables //
-$demoBG: image_url("default/bookmarklet-demo.png") top center no-repeat
-$bookmarkletBG: #dbe5ee image_url("default/bookmarklet-BG.gif") top left repeat-x
-$bookmarkletHeader: $colorOne
-$bookmarkletHeaderBG: image_url("default/bookmarklet-header-BG.png") top center no-repeat
-$bookmarkletText: $colorFour
-$bookmarkletBorder: 2px solid $colorTwo
-// Footer //
-$FooterBorder: 1px solid $colorOne
-$FooterBG: $colorTwo
-// Action Legend Variables //
-$actionLegendinputBorder: 1px solid $colorFive
-$actionLegendBG: $colorTwo
-
-// BlockQuote Image Variable //
-$blockQuote: $bodyBG
-
-// Hot Topic Bar Variables //
-$HTBaseBG: $colorEight - #010101
-$HTTitleBG: $colorOne
-$HTTitleText: $bodyBG
-
-//Top Bar Variables (bar at the top of article detail pages)//
-$TopBarBorder: 1px solid $bodyBG
-$TopBarBG: $colorEight - #010101
-
-// Vote Button Variable //
-$btnCommentBG: $colorEight - #010101
-
-// feature vote button variable //
-$btnCommentFeatureBG: $bodyBG
-
-// PanelBar Comments Thread BG //
-$panelBarCommentBG: $colorTwo
-$commentBlockBorder: 1px solid $colorEight - #010101
-
-// Comment Reply Variables //
-$commentReplyText: #336600
-// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //// ** DEPRECIATED ** //
+$flashNoticeBG: #3B91AE
+$flashWarningBorder: 2px solid #B46A06
+$flashWarningBG: #F79410

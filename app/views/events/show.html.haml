@@ -2,60 +2,62 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/events_subnav'
 
-#col_left
+#left-col
   - cache "#{@event.cache_key}_html" do
-    #itemDetails.panel_2
-      = add_this @event
-      .itemBlock
-        .thumb
-          - if @event.images.present?
-            = image_tag @event.images.first.url(:medium)
-          - if !@event.images.present? && @event.pic.present?
-            = image_tag @event.pic
-        %h1= @event.name
-        %h3
-          = generic_posted_by @event
+    .panel-2#item-details
+      .add-this-wrap
+        = add_this @event
+      .thumb
+        - if @event.images.present?
+          = image_tag @event.images.first.url(:medium)
+        - if !@event.images.present? && @event.pic.present?
+          = image_tag @event.pic
+      %h1= @event.name
+      %h6
+        = generic_posted_by @event
         - if @tags.present?
           .tag-wrap
-            %h3== Tags: #{tag_list(@tags,@event)}
-        .eventMetaBlock
-          .eventMeta.time
-            %h4
-              = t('.date_time') 
-            %h3 
-              == #{@event.start_time.to_s :short_with_time}
-              - if @event.end_time.present?
-                == - #{@event.end_time.to_s :short_time} 
-          .eventMeta.location
-            %h4
-              = t('.location') 
-            %h3
-              =h @event.location
-              %br
-              =h @event.street
-              %br
-              == #{h @event.city}, #{h @event.state}
+            %h6== Tags: #{tag_list(@tags,@event)}
+      .meta-data
+        %h5= t('.date_time')  
+        %h6
+          == #{@event.start_time.to_s :short_with_time}
+          - if @event.end_time.present?
+            == - #{@event.end_time.to_s :short_time} 
+        %h6= t('.location') 
+        %h6
+          =h @event.location
+          =h @event.street
+          == #{h @event.city}, #{h @event.state}
           -# only show if both event urls are present
           - if @event.alt_url.present? and @event.url.present?
-            .eventMeta.website
-              %h4
-                = link_to t('.website'), @event.get_url
-            = link_to(t('.view'), @event.get_view_button_url, :class=>"btn", :target=>"_new") if @event.url.present? or @event.alt_url.present?
-      %div.itemBlock= sanitize @event.description
+            %h6
+              = link_to t('.website'), @event.get_url
+              = link_to(t('.view'), @event.get_view_button_url, :class=>"btn", :target=>"_new") if @event.url.present? or @event.alt_url.present?
+      .content= sanitize @event.description
+
     - if @event.media_item?
       = render_media_items @event
-    - if @event.moderatable?
-      .mod-panel.panel_2
-        .float_right.clearfix= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
-        .float_left.clearfix= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
 
-    = render_ad(:banner, @ad_layout, @ad_banner)
+    - if @event.moderatable?
+      .panel-2
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @event }
+          .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
+
+  = render_ad(:banner, @ad_layout, @ad_banner)
+   
+  .panel-2.comment-list
     = render :partial => 'shared/comments', :locals => { :comments => @event.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @event }
+  .panel-2.comment-form
+    = render :partial => 'shared/comment_form', :locals => { :commentable => @event }
+
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
+
   = render :partial => 'shared/item_footer', :locals => { :item => @event, :title =>@event.name }
-#col_right
+
+#right-col
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'
   = render :partial => 'shared/sidebar/bio', :locals => { :user => @event.user }

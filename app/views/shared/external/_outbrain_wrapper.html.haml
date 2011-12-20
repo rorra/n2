@@ -1,5 +1,5 @@
 -# expects @outbrain_item
-.panel_2
+.panel-2
   = raw render(:partial => 'shared/external/outbrain_widget', :locals => { :outbrain_item => @outbrain_item })
   - if verification_html = get_setting('outbrain_verification_html').try(:value)
     = raw verification_html

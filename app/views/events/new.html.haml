@@ -4,9 +4,9 @@
 =stylesheet_link_tag "anytimec"
 =javascript_include_tag "anytimec"
 
-#col_full
-  .panel_3
-    .panelBar
+#full-col
+  .panel-3
+    .panel-bar
       - if get_setting('site_topic').present?
         %h2== What's your event for #{get_setting('site_topic').value}?
       - else

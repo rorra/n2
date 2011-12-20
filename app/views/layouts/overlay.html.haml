@@ -6,7 +6,7 @@
     %meta{:name => 'title', :content => title}
     %meta{:name => 'description', :content => (out = yield(:meta_description)) ? out : ""}
     %meta{:name => 'medium', :content => 'news'}
-    %link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : base_url('/images/default/icon-fan-app.gif')}
+    %link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : icon_fan_app_url}
     
     - if iframe_facebook_request?
       = stylesheet_link_tag 'compiled/fb_grid.css', :media => 'screen, projection'

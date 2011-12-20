@@ -1,12 +1,11 @@
 - canvas_preference ||= false
 - external_widget ||= external_widget
 - item_type ||= 'topic'
-.generic.small
-  .profilePic.margins= local_linked_profile_pic item.user
-  .itemBlock
-    - unless external_widget
-      %h4= link_to item.title, path_to_self(item)
-    - else
-      %h4= link_to item.title, path_to_self(item, canvas_preference), :target => "_top"
-    .itemMeta
-      %h3= forum_posted_by_with_topic item
+.story
+  .profile-pic= local_linked_profile_pic item.user
+  - unless external_widget
+    %h4= link_to item.title, path_to_self(item)
+  - else
+    %h4= link_to item.title, path_to_self(item, canvas_preference), :target => "_top"
+  .meta-data
+    %h6= forum_posted_by_with_topic item

@@ -7,33 +7,36 @@
       });
     });
 
-.panel-2.classifieds-filter.top-secondary-corners.bottom-secondary-corners
-  %form{:action => classifieds_path}
-    %ul
-      %li
-        %label 
-          Category:
-        = categories_select Classified
-      -#%li
-        %label 
-          Subcategy:
-        = subcategories_select Classified
-      -#%li
-        %label 
-          Allow:
-        = allow_type_select
-      %li
-        %label 
-          Type:
-        = listing_type_select
-      -#%li
-        %label 
-          Sort:
-        = select_tag 'sort', options_for_select(['newest', 'most_discussed', 'votes_count', 'comments_count'].map {|s| [s.humanize, s]})
-      %li
-        %label 
-          Keyword:
-        = text_field_tag 'keyword'
-      %li
+.panel-2
+  .panel-bar
+    %h2= t('classifieds.browse.title')
+  .subtitle.clearfix.list-filter
+    %form{:action => classifieds_path}
+      %ol
+        %li.keywords
+          %label 
+            Keywords:
+          = text_field_tag 'keyword'
+        %li
+          %label 
+            Category:
+          = categories_select Classified
+        -#%li
+          %label 
+            Subcategy:
+          = subcategories_select Classified
+        -#%li
+          %label 
+            Allow:
+          = allow_type_select
+        %li
+          %label 
+            Type:
+          = listing_type_select
+        -#%li
+          %label 
+            Sort:
+          = select_tag 'sort', options_for_select(['newest', 'most_discussed', 'votes_count', 'comments_count'].map {|s| [s.humanize, s]})
+   
+        %li
         = submit_tag "Search", :button_html => { :class => 'btn' }, :class => 'btn'
-      .clearfix

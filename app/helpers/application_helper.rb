@@ -217,7 +217,7 @@ module ApplicationHelper
 
   def profile_pic_badge user
     if user.is_moderator?
-      image_tag 'default/icon-mod-badge.png', :class => "moderator"
+      image_tag 'skin/icon-mod-badge.png', :class => "moderator"
     elsif user.twitter_user? and user.system_user?
       image_tag 'https://si0.twimg.com/images/dev/cms/intents/bird/bird_blue/bird_16_blue.png', :class => "moderator"
     elsif user.is_host?
@@ -409,14 +409,6 @@ module ApplicationHelper
     else
     	[item.class, tag]
     end
-  end
-
-  def default_image
-    'default/watermark.jpg'
-  end
-
-  def default_medium_image
-    'default/medium_watermark.jpg'
   end
 
   def display_facebook_messages

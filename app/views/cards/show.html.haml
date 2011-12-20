@@ -18,7 +18,7 @@
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/cards_subnav'
 
-#col_left
+#left-col
   #selCardStage
     .cards_insideSelStage
       &nbsp;
@@ -35,6 +35,6 @@
           = link_to 'Send this card to a friend', @card, :class => "card_link"
   #card-request-box
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/top_sent_cards'
   = render :partial => 'shared/sidebar/newest_sent_cards'

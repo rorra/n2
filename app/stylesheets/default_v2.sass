@@ -10,28 +10,6 @@ p
 .float-right
   float: right
 
-/* Shadows */
-.v-shadow
-.h-shadow
-
-/* Rounded Corners */
-.top-secondary-corners
-  -webkit-border-top-right-radius: $SecondaryBorderRadius
-  -webkit-border-top-left-radius: $SecondaryBorderRadius
-  -moz-border-radius-topright: $SecondaryBorderRadius
-  -moz-border-radius-topleft: $SecondaryBorderRadius
-  border-top-right-radius: $SecondaryBorderRadius
-  border-top-left-radius: $SecondaryBorderRadius
-
-.bottom-secondary-corners
-  -webkit-border-bottom-right-radius: $SecondaryBorderRadius
-  -webkit-border-bottom-left-radius: $SecondaryBorderRadius
-  -moz-border-radius-bottomright: $SecondaryBorderRadius
-  -moz-border-radius-bottomleft: $SecondaryBorderRadius
-  border-bottom-right-radius: $SecondaryBorderRadius
-  border-bottom-left-radius: $SecondaryBorderRadius
-
-
 #header
   .meta-links
     font-size: $fontsize
@@ -92,20 +70,29 @@ p
 
 
 /****************************************************
- V2 GRID CLASSES */
-/* Columns */
-#left-col
-#right-col
-#full-col
+ GRID CLASSES */
+
+/* Column Widths*/
+#left-col, #left-col
+  +grid(8)
+  .panel-2, .panel-2
+    margin-left: 0
+    margin-right: 0
+#right-col, #right-col
+  +grid(4)
+  .panel-1, .panel-1
+    margin-left: 0
+    margin-right: 0
+#full-col, #full-col
+  +grid(12)
+  .panel-3, .panel-3
+    margin-left: 0
+    margin-right: 0
 
 /* Global Panel Styles */
-.panel-1, .panel-2, .panel-3, .panel-content, .panel-half, .panel-third, .panel-twothird, .panel-quarter, .panel-threequarter, .panel-full, .panel-bar, .panel-border
-  display: inline
+.panel-1, .panel-2, .panel-3
   position: relative
   z-index: 1
-  float: left
-
-.panel-1, .panel-2, .panel-3
   margin-bottom: $PanelGutters
   .panel-half.featured-panel
     background: $PanelBarFeaturedBG
@@ -119,181 +106,20 @@ p
     .profile-pic
       border-color: $PanelFeaturedBG - #222
 
-  &.float-right
-    float: right
 
-.panel-bar
-  display: block
-  background-color: $PanelBarBG
-  padding-top: $PanelGutters
-  h1, h2, h3, h4, h5, h6, p
-    color: $PaneBarHeaderColor
-  h5, h4, h3
-    margin: 0
-  h3
-    display: inline-block
-  &.panel-full
-    margin-left: 0
-    margin-right: 0
-    margin-bottom: 0
-    padding: $PanelGutters $PanelGutters 0 $PanelGutters
-
-
-.panel-border
-  border: $PanelBorderColor
-  top: -1px
-  right: -1px
-  bottom: -1px
-  left: -1px
-
-
-.panel-content
-  display: inline
-  float: left
-  width: 100%
-  &.meta-panel
-    background-color: $PanelMetaBackground  
-    -moz-box-shadow: inset 0 0 22px #d1d1d1
-    -webkit-box-shadow: inset 0 0 22px #d1d1d1
-    box-shadow: inset 0 0 22px #d1d1d1
-    .profile-pic
-      border-color: $PanelMetaBackground - #222
-  &.meta-panel, &.featured-panel
-    padding-top: $PanelGutters
-    -webkit-border-radius: $PrimaryBorderRadius
-    -moz-border-radius: $PrimaryBorderRadius
-    border-radius: $PrimaryBorderRadius
-  &.generic-panel
-  .panel-bar
-    margin-bottom: 10px
-    h5
-      padding: 5px 10px
-      margin: 0
-    h4
-      line-height: 130%
-      padding: 10px
-      margin: 0
-
-
-.panel-half, .panel-third, .panel-twothird, .panel-quarter, .panel-threequarter, .panel-full
-  margin-top: 0
-  margin-right: $PanelGutters
-  margin-bottom: $PanelGutters
-  margin-left: $PanelGutters
-  &.first
-    margin-right: 0
-  &.last  
-    margin-left: 0
-
-
-.panel-third
-  .panel-bar
-    padding-top: 0
-  .item-thumb, .panel-bar
-    overflow: hidden
-
-
-/* Panels */
+/* Panel Widths */
 .panel-1
   +grid(4)
-  .panel-full
-    width: $PanelOnePanelFull
-  .panel-content
-    padding-top: $PanelGutters
-    width: auto
-  &.featured-panel
-    .panel-content
-      padding-left: $PanelGutters
-      padding-right: $PanelGutters
-      margin-bottom: $PanelGutters
-
 
 .panel-2
   +grid(8)
-  .panel-full 
-    width: $PanelTwoPanelFull
-  .panel-half
-    width: $PanelTwoPanelHalf
-    .panel-full
-      width: $PanelTwoPanelHalf - $PanelGutters * 2
-      margin-left: 0
-      margin-right: 0
-      padding-left: $PanelGutters
-      padding-right: $PanelGutters
-  .panel-third
-    width: $PanelTwoPanelThird
-  .position-left
-    position: absolute
-    bottom: -1px
-    left: -1px
-    top: -1px
-    margin: 0
-    z-index: 10
-    .panel-content
-      width: auto
-      padding-left: $PanelGutters
-      padding-right: $PanelGutters 
-      margin-top: $PanelGutters
-      margin-bottom: $PanelGutters
-    &.no-border-position
-      bottom: 0px
-      left: 0px
-      top: 0px
-
-  .pad-left
-    width: $PanelTwoPanelHalf + $PanelGutters
-    padding-left: $PanelTwoPanelHalf
-    z-index: 2
-    .item-with-image, .item-no-image
-      padding: 0
-    .panel-content
-      padding-top: $PanelGutters
-
 
 .panel-3
   +grid(12)
-  .panel-half
-    width: $panelThreePanelHalf
-  .panel-third
-    width: $PanelThreePanelThird
-  .panel-twothird
-    width: $PanelThreePanelTwoThird
-
-
-/****************************************************
- PANEL BACKGROUND IMAGES */
-.news, .articles, .blogs, .contents, .comments, .events, .ideas, .questions, .classifieds, .resources, .forums, .topics, .galleries, .newswires, .latest, .active, .media
-  background-position: 80% center
-  background-repeat: no-repeat
-
-.active
-  background-image: image_url("default/site/mark-active.png")
-.contents, .news, .newswires
-  background-image: image_url("default/site/mark-news.png")
-.articles, .blogs
-  background-image: image_url("default/site/mark-blogs.png")
-.comments
-  background-image: image_url("default/site/mark-comments.png")
-.events
-  background-image: image_url("default/site/mark-events.png")
-.ideas
-  background-image: image_url("default/site/mark-ideas.png")
-.questions
-  background-image: image_url("default/site/mark-qa.png")
-.latest
-  background-image: image_url("default/site/mark-latest.png")
-.classifieds, .resources
-  background-image: image_url("default/site/mark-classifieds.png")
-.predictions
-  background-image: image_url("default/site/mark-predictions.png")
-.forums, .topics
-  background-image: image_url("default/site/mark-forumtopics.png")
-.media, .galleries
-  background-image: image_url("default/site/mark-media.png")
 
 /****************************************************
  WIDGET LISTS */
-.list-items
+.item-list
   li
     display: inline-block
     width: 100%
@@ -363,8 +189,7 @@ p
 
 /****************************************************
  META DATA */
-.meta-data
-  h5
+.meta-data  h5
   .count
     font-size: 120%
     font-weight: bold
@@ -487,12 +312,6 @@ p
     background: $footerBG
     display: inline-block
     padding-top: $PanelGutters
-    -webkit-border-top-right-radius: $PrimaryBorderRadius
-    -webkit-border-top-left-radius: $PrimaryBorderRadius
-    -moz-border-radius-topright: $PrimaryBorderRadius
-    -moz-border-radius-topleft: $PrimaryBorderRadius
-    border-top-right-radius: $PrimaryBorderRadius
-    border-top-left-radius: $PrimaryBorderRadius
     -moz-box-shadow: inset 0 0 22px #d1d1d1
     -webkit-box-shadow: inset 0 0 22px #d1d1d1
     box-shadow: inset 0 0 22px #d1d1d1
@@ -552,12 +371,6 @@ p
 .panel-1, .panel-2, .panel-3
   .ad-wrap
     background: #ddd
-    -webkit-border-top-right-radius: $SecondaryBorderRadius
-    -webkit-border-top-left-radius: $SecondaryBorderRadius
-    -moz-border-radius-topright: $SecondaryBorderRadius
-    -moz-border-radius-topleft: $SecondaryBorderRadius
-    border-top-right-radius: $SecondaryBorderRadius
-    border-top-left-radius: $SecondaryBorderRadius
     padding: 26px 6px 6px
     position: relative
   .ad-title
@@ -620,9 +433,6 @@ p
  USER WIDGET */
 .user-panel
   background-color: $PanelMetaBackground 
-  -webkit-border-radius: $PrimaryBorderRadius - 4px
-  -moz-border-radius: $PrimaryBorderRadius - 4px
-  border-radius: $PrimaryBorderRadius - 4px
   -moz-box-shadow: inset 0 0 22px #d1d1d1
   -webkit-box-shadow: inset 0 0 22px #d1d1d1
   box-shadow: inset 0 0 22px #d1d1d1
@@ -658,109 +468,6 @@ p
         margin: 0
 
 
-/****************************************************
- POPOVER WIDGET */
-
-.fake-shadow
-  background: rgba(0,0,0, .5)
-  padding: 100px 0
-  display: inline-block
-  width: 100%
-.popover-wrapper
-  margin: 0 auto
-  -webkit-border-radius: $PrimaryBorderRadius
-  -moz-border-radius: $PrimaryBorderRadius
-  border-radius: $PrimaryBorderRadius
-  display: block
-  background: image_url("default/site/btn-highlight.png") top left repeat 
-  width: $postPopOverWidth + $PanelGutters
-  .popover-container
-    padding-top: $PanelGutters 
-    padding-bottom: $PanelGutters 
-    width: $postPopOverWidth
-    display: inline-block
-    -webkit-border-radius: $SecondaryBorderRadius
-    -moz-border-radius: $SecondaryBorderRadius
-    border-radius: $SecondaryBorderRadius
-    background: $popOverBG
-    margin: $PanelGutters * .5
-    h1.title, p
-      color: $bodyBG
-      margin: 0 $PanelGutters $PanelGutters * .5
-.popover-tabs
-  li, a
-    -webkit-border-top-right-radius: $SecondaryBorderRadius
-    -webkit-border-top-left-radius: $SecondaryBorderRadius
-    -moz-border-radius-topright: $SecondaryBorderRadius
-    -moz-border-radius-topleft: $SecondaryBorderRadius
-    border-top-right-radius: $SecondaryBorderRadius
-    border-top-left-radius: $SecondaryBorderRadius
-  ul
-    display: block
-    float: left
-    padding-left: 2px
-  li.tab
-    display: block
-    float: left
-    margin-right: 1px
-    width: $popOverTabWidth
-    a
-      text-align: center
-      padding: 60px 0 10px
-      color: $bodyBG
-      display: block
-      width: 100%
-      float: left
-      font-weight: bold
-    &:hover
-      background:  image_url("default/site/btn-highlight.png") top left repeat 
-      a
-        text-decoration: none
-    &.selected
-      background: $popOverTabBG
-      a
-        color: $headerColor
-.popover-wizard-area, .popover-form-area, .popover-button-area
-  float: left
-  width: 100%
-.popover-wizard-area
-  background: $popOverTabBG
-  padding: 20px 0
-.popover-form-area
-  padding: 20px 0
-  background: $bodyBG
-.popover-button-area
-  text-align: right
-  padding: 20px 0 0
-
-.popover-container
-  .news, .blogs, .comments, .events, .ideas, .questions, .classifieds, .resources, .forums, .topics, .latest, .active, .media
-    background-position: center 5px 
-    background-repeat: no-repeat
-  .active
-    background-image: image_url("default/site/mark-active-sml-d.png")
-  .contents, .news, .newswires
-    background-image: image_url("default/site/mark-news-sml-d.png")
-  .articles, .blogs
-    background-image: image_url("default/site/mark-blogs-sml-d.png")
-  .comments
-    background-image: image_url("default/site/mark-comments-sml-d.png")
-  .events
-    background-image: image_url("default/site/mark-events-sml-d.png")
-  .ideas
-    background-image: image_url("default/site/mark-ideas-sml-d.png")
-  .questions
-    background-image: image_url("default/site/mark-qa-sml-d.png")
-  .latest
-    background-image: image_url("default/site/mark-latest-sml-d.png")
-  .classifieds, .resources
-    background-image: image_url("default/site/mark-classifieds-sml-d.png")
-  .predictions
-    background-image: image_url("default/site/mark-predictions-sml-d.png")
-  .forums, .topics
-    background-image: image_url("default/site/mark-forumtopics-sml-d.png")
-  .media, .galleries
-    background-image: image_url("default/site/mark-media-sml-d.png")
 
 
 /****************************************************
@@ -788,77 +495,3 @@ p
   display: block
   text-align: center
 
-/****************************************************
- PREDICTIONS */
-
-.prediction-details 
-  .item-details
-    margin-bottom: $PanelGutters * .5
-  .vote-options
-    border: 1px solid #ccc
-    padding: 10px 10px 0
-    margin-bottom: 10px
-    ul
-      display: inline-block
-      width: 100%
-      margin: 0 
-      padding: 0
-    li
-      background-color: $PanelBarFeaturedBG
-      float: left
-      width: 100%
-      padding: 5px 0
-      margin-bottom: 10px
-    .vote-opt-list
-      ul
-        margin-bottom: 10px
-      li.option-item
-        &:hover
-          background-color: $PanelBarFeaturedBG - #111
-        label
-          display: block
-          padding:  $PanelGutters * .5 $PanelGutters * .5 $PanelGutters * .5 $PanelGutters * 1.15
-          font-weight: bold
-        input
-          float: left
-          margin: $PanelGutters * .5 0 $PanelGutters * .5 $PanelGutters * .25
-    .results-list
-      li.results-item
-        background-color: $PanelBarFeaturedBG
-        &.user-choice
-          background-color: $PanelBarFeaturedBG - #111
-        .numbers
-          float: left
-          width: 30%
-          span
-            text-align: center
-            display: block
-            padding: 5px
-            font-weight: bold
-        .voter-profiles
-          margin-left: -1px
-          border-left: 1px solid #fff
-          float: left
-          width: 70%
-          .profile-pic
-            margin: 0 0 0 10px
-              
-
-
-  .pred-nav-bar
-    padding: 5px 0
-    background-color: $subTitleBG
-    display: inline-block
-    width: 100%
-    margin-bottom: 10px
-    
-    a
-      color: $linkColor
-      display: inline-block
-      font-weight: bold
-      padding: 0 5px
-      
-      &.previous
-        float: left
-      &.next
-        float: right

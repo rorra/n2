@@ -5,12 +5,12 @@
     - if story.images.present?
       = image_tag story.images.first.url(:thumb)
     - else
-      = image_tag ('default/watermark.jpg', :width => "100%")
-  .itemBlock
+      = image_tag ('skin/watermark.jpg', :width => "100%")
+  .item-block
     %h2= link_to story.title, story_path(story)
     %p= linked_story_caption story
-    .profilePic= local_linked_profile_pic story.user
-    .itemMeta
+    .profile-pic= local_linked_profile_pic story.user
+    .meta-data
       %h3= generic_posted_by story
-      %span.btnComment== #{like_link story} #{story.votes_tally}
-      %span.btnComment== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}
+      %span== #{like_link story} #{story.votes_tally}
+      %span== #{link_to t('comments'), story_path(story, :anchor => "commentListTop")} #{story.comments_count}

@@ -11,22 +11,22 @@
       var api = $("ul.arrows", wizard).data("tabs");
 
       // "next tab" button
-      $("input.form-btn.next", wizard).click(function(event) {
+      $("input.button-input.next", wizard).click(function(event) {
       	event.preventDefault();
         api.next();
       });
 
       // "previous tab" button
-      $("input.form-btn.prev", wizard).click(function() {
+      $("input.button-input.prev", wizard).click(function() {
       	event.preventDefault();
         api.prev();
       });
     });      
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/predictions_subnav'
-#col_full
-  .panel_3
-    .panelBar
+#full-col
+  .panel-3
+    .panel-bar
       %h2= t('predictions.new.suggest_prediction_group')
     .formBox
       #wizard
@@ -40,4 +40,4 @@
                     = form.input :description, :hint => t('wizard.details'), :required => false 
                     = form.input :tags_string, :label => t('tags'), :required => false, :hint => t('tags_hint')
                 - form.buttons do
-                  = form.commit_button t('wizard.submit'), :class => 'float_right', :button_html => { :class => 'form-btn' }
+                  = form.commit_button t('wizard.submit'), :class => 'float-right', :button_html => { :class => 'button-input' }

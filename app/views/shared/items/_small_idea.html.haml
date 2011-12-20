@@ -1,8 +1,8 @@
 .idea.small
-  .itemBlock
+  .item-block
     %h4= link_to idea.title, idea_path(idea)
-    .profilePic= local_linked_profile_pic idea.user
-    .itemMeta
+    .profile-pic= local_linked_profile_pic idea.user
+    .meta-data
       %h3= generic_posted_by idea
-      %span.btnComment== #{like_link idea} #{idea.votes_tally}
-      %span.btnComment== #{link_to t('comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}
+      %span== #{like_link idea} #{idea.votes_tally}
+      %span== #{link_to t('comments'), idea_path(idea, :anchor => "commentListTop")} #{idea.comments_count}
