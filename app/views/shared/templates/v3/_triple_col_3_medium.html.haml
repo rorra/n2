@@ -1,0 +1,6 @@
+- items = vo.dataset
+= panel3 do
+  = medium_feature_panel do
+    = medium_featured_item items.shift, :class => 'first'
+    = medium_featured_item items.shift
+    = medium_featured_item items.shift, :class => 'last'
