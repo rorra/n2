@@ -952,11 +952,11 @@ view_objects = [
   		:locale_subtitle => nil,
   		:use_post_button => false,
                     :css_class       => "active",
-                    :version => 2,
+                    :version => 3,
   		:kommands        => [
   		  {
   		    :method_name => "top_items",
-                                       :options        => {:limit => 5, :minimu => 5}
+                                       :options        => {:limit => 5, :minimum => 5}
   		  }
   		]
   	}
