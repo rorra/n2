@@ -28,6 +28,7 @@ module TemplateHelper
   def xlarge_feature_panel(&block) feature_panel('xlarge', &block) end
   def large_feature_panel(&block) feature_panel('large', &block) end
   def medium_feature_panel(&block) feature_panel('medium', &block) end
+  def small_feature_panel(&block) feature_panel('small', &block) end
   
   def featured_item_block extra_options = {}, &block
     options = {
