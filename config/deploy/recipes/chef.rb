@@ -164,7 +164,6 @@ Capistrano::Configuration.instance.load do
 
     desc "Install Chef and Ohai gems as root"
     task :install_chef do
-      sudo_env 'gem source -a http://gems.opscode.com/'
       sudo_env 'gem install ohai chef'
       # Create chef remote_file_cache_path directory
       # This is the temporary location for chef files to be dumped
