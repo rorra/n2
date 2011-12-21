@@ -153,7 +153,6 @@ p
       // hover states
       &:hover
         > a
-          background-color: scale-color($primary-tab-off, $lightness: -20%)
           position: relative
           height: 22px
           z-index: 10
@@ -207,9 +206,6 @@ p
         font-size: $primary-body-size
         height: 17px
         padding: 5px 10px 0
-      &.selected
-        > a
-          height: 18px
 
 
 // Shared Navigation Styles
@@ -227,7 +223,6 @@ p
         text-shadow: none
         &:hover
           background-color: $primary-tab-on
-          border-bottom: 1px solid $primary-tab-on
           text-decoration: none
     &:hover
       background-color: scale-color($primary-tab-off, $lightness: -20%)
@@ -240,6 +235,8 @@ p
     font-weight: bold
     text-decoration: none
     text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -40%)
+    &:hover
+      background-color: scale-color($primary-tab-off, $lightness: -20%)
 
 
 

@@ -1,6 +1,9 @@
 #secondary-navigation
   %ul
-    %li= link_to t('.browse_questions'), questions_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Questions')}" 
+    %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Questions')}" }
+      = link_to t('.browse_questions'), questions_path
     - if current_user
-      %li= link_to t('.my_questions'), my_questions_question_path(:id => current_user), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'My Questions')}" 
-    %li= link_to t('.ask_question'), new_question_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Ask Question')}" 
+      %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'My Questions')}" }
+        = link_to t('.my_questions'), my_questions_question_path(:id => current_user)
+    %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Ask Question')}" }
+      = link_to t('.ask_question'), new_question_path

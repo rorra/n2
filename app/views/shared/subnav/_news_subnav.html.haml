@@ -1,6 +1,9 @@
 #secondary-navigation
   %ul
-    %li= link_to t('.new_story'), new_story_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'New Story')}"
-    %li= link_to t('.new_article'), new_article_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'New Article')}" 
+    %li{ :class => "#{sub_tab_selected?(@current_sub_tab, 'New Story')}"}
+      = link_to t('.new_story'), new_story_path
+    %li{ :class => "#{sub_tab_selected?(@current_sub_tab, 'New Article')}" }
+      = link_to t('.new_article'), new_article_path
     - if current_user.present? and current_user.is_blogger?
-      %li= link_to t('articles.drafts'), drafts_articles_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Draft Articles')}" 
+      %li{:class => "#{sub_tab_selected?(@current_sub_tab, 'Draft Articles')}" }
+         = link_to t('articles.drafts'), drafts_articles_path

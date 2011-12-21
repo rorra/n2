@@ -1,6 +1,9 @@
 #secondary-navigation
   %ul
-    %li= link_to t('cards.send'), cards_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Send a Card')}" 
+    %li{:class => "tab #{sub_tab_selected?(@current_sub_tab, 'Send a Card')}" }
+      = link_to t('cards.send'), cards_path
     - if current_user
-      %li= link_to t('cards.received'), my_received_cards_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Cards Received')}" 
-      %li= link_to t('cards.sent'), my_sent_cards_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Cards Sent')}" 
+      %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Cards Received')}" }
+        = link_to t('cards.received'), my_received_cards_path
+      %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Cards Sent')}" }
+        = link_to t('cards.sent'), my_sent_cards_path
