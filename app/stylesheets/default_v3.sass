@@ -195,20 +195,22 @@ p
 #secondary-navigation
   +grid(12)
   border-bottom: 1px solid scale-color($primary-tab-off, $lightness: -20%)
-  height: 20px
+  height: 22px
   margin-bottom: 20px
   // tabs
   > ul
-    height: 20px
+    height: 22px
     padding-left: 10px
     > li
       margin-right: 1px
       > a
         font-size: $primary-body-size
-        height: 14px
+        height: 17px
         padding: 5px 10px 0
-        &.selected
-          height: 15px
+      &.selected
+        > a
+          height: 18px
+
 
 // Shared Navigation Styles
 #primary-navigation, #secondary-navigation
