@@ -14,22 +14,23 @@
         %ul
           - forums.each do |forum|
             %li{'data-id' => forum.cache_key}
-              .forum
+              .item-image
                 .thumb
                   - if forum.images.present?
                     = image_tag forum.images.first.url(:thumb)
                   - else
                     = image_tag ('skin/watermark.jpg', :width => "100%")
-                %h3= link_to forum.name, forum
-                %p= forum.description
-                -#.profile-pic= local_linked_profile_pic forum.user
-                .meta-data
-                  -#%h3= t('forums.last_active', :fb_name => local_linked_profile_name(forum.user), :date => timeago(forum.created_at))
-                  - if forum.recent_topics.active.any?
-                    %h6== #{t('forums.last_active')} #{link_to forum.recent_topics.active.first.title, forum.recent_topics.active.first}
-                  %h6
-                    %span= t('forums.topics_count', :topics_count => forum.topics_count)
-                    %span= t('forums.posts_count', :posts_count => forum.comments_count)
+                .content
+                  %h3= link_to forum.name, forum
+                  %p= forum.description
+                  .meta-data
+                    -#.profile-pic= local_linked_profile_pic forum.user
+                    -#%h3= t('forums.last_active', :fb_name => local_linked_profile_name(forum.user), :date => timeago(forum.created_at))
+                    - if forum.recent_topics.active.any?
+                      %h6== #{t('forums.last_active')} #{link_to forum.recent_topics.active.first.title, forum.recent_topics.active.first}
+                    %h6
+                      %span= t('forums.topics_count', :topics_count => forum.topics_count)
+                      %span= t('forums.posts_count', :posts_count => forum.comments_count)
 
 .panel-2.mod-panel
   .subtitle.clearfix
