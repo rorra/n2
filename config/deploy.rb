@@ -209,8 +209,8 @@ namespace :deploy do
   task :load_skin, :roles => :app do
     if skin_dir_exists? and skin_file_exists?
     	run "ln -nfs /data/config/n2_sites/#{application}/app/stylesheets/skin.sass #{release_path}/app/stylesheets/skin.sass"
-    	run "rm -r #{release_path}/public/images"
-    	run "ln -nfs /data/config/n2_sites/#{application}/public/images #{release_path}/public/images"
+    	run "rm -r #{release_path}/public/images/skin"
+    	run "ln -nfs /data/config/n2_sites/#{application}/public/images/skin #{release_path}/public/images/skin"
     end
   end
 
