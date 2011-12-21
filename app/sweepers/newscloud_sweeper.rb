@@ -42,6 +42,7 @@ class NewscloudSweeper < ActionController::Caching::Sweeper
     end
 
     # TODO:: stop this
+    self.expire_new_item_widgets
     return self.expire_class(item.class)
   end
 end
