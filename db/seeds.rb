@@ -854,6 +854,7 @@ view_objects = [
                   :name          => "Top Items Triple Column 3 Medium Skybox",
                   :template_name => "v3_triple_col_3_medium",
                   :settings      => {
+                    :version => 2,
                     :klass_name      => "ItemAction",
                     :locale_title    => "generic.top_items.title",
                     :locale_subtitle => nil,
@@ -861,7 +862,7 @@ view_objects = [
                     :kommands        => [
                                          {
                                            :method_name => "top_items",
-                                           :options        => {:limit => 5, :minimum => 5}
+                                           :options        => {:limit => 3, :minimum => 3}
                                          }
                                         ]
                   }
@@ -870,6 +871,7 @@ view_objects = [
                   :name          => "Top Items Trile Column 4 Small Skybox",
                   :template_name => "v3_triple_col_4_small",
                   :settings      => {
+                    :version => 2,
                     :klass_name      => "ItemAction",
                     :locale_title    => "generic.top_items.title",
                     :locale_subtitle => nil,
@@ -877,7 +879,7 @@ view_objects = [
                     :kommands        => [
                                          {
                                            :method_name => "top_items",
-                                           :options        => {:limit => 5, :minimum => 5}
+                                           :options        => {:limit => 4, :minimum => 4}
                                          }
                                         ]
                   }
