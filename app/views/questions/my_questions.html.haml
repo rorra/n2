@@ -16,7 +16,7 @@
       %span= t('questions.my_list_subtitle')
     - unless @questions.empty?
       .item-list-wrap
-        #.item-list
+        .item-list
           %ul
             - @questions.each do |question|
               %li.askQuestionWrap{'data-id' => question.cache_key}
