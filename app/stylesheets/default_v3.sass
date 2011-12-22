@@ -153,7 +153,6 @@ p
       // hover states
       &:hover
         > a
-          background-color: scale-color($primary-tab-off, $lightness: -20%)
           position: relative
           height: 22px
           z-index: 10
@@ -195,26 +194,38 @@ p
 #secondary-navigation
   +grid(12)
   border-bottom: 1px solid scale-color($primary-tab-off, $lightness: -20%)
-  height: 20px
+  height: 22px
   margin-bottom: 20px
   // tabs
   > ul
-    height: 20px
+    height: 22px
     padding-left: 10px
     > li
       margin-right: 1px
       > a
-        font-size: $primary-body-size - 2px
-        height: 14px
+        font-size: $primary-body-size
+        height: 17px
         padding: 5px 10px 0
-        &.selected
-          height: 15px
+
 
 // Shared Navigation Styles
 #primary-navigation, #secondary-navigation
   > ul > li
     display: block
     float: left
+    &.selected
+      > a
+        border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+        border-bottom: 0
+        background-color: $primary-tab-on
+        color: #666
+        text-decoration: none
+        text-shadow: none
+        &:hover
+          background-color: $primary-tab-on
+          text-decoration: none
+    &:hover
+      background-color: scale-color($primary-tab-off, $lightness: -20%)
   > ul > li > a
     background-color: $primary-tab-off
     border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
@@ -224,18 +235,9 @@ p
     font-weight: bold
     text-decoration: none
     text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -40%)
-    &.selected
-      border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
-      border-bottom-width: 0
-      background-color: $primary-tab-on
-      color: #666
-      text-decoration: none
-      text-shadow: none
-      &:hover
-        background-color: $primary-tab-on
-        text-decoration: none
     &:hover
       background-color: scale-color($primary-tab-off, $lightness: -20%)
+
 
 
 // Header actions bar
@@ -710,7 +712,6 @@ p
     background-color: $tertiary-bg-color
     display: block
     padding: 10px 5px 0
-    margin-bottom: 20px
     > ul > li
       float: left
       width: 31px

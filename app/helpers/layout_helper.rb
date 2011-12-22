@@ -75,7 +75,7 @@ module LayoutHelper
     "http://s3.amazonaws.com/#{s3_config['bucket']}/sitemaps/sitemap1.xml.gz"
   end
 
-  def link_to_menu_item menu_item, current_tab
-    link_to t(menu_item.locale_string), send(menu_item.resource_path), :class => "tab #{tab_selected?(current_tab, menu_item.name_slug)}"
+  def link_to_menu_item menu_item, current_tab = nil
+    link_to t(menu_item.locale_string), send(menu_item.resource_path), :class => tab_selected?(current_tab, menu_item.name_slug)
   end
 end

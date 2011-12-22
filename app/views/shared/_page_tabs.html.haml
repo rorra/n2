@@ -9,11 +9,11 @@
           %li= link_to image_tag('site/home-icon-off.png'), home_index_path
       - else
         %li{:class => tab_selected?(@current_tab, menu_item.name_slug)}
-          = link_to_menu_item menu_item, @current_tab
+          = link_to_menu_item menu_item
           - if menu_item.children.enabled.any?
             %ul.dropdown
               - menu_item.children.enabled.positioned.each do |child_item|
-                %li= link_to_menu_item child_item, @current_tab
+                %li= link_to_menu_item child_item, @current_sub_tab
               - if menu_item.name_slug == 'resources'
                 - ResourceSection.alpha.each do |item|
                   %li= link_to item.featured_title, path_to_self(item)
