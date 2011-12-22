@@ -4,16 +4,12 @@
 
 #left-col
   #item-details.panel-2
-    = add_this @prediction_group
+    .add-this-wrap
+      = add_this @prediction_group
     .item-block
       - if @prediction_group.images.present?
         .thumb
           = image_tag @prediction_group.images.first.url(:medium)
-      - if @prediction_group.moderatable?
-        .mod-panel
-          .subtitle.clearfix
-            .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @prediction_group }
-            .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @prediction_group }
       %h1= @prediction_group.title
       %h3= generic_posted_by @prediction_group
       - if @tags.present?
@@ -27,12 +23,22 @@
           = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float-right"
         - unless @previous_prediction_group.nil?
           = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float-right", :class => "btn"
-  = render_ad(:banner, @ad_layout, @ad_banner)
-  -# expects prediction_group,
-  - if not current_user.present?
-    %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
-    %br
-  .predictions.question_block
+
+
+      - if @prediction_group.moderatable?
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @prediction_group }
+          .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @prediction_group }
+
+
+  .panel-2
+    = render_ad(:banner, @ad_layout, @ad_banner)
+  .panel-2
+    -# expects prediction_group,
+    - if not current_user.present?
+      %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
+
+  .panel-2.predictions.question_block
     - if @prediction_group.prediction_questions.present?    
       %ul
         - @prediction_group.prediction_questions.find(:all,:conditions => "is_approved=1 and is_blocked = 0 and status = 'open' ").each do |prediction_question|
@@ -44,10 +50,12 @@
       = link_to t('predictions.next_topic'), prediction_group_path(@next_prediction_group), :class => "btn float-right"
     - unless @previous_prediction_group.nil?
       = link_to t('predictions.previous_topic'), prediction_group_path(@previous_prediction_group), :class => "btn float-right", :class => "btn"
-  %br
-  %br
-  = render :partial => 'shared/comments', :locals => { :comments => @prediction_group.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @prediction_group }
+
+
+  .panel-2.comment-thread
+    = render :partial => 'shared/comments', :locals => { :comments => @prediction_group.comments }
+  .panel-2.comment-form
+    = render :partial => 'shared/comment_form', :locals => { :commentable => @prediction_group }
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
   = render :partial => 'shared/item_footer', :locals => { :item => @prediction_group,:title => @prediction_group.title }
