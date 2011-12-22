@@ -868,7 +868,7 @@ view_objects = [
                   }
                 },
                 {
-                  :name          => "Top Items Trile Column 4 Small Skybox",
+                  :name          => "Top Items Triple Column 4 Small Skybox",
                   :template_name => "v3_triple_col_4_small",
                   :settings      => {
                     :version => 2,
