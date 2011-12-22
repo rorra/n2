@@ -6,4 +6,4 @@
       = link_to t('.new_article'), new_article_path
     - if current_user.present? and current_user.is_blogger?
       %li{:class => "#{sub_tab_selected?(@current_sub_tab, 'Draft Articles')}" }
-         = link_to t('articles.drafts'), drafts_articles_path
+        = link_to t('articles.drafts'), drafts_articles_path

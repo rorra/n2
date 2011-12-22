@@ -499,6 +499,10 @@ p
       position: relative
       top: 0px
       left: 0px
+      .bio-wrap
+        padding: $ninesixty_gutter_width / 2 0
+        line-height: $primary-line-height
+        position: relative
 
     .overlay-link
       background: transparent image_url ("site/alpha.gif") top left repeat
@@ -913,6 +917,14 @@ p
       color: $tertiary-header-color
       > a
         font-size: $primary-body-size
+// My Profile Page
+
+.bio-box
+  background-color: $tertiary-bg-color
+  position: relative
+  .bio-content
+    padding: 8px
+    border: 1px solid scale-color($primary-bg-color, $lightness: -20%)
 
 // Item Details Page
 #item-details
