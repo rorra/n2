@@ -395,15 +395,16 @@ p
 .item-list-wrap
   // bulleted list
   .bullet-list
-    ul
-    li
-      display: list-item
-      margin: 0
-      margin-left: $ninesixty_gutter_width
-      padding: ($ninesixty_gutter_width / 2) 0
-      line-height: 150%
-      list-style-type: disc
-      list-style-position: outside
+    padding-top: $ninesixty_gutter_width / 2
+    > ul
+      > li
+        display: list-item
+        margin: 0
+        margin-left: $ninesixty_gutter_width
+        padding: 2px
+        line-height: 150%
+        list-style-type: disc
+        list-style-position: outside
   // generic list wrap
   .item-list
     li
