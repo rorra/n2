@@ -6,7 +6,7 @@
       %li{ :class =>  "tab #{sub_tab_selected?(@current_sub_tab, 'Suggest Idea')}" }
         = link_to t('.suggest_board_idea', :name => @idea_board.name), new_idea_board_idea_path(@idea_board)
     %li{ :class =>  "#{sub_tab_selected?(@current_sub_tab, 'Browse Idea Topics')}"}
-      = link_to t('.browse_idea_boards'), idea_boards_pat 
+      = link_to t('.browse_idea_boards'), idea_boards_path
     - if not @idea_board.present?
       %li
         = link_to t('.home_ideas'), ideas_path
