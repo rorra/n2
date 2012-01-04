@@ -30,7 +30,7 @@
                     %h3= link_to sanitize_title(content.title), story_path(content)
                     %p= linked_story_caption content
                     .meta-profile
-                      .profile-pic= local_linked_profile_pic content.user
+                      .profile-pic= local_linked_profile_pic content.item_user
                       %h6= stories_posted_by content
                       %h6
                         %span== #{like_link content} #{content.votes_tally}
