@@ -6,7 +6,8 @@ class ItemAction < ActiveRecord::Base
   named_scope :for_class, lambda {|item| { :conditions => ["actionable_type = ?", item.name] } }
   named_scope :within, lambda {|timeframe| { :conditions => ["created_at > ?", timeframe] } }
   named_scope :active, { :conditions => {:is_blocked => false} }
-
+  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  
   def self.top_items_for_class klass, opts = {}
     self.fetch_items opts.merge({:klass => klass})
   end
@@ -62,12 +63,15 @@ class ItemAction < ActiveRecord::Base
     end
   end
 
-  def self.gen_user_posted_item! user, item, action_type = :posted_item
-    ItemAction.create!({
-                         :actionable => item,
-                         :user => user,
-                         :action_type => action_type.to_s
-                       })
+  def self.gen_user_posted_item! user, item, action_type = :posted_item, url = nil
+    item_action = ItemAction.create!({
+                                       :actionable  => item,
+                                       :user        => user,
+                                       :action_type => action_type.to_s,
+                                       :url         => nil
+                                     })
+    item.touch # trigger item_score recalculation
+    item_action
   end
 
   def self.get_chain_results chains, amount, options

@@ -47,12 +47,7 @@ class VotesController < ApplicationController
   def shared_item
     if request.post? and params[:cache_id].present? and params[:action_type].present?
       item = find_item_by_cache_id(params[:cache_id])
-      item_action = ItemAction.create!({
-                                         :actionable => item,
-                                         :user => current_user,
-                                         :action_type => params[:action_type],
-                                         :url => params[:url]
-                                       })
+      item_action = ItemAction.gen_user_posted_item!(current_user, item, params[:action_type], params[:url])
       NewscloudSweeper.expire_instance(item)
       render :json => {:success => "Item created successfully"}.to_json and return
     else

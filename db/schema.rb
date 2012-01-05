@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116005258) do
+ActiveRecord::Schema.define(:version => 20120104022225) do
 
   create_table "announcements", :force => true do |t|
     t.string   "prefix"
@@ -504,6 +504,24 @@ ActiveRecord::Schema.define(:version => 20111116005258) do
   add_index "item_actions", ["is_blocked"], :name => "index_item_actions_on_is_blocked"
   add_index "item_actions", ["user_id"], :name => "index_item_actions_on_user_id"
 
+  create_table "item_scores", :force => true do |t|
+    t.string   "scorable_type"
+    t.integer  "scorable_id"
+    t.float    "score",                  :default => 0.0
+    t.integer  "positive_actions_count", :default => 0
+    t.integer  "negative_actions_count", :default => 0
+    t.boolean  "is_blocked",             :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "item_scores", ["is_blocked"], :name => "index_item_scores_on_is_blocked"
+  add_index "item_scores", ["negative_actions_count"], :name => "index_item_scores_on_negative_actions_count"
+  add_index "item_scores", ["positive_actions_count"], :name => "index_item_scores_on_positive_actions_count"
+  add_index "item_scores", ["scorable_type", "scorable_id"], :name => "index_item_scores_on_scorable_type_and_scorable_id"
+  add_index "item_scores", ["scorable_type"], :name => "index_item_scores_on_scorable_type"
+  add_index "item_scores", ["score"], :name => "index_item_scores_on_score"
+
   create_table "item_tweets", :force => true do |t|
     t.string   "item_type"
     t.integer  "item_id"
@@ -622,7 +640,6 @@ ActiveRecord::Schema.define(:version => 20111116005258) do
     t.boolean  "is_approved",                :default => true
     t.integer  "votes_tally",                :default => 0
     t.integer  "comments_count",             :default => 0
-    t.integer  "questions_count",            :default => 0
     t.boolean  "is_blocked",                 :default => false
     t.boolean  "is_featured",                :default => false
     t.datetime "featured_at"
@@ -655,7 +672,6 @@ ActiveRecord::Schema.define(:version => 20111116005258) do
     t.boolean  "is_approved",              :default => true
     t.integer  "votes_tally",              :default => 0
     t.integer  "comments_count",           :default => 0
-    t.integer  "guesses_count",            :default => 0
     t.boolean  "is_blocked",               :default => false
     t.boolean  "is_featured",              :default => false
     t.datetime "featured_at"

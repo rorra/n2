@@ -25,7 +25,7 @@ class NewscloudSweeper < ActionController::Caching::Sweeper
   end
 
   def self.expire_new_item_widgets
-    [Vote, PfeedItem, ItemAction].each do |klass|
+    [Vote, PfeedItem, ItemAction, ItemScore].each do |klass|
       self.expire_class(klass)
     end
   end

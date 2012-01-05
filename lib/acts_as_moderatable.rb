@@ -14,6 +14,8 @@ module Newscloud
           # HACK:: move this out to its own location
           has_many :item_actions, :as => :actionable
 
+          after_save :rescore_item
+
           named_scope :active, { :conditions => ["#{self.name.tableize}.is_blocked = 0"] }
           named_scope :inactive, { :conditions => ["#{self.name.tableize}.is_blocked = 1"] }
           named_scope :user_items, { :conditions => 
@@ -26,6 +28,10 @@ module Newscloud
       end
 
       module InstanceMethods
+        def rescore_item
+          ItemScore.find_or_create_and_score self
+        end
+
         def moderatable?
           true
         end

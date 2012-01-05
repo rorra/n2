@@ -854,15 +854,15 @@ view_objects = [
                   :name          => "Top Items Triple Column 3 Medium Skybox",
                   :template_name => "v3_triple_col_3_medium",
                   :settings      => {
-                    :version => 2,
-                    :klass_name      => "ItemAction",
+                    :version => 4,
+                    :klass_name      => "ItemScore",
                     :locale_title    => "generic.top_items.title",
                     :locale_subtitle => nil,
                     :use_post_button => false,
                     :kommands        => [
                                          {
                                            :method_name => "top_items",
-                                           :options        => {:limit => 3, :minimum => 3}
+                                           :args        => [3]
                                          }
                                         ]
                   }
@@ -871,15 +871,15 @@ view_objects = [
                   :name          => "Top Items Triple Column 4 Small Skybox",
                   :template_name => "v3_triple_col_4_small",
                   :settings      => {
-                    :version => 2,
-                    :klass_name      => "ItemAction",
+                    :version => 4,
+                    :klass_name      => "ItemScore",
                     :locale_title    => "generic.top_items.title",
                     :locale_subtitle => nil,
                     :use_post_button => false,
                     :kommands        => [
                                          {
                                            :method_name => "top_items",
-                                           :options        => {:limit => 4, :minimum => 4}
+                                           :args        => [4]
                                          }
                                         ]
                   }
@@ -1050,16 +1050,15 @@ view_objects = [
   	:name          => "Top Universal Items",
   	:template_name => "v2_single_col_list",
   	:settings      => {
-  		:klass_name      => "ItemAction",
+  		:klass_name      => "ItemScore",
   		:locale_title    => "generic.top_items.title",
   		:locale_subtitle => nil,
   		:use_post_button => false,
                     :css_class       => "active",
-                    :version => 3,
+                    :version => 4,
   		:kommands        => [
   		  {
-  		    :method_name => "top_items",
-                                       :options        => {:limit => 5, :minimum => 5}
+  		    :method_name => "top_items"
   		  }
   		]
   	}
@@ -1275,19 +1274,16 @@ view_objects = [
   	:name          => "Double Column Triple Popular Items",
   	:template_name => "v2_double_col_triple_item",
   	:settings      => {
-  		:klass_name      => "ItemAction",
+  		:klass_name      => "ItemScore",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
                     :use_post_button => false,
-                    :version => 4,
+                    :version => 5,
   		:kommands        => [
   		  {
-          :method_name => "top_items",
-                                       :options => {
-                                         :limit => 3,
-                                         :minimum => 3
-                                       }
-        }
+                                       :method_name => "top_items",
+                                       :args        => [3]
+                                     }
   		]
   	}
   },
