@@ -23,9 +23,7 @@ class ItemScore < ActiveRecord::Base
   end
   
   def self.calc_item_score item
-    positive_actions_count = ItemAction.tally_for_item(item)
-    # ensure positive_actions_count > 0
-    positive_actions_count = 1 unless positive_actions_count > 0
+    positive_actions_count = ItemAction.tally_for_item(item) + 1
     negative_actions_count = 0 # Eventually change this
 
     score = self.score(positive_actions_count, negative_actions_count)

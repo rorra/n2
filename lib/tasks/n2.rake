@@ -1,6 +1,11 @@
 namespace :n2 do
   namespace :data do
 
+    desc "Rebuild item scores for all models"
+    task :rebuild_item_scores => :environment do
+      ItemScore.rebuild_scores
+    end
+
     desc "Bootstrap and convert existing data"
     task :bootstrap => [:environment, :delete_floating_content, :delete_floating_comments, :delete_floating_ideas, :delete_floating_questions_and_answers, :update_floating_comments, :generate_model_slugs, :generate_widgets, :load_seed_data, :convert_images_to_paperclip, :load_locale_data] do
       puts "Finished Bootstrapping and converting existing data"
