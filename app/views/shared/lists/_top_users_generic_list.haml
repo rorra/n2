@@ -16,14 +16,12 @@
             - elsif item_type == 'prediction'
               - display_score = accuracy << "%"
             %li
-              .item-block
+              .item-users
                 .profile-pic= local_linked_profile_pic user
-                .float-left
-                  %h4== #{local_linked_profile_name(user)}
-                  -#TODO:: add something in here
-                  -#%h3= "City and State"
-                .float-right
-                  %h4.userPoints= score.total_score
+                %h4.float-left== #{local_linked_profile_name(user)}
+                -#TODO:: add something in here
+                -#%h3= "City and State"
+                %h4.float-right= score.total_score
   - else
     .subtitle
       %span= list_empty
