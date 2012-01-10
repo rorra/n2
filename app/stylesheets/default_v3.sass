@@ -1538,5 +1538,49 @@ body div.jGrowl div.jGrowl-closer
   float: left
 
 
+.test-shadow
+  background: rgba(0,0,0, .5)
+  +grid(12)
+  padding: 50px 0
 
+.simple-post-wrap
+  background-color: $tertiary-bg-color
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -60%)
+  +grid(8)
+  display: block
+  float: none
+  margin: 0 auto
+  padding: 10px
+  position: relative
+  .close-btn
+    background: image_url("site/btn-close.gif") top left no-repeat
+    position: absolute
+    height: 15px
+    width: 15px
+    top: $ninesixty_gutter_width / 2
+    right: $ninesixty_gutter_width / 2
+    
+// Simple Posting Widget
+.simple-post
+  .panel-bar
+    width: auto
+  form.formtastic
+    padding: $ninesixty_gutter_width / 2 0 0 0
+    fieldset
+      margin-bottom: $ninesixty_gutter_width / 2
+      .post-input-wrap
+        +grid(5)
+        +omega()
+      .img-rotator-wrap
+        +grid(3)
+        +alpha()
+        .img-viewport, .no-img-input
+          +grid(3)
+          +alpha()
+          +omega()
+        .img-viewport
+          min-height: 90px
+          background: #000
+        .no-img-input
+          padding: 5px
 

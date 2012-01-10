@@ -1,0 +1,72 @@
+.simple-post-wrap.clearfix
+  .close-btn
+  .simple-post
+    .panel-bar
+      %h2 Simple Posting Widget
+    %form.formtastic
+      %fieldset.form-desc
+        %p Hi, Before you begin posting, please sign in or register
+      // this part below is more for show than anything else.  I assume you'll use the same code you do for all login requests.
+      %fieldset.provider-links
+        %a.auth_provider{:href => "#"} 
+          %img{ :height => '64px', :width =>'64px', :alt => 'facebook'}
+        %a.auth_provider{:href => "#"} 
+          %img{ :height => '64px', :width =>'64px', :alt => 'twitter'}
+
+// NOT PART OF SIMPLE POSTING WIDGET
+%br
+%br
+%br
+%br
+%br
+%br
+// NOT PART OF SIMPLE POSTING WIDGET
+
+.simple-post-wrap.clearfix
+  .close-btn
+  .simple-post
+    .panel-bar
+      %h2 Simple Posting Widget
+    %form.formtastic
+      %fieldset.form-desc
+        %p Share a Story
+      %fieldset.inputs
+        %ol
+          %li.file
+            %input{:type => 'file'}
+
+// NOT PART OF SIMPLE POSTING WIDGET
+%br
+%br
+%br
+%br
+%br
+%br
+// NOT PART OF SIMPLE POSTING WIDGET
+
+.simple-post-wrap.clearfix
+  .close-btn
+  .simple-post
+    .panel-bar
+      %h2 Simple Posting Widget
+    %form.formtastic
+      %fieldset.inputs
+        .img-rotator-wrap
+          .img-viewport
+          .no-img-input
+            %label
+              %input{ :type => 'checkbox'}
+              No Image
+        .post-input-wrap
+          %ol
+            %li
+              %label Title
+              %input{:type => 'text'}
+            %li
+              %label URL
+              %input{:type => 'text'}
+            %li
+              %label Caption
+              %textarea
+            %li
+            %a Add Video
