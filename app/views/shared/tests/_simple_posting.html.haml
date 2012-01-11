@@ -52,7 +52,10 @@
     %form.formtastic
       %fieldset.inputs
         .img-rotator-wrap
-          .img-viewport
+          .img-viewport-wrap
+            .img-viewport
+            %a{ :class => 'img-rotate-btn prev'}
+            %a{ :class => 'img-rotate-btn next'}
           .no-img-input
             %label
               %input{ :type => 'checkbox'}
@@ -68,5 +71,154 @@
             %li
               %label Caption
               %textarea
+      %fieldset.media
+        %ol
+          %li
+            %p
+              %a.media-link Add Video
+          %li
+            %p
+              %a.media-link Add Audio
+
+// NOT PART OF SIMPLE POSTING WIDGET
+%br
+%br
+%br
+%br
+%br
+%br
+// NOT PART OF SIMPLE POSTING WIDGET
+
+.simple-post-wrap.clearfix
+  .close-btn
+  .simple-post
+    .panel-bar
+      %h2 Simple Posting Widget
+    %form.formtastic
+      %fieldset.inputs
+        .img-rotator-wrap
+          .img-viewport-wrap
+            .img-viewport
+            %a{ :class => 'img-rotate-btn prev'}
+            %a{ :class => 'img-rotate-btn next'}
+          .no-img-input
+            %label
+              %input{ :type => 'checkbox'}
+              No Image
+        .post-input-wrap
+          %ol
             %li
-            %a Add Video
+              %label Title
+              %input{:type => 'text'}
+            %li
+              %label URL
+              %input{:type => 'text'}
+            %li
+              %label Caption
+              %textarea
+      %fieldset.media.inputs
+        %ol
+          %li
+            %p
+              %a.media-link.active Add Video
+            %label Add a video to dipslay along with your story from YouTube or Vimeo  
+            %input{:type => 'text'}
+          %li
+            %p
+              %a.media-link Add Audio
+
+// NOT PART OF SIMPLE POSTING WIDGET
+%br
+%br
+%br
+%br
+%br
+%br
+// NOT PART OF SIMPLE POSTING WIDGET
+
+.simple-post-wrap.clearfix
+  .close-btn
+  .simple-post
+    .panel-bar
+      %h2 Simple Posting Widget
+    %form.formtastic
+      %fieldset.inputs
+        .img-rotator-wrap
+          .img-viewport-wrap
+            .img-viewport
+            %a{ :class => 'img-rotate-btn prev'}
+            %a{ :class => 'img-rotate-btn next'}
+          .no-img-input
+            %label
+              %input{ :type => 'checkbox'}
+              No Image
+        .post-input-wrap
+          %ol
+            %li
+              %label Title
+              %input{:type => 'text'}
+            %li
+              %label URL
+              %input{:type => 'text'}
+            %li
+              %label Caption
+              %textarea
+      %fieldset.media.inputs
+        %ol
+          %li
+            %p
+              %a.media-link Add Video
+          %li
+            %p
+              %a.media-link.active Add Audio
+            %label Add an audio file to your article cause it's what all the cool kids are doing. 
+            %input{:type => 'text'}
+
+// NOT PART OF SIMPLE POSTING WIDGET
+%br
+%br
+%br
+%br
+%br
+%br
+// NOT PART OF SIMPLE POSTING WIDGET
+
+.simple-post-wrap.clearfix
+  .close-btn
+  .simple-post
+    .panel-bar
+      %h2 Simple Posting Widget
+    %form.formtastic
+      %fieldset.inputs
+        .img-rotator-wrap
+          .img-viewport-wrap
+            .img-viewport
+            %a{ :class => 'img-rotate-btn prev'}
+            %a{ :class => 'img-rotate-btn next'}
+          .no-img-input
+            %label
+              %input{ :type => 'checkbox'}
+              No Image
+        .post-input-wrap
+          %ol
+            %li
+              %label Title
+              %input{:type => 'text'}
+            %li
+              %label URL
+              %input{:type => 'text'}
+            %li
+              %label Caption
+              %textarea
+      %fieldset.media.inputs
+        %ol
+          %li
+            %p
+              %a.media-link.active Add Video
+            %label Add a video to dipslay along with your story from YouTube or Vimeo  
+            %input{:type => 'text'}
+          %li
+            %p
+              %a.media-link.active Add Audio
+            %label Add an audio file to your article cause it's what all the cool kids are doing. 
+            %input{:type => 'text'}
