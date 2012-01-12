@@ -315,18 +315,22 @@ class ApplicationController < ActionController::Base
 
     last_active = current_user.last_active
     current_user.touch(:last_active)
-    if current_facebook_user
-      unless not Rails.env.development? and last_active and current_user.last_active < last_active + 1.hour
-        redis_friends = $redis.smembers "#{current_user.cache_id}:friends"
-        unless redis_friends.any? and last_active and current_user.last_active < last_active + 4.hours
-          fb_friends = current_facebook_user.facebook_friend_ids
-          $redis.set "#{current_facebook_user.cache_id}:friends_string", fb_friends.join(',')
-          current_user.redis_update_friends fb_friends.join(',')
+    begin
+      if current_facebook_user
+        unless not Rails.env.development? and last_active and current_user.last_active < last_active + 1.hour
+          redis_friends = $redis.smembers "#{current_user.cache_id}:friends"
+          unless redis_friends.any? and last_active and current_user.last_active < last_active + 4.hours
+            fb_friends = current_facebook_user.facebook_friend_ids
+            $redis.set "#{current_facebook_user.cache_id}:friends_string", fb_friends.join(',')
+            current_user.redis_update_friends fb_friends.join(',')
+          end
+          # Expire recent users
+          Newscloud::Redcloud.expire_sets($redis.keys("#{User.model_deps_key}:*"))
+        else
         end
-        # Expire recent users
-        Newscloud::Redcloud.expire_sets($redis.keys("#{User.model_deps_key}:*"))
-      else
       end
+    rescue
+      # Just move on if facebook friends request fails
     end
   end
 
