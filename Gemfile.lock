@@ -147,7 +147,7 @@ GEM
     multi_json (1.0.3)
     multi_xml (0.2.2)
     multipart-post (1.1.0)
-    mysql (2.8.1)
+    mysql2 (0.2.18)
     net-ldap (0.2.2)
     net-scp (1.0.2)
       net-ssh (>= 1.99.1)
@@ -315,7 +315,7 @@ DEPENDENCIES
   launchy
   loofah (= 0.4.7)
   mogli
-  mysql
+  mysql2 (< 0.3)
   newrelic_rpm
   nokogiri
   oauth
