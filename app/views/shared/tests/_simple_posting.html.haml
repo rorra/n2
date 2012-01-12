@@ -30,10 +30,14 @@
     %form.formtastic
       %fieldset.form-desc
         %p Share a Story
-      %fieldset.inputs
+      %fieldset.inputs.share-story-input
         %ol
-          %li.file
-            %input{:type => 'file'}
+          %li
+            %input{:type => 'text'}
+      %fieldset.buttons.share-story-submit
+        %ol
+          %li{:class => 'commit float-left'}
+            %input{:type => 'submit', :class => 'button-input next create', :value => 'Look up!'}
 
 // NOT PART OF SIMPLE POSTING WIDGET
 %br
