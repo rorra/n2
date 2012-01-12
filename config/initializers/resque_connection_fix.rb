@@ -11,7 +11,6 @@
 # From:
 #   http://coderrr.wordpress.com/2009/01/08/activerecord-threading-issues-and-resolutions/
 
-=begin
 module ActiveRecord::ConnectionAdapters
   class MysqlAdapter
     alias_method :execute_without_retry, :execute
@@ -29,4 +28,3 @@ module ActiveRecord::ConnectionAdapters
     end
   end
 end
-=end

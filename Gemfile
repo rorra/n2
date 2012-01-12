@@ -17,7 +17,7 @@ gem 'will_paginate', '~> 2.3.11'
 gem "tzinfo", '0.3.23'
 gem "oauth"
 gem "twitter"
-gem "mysql2", "< 0.3"
+gem "mysql"
 gem "bitly"
 gem "redis"
 gem "redis-namespace"
