@@ -20,7 +20,6 @@ h1, h2, h3, h4
     color: $primary-header-color
     &:hover
       color: scale-color($primary-header-color, $lightness:  -50%)
-      text-decoration: none
 h5
   color: $secondary-header-color
   a
@@ -45,6 +44,7 @@ h5
   font-weight: normal
 h6
   color: $tertiary-header-color
+  font-family: $primary-body-font
   font-size: $h6-size
   font-weight: normal
 // text
@@ -163,8 +163,8 @@ p
         padding: 8px 10px 0
       // dropdowns
       > ul
-        background-color: scale-color($primary-tab-off, $lightness: -20%)
-        border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+        background-color: scale-color($primary-tab-off, $lightness: $tab-bg-lightness)
+        border: 1px solid scale-color(scale-color($primary-tab-off, $lightness: $tab-bg-lightness), $lightness: $tab-border-lightness)
         box-shadow: $box-shadow
         display: none
         float: none
@@ -184,16 +184,16 @@ p
             font-size: $primary-body-size
             padding: 5px 10px
             white-space: nowrap
-            text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+            text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -20%)
             &:hover
-              background-color: $primary-tab-off
+              background-color: scale-color($primary-tab-off, $lightness: $tab-hover-lightness)
               text-decoration: none
 
 
 // Secondary Navigation
 #secondary-navigation
   +grid(12)
-  border-bottom: 1px solid scale-color($primary-tab-off, $lightness: -20%)
+  border-bottom: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
   height: 22px
   margin-bottom: 20px
   // tabs
@@ -216,16 +216,18 @@ p
     &.selected
       > a
         border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
-        border-bottom: 0
+        border-bottom-width: 0
         background-color: $primary-tab-on
         color: #666
         text-decoration: none
         text-shadow: none
         &:hover
           background-color: $primary-tab-on
+          border-bottom-width: 0
           text-decoration: none
     &:hover
-      background-color: scale-color($primary-tab-off, $lightness: -20%)
+      > a
+        background-color: scale-color($primary-tab-off, $lightness: $tab-bg-lightness)
   > ul > li > a
     background-color: $primary-tab-off
     border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
@@ -234,9 +236,11 @@ p
     display: block
     font-weight: bold
     text-decoration: none
-    text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -40%)
+    text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -20%)
     &:hover
-      background-color: scale-color($primary-tab-off, $lightness: -20%)
+      border: 1px solid scale-color(scale-color($primary-tab-off, $lightness: $tab-bg-lightness), $lightness: $tab-border-lightness)
+      border-bottom-width: 0
+      background-color: scale-color($primary-tab-off, $lightness: $tab-bg-lightness)
 
 
 
@@ -331,6 +335,7 @@ p
   bottom: -1px
   > h2
     color: $tertiary-header-color
+    font-family: $primary-body-font
     font-size: 12px
     font-weight: normal
     margin-bottom: 0
@@ -1108,6 +1113,7 @@ p
   width: 250px
 .ad_300
   width: 300px
+  border: 0
 .ad_336
   width: 336px
 .ad_468
@@ -1575,6 +1581,16 @@ body div.jGrowl div.jGrowl-closer
     padding: $ninesixty_gutter_width / 2 0 0 0
     fieldset
       margin-bottom: $ninesixty_gutter_width / 2
+      &.share-story-input
+        +grid(6)
+        +alpha()
+      &.share-story-submit
+        padding: 0
+        border: 0
+        +grid(2)
+        +omega()
+        input
+          margin: 0
       .post-input-wrap
         +grid(5)
         +omega()
@@ -1613,4 +1629,34 @@ body div.jGrowl div.jGrowl-closer
         .no-img-input
           padding: 10px 0
           text-align: center
+
+
+// External Header Widget
+#external-header-wrap
+  background: $tertiary-bg-color
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+  border-bottom: 2px solid $primary-border-color
+  #external-header
+    float: left
+    background: $primary-bg-color
+    border-right: 1px solid scale-color($primary-bg-color, $lightness: -10%)
+    height: 70px
+    min-width: 100px
+    padding: 10px 10px 10px 80px
+    .site-icon
+      height: 60px
+      width: 60px
+      border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+      float: left
+      margin-left: -70px
+      img
+        width: 100%
+  #external-details
+    border-left: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+    float: left
+    height: 70px
+    min-width: 380px
+    padding: 10px
+    .add-this-wrap
+      padding: 10px 0
 

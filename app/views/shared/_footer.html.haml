@@ -34,7 +34,7 @@
                 = link_to t('footer.setup_twitter', :setup_twitter_path => admin_twitter_settings_path, :learn_more_path => "http://support.newscloud.com/kb/configuring-your-application/how-to-configure-twitter-anywhere" ).html_safe            
           - else
             %span.twt_ft_wrap
-              %a.twitter-follow-button{:href => base_twitter_url(account_setting.value), "data-width" => "200px", "data-align" => "center" }= t('footer.twitter_follow', :twitter_account => base_twitter_url(account_setting.value))
+              %a.twitter-follow-button{:href => base_twitter_url(account_setting.value), "data-width" => "400px", "data-align" => "center" }= t('footer.twitter_follow', :twitter_account => base_twitter_url(account_setting.value))
 
       // second footer col
       .footer-panel.two
