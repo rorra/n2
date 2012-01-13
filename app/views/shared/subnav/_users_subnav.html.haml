@@ -1,11 +1,6 @@
 #secondary-navigation
   %ul
-    -#%li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'daily')}"}
-       = link_to t('top_users.daily'), top_users_path(:top => 'daily')
     %li{:class => "tab #{sub_tab_selected?(@current_sub_tab, 'weekly')}"}
       = link_to t('top_users.weekly'), top_users_path(:top => 'weekly')
-    -#%li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'monthly')}"}
-       = link_to t('top_users.monthly'), top_users_path(:top => 'monthly')
-    -#%li= link_to t('top_users.yearly'), top_users_path(:top => 'yearly'), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'yearly')}"
     %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'alltime')}"}
       = link_to t('top_users.alltime'), top_users_path(:top => 'alltime')
