@@ -2,6 +2,7 @@ source :gemcutter
 
 gem "rails", "2.3.11"
 gem "rack", '1.1.0'
+gem "ruby-debug"
 
 
 gem "haml", "3.1.3"
