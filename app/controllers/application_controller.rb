@@ -329,7 +329,7 @@ class ApplicationController < ActionController::Base
         else
         end
       end
-    rescue
+    rescue Mogli::Client::HTTPException => e
       # Just move on if facebook friends request fails
     end
   end
