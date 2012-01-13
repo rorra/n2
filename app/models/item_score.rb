@@ -3,6 +3,9 @@
 # Algorithm: http://amix.dk/uploads/reddit_cf_algorithm.png
 
 class ItemScore < ActiveRecord::Base
+
+  IMAGE_SCALING_FACTOR = 1.1
+  
   belongs_to :scorable, :polymorphic => true
 
   named_scope :for_item, lambda {|item| { :conditions => ["scorable_type = ? and scorable_id = ?", item.class.name, item.id] } }
@@ -14,7 +17,7 @@ class ItemScore < ActiveRecord::Base
     active.top(limit).map(&:scorable)
   end
   
-  def self.score ups, downs
+  def self.score_count ups, downs
     ups - downs
   end
 
@@ -26,13 +29,16 @@ class ItemScore < ActiveRecord::Base
     positive_actions_count = ItemAction.tally_for_item(item) + 1
     negative_actions_count = 0 # Eventually change this
 
-    score = self.score(positive_actions_count, negative_actions_count)
-    order = Math.log10([score.abs, 1].max)
-    sign = score > 0 ? 1 : score.zero? ? 0 : -1
+    votes_score = self.score_count(positive_actions_count, negative_actions_count)
+    order = Math.log10([votes_score.abs, 1].max)
+    sign = votes_score > 0 ? 1 : votes_score.zero? ? 0 : -1
     seconds = item.created_at.to_i - 1134028003
+    score = (order + sign * seconds / 45000).round(7)
+
+    score *= IMAGE_SCALING_FACTOR if item.media_item? and item.images.any?
 
     {
-      :score                  => (order + sign * seconds / 45000).round(7),
+      :score                  => score,
       :positive_actions_count => positive_actions_count,
       :negative_actions_count => negative_actions_count
     }
