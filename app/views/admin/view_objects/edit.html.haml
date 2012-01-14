@@ -100,7 +100,7 @@
     = select_tag 'featured-items-select', options_for_select(@featurables)
     #items
 
-.clearfix
+-#.clearfix
   %h2 Existing Layout
   - if @view_object.setting.dataset
     .view-object= ViewTree.render(@view_object.name, @controller).html_safe
