@@ -33,10 +33,10 @@ module Newscloud
 
         def add_score(user_id)
           Score.create!({
-          	:scorable   => self,
-          	:user_id    => user_id,
-          	:value      => self.get_model_score_value,
-          	:score_type => self.get_model_score_type
+            :scorable   => self,
+            :user_id    => user_id,
+            :value      => self.get_model_score_value,
+            :score_type => self.get_model_score_type
           })
         end
 

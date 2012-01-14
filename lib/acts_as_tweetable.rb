@@ -26,19 +26,19 @@ module Newscloud
           setting_group = self.tweet_setting_group
           min_votes = Metadata::Setting.find_setting("tweet_#{setting_group}_min_votes").try(:value) || Metadata::Setting.find_setting("tweet_default_min_votes").try(:value)
           limit = Metadata::Setting.find_setting("tweet_#{setting_group}_limit").try(:value) || Metadata::Setting.find_setting("tweet_default_limit").try(:value)
-					#
-					# TODO:: Fix error from this
-					# ArgumentError: Unknown key(s): at_least
-					#
+          #
+          # TODO:: Fix error from this
+          # ArgumentError: Unknown key(s): at_least
+          #
           begin
             hot_options = self.options_for_tally(
               {   :at_least => min_votes,
-                  :at_most  => 1000,  
+                  :at_most  => 1000,
                   :start_at => 1.day.ago,
                   :limit    => limit,
                   :order    => "#{self.table_name}.created_at desc"
               }).merge({:include => [:tweeted_item], :conditions=>"votes.voteable_type = '#{self.name}' AND tweeted_items.item_id IS NULL"})
-            self.find(:all, hot_options)
+            self.find(hot_options)
           rescue Exception => e
             Rails.logger.error("ERROR: Tweet Hot Items error:: #{e}")
             return false

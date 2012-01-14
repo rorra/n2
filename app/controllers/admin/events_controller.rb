@@ -16,7 +16,7 @@ class Admin::EventsController < AdminController
   def update
     @event = Event.find(params[:id])
     if @event.update_attributes(params[:event])
-    	@event.expire
+      @event.expire
       flash[:success] = "Successfully updated your Event ."
       redirect_to [:admin, @event]
     else
@@ -40,7 +40,7 @@ class Admin::EventsController < AdminController
       render :new
     end
   end
-  
+
   def import_zvents
     if request.post? and Metadata::Setting.find_setting('zvent_api_key').try(:value) and Metadata::Setting.find_setting('zvent_location').try(:value)
       zvent = Zvent::Session.new(Metadata::Setting.find_setting('zvent_api_key').try(:value))
@@ -48,7 +48,7 @@ class Admin::EventsController < AdminController
       count = 0
       zevents[:events].each do |event|
         if params[:commit] == "Import Selected Events"
-        	next unless params[:events].present? and params[:events].any?
+          next unless params[:events].present? and params[:events].any?
           next unless params[:events].include? event.id.to_s
         end
         Event.create_from_zvent_event(event,current_user)

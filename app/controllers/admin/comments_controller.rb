@@ -2,34 +2,34 @@ class Admin::CommentsController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Comment.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Comment,
-    	:fields => [:comments, :user_id, :created_at],
-    	:associations => { :belongs_to => { :user => :user_id } },
-    	:paginate => true
+      :items => Comment.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Comment,
+      :fields => [:comments, :user_id, :created_at],
+      :associations => { :belongs_to => { :user => :user_id } },
+      :paginate => true
     }
   end
 
   def new
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:model => Comment,
-    	:fields => [:comments, :created_at],
+      :model => Comment,
+      :fields => [:comments, :created_at],
     }
   end
 
   def edit
     @comment = Comment.find(params[:id])
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => @comment,
-    	:model => Comment,
-    	:fields => [:comments],
+      :item => @comment,
+      :model => Comment,
+      :fields => [:comments],
     }
   end
 
   def update
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment])
-    	@comment.expire
+      @comment.expire
       flash[:success] = "Successfully updated your Comment."
       redirect_to [:admin, @comment]
     else
@@ -40,9 +40,9 @@ class Admin::CommentsController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => Comment.find(params[:id]),
-    	:model => Comment,
-    	:fields => [:comments, :postedByName, :created_at, :is_blocked],
+      :item => Comment.find(params[:id]),
+      :model => Comment,
+      :fields => [:comments, :postedByName, :created_at, :is_blocked],
     }
   end
 

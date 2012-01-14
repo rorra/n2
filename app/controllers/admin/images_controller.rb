@@ -17,7 +17,7 @@ class Admin::ImagesController < AdminController
   def update
     @image = Image.find(params[:id])
     if @image.update_attributes(params[:image])
-    	@image.expire
+      @image.expire
       flash[:success] = "Successfully updated your Image."
       redirect_to [:admin, @image]
     else
@@ -28,9 +28,9 @@ class Admin::ImagesController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => Image.find(params[:id]),
-    	:model => Image,
-    	:fields => [:title, :url, :rss, :created_at],
+      :item => Image.find(params[:id]),
+      :model => Image,
+      :fields => [:title, :url, :rss, :created_at],
     }
   end
 
@@ -50,11 +50,11 @@ class Admin::ImagesController < AdminController
     @image = Image.find(params[:id])
     @imageable = @image.imageable
     if @ignore and @image.remote_image_url
-    	Metadata::SkipImage.create({:image_url => @image.remote_image_url})
+      Metadata::SkipImage.create({:image_url => @image.remote_image_url})
     end
     if @image.destroy
-    	@imageable.expire
-    	WidgetSweeper.expire_features
+      @imageable.expire
+      WidgetSweeper.expire_features
     end
 
     respond_to do |format|
@@ -69,19 +69,19 @@ class Admin::ImagesController < AdminController
     image ||= Image.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => image,
-    	:model => Image,
-    	:fields => [:title, :url, :rss, :user_id],
-    	:associations => { :belongs_to => { :user => :user_id } }
+      :item => image,
+      :model => Image,
+      :fields => [:title, :url, :rss, :user_id],
+      :associations => { :belongs_to => { :user => :user_id } }
     }
   end
 
   def render_edit image
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => image,
-    	:model => Image,
-    	:fields => [:title, :url, :rss, :user_id],
-    	:associations => { :belongs_to => { :user => :user_id } }
+      :item => image,
+      :model => Image,
+      :fields => [:title, :url, :rss, :user_id],
+      :associations => { :belongs_to => { :user => :user_id } }
     }
   end
 

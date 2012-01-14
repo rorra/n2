@@ -2,7 +2,7 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-#   
+#
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
@@ -23,7 +23,7 @@ end
 
 #TODO:: - fix (User.admins.last || nil) - creates fb user as nil, bombs out in fb helper for profilepic
 
-# Default Prediction Group 
+# Default Prediction Group
 #if PredictionGroup.count == 0
 #  PredictionGroup.create!({:title => 'Other', :section => 'other', :description => 'This topic is for uncategorized questions'}) unless PredictionGroup.find_by_title_and_section('Other','other')
 #end
@@ -72,7 +72,7 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Entertainment",
 		:title   => "Euraeka Entertainment News",
 		:rss_url => "http://euraeka.com/entertainment.rss"
-	},	
+	},
 	{
 		:topic   => "Entertainment",
 		:title   => "Yahoo Entertainment",
@@ -82,17 +82,17 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Lifestyle",
 		:title   => "Euraeka Lifestyle News",
 		:rss_url => "http://euraeka.com/lifestyle.rss"
-	},	
+	},
 	{
 		:topic   => "Offbeat",
 		:title   => "Yahoo Oddly Enough",
 		:rss_url => "http://rss.news.yahoo.com/rss/oddlyenough"
-	},	
+	},
 	{
 		:topic   => "Offbeat",
 		:title   => "Euraeka Offbeat News",
 		:rss_url => "http://euraeka.com/offbeat.rss"
-	},	
+	},
 	{
 		:topic   => "Opinion",
 		:title   => "New York Times Opinion",
@@ -127,7 +127,7 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Technology",
 		:title   => "Euraeka Technology News",
 		:rss_url => "http://euraeka.com/technology.rss"
-	},		
+	},
 	{
 		:topic   => "Business",
 		:title   => "New York Times Business",
@@ -137,7 +137,7 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Business",
 		:title   => "Euraeka Business",
 		:rss_url => "http://euraeka.com/news/business_society.rss"
-	},	
+	},
 	{
 		:topic   => "Business",
 		:title   => "Yahoo Business",
@@ -157,7 +157,7 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Health",
 		:title   => "Yahoo Health",
 		:rss_url => "http://rss.news.yahoo.com/rss/health"
-	},	
+	},
 	{
 		:topic   => "Health",
 		:title   => "New York Times Health",
@@ -177,7 +177,7 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Science",
 		:title   => "Euraeka Science News",
 		:rss_url => "http://euraeka.com/science.rss"
-	},		
+	},
 	{
 		:topic   => "Science",
 		:title   => "Yahoo Science",
@@ -192,8 +192,8 @@ Source.create!({:name => 'National Public Radio', :url =>'npr.org'}) unless Sour
 		:topic   => "Humor",
 		:title   => "The Onion",
 		:rss_url => "http://feeds.theonion.com/onionnewsnetwork"
-	}	
-	
+	}
+
 ].each do |f|
   next if Feed.find_by_rss(f[:rss_url])
   puts "Creating Default (Topic) Feed: (#{f[:topic]}) #{f[:title]}"
@@ -216,7 +216,7 @@ ads.each do |ad|
   next if Metadata::Ad.find_slot(ad[:key_sub_type], ad[:key_name])
   puts "Creating ad slot #{ad[:key_name]} -- #{ad[:key_sub_type]}" if debug
 
-  Metadata::Ad.create!({
+  options = {
     :meta_type => 'config',
     :key_type => 'ads',
     :key_sub_type => ad[:key_sub_type],
@@ -226,7 +226,8 @@ ads.each do |ad|
       :height => ad[:height],
       :background => ad[:background]
     }
-  })
+  }
+  Metadata::Ad.create!(options)
 end
 
 custom_widgets = [
@@ -242,6 +243,7 @@ custom_widgets = [
 ]
 custom_widgets.each do |custom_widget|
   next if Metadata::CustomWidget.find_slot(custom_widget[:key_sub_type], custom_widget[:key_name])
+  puts custom_widget[:custom_data]
   puts "Creating custom_widget slot #{custom_widget[:title]} -- #{custom_widget[:key_sub_type]}" if debug
 
   Metadata::CustomWidget.create!({
@@ -301,18 +303,18 @@ settings = [
  { :key_sub_type => 'twitter', :key_name => 'oauth_consumer_key', :value => (APP_CONFIG['twitter_oauth_key'] || "U6qjcn193333331AuA" ) },
  { :key_sub_type => 'twitter', :key_name => 'oauth_consumer_secret', :value => (APP_CONFIG['twitter_oauth_secret'] || "Heu0GGaRuzn762323gg0qFGWCp923viG8Haw" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_default_min_votes', :value => (APP_CONFIG['tweet_default_min_votes'] || "15" ) },
- { :key_sub_type => 'twitter', :key_name => 'tweet_default_limit', :value => (APP_CONFIG['tweet_default_limit'] || "3" ) }, 
+ { :key_sub_type => 'twitter', :key_name => 'tweet_default_limit', :value => (APP_CONFIG['tweet_default_limit'] || "3" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_events_min_votes', :value => (APP_CONFIG['tweet_events_min_votes'] || "15" ) },
- { :key_sub_type => 'twitter', :key_name => 'tweet_events_limit', :value => (APP_CONFIG['tweet_events_limit'] || "3" ) }, 
+ { :key_sub_type => 'twitter', :key_name => 'tweet_events_limit', :value => (APP_CONFIG['tweet_events_limit'] || "3" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_stories_min_votes', :value => (APP_CONFIG['tweet_stories_min_votes'] || "15" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_stories_limit', :value => (APP_CONFIG['tweet_stories_limit'] || "3" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_questions_min_votes', :value => (APP_CONFIG['tweet_questions_min_votes'] || "15" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_questions_limit', :value => (APP_CONFIG['tweet_questions_limit'] || "3" ) },
  { :key_sub_type => 'twitter', :key_name => 'tweet_ideas_min_votes', :value => (APP_CONFIG['tweet_ideas_min_votes'] || "15" ) },
- { :key_sub_type => 'twitter', :key_name => 'tweet_ideas_limit', :value => (APP_CONFIG['tweet_ideas_limit'] || "3" ) },   
- { :key_sub_type => 'twitter', :key_name => 'tweet_featured_items', :value =>(APP_CONFIG['tweet_featured_items'] || "true" ) }, 
- { :key_sub_type => 'twitter', :key_name => 'tweet_popular_items', :value =>"false" }, 
- { :key_sub_type => 'twitter', :key_name => 'tweet_all_moderator_items', :value =>"false", :hint => 'Tweet all items posted by moderators' }, 
+ { :key_sub_type => 'twitter', :key_name => 'tweet_ideas_limit', :value => (APP_CONFIG['tweet_ideas_limit'] || "3" ) },
+ { :key_sub_type => 'twitter', :key_name => 'tweet_featured_items', :value =>(APP_CONFIG['tweet_featured_items'] || "true" ) },
+ { :key_sub_type => 'twitter', :key_name => 'tweet_popular_items', :value =>"false" },
+ { :key_sub_type => 'twitter', :key_name => 'tweet_all_moderator_items', :value =>"false", :hint => 'Tweet all items posted by moderators' },
  { :key_sub_type => 'bitly', :key_name => 'bitly_username', :value =>(APP_CONFIG['bitly_username'] || "username" ) },
  { :key_sub_type => 'bitly', :key_name => 'bitly_api_key', :value =>(APP_CONFIG['bitly_api_key'] || "api_key" ) },
  { :key_sub_type => 'facebook', :key_name => 'app_id', :value => (APP_CONFIG['facebook_application_id'] || "111111111111" ) },
@@ -340,7 +342,7 @@ settings = [
  { :key_sub_type => 'ads', :key_name => 'openx_zone_skyscraper', :value => "4" },
  { :key_sub_type => 'ads', :key_name => 'openx_zone_square', :value => "5" },
  { :key_sub_type => 'ads', :key_name => 'openx_zone_medium_rectangle', :value => "6" },
- { :key_sub_type => 'ads', :key_name => 'openx_zone_large_rectangle', :value => "7" }, 
+ { :key_sub_type => 'ads', :key_name => 'openx_zone_large_rectangle', :value => "7" },
  { :key_sub_type => 'ads', :key_name => 'openx_url_m3_u', :value => (APP_CONFIG['openx_slot_url'] || "http://openx.com/m3_u_address" ) },
  { :key_sub_type => 'ads', :key_name => 'openx_noscript_href', :value => "http://openx.com/ns_href_address" },
  { :key_sub_type => 'ads', :key_name => 'openx_noscript_imgsrc', :value => "http://openx.com/ns_imgsrc_address" },
@@ -352,15 +354,15 @@ settings = [
  { :key_sub_type => 'zvents', :key_name => 'zvents_replacement_url', :value => ("www.zvents.com") },
  { :key_sub_type => 'zvents', :key_name => 'zvent_api_key', :value => (APP_CONFIG['zvent_api_key'] || "false" ) },
  { :key_sub_type => 'zvents', :key_name => 'zvent_location', :value => (APP_CONFIG['zvent_location'] || "false" ) },
- { :key_sub_type => 'twitter_standard_favorites', :key_name => 'favorites_account', :value =>"twitter-account", :hint => 'The account name of the Twitter account to show favorites from' }, 
- { :key_sub_type => 'twitter_standard_favorites', :key_name => 'favorites_widget_title', :value =>"Selected tweets from", :hint => 'A title for the favorites widget' }, 
- { :key_sub_type => 'twitter_standard_favorites', :key_name => 'favorites_widget_caption', :value => (APP_CONFIG['site_title'] || "Default Title"), :hint => 'A subject for the favorites widget' }, 
- { :key_sub_type => 'twitter_standard_search', :key_name => 'search', :value =>"search-value", :hint => 'The account name of the Twitter account to show search from' }, 
- { :key_sub_type => 'twitter_standard_search', :key_name => 'search_widget_title', :value =>"Tweets about", :hint => 'A title for the search widget' }, 
- { :key_sub_type => 'twitter_standard_search', :key_name => 'search_widget_caption', :value => (APP_CONFIG['site_topic'] || "Default Topic" ), :hint => 'A subject for the search widget' }, 
- { :key_sub_type => 'twitter_standard_list', :key_name => 'list_account', :value =>"twitter-account", :hint => 'The account name which owns the Twitter list' }, 
- { :key_sub_type => 'twitter_standard_list', :key_name => 'list_name', :value =>"default-list", :hint => 'The hyphenated name of the twitter list' }, 
- { :key_sub_type => 'twitter_standard_list', :key_name => 'list_widget_title', :value => (APP_CONFIG['site_title'] || "Default Title"), :hint => 'The title for the widget' }, 
+ { :key_sub_type => 'twitter_standard_favorites', :key_name => 'favorites_account', :value =>"twitter-account", :hint => 'The account name of the Twitter account to show favorites from' },
+ { :key_sub_type => 'twitter_standard_favorites', :key_name => 'favorites_widget_title', :value =>"Selected tweets from", :hint => 'A title for the favorites widget' },
+ { :key_sub_type => 'twitter_standard_favorites', :key_name => 'favorites_widget_caption', :value => (APP_CONFIG['site_title'] || "Default Title"), :hint => 'A subject for the favorites widget' },
+ { :key_sub_type => 'twitter_standard_search', :key_name => 'search', :value =>"search-value", :hint => 'The account name of the Twitter account to show search from' },
+ { :key_sub_type => 'twitter_standard_search', :key_name => 'search_widget_title', :value =>"Tweets about", :hint => 'A title for the search widget' },
+ { :key_sub_type => 'twitter_standard_search', :key_name => 'search_widget_caption', :value => (APP_CONFIG['site_topic'] || "Default Topic" ), :hint => 'A subject for the search widget' },
+ { :key_sub_type => 'twitter_standard_list', :key_name => 'list_account', :value =>"twitter-account", :hint => 'The account name which owns the Twitter list' },
+ { :key_sub_type => 'twitter_standard_list', :key_name => 'list_name', :value =>"default-list", :hint => 'The hyphenated name of the twitter list' },
+ { :key_sub_type => 'twitter_standard_list', :key_name => 'list_widget_title', :value => (APP_CONFIG['site_title'] || "Default Title"), :hint => 'The title for the widget' },
  { :key_sub_type => 'twitter_standard_list', :key_name => 'list_widget_caption', :value =>"Tweets about #{(APP_CONFIG['site_topic'] || "Default Topic" )}", :hint => 'The caption for the widget' },
  { :key_sub_type => 'options', :key_name => 'rackspace_hosting_credit',  :value => "false" , :hint => 'If you are using credited Rackspace hosting, please activate this setting.' },
  { :key_sub_type => 'options', :key_name => 'native_voting',  :value => "false" , :hint => 'False turns on Add This toolbar with Facebook Likes. True turns on native likes and Twitter Connect.' },
@@ -374,7 +376,7 @@ settings.each do |setting|
   Metadata::Setting.create!({
 		:data => {
 		  :setting_sub_type_name => setting[:key_sub_type],
-		  :setting_name => setting[:key_name], 
+		  :setting_name => setting[:key_name],
 		  :setting_value => setting[:value],
 		  :setting_hint => (setting[:hint] || "")
 		  }
@@ -408,7 +410,7 @@ activity_scores.each do |activity_score|
   Metadata::ActivityScore.create!({
 		:data => {
 		  :activity_score_sub_type_name => activity_score[:key_sub_type],
-		  :activity_score_name => activity_score[:key_name], 
+		  :activity_score_name => activity_score[:key_name],
 		  :activity_score_value => activity_score[:value],
 		  :activity_score_hint => (activity_score[:hint] || "")
 		  }
@@ -448,7 +450,7 @@ ad_layouts.each do |ad_layout|
   Metadata::AdLayout.create!({
 		:data => {
 		  :ad_layout_sub_type_name => ad_layout[:key_sub_type],
-		  :ad_layout_name => ad_layout[:key_name], 
+		  :ad_layout_name => ad_layout[:key_name],
 		  :ad_layout_layout => ad_layout[:layout],
 		  :ad_layout_hint => (ad_layout[:hint] || "")
 		  }
@@ -472,7 +474,7 @@ sponsor_zones.each do |sponsor_zone|
 
   Metadata::SponsorZone.create!({
 		:data => {
-		  :sponsor_zone_name => sponsor_zone[:sponsor_zone_name], 
+		  :sponsor_zone_name => sponsor_zone[:sponsor_zone_name],
 		  :sponsor_zone_topic => sponsor_zone[:sponsor_zone_topic],
 		  :sponsor_zone_code => sponsor_zone[:sponsor_zone_code]
 		  }
@@ -715,7 +717,7 @@ view_objects = [
   		  {
           :method_name => "newest",
           :args        => [5]
-        }        
+        }
   		]
   	}
   },
@@ -782,7 +784,7 @@ view_objects = [
   		  {
           :method_name => "recently_active",
           :args        => [20]
-        }        
+        }
   		]
   	}
   },
@@ -1193,7 +1195,7 @@ view_objects = [
         }
   		]
   	}
-  },  
+  },
   {
   	:name          => "Default Ad Large Rectangle",
   	:template_name => "v2_ad_template",
@@ -1333,10 +1335,9 @@ view_objects = [
   }
 ]
 view_objects.each do |view_object_hash|
-  view_object = ViewObject.find_by_name(view_object_hash[:name])
+  view_object = ViewObject.where(:name => view_object_hash[:name]).first
   next if view_object and view_object.version == view_object_hash[:settings][:version]
 
-  
   puts "Creating View Object: #{view_object_hash[:name]}--#{view_object_hash[:settings][:version] || 0}" if debug
 
   # Build ViewObject and Metadata::ViewObjectSetting
@@ -1348,7 +1349,7 @@ view_objects.each do |view_object_hash|
   if view_object.version != view_object_hash[:settings][:version]
     view_object.setting.kommands = []
   end
-  
+
   # Set template
   view_object_template = ViewObjectTemplate.find_by_name(view_object_hash[:template_name])
   raise "Invalid Template Name" unless view_object_template
@@ -1382,7 +1383,7 @@ view_objects.each do |view_object_hash|
     view_object.save!
     view_object.setting.save!
   else
-    raise (view_object.errors.full_messages | view_object.setting.errors.full_messages).inspect
+    raise(view_object.errors.full_messages | view_object.setting.errors.full_messages).inspect
   end
 end
 

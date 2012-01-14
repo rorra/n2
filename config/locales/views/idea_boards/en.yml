@@ -12,7 +12,7 @@ en:
             top_ideas: "Popular Ideas"
             newest_ideas: "Recent Ideas"
         show:
-            asked_by: "Asked by {{fb_name}} {{date}} ago"
+            asked_by: "Asked by %{fb_name} %{date} ago"
             share: "Share it"
             like: "Like"
             comments: "Comment"

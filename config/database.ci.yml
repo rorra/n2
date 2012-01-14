@@ -1,0 +1,9 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: n2_development
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: n2_test

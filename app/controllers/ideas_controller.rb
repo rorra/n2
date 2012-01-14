@@ -42,24 +42,24 @@ class IdeasController < ApplicationController
     @idea.tag_list = params[:idea][:tags_string]
     @idea.user = current_user
     if params[:idea][:idea_board_id].present?
-    	@idea_board = IdeaBoard.active.find_by_id(params[:idea][:idea_board_id])
-    	@idea.section_list = @idea_board.section unless @idea_board.nil?
+      @idea_board = IdeaBoard.active.find_by_id(params[:idea][:idea_board_id])
+      @idea.section_list = @idea_board.section unless @idea_board.nil?
     end
 
     if @idea.valid? and current_user.ideas.push @idea
       if @idea.post_wall?
         session[:post_wall] = @idea
-      end      
+      end
       if get_setting('tweet_all_moderator_items').try(:value)
         if current_user.present? and current_user.is_moderator?
           @idea.tweet
         end
       end
-    	flash[:success] = "Thank you for your idea!"
-    	redirect_to @idea_board.present? ? [@idea_board, @idea] : @idea
+      flash[:success] = "Thank you for your idea!"
+      redirect_to @idea_board.present? ? [@idea_board, @idea] : @idea
     else
       @ideas = Idea.active.newest
-    	render :new
+      render :new
     end
   end
 

@@ -21,7 +21,7 @@
                 = image_tag(thumb_image_or_default(classified))
               .content
                 %h2= link_to classified.title, classified_path(classified)
-                %p= linked_item_details classified              
+                %p= linked_item_details classified
                 .meta-profile
                   .profile-pic= local_linked_profile_pic classified.user
                   %h6= classifieds_posted_by classified

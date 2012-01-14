@@ -1,6 +1,6 @@
 .panelSearch
--# - form_tag(resource_url, :method => "get") do
-  - label_tag(:q, "Search for:") 
+-# = form_tag(resource_url, :method => "get") do
+  - label_tag(:q, "Search for:")
   - text_field_tag(:q)
   - submit_tag("Search")
 %p [search]

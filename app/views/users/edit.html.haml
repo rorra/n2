@@ -1,17 +1,17 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
-  
+
 #left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   .panel-2
     .panel-bar
       %h2= t('.title')
     .formBox
-      - semantic_form_for @user do |form|
+      = semantic_form_for @user do |form|
         = render :partial => 'user_form', :locals => { :form => form, :user => @user }
-        - form.buttons do
+        = form.buttons do
           = form.commit_button t('save_user_settings'), :button_html => { :class => 'btn' }
-  
+
 #right-col
   -#= render :partial => 'shared/sidebar/invite_users'
   = render_ad(:small_square, @ad_layout, @ad_small_square)

@@ -9,7 +9,7 @@ class Tweet < ActiveRecord::Base
   has_many :item_tweets
   has_many :items, :through => :item_tweets
 
-  named_scope :sorted_twitter_id, :order => "twitter_id_str desc"
+  scope :sorted_twitter_id, :order => "twitter_id_str desc"
 
   def user
     tweet_account.user

@@ -2,7 +2,7 @@ class ResourceSectionsController < ApplicationController
   before_filter :set_current_tab
   before_filter :set_ad_layout, :only => [:index, :show]
   before_filter :set_meta_klass, :only => [:index]
-  
+
   access_control do
     allow all, :to => [:index, :show, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
@@ -22,9 +22,9 @@ class ResourceSectionsController < ApplicationController
     @current_sub_tab = 'Browse Section Resources'
     @resource_section = ResourceSection.active.find(params[:id])
     @top_resources = @resource_section.resources.active.tally({
-    	:at_least => 1,
-    	:limit    => 5,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 5,
+      :order    => "vote_count desc"
     })
     @newest_resources = @resource_section.resources.active.newest 5
     set_sponsor_zone('resources', @resource_section.item_title.underscore)

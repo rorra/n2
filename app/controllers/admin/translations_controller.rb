@@ -23,7 +23,7 @@ class Admin::TranslationsController < AdminController
   # GET /translations
   # GET /translations.xml
   def translations
-    @locale ||= Locale.default_locale
+    @locale ||= I18n::Backend::Locale.default_locale
     @translation_option = TranslationOption.find(params[:translation_option])
 
     if @translation_option == TranslationOption.translated
@@ -41,7 +41,7 @@ class Admin::TranslationsController < AdminController
   # GET /asset_translations
   # GET /asset_translations.xml
   def asset_translations
-    @locale ||= Locale.default_locale
+    @locale ||= I18n::Backend::Locale.default_locale
     @translation_option = TranslationOption.find(params[:translation_option])
 
     @asset_translations  = I18n.asset_translations
@@ -146,6 +146,6 @@ class Admin::TranslationsController < AdminController
   private
 
     def find_locale
-      @locale = Locale.find_by_code(params[:locale_id])
+      @locale = I18n::Backend::Locale.find_by_code(params[:locale_id])
     end
 end

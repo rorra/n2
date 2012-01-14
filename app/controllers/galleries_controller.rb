@@ -39,7 +39,7 @@ class GalleriesController < ApplicationController
       @gallery = Gallery.new(gallery_params)
       gallery_items_params.each do |index, gi_params|
         if gi_params["galleryable_attributes"] and gi_params["galleryable_attributes"]["image"].present?
-          gallery_item = GalleryItem.new 
+          gallery_item = GalleryItem.new
           gallery_item.galleryable = Image.new gi_params["galleryable_attributes"]
           @gallery.gallery_items << gallery_item
         elsif gi_params["item_url"].present?
@@ -58,8 +58,8 @@ class GalleriesController < ApplicationController
       flash[:success] = "Successfully posted your gallery!"
       redirect_to @gallery
     else
-    	flash[:error] = "Could not create your gallery. Please clear the errors and try again."
-    	render :new
+      flash[:error] = "Could not create your gallery. Please clear the errors and try again."
+      render :new
     end
   end
 
@@ -74,7 +74,7 @@ class GalleriesController < ApplicationController
       gallery_items_params = gallery_params.delete "gallery_items_attributes"
       gallery_items_params.each do |index, gi_params|
         if gi_params["galleryable_attributes"] and gi_params["galleryable_attributes"]["image"].present?
-          gallery_item = GalleryItem.new 
+          gallery_item = GalleryItem.new
           gallery_item.galleryable = Image.new gi_params["galleryable_attributes"]
           @gallery.gallery_items << gallery_item
         elsif gi_params["id"].present?
@@ -162,7 +162,7 @@ class GalleriesController < ApplicationController
   def find_gallery
     @gallery ||= Gallery.active.find(params[:id])
   end
-  
+
   def set_meta_klass
     set_current_meta_klass Gallery
   end

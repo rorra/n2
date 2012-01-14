@@ -5,7 +5,7 @@ class ViewTree
   def_delegators :@children, :<<, :[], :[]=, :last, :first, :push
 
   def initialize key_name, controller = nil, view_object = nil
-    @key_name = key_name
+    @key_name = key_name.to_s
     @cache_key_name = self.class.view_tree_cache_key_name @key_name
     @view_object = view_object
     @children = []
@@ -13,7 +13,7 @@ class ViewTree
     #@cache = true
     #@cache = Rails.env.development? and (not key_name =~ /--/) and key_name != 'Welcome Panel'
     #@cache = (not key_name.include?('--')) and key_name != 'Welcome Panel'
-    @cache = (key_name.include?('--') or key_name == 'Welcome Panel') ? false : true
+    @cache = (@key_name.include?('--') or @key_name == 'Welcome Panel') ? false : true
     @cache = false unless Rails.env.production?
     # Initialize new view tree
     # add children view tree elements for each view object
@@ -24,7 +24,7 @@ class ViewTree
   def each
     @children.each {|child| yield child }
   end
-  
+
   def cache_it output
     if @cache and @view_object
       @view_object.cache_deps
@@ -79,15 +79,15 @@ class ViewTree
     return cache_it self.load
   end
 
-	#
-	# Class Methods
-	#
+  #
+  # Class Methods
+  #
   def self.render target, controller = nil
     if target.class.name =~ /Controller$/
-    	view_object_name = "#{target.controller_name}--#{target.action_name}"
-    	controller = target
+      view_object_name = "#{target.controller_name}--#{target.action_name}"
+      controller = target
     else
-    	view_object_name = target
+      view_object_name = target
     end
     self.fetch view_object_name, controller
   end

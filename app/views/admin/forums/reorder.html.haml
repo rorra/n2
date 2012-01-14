@@ -1,7 +1,7 @@
 - content_for :extra_javascript do
   :javascript
     $(function() {
-    	$('ul.forums').sortable();
+      $('ul.forums').sortable();
 
       $('#save-button')
         .hover(
@@ -12,7 +12,7 @@
         }).mouseup(function() {
           $(this).removeClass('ui-state-active');
         }).click(function() {
-        	var order = $('ul.forums').sortable('toArray');
+          var order = $('ul.forums').sortable('toArray');
           $.post("/admin/forums/reorder.json", {forums: order}, function(data) {
             if (typeof(data.success) !== 'undefined') {
               alert(data.success);

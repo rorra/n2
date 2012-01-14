@@ -38,7 +38,7 @@ en:
       no_comments_msg: "There are currently no comments. Add a new comment!"
 
     comment:
-      posted_by: "Posted by {{fb_name}} {{date}} ago"
+      posted_by: "Posted by %{fb_name} %{date} ago"
       comments_like: "Like"
       comments_dislike: "Dislike"
 
@@ -53,8 +53,8 @@ en:
       register_facebook: "Connect via Facebook"
       invite_friends: "Invite Friends"
       # too long
-      #resources: "{{site_topic}} Resources"
-      resources: "{{site_topic}}"
+      #resources: "%{site_topic} Resources"
+      resources: "%{site_topic}"
       contact_us: "Contact Us"
       my_profile: "My Profile"
       admin: "Admin"
@@ -74,7 +74,7 @@ en:
     articles:
       articles_title: "Newest Articles"
       articles_subtitle: "The top articles as chosen by users"
-      stories_posted_by: "Posted by {{fb_name}} {{date}} ago"
+      stories_posted_by: "Posted by %{fb_name} %{date} ago"
 
     stories:
       stories_title: "Top News"
@@ -82,20 +82,20 @@ en:
       stories_like: "Like"
       stories_comments: "Comment"
       stories_share: "Share it"
-      stories_posted_by: "Posted by {{fb_name}} {{date}} ago"
+      stories_posted_by: "Posted by %{fb_name} %{date} ago"
 
     newswires:
       title: "Newswire Feeds"
       subtitle: "The latest from our favorite feeds"
-      via:  "Via {{title}}, {{date}} ago"
-      publish: "Publish to {{site_title}}"
+      via:  "Via %{title}, %{date} ago"
+      publish: "Publish to %{site_title}"
       read: "Read Story"
       quick_post: "Quick post"
 
     ideas:
       ideas_title:  "Browse Ideas"
       ideas_subtitle:  "The latest and greatest community ideas"
-      ideas_asked_by: "Asked by {{fb_name}} {{date}} ago"
+      ideas_asked_by: "Asked by %{fb_name} %{date} ago"
       ideas_like: "Like"
       ideas_comments: "Comment"
       ideas_share: "Share it"
@@ -103,15 +103,15 @@ en:
     my_ideas:
       my_ideas_title: "My Ideas"
       my_ideas_subtitle: "Here are all the ideas you have posted"
-      
+
     resources:
         resources_title:  "Browse Directory"
         resources_subtitle:  "Find whatever you're looking for in our community directory"
-        resources_posted_by: "Posted by {{fb_name}} {{date}} ago"
+        resources_posted_by: "Posted by %{fb_name} %{date} ago"
         resources_like: "Like"
         resources_comments: "Comment"
         resources_share: "Share it"
-    
+
     resource_sections:
       title: "Directory Sections"
       subtitle: "List of resource directory category sections"
@@ -126,7 +126,7 @@ en:
 
     events:
       events_title:  "Browse Events"
-      events_asked_by: "Asked by {{fb_name}} {{date}} ago"
+      events_asked_by: "Asked by %{fb_name} %{date} ago"
       events_like: "Like"
       events_comments: "Comment"
       events_share: "Share it"
@@ -138,11 +138,11 @@ en:
       unblock: "Un-block"
       feature: "Feature"
       unfeature: "Un-feature"
-      
+
     forms:
       flag_dropdown:
-        flag: "flag"  
-    
+        flag: "flag"
+
     users:
       users_title: "Top Members"
       users_subtitle: "Members with the highest scores"

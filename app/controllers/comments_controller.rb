@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy]
-  
+
  access_control do
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
     # FIXME:: get admins switched over to using :admin role
@@ -25,15 +25,15 @@ class CommentsController < ApplicationController
         app_caption = t('app.facebook.comment_caption', :title => get_setting('site_title').try(:value))
         @comment.async_comment_messenger polymorphic_path(@commentable.item_link, :only_path => false, :canvas => iframe_facebook_request?, :format => 'html'), app_caption, image_url
       end
-    	# TODO:: change this to work with polymorphic associations, switch to using touch
-    	#expire_page :controller => 'stories', :action => 'show', :id => @story
-    	respond_to do |format|
-    	  format.html { redirect_to @commentable }
-    	  format.json { render(:partial => 'shared/comments.html', :locals => { :comments => @commentable.comments }) and return }
-    	  #format.json { @comments = @commentable.comments }
-    	end
+      # TODO:: change this to work with polymorphic associations, switch to using touch
+      #expire_page :controller => 'stories', :action => 'show', :id => @story
+      respond_to do |format|
+        format.html { redirect_to @commentable }
+        format.json { render(:partial => 'shared/comments.html', :locals => { :comments => @commentable.comments }) and return }
+        #format.json { @comments = @commentable.comments }
+      end
     else
-    	redirect_to @commentable
+      redirect_to @commentable
     end
   end
 
@@ -41,13 +41,13 @@ class CommentsController < ApplicationController
      @comment = Comment.active.find_by_id(params[:id])
      respond_to do |format|
        if current_user and @comment.present? and current_user.vote_for(@comment)
-       	success = "Thanks for your vote!"
-       	format.html { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
-       	format.json { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
+         success = "Thanks for your vote!"
+         format.html { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
+         format.json { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
        else
-       	error = "Vote failed"
-       	format.html { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
-       	format.json { render :json => { :msg => error }.to_json }
+         error = "Vote failed"
+         format.html { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
+         format.json { render :json => { :msg => error }.to_json }
        end
      end
    end
@@ -56,17 +56,17 @@ class CommentsController < ApplicationController
      @comment = Comment.active.find_by_id(params[:id])
      respond_to do |format|
        if current_user and @comment.present? and current_user.vote_against(@comment)
-       	success = "Thanks for your vote!"
-       	format.html { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
-       	format.json { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
+         success = "Thanks for your vote!"
+         format.html { flash[:success] = success; redirect_to params[:return_to] || @comment.commentable }
+         format.json { render :json => { :msg => "#{@comment.votes_tally}" }.to_json }
        else
-       	error = "Vote failed"
-       	format.html { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
-       	format.json { render :json => { :msg => error }.to_json }
+         error = "Vote failed"
+         format.html { flash[:error] = error; redirect_to params[:return_to] || @comment.commentable }
+         format.json { render :json => { :msg => error }.to_json }
        end
      end
    end
-   
+
   private
 
   def find_commentable

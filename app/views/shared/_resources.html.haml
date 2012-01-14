@@ -31,7 +31,7 @@
                       = pipe_spacer
                       %span== #{link_to t('.resources_comments'), resource_path(resource, :anchor => "commentListTop")} #{resource.comments_count}
                       -#%span= fb_share_item_button(resource)
- 
+
     - if paginate
       .panel-2
         = will_paginate resources

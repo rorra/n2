@@ -17,7 +17,7 @@ en:
           hint_idea_title: "Describe your idea in a single headline"
           hint_idea_details: "Tell us more about your idea"
         show:
-          asked_by: "Asked by {{fb_name}} {{date}} ago"
+          asked_by: "Asked by %{fb_name} %{date} ago"
           share: "Share it"
           like: "Like"
           in_board: "in "
@@ -27,5 +27,5 @@ en:
           top_ideas: "Popular Ideas"
           newest_ideas: "Recent Ideas"
         idea_board_subnav:
-          browse_ideas: "Browse {{name}} Ideas"
-          suggest_idea: "Suggest a {{name}} Idea"
+          browse_ideas: "Browse %{name} Ideas"
+          suggest_idea: "Suggest a %{name} Idea"

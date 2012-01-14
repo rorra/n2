@@ -4,7 +4,7 @@ class ClassifiedsController < ApplicationController
   before_filter :find_classified, :only => [:show, :edit, :update, :set_status]
   before_filter :set_categories, :only => [:new]
   before_filter :set_meta_klass, :only => [:index]
-  
+
   access_control do
     allow all, :to => [:index, :categories]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
@@ -21,7 +21,7 @@ class ClassifiedsController < ApplicationController
 
   def index
     @current_sub_tab = 'Browse'
-    # to do - implement recently viewed scope or method for current user 
+    # to do - implement recently viewed scope or method for current user
     @recently_viewed_classifieds = Classified.newest 5
     @page = params[:page]
     @paginate = true
@@ -50,16 +50,16 @@ class ClassifiedsController < ApplicationController
     if @classified.valid? and current_user.classifieds.push @classified
       if @classified.post_wall?
         session[:post_wall] = @classified
-      end      
-    	flash[:success] = "Thank you for posting your item!"
-    	redirect_to @classified
+      end
+      flash[:success] = "Thank you for posting your item!"
+      redirect_to @classified
     else
-    	render :new
+      render :new
     end
   end
 
   def show
-    @classified = Classified.active.find(params[:id])    
+    @classified = Classified.active.find(params[:id])
     @current_sub_tab = 'Show'
     set_current_meta_item @classified
   end
@@ -68,18 +68,18 @@ class ClassifiedsController < ApplicationController
     @current_sub_tab = 'Edit'
     @classified = Classified.active.find(params[:id])
   end
-  
+
   def update
     @classified = Classified.active.find(params[:id])
     if @classified.valid? and @classified.update_attributes(params[:classified])
       flash[:success] = "Successfully updated your listing!"
       redirect_to classified_path(@classified)
     else
-    	flash[:error] = "Could not update your listing. Please fix the errors and try again."
-    	render :edit
+      flash[:error] = "Could not update your listing. Please fix the errors and try again."
+      render :edit
     end
   end
-  
+
 
   def my_items
     @current_sub_tab = 'My Items'
@@ -92,14 +92,14 @@ class ClassifiedsController < ApplicationController
 
   def set_status
     if @classified.valid_user_events.include? params[:status].to_sym
-    	method = "#{params[:status]}!".to_sym
-    	if @classified.send(method)
-    		flash[:success] = "Successfully updated your classified"
-    		redirect_to @classified
-    	else
-    		flash[:error] = "Could not update your classified"
-    		redirect_to @classified
-    	end
+      method = "#{params[:status]}!".to_sym
+      if @classified.send(method)
+        flash[:success] = "Successfully updated your classified"
+        redirect_to @classified
+      else
+        flash[:error] = "Could not update your classified"
+        redirect_to @classified
+      end
     else
       flash[:error] = "Invalid action for this classified"
       redirect_to @classified
@@ -110,14 +110,14 @@ class ClassifiedsController < ApplicationController
     category_name = CGI.unescape(params[:category])
     @category = Classified.categories.find_by_name(category_name)
     if @category
-    	@classifieds = Classified.in_category(@category.id)
+      @classifieds = Classified.in_category(@category.id)
     else
-    	flash[:error] = "Invalid category"
-    	redirect_to classifieds_path
+      flash[:error] = "Invalid category"
+      redirect_to classifieds_path
     end
   end
 
-  private 
+  private
 
     def set_current_tab
       @current_tab = 'classifieds'
@@ -126,11 +126,11 @@ class ClassifiedsController < ApplicationController
     def access_denied
       store_location
       if current_user
-      	flash[:notice] = I18n.translate('sessions.invalid_permissions')
-      	redirect_to classifieds_path
+        flash[:notice] = I18n.translate('sessions.invalid_permissions')
+        redirect_to classifieds_path
       else
-      	flash[:notice] = I18n.translate('sessions.access_denied')
-      	redirect_to new_session_path
+        flash[:notice] = I18n.translate('sessions.access_denied')
+        redirect_to new_session_path
       end
     end
 
@@ -141,7 +141,7 @@ class ClassifiedsController < ApplicationController
     def classified_allows_anonymous_users?
       @classified.is_allowed? nil
     end
-    
+
     def set_categories
       @categories = Newscloud::AmazonSearch.categories
     end

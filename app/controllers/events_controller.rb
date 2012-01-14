@@ -44,12 +44,12 @@ class EventsController < ApplicationController
     if @event.valid? and current_user.events.push @event
       if @event.post_wall?
         session[:post_wall] = @event
-      end            
-    	flash[:success] = "Thank you for your event!"
-    	redirect_to @event
+      end
+      flash[:success] = "Thank you for your event!"
+      redirect_to @event
     else
-    	flash[:error] = "Could not create your event. Please clear the errors and try again."
-    	render :new
+      flash[:error] = "Could not create your event. Please clear the errors and try again."
+      render :new
     end
   end
 
@@ -96,7 +96,7 @@ class EventsController < ApplicationController
     @events = Event.active.tagged_with(tag_name, :on => 'tags').paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
     render :template => 'events/index'
   end
-  
+
   private
 
   def set_current_tab

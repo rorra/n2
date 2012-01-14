@@ -1,7 +1,7 @@
 #left-col
   %h1 Search for amazon products
   -# form_tag :url => search_amazon_products_path do
-  - form_tag do
+  = form_tag do
     %p
       %label{:for => "category"} Select Amazon Category
       = select_tag "category", options_for_select(@categories.map {|c| [c, c]}, @category)

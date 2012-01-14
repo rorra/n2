@@ -11,15 +11,11 @@ class Emitter < ActiveRecord::Base
   def if_false; false end
   def if_true_ping; end
   def if_true; true end
-  def if_true_and_identified_ping; end
 
   def unless_false_ping; end
   def unless_false; false end
   def unless_true_ping; end
   def unless_true; true end
-
-  # for testing :identified_by
-  def custom_identifier; "my custom name" end
 
   receives_pfeed
 end
@@ -59,17 +55,3 @@ context 'an emitter satisfying an unless condition' do
   end
   should("create a pfeed item") { !PfeedItem.all.empty? }
 end
-
-context 'an emitter satisfying an identified_by condition' do
-  setup do
-    Emitter.class_eval do
-      emits_pfeeds :on => :if_true_and_identified_ping, :for => :itself, :identified_by => :custom_identifier
-    end
-    returning(Emitter.create!(:name => 'bob')) do |e|
-      e.if_true_ping
-    end
-  end
-  should("create a pfeed item") { !PfeedItem.all.empty? }
-  should("guess the name") { pfeed.data[:originator_identity] }.equals('my custom name')
-end
-

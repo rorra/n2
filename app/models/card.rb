@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
 
-  if File.exist?(File.join(Rails.root, "config", "s3.yml")) 
+  if File.exist?(File.join(Rails.root, "config", "s3.yml"))
     PAPERCLIP_STORAGE_OPTIONS = {
       :storage        => :s3,
       :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",

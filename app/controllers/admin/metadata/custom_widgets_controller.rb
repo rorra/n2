@@ -2,10 +2,10 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Metadata::CustomWidget.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Metadata::CustomWidget,
-    	:fields => [:title, :content_type, :key_sub_type, :created_at],
-    	:paginate => true
+      :items => Metadata::CustomWidget.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Metadata::CustomWidget,
+      :fields => [:title, :content_type, :key_sub_type, :created_at],
+      :paginate => true
     }
   end
 
@@ -35,7 +35,7 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::CustomWidget.find(params[:id]),
       :model => Metadata::CustomWidget,
-    	:fields => [:title, :key_name, :content_type, :key_sub_type, :created_at, :custom_data]
+      :fields => [:title, :key_name, :content_type, :key_sub_type, :created_at, :custom_data]
     }
   end
 
@@ -63,24 +63,24 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
     custom_widget ||= Metadata::CustomWidget.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => custom_widget,
-    	:model => Metadata::CustomWidget,
-    	:fields => [
-    	  :title,
-    	  lambda {|f| f.input :custom_data, :as => :text, :input_html => { :rows => 30, :cols => 80} },
-    	  lambda {|f| f.input :content_type, :as => :select, :collection => [['Single Column', 'panel-1'], ['Double Column', 'panel-2'], ['Triple Column', 'panel-3']] }
+      :item => custom_widget,
+      :model => Metadata::CustomWidget,
+      :fields => [
+        :title,
+        lambda {|f| f.input :custom_data, :as => :text, :input_html => { :rows => 30, :cols => 80} },
+        lambda {|f| f.input :content_type, :as => :select, :collection => [['Single Column', 'panel-1'], ['Double Column', 'panel-2'], ['Triple Column', 'panel-3']] }
       ]
     }
   end
 
   def render_edit custom_widget
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => custom_widget,
-    	:model => Metadata::CustomWidget,
-    	:fields => [
-    	  :title,
-    	  lambda {|f| f.input :custom_data, :as => :text, :input_html => { :rows => 30, :cols => 80} },
-    	  lambda {|f| f.input :content_type, :as => :select, :collection => [['Single Column', 'panel-1'], ['Double Column', 'panel-2'], ['Triple Column', 'panel-3']] }
+      :item => custom_widget,
+      :model => Metadata::CustomWidget,
+      :fields => [
+        :title,
+        lambda {|f| f.input :custom_data, :as => :text, :input_html => { :rows => 30, :cols => 80} },
+        lambda {|f| f.input :content_type, :as => :select, :collection => [['Single Column', 'panel-1'], ['Double Column', 'panel-2'], ['Triple Column', 'panel-3']] }
       ]
     }
   end

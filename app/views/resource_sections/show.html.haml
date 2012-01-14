@@ -31,7 +31,7 @@
                       -#%span= fb_share_item_button(resource)
 
   = render :partial => 'shared/index_footer', :locals => { :index_path => resource_section_path(:only_path => false, :canvas => iframe_facebook_request?), :title => @resource_section.name }
-                  
+
 #right-col
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

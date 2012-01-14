@@ -1,38 +1,11 @@
-# Settings specified here will take precedence over those in config/environment.rb
-
-# The production environment is meant for finished, "live" apps.
-# Code is not reloaded between requests
-config.cache_classes = true
-
-# Full error reports are disabled and caching is turned on
-config.action_controller.consider_all_requests_local = false
-config.action_controller.perform_caching             = true
-config.action_view.cache_template_loading            = true
-
-# See everything in the log (default is :info)
-# config.log_level = :debug
-
-# Use a different logger for distributed setups
-# config.logger = SyslogLogger.new
-
-# Load up redis config info
-resque_base_file = RAILS_ROOT + '/config/resque.yml'
-resque_file = File.exists?(resque_base_file) ? resque_base_file : (resque_base_file + '.sample')
-resque_config = YAML.load_file(resque_file)['production']
-redis_host, redis_port = resque_config.split(/:/)
-
-# Use a different cache store in production
-app_name = RAILS_ROOT =~ %r(/([^/]+)/(current|release)) ? $1 : 'newscloud'
-config.cache_store = :redis_store, { :host => redis_host, :port => redis_port, :namespace => app_name }
-
-# Set the i18n cache store
-#I18n.backend.cache_store = :mem_cache_store
-
-# Enable serving of images, stylesheets, and javascripts from an asset server
-# config.action_controller.asset_host = "http://assets.example.com"
-
-# Disable delivery errors, bad email addresses will be ignored
-# config.action_mailer.raise_delivery_errors = false
-
-# Enable threaded mode
-# config.threadsafe!
+N2::Application.configure do
+  config.cache_classes = true
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
+  config.serve_static_assets = false
+  config.assets.compress = true
+  config.assets.compile = false
+  config.assets.digest = true
+  config.i18n.fallbacks = true
+  config.active_support.deprecation = :notify
+end

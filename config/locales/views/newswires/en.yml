@@ -2,7 +2,7 @@ en:
   newswires:
     index:
       title: "Newswire Feeds"
-      via:  "Via {{title}}, {{date}} ago"
-      publish: "Post to {{site_title}}"
+      via:  "Via %{title}, %{date} ago"
+      publish: "Post to %{site_title}"
       read: "Read Story"
       quick_post: "Quick post"

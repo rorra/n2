@@ -3,7 +3,7 @@
   .panel-bar
     - if vo.setting and vo.setting.locale_title
       %h2= vt.t(vo.setting.locale_title)
-      
+
       - if vo.setting.use_post_button
         .panel-bar-actions
           = post_something vo.setting.klass_name

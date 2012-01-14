@@ -20,7 +20,7 @@
         %ul
           - collection.each do |item|
             %li{'data-id' => item.cache_key}= render_generic_item item
- 
+
     - if paginate
       .clearfix
         = will_paginate collection

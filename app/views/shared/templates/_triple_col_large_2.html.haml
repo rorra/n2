@@ -2,9 +2,9 @@
 - item2 = vo.dataset[1]
 - item3 = vo.dataset.last
 .panel-3
-  / Feature Panel Wrap - 3 Column 1 large story w/ img, 2 small w/ img and 3 listed stories 
+  / Feature Panel Wrap - 3 Column 1 large story w/ img, 2 small w/ img and 3 listed stories
   .feature-panel.large
-    / One Large Story 
+    / One Large Story
     - if item1
       .feature-item-large.first
         = link_to sanitize_title(item1.item_title), item1.item_link, :class => 'overlay-link'
@@ -13,7 +13,7 @@
           %h2= link_to sanitize_title(item1.item_title), item1.item_link
           %p= item1.item_description
 
-      / Two Small Stories 
+      / Two Small Stories
       .feature-item-wrap-small
         - if item2
           .feature-item-small.top
@@ -28,27 +28,27 @@
             .feature-caption
               %h3= link_to sanitize_title(item3.item_title), item3.item_link
 
-    / list of stories 
+    / list of stories
     .feature-item-medium.last
       -# needs functionality
       .panel-bar
         %h2
-          Popular 
+          Popular
       .item-list-wrap
         .item-list
           %ul
             %li
               %h4
-                %a{ :href => "#"} 
-                  Sit volup tatem accus antium dolorem 
+                %a{ :href => "#"}
+                  Sit volup tatem accus antium dolorem
               %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
             %li
               %h4
-                %a{ :href => "#"} 
+                %a{ :href => "#"}
                   Sit volup tatem accus antium dolorem
               %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
             %li.last
               %h4
-                %a{ :href => "#"} 
-                  Sit volup tatem accus antium volup 
+                %a{ :href => "#"}
+                  Sit volup tatem accus antium volup
               %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem

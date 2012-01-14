@@ -4,7 +4,7 @@
       .item-block
         %h4
           -# %span.tag
-          -# could be used to show type of event e.g. Lecture, Party, etc.                    
+          -# could be used to show type of event e.g. Lecture, Party, etc.
           = link_to event.name, event_path(event)
         .profile-pic= local_linked_profile_pic event.user, :size => :square
         .meta-data
@@ -13,7 +13,7 @@
           %span== #{link_to t('.events_comments'), event_path(event, :anchor => "commentListTop")} #{event.comments_count}
     .complexMiniBlock
       %ul
-        %li 
+        %li
           %b== #{event.location}
         %li
           == #{event.start_time.to_s :short_with_time}

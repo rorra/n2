@@ -24,13 +24,13 @@ module Newscloud
 
         def refine(params)
           refineable_params = ['sort_by', 'category', 'section']
-          
+
           chains = []
           params.each do |key, value|
             value = self.filtered_value value
             next unless refineable_params.index(key)
             if key == 'sort_by'
-            	value = value.downcase
+              value = value.downcase
               chains << value if self.respond_to?(value) and self.valid_refine_type?(value)
             elsif key == 'category'
             elsif key == 'section'
@@ -39,7 +39,7 @@ module Newscloud
 
           # TODO:: clean this up
           if chains.empty?
-          	if self.respond_to? :active
+            if self.respond_to? :active
               result = self.active.all(:limit => 10, :order => "created_at desc")
             else
               result = self.all(:limit => 10, :order => "created_at desc")
@@ -56,7 +56,7 @@ module Newscloud
             when 'top_rated'
               'top'
             else
-            	value
+              value
           end
         end
 

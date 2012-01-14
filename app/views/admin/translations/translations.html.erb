@@ -1,4 +1,4 @@
-<% form_tag admin_translations_url do -%>
+<%= form_tag admin_translations_url do -%>
 <%= select_tag :locale_id,    options_from_collection_for_select(Locale.all, :code, :name, @locale.code) -%>
 <%= select_tag :translation_option, options_from_collection_for_select(TranslationOption.all, :code, :description, @translation_option.code) -%>
 <%= submit_tag 'Go' %>
@@ -16,7 +16,7 @@
 
 <% for translation in @translations %>
   <div id="<%= "translation_#{translation.class}_#{translation.id}" %>">
-  <% remote_form_for([:admin, @locale, translation]) do |f| %>
+  <%= remote_form_for(admin_locale_translation_path(@locale, translation)) do |f| %>
     <p><%=h translation.default_locale_value || translation.raw_key %></p>
     <p>
       <%= f.text_field :value, :size => 128 %>

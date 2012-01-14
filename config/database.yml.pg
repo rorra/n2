@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: n2_development
+  username: monkey
+
+test:
+  adapter: postgresql
+  database: n2_test
+  username: monkey

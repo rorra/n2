@@ -1,49 +1,49 @@
 - content_for :head_content do
   :javascript
     $(function() {
-    	$('#prediction_question_prediction_type option:selected').each(function() {
-    		console.log("SELECT VALUE: "+$(this).val());
-    		switch ($(this).val()) {
-    			case 'text':
-    			case 'yesno':
-    			  $('li.question-values').addClass('hidden');
-    			  break;
-    			case 'multi':
-    			  $('li.question-values').addClass('hidden');
-    			  $('li.question-values.choices').removeClass('hidden');
-    			  break;
-    			case 'year':
-    			case 'numeric':
-    			  $('li.question-values').addClass('hidden');
-    			  $('li.question-values.range').removeClass('hidden');
-    			  break;
-    			default:
-    			  $('li.question-values').addClass('hidden');
-    			  break;
+      $('#prediction_question_prediction_type option:selected').each(function() {
+        console.log("SELECT VALUE: "+$(this).val());
+        switch ($(this).val()) {
+          case 'text':
+          case 'yesno':
+            $('li.question-values').addClass('hidden');
+            break;
+          case 'multi':
+            $('li.question-values').addClass('hidden');
+            $('li.question-values.choices').removeClass('hidden');
+            break;
+          case 'year':
+          case 'numeric':
+            $('li.question-values').addClass('hidden');
+            $('li.question-values.range').removeClass('hidden');
+            break;
+          default:
+            $('li.question-values').addClass('hidden');
+            break;
         }
       });
-    	$('select#prediction_question_prediction_type').change(function() {
-    		console.log("SELECT VALUE: "+$('option:selected', $(this)).val());
-    		switch ($('option:selected', $(this)).val()) {
-    			case 'text':
-    			case 'yesno':
-    			  $('li.question-values').addClass('hidden');
-    			  break;
-    			case 'multi':
-    			  $('li.question-values').addClass('hidden');
-    			  $('li.question-values.choices').removeClass('hidden');
-    			  break;
-    			case 'year':
-    			case 'numeric':
-    			  $('li.question-values').addClass('hidden');
-    			  $('li.question-values.range').removeClass('hidden');
-    			  break;
-    			default:
-    			  $('li.question-values').addClass('hidden');
-    			  break;
+      $('select#prediction_question_prediction_type').change(function() {
+        console.log("SELECT VALUE: "+$('option:selected', $(this)).val());
+        switch ($('option:selected', $(this)).val()) {
+          case 'text':
+          case 'yesno':
+            $('li.question-values').addClass('hidden');
+            break;
+          case 'multi':
+            $('li.question-values').addClass('hidden');
+            $('li.question-values.choices').removeClass('hidden');
+            break;
+          case 'year':
+          case 'numeric':
+            $('li.question-values').addClass('hidden');
+            $('li.question-values.range').removeClass('hidden');
+            break;
+          default:
+            $('li.question-values').addClass('hidden');
+            break;
         }
       });
-    });      
+    });
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/predictions_subnav'
 #full-col
@@ -53,11 +53,11 @@
     .formBox
       #wizard
         #flowplayer-block
-          - semantic_form_for @prediction_question, :url => prediction_questions_path do |form|
+          = semantic_form_for @prediction_question, :url => prediction_questions_path do |form|
             .panes
               .panel1
                 %fieldset
-                  - form.inputs do                
+                  = form.inputs do
                     = form.input :title, :label => t('predictions.new.prediction_group_title'), :hint => t('predictions.new.prediction_group_title_hint')
                     = form.input :prediction_group, :label => t('predictions.select_prediction_group'), :required => true, :include_blank => false, :as => :select, :collection => PredictionGroup.active
                     %p.strong= t('choose_prediction_type_below')
@@ -66,5 +66,5 @@
                     = form.input :start_range, :wrapper_html => { :class => 'question-values range hidden' }
                     = form.input :end_range, :wrapper_html => { :class => 'question-values range hidden' }
                     = form.input :tags_string, :label => t('tags'), :required => false, :hint => t('tags_hint')
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.submit'), :class => 'float-right', :button_html => { :class => 'button-input' }

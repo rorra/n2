@@ -1,5 +1,5 @@
 class Admin::IdeasController < AdminController
-  
+
   def index
     @ideas = Idea.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
   end
@@ -15,7 +15,7 @@ class Admin::IdeasController < AdminController
   def update
     @idea = Idea.find(params[:id])
     if @idea.update_attributes(params[:idea])
-    	@idea.expire
+      @idea.expire
       flash[:success] = "Successfully updated your Idea ."
       redirect_to [:admin, @idea]
     else

@@ -25,7 +25,7 @@ class Admin::TwitterSettingsController < AdminController
       Metadata::Setting.find_setting('oauth_secret').update_value @twitter_oauth_secret
       flash[:success] = "Successfully updated your Twitter OAuth keys"
 
-    	redirect_to admin_twitter_settings_path
+      redirect_to admin_twitter_settings_path
     end
   end
 
@@ -43,7 +43,7 @@ class Admin::TwitterSettingsController < AdminController
       @oauth_consumer_secret.update_value access_token.secret
       flash[:success] = "Successfully updated your Twitter OAuth keys"
 
-    	redirect_to admin_twitter_settings_path
+      redirect_to admin_twitter_settings_path
     end
   end
 
@@ -78,15 +78,15 @@ class Admin::TwitterSettingsController < AdminController
     ['key', 'secret', 'consumer_key', 'consumer_secret'].each do |key|
       val = instance_variable_get("@oauth_#{key}").try(:value)
       if not val or val.empty? or val == @base_consumer_key or val == @base_consumer_secret
-      	@error = key =~ /^consumer/ ? :auth_error : :settings_error
-      	break
+        @error = key =~ /^consumer/ ? :auth_error : :settings_error
+        break
       end
     end
     unless @error and @error == :settings_error
       @oauth_consumer = OAuth::Consumer.new(@oauth_key.try(:value), @oauth_secret.try(:value), {:site => @twitter_api_url, :request_endpoint => @twitter_api_url})
     end
     if @oauth_consumer and @error == :auth_error
-      unless params[:twitter_oauth_pin].present? 
+      unless params[:twitter_oauth_pin].present?
         begin
           @request_token = @oauth_consumer.get_request_token
         rescue Exception => e

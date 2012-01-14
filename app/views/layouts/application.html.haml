@@ -16,13 +16,13 @@
 
     %link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : icon_fan_app_url}
     %link{:rel  => "icon", :href => icon_fan_app_url}
-    
+
     - if iframe_facebook_request?
-      = stylesheet_link_tag 'compiled/fb_grid.css', :media => 'screen, projection'
+      = stylesheet_link_tag 'fb_grid', :media => 'screen, projection'
     - else
-      = stylesheet_link_tag 'compiled/grid.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/text.css', :media => 'print'
-    = raw stylesheet_link_merged :base
+      = stylesheet_link_tag 'grid', :media => 'screen, projection'
+    = stylesheet_link_tag 'text', :media => 'print'
+    = stylesheet_link_tag 'base'
 
     - if get_setting('typekit').present?
       - typekit = get_setting('typekit').value
@@ -44,7 +44,7 @@
     - else
       = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js',"http://s7.addthis.com/js/250/addthis_widget.js", "http://platform.twitter.com/widgets.js"
 
-    = raw javascript_include_merged :base
+    = javascript_include_tag 'base'
 
     = javascript_include_tag 'jquery.ellipsis'
     - if iframe_facebook_request?
@@ -70,9 +70,9 @@
       });
 
       $(function() {
-      	$('.left').removeClass('left');
-      	$('.right').removeClass('right');
-      	var runMasonry = function() {
+        $('.left').removeClass('left');
+        $('.right').removeClass('right');
+        var runMasonry = function() {
           $('#home-content').masonry({
             columnWidth: #{iframe_facebook_request? ? 253 : 320},
             itemSelector: '.box'
@@ -91,7 +91,7 @@
         $("a[rel^='gallery']").prettyPhoto({theme : 'dark_rounded'});
       });
 
-    -# IE Debugging 
+    -# IE Debugging
     =# javascript_include_tag 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'
 
     = auto_discovery_link_tag(:atom, @auto_discovery_rss)
@@ -106,7 +106,7 @@
       = yield :sub_nav
 
       = yield
-      
+
     = render :partial => 'shared/footer'
 
     -# Move these out of the footer, they can't be in a wrapper class... oh IE how I loathe thee
@@ -114,10 +114,5 @@
       .contentWrap
     #login-overlay.standard_overlay
       .contentWrap
- 
 
-    = render :partial => 'shared/google_analytics'
-    
-    #fb-root
-
-    = javascript_include_tag 'application'
+    = render 'layouts/foot'

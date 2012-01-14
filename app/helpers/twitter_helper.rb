@@ -18,7 +18,7 @@ module TwitterHelper
       tweet = nil
     end
     return nil unless tweet
-    
+
     "http://twitter.com/#!#{tweet.tweet_account.screen_name}/status/#{tweet.twitter_id_str}"
   end
 

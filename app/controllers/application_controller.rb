@@ -1,15 +1,13 @@
 class ApplicationController < ActionController::Base
   rescue_from Acl9::AccessDenied, :with => :access_denied
-  
+
   include Newscloud::Util
 
   layout :detect_browser
 
   helper :all # include all helpers, all the time
   before_filter :set_iframe_status
-  protect_from_forgery :secret => 'a64cfbca0d60835e7c0ef3f0c814087d14f417155b354ff1b85fc6188e70a7be4d75e93b6699de6fe3ce80a270ff3e7001104932' # See ActionController::RequestForgeryProtection for details
   before_filter :set_p3p_header
-  #before_filter :set_facebook_session_wrapper
   before_filter :set_current_tab
   before_filter :set_current_sub_tab
   before_filter :set_ad_layout
@@ -19,11 +17,6 @@ class ApplicationController < ActionController::Base
   before_filter :update_last_active
   before_filter :check_post_wall
   before_filter :verify_request_format
-
-#  before_filter :check_authorized_param
-
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
 
   helper_method :base_site_url
   helper_method :base_site_domain
@@ -65,7 +58,7 @@ class ApplicationController < ActionController::Base
   def request_comes_from_facebook?() false end
 
   def logged_in_to_facebook_and_app_authorized
-    if ensure_application_is_installed_by_facebook_user  
+    if ensure_application_is_installed_by_facebook_user
       # filter_parameter_logging :fb_sig_friends # commenting out for now because it fails sometimes
     end
   end
@@ -73,12 +66,12 @@ class ApplicationController < ActionController::Base
   def check_post_wall
     @share_item = session.delete(:post_wall)
   end
-  
+
   def set_p3p_header
     #required for IE in iframe FB environments if sessions are to work.
     headers['P3P'] = 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"'
   end
-  
+
   def set_facebook_session_wrapper
     begin
       set_facebook_session
@@ -95,7 +88,7 @@ class ApplicationController < ActionController::Base
   def set_auto_discovery_rss url = nil
     @auto_discovery_rss ||= url || stories_path(:format => :atom)
   end
-  
+
   def set_sponsor_zone name = nil, topic = 'default'
     if get_setting('sponsor_zones_enabled').try('enabled?')
       @sponsor_zone_code ||= Metadata::SponsorZone.get(name, 'default').try(:sponsor_zone_code)
@@ -103,9 +96,9 @@ class ApplicationController < ActionController::Base
     else
       @sponsor_zone_code = nil
       @sponsor_zone_topic = nil
-    end    
+    end
   end
-  
+
   def set_outbrain_item item = nil
     if get_setting('outbrain_enabled').try('enabled?')
       @outbrain_item ||= item
@@ -120,9 +113,9 @@ class ApplicationController < ActionController::Base
 
   def load_top_stories
     @top_stories ||= Content.active.tally({
-    	:at_least => 1,
-    	:limit    => 5,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 5,
+      :order    => "vote_count desc"
     })
   end
 
@@ -140,17 +133,17 @@ class ApplicationController < ActionController::Base
 
   def load_top_discussed_stories
     @most_discussed_stories ||= Content.active.find( :all,
-    	:limit    => 5,
-    	:conditions => ["created_at > ?", 1.week.ago],
-    	:order    => "comments_count desc"
+      :limit    => 5,
+      :conditions => ["created_at > ?", 1.week.ago],
+      :order    => "comments_count desc"
     )
   end
 
   def load_top_ideas
     @top_ideas ||= Idea.active.tally({
-    	:at_least => 1,
-    	:limit    => 5,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 5,
+      :order    => "vote_count desc"
     })
   end
 
@@ -194,7 +187,7 @@ class ApplicationController < ActionController::Base
   def load_featured_items
     @featured_items ||= FeaturedItem.find_root_by_item_name('featured_template')
   end
-  
+
   def load_newest_idea_boards
     @newest_idea_boards ||= IdeaBoard.active.newest 5
   end
@@ -205,12 +198,12 @@ class ApplicationController < ActionController::Base
 
   def load_top_resources
     @top_resources ||= Resource.active.tally({
-    	:at_least => 1,
-    	:limit    => 5,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 5,
+      :order    => "vote_count desc"
     })
   end
-  
+
   def load_newest_resources
     @newest_resources ||= Resource.active.newest 5
   end
@@ -221,9 +214,9 @@ class ApplicationController < ActionController::Base
 
   def load_top_events
     @top_events ||= Event.active.upcoming.tally({
-    	:at_least => 1,
-    	:limit    => 5,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 5,
+      :order    => "vote_count desc"
     })
   end
 
@@ -246,7 +239,7 @@ class ApplicationController < ActionController::Base
   def load_ad_small_square
     @slot_widget_small_square = Metadata.get_ad_slot('small_square', 'default')
   end
-  
+
   def load_ad_skyscraper
     @slot_widget_skyscraper = Metadata.get_ad_slot('skyscraper', 'default')
   end
@@ -288,7 +281,7 @@ class ApplicationController < ActionController::Base
     end
     opts = {}
     unless true or options.key?(:locale) and options[:locale] == "false"
-    	#opts[:locale] = I18n.locale
+      #opts[:locale] = I18n.locale
     end
     unless options.key?(:format) and options[:format] == "false"
       opts[:format] = format
@@ -305,11 +298,11 @@ class ApplicationController < ActionController::Base
     @tags = item.tag_counts_on(:tags)
   end
 
-  def current_user_profile 
+  def current_user_profile
     return nil unless current_user.present?
     current_user.profile
-  end 
-  
+  end
+
   def update_last_active
     return false unless current_user.present?
 
@@ -367,9 +360,8 @@ class ApplicationController < ActionController::Base
     if canvas?
       link_user_accounts_users_path(:only_path => false, :iframe => 'iframe')
     else
-    	home_index_path(:only_path => false)
+      root_url
     end
-    #root_url(:only_path => false, :canvas => true)
   end
 
   def get_canvas_preference force = false
@@ -384,7 +376,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_setting name, sub_type = nil
-    Metadata::Setting.get name, sub_type
+    Metadata::Setting.get(name, sub_type)
   end
 
   def get_setting_value name, sub_type = nil
@@ -394,7 +386,7 @@ class ApplicationController < ActionController::Base
   def setting_enabled? name, sub_type = nil
     !! get_setting_value(name, sub_type)
   end
-  
+
   def get_ad_layout name, sub_type = nil
     Metadata::AdLayout.get name, sub_type
   end
@@ -408,15 +400,15 @@ class ApplicationController < ActionController::Base
     format = request.format.to_sym
     unless ['html', 'json', 'js', 'xml', 'atom', 'rss'].include? format.to_s
       if request.xhr?
-      	request.format = 'json'
+        request.format = 'json'
       else
-      	request.format = 'html'
+        request.format = 'html'
       end
     end
   end
 
   def set_ad_layout
-    action = ( params['action'] == 'index' ? 'index' : 'item' )    
+    action = ( params['action'] == 'index' ? 'index' : 'item' )
     @ad_layout_info = get_ad_layout("#{params['controller']}_#{action}")
     if @ad_layout_info.present?
       @ad_layout = @ad_layout_info.layout
@@ -449,15 +441,15 @@ class ApplicationController < ActionController::Base
     headers["Newscloud-Origin"] = 'no-rewrite'
     @redirect_url = location
     text = %{
-      <html><head> 
-        <script type="text/javascript">   
-          window.top.location.href = <%= @redirect_url.to_json %>; 
-        </script> 
-        <noscript> 
-          <meta http-equiv="refresh" content="0;url=<%=h @redirect_url %>" /> 
-          <meta http-equiv="window-target" content="_top" /> 
-        </noscript>                 
-      </head></html> 
+      <html><head>
+        <script type="text/javascript">
+          window.top.location.href = <%= @redirect_url.to_json %>;
+        </script>
+        <noscript>
+          <meta http-equiv="refresh" content="0;url=<%=h @redirect_url %>" />
+          <meta http-equiv="window-target" content="_top" />
+        </noscript>
+      </head></html>
     }
     render :layout => false, :inline => text
 
@@ -474,7 +466,7 @@ class ApplicationController < ActionController::Base
   def base_site_domain
     base_site_url.sub(%r{^https?://}, '')
   end
-  
+
   def replace_url_with_canvas_url url
     url.sub %r{^#{base_site_url}/?(iframe/)?}, canvas_url
   end
@@ -496,7 +488,7 @@ class ApplicationController < ActionController::Base
     store_location
     if current_user
       flash[:notice] = I18n.translate('sessions.invalid_permissions')
-      redirect_to home_index_path
+      redirect_to root_url
     else
       flash[:notice] = I18n.translate('sessions.access_denied')
       redirect_to new_session_path
@@ -512,8 +504,9 @@ class ApplicationController < ActionController::Base
     if cache_id =~ /^([a-zA-Z_]+):([0-9]+)$/
       begin
         $1.classify.constantize.send(:find_by_id, $2)
-      rescue Exception => e
-        nil
+      # Should rescue only the necessary exceptions
+      #rescue Exception => e
+        #nil
       end
     else
       nil
@@ -539,11 +532,11 @@ class ApplicationController < ActionController::Base
   def klass_title klass
     I18n.translate("global.#{klass.name.tableize.downcase}.title".to_sym) || klass.name.tableize.downcase.titleize
   end
-  
+
   def klass_description klass
     I18n.translate("global.#{klass.name.tableize.downcase}.description".to_sym) || klass.name.tableize.downcase.titleize
   end
-  
+
   def page_title options = {}
     site_title = get_setting_value('site_title')
     if options[:item] and options[:item].respond_to?(:item_title)
@@ -553,7 +546,9 @@ class ApplicationController < ActionController::Base
     else
       title = site_title
     end
-    @template.text_page_title title
+    # RAILS3 TODO
+    # @template doesn't exist anymore
+    # @template.text_page_title title
   end
-  
+
 end

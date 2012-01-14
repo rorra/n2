@@ -7,6 +7,6 @@
       .panel-bar
         %h2= t('newest_images_title')
       .list_media
-        %ul          
+        %ul
           - newest_images.each do |image|
             %li= link_to image_tag(image.url(:thumb)), image.imageable

@@ -13,11 +13,11 @@ class Article < ActiveRecord::Base
   has_one :content
   belongs_to :author, :class_name => "User"
 
-  named_scope :published, { :conditions => ["is_draft = 0"] }
-  named_scope :draft, { :conditions => ["is_draft = 1"] }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 1)} }
-  named_scope :blog_roll, lambda { |*args| {  :select => "count(author_id) as author_article_count, author_id", :group => "author_id", :order => "author_article_count desc", :limit => (args.first || 30)} }
+  scope :published, { :conditions => ["is_draft = 0"] }
+  scope :draft, { :conditions => ["is_draft = 1"] }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 1)} }
+  scope :blog_roll, lambda { |*args| {  :select => "count(author_id) as author_article_count, author_id", :group => "author_id", :order => "author_article_count desc", :limit => (args.first || 30)} }
 
   accepts_nested_attributes_for :content
 
@@ -25,7 +25,7 @@ class Article < ActiveRecord::Base
   # TODO:: add author validation or remove author
   # TODO:: add content validation or remove author
   #validates_presence_of :body
-  
+
   #todo - was removing formatting from drafts - not sure of purpose
   #before_save :sanitize_body
 
@@ -33,9 +33,9 @@ class Article < ActiveRecord::Base
   delegate :comments_count, :to => :content
 
   def item_list limit
-    Content.articles.active.published.curator_items.find(:all, :order => "created_at desc", :limit => limit)    
+    Content.articles.active.published.curator_items.find(:all, :order => "created_at desc", :limit => limit)
   end
-  
+
   def item_title
     content.item_title
   end
@@ -72,7 +72,7 @@ class Article < ActiveRecord::Base
     self.preamble_complete = full_entry
     self.preamble = preamble
   end
-      
+
   def expire
     self.class.sweeper.expire_article_all self
   end
@@ -88,9 +88,9 @@ class Article < ActiveRecord::Base
   def is_owner? user
     user == self.author
   end
-  
-  private  
-  
+
+  private
+
   def sanitize_body
     self.body = self.body.sanitize_standard
   end

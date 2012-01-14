@@ -15,12 +15,12 @@ class ClassifiedsWorker
         chirp = Chirp.new({
           :chirper => user,
           :recipient => classified.user,
-          :message => ActionView::Base.new.render(:partial => "#{RAILS_ROOT}/app/views/classifieds/_near_expiration.html.haml", :locals => { :user => classified.user, :title =>  classified } ) 
+          :message => ActionView::Base.new.render(:partial => "#{Rails.root}/app/views/classifieds/_near_expiration.html.haml", :locals => { :user => classified.user, :title =>  classified } )
         })
         #if chirp.valid? and user.sent_chirps.push chirp
           #recipient.user_profile.update_attribute(:email_last_ask, Time.now)
         #end
-      end      
+      end
 
       # send expired message
 =begin
@@ -31,9 +31,9 @@ class ClassifiedsWorker
         chirp = Chirp.new({
           :chirper => user,
           :recipient => classified.user,
-          :message => ActionView::Base.new.render(:partial => "#{RAILS_ROOT}/app/views/classifieds/_expired.html.haml", :locals => { :user => classified.user, :title =>  classified } ) 
+          :message => ActionView::Base.new.render(:partial => "#{Rails.root}/app/views/classifieds/_expired.html.haml", :locals => { :user => classified.user, :title =>  classified } )
         })
-      end      
+      end
     end
   end
 end

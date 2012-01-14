@@ -38,7 +38,7 @@ class Admin::SettingGroupsController < AdminController
     end
 
     def find_locale
-      @locale = Locale.find_by_code(params[:locale])
+      @locale = I18n::Backend::Locale.find_by_code(params[:locale])
     end
 
 end

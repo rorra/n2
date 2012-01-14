@@ -5,11 +5,11 @@ en:
           top_resources: "Popular Links"
           newest_resources: "Recent Links"
         show:
-            posted_by: "Posted by {{fb_name}} {{date}} ago"
+            posted_by: "Posted by %{fb_name} %{date} ago"
             share: "Share it"
             like: "Like"
-            post_comment: "Post a comment" 
-            visit_url: "Visit the Website"           
+            post_comment: "Post a comment"
+            visit_url: "Visit the Website"
         subnav:
             browse_resources: "Browse Links"
             suggest_resource: "Add a new link"
@@ -17,7 +17,7 @@ en:
         my_resources:
             my_resources_title: "Your Links"
             top_resources: "Popular Links"
-            newest_resources: "Recent Links" 
+            newest_resources: "Recent Links"
         new:
             label_title: "Title"
             hint_title: "Please provide a one sentence title for your link"
@@ -32,4 +32,4 @@ en:
             hint_map: "Link to map in Google maps"
             hint_twitter: "Twitter user name e.g. newscloud"
             hint_url: "Web site address for this resource"
-            
+

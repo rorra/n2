@@ -1,6 +1,6 @@
 <h1>New translation</h1>
 
-<% form_for([:admin, @locale, @translation]) do |f| %>
+<%= form_for(admin_locale_translation_path(@locale, @translation) do |f| %>
   <%= f.error_messages %>
 
   <p>

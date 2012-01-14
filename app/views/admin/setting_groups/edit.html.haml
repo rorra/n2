@@ -62,7 +62,7 @@
 %h1= @setting_group[:title]
 #drawer There is an error!
 -#%form{:action => admin_setting_group_path(:id => @setting_group_name), :style => "width: 900px; height: 800px"}
-- form_tag admin_setting_group_url(:id => @setting_group_name), :method => :put, :style => "width: 900px; height: 800px", :id => "wizard-form" do
+= form_tag admin_setting_group_url(:id => @setting_group_name), :method => :put, :style => "width: 900px; height: 800px", :id => "wizard-form" do
   #wizard{:style => "width: 100%; height:1000px"}
     %ul#status
       - @setting_group[:pages].each_with_index do |page, index|

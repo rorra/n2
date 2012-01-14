@@ -6,7 +6,7 @@
 
 %h3= t('media.add_image_title')
 %fieldset.inputs
-  - form.semantic_fields_for :images do |image_form|
+  = form.semantic_fields_for :images do |image_form|
     = image_form.input :remote_image_url, :required => false, :label => false
     = image_form.input :image, :required => false, :as => :file, :label => false, :class => "browse-media-item"
     -#%a{:href=> "#"}= t('Edit caption')

@@ -2,10 +2,10 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Metadata::ActivityScore.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Metadata::ActivityScore,
-    	:fields => [:activity_score_name, :activity_score_sub_type_name, :activity_score_value],
-    	:paginate => true
+      :items => Metadata::ActivityScore.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Metadata::ActivityScore,
+      :fields => [:activity_score_name, :activity_score_sub_type_name, :activity_score_value],
+      :paginate => true
     }
   end
 
@@ -39,7 +39,7 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::ActivityScore.find(params[:id]),
       :model => Metadata::ActivityScore,
-    	:fields => [:activity_score_name, :activity_score_sub_type_name, :activity_score_value, :activity_score_hint, :created_at],
+      :fields => [:activity_score_name, :activity_score_sub_type_name, :activity_score_value, :activity_score_hint, :created_at],
     }
   end
 
@@ -67,9 +67,9 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
     activity_score ||= Metadata::ActivityScore.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => activity_score,
-    	:model => Metadata::ActivityScore,
-    	:fields => [:activity_score_name, :activity_score_hint, lambda {|f| f.input :activity_score_sub_type_name, :required => false }, :activity_score_value]
+      :item => activity_score,
+      :model => Metadata::ActivityScore,
+      :fields => [:activity_score_name, :activity_score_hint, lambda {|f| f.input :activity_score_sub_type_name, :required => false }, :activity_score_value]
     }
   end
 
@@ -77,9 +77,9 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
     activity_score ||= Metadata::ActivityScore.new
 
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => activity_score,
-    	:model => Metadata::ActivityScore,
-    	:fields => [lambda {|f| f.input :activity_score_value, :label => t('score_for', :activity => activity_score.activity_score_name), :hint => activity_score.activity_score_hint },]
+      :item => activity_score,
+      :model => Metadata::ActivityScore,
+      :fields => [lambda {|f| f.input :activity_score_value, :label => t('score_for', :activity => activity_score.activity_score_name), :hint => activity_score.activity_score_hint },]
     }
   end
 

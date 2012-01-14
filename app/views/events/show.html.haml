@@ -19,12 +19,12 @@
           .tag-wrap
             %h6== Tags: #{tag_list(@tags,@event)}
       .meta-data
-        %h5= t('.date_time')  
+        %h5= t('.date_time')
         %h6
           == #{@event.start_time.to_s :short_with_time}
           - if @event.end_time.present?
-            == - #{@event.end_time.to_s :short_time} 
-        %h6= t('.location') 
+            == - #{@event.end_time.to_s :short_time}
+        %h6= t('.location')
         %h6
           =h @event.location
           =h @event.street
@@ -46,7 +46,7 @@
           .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @event }
 
   = render_ad(:banner, @ad_layout, @ad_banner)
-   
+
   .panel-2.comment-list
     = render :partial => 'shared/comments', :locals => { :comments => @event.comments }
   .panel-2.comment-form

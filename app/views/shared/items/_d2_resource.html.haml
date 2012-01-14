@@ -6,7 +6,7 @@
       %h3= link_to resource.title, resource_path(resource)
     .meta-data      .profile-pic= local_linked_profile_pic resource.user
       %h6= generic_posted_by resource
-      %h6 
+      %h6
         %span.count== #{like_link resource} #{resource.votes_tally}
       %h6
         %span.count== #{link_to t('comments'), resource_path(resource, :anchor => "commentListTop")} #{resource.comments_count}
@@ -16,7 +16,7 @@
       %h3= link_to resource.title, resource_path(resource)
     .meta-data      .profile-pic= local_linked_profile_pic resource.user
       %h6= generic_posted_by resource
-      %h6 
+      %h6
         %span.count== #{like_link resource} #{resource.votes_tally}
       %h6
         %span.count== #{link_to t('comments'), resource_path(resource, :anchor => "commentListTop")} #{resource.comments_count}

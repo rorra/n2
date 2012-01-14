@@ -1,7 +1,7 @@
 .bio-box{:style => "display: none;"}
   .bio-content
     - if current_user
-      - form_tag update_bio_users_path, :class => "update-bio-form formtastic", :id => 'update-bio-form' do
+      = form_tag update_bio_users_path, :class => "update-bio-form formtastic", :id => 'update-bio-form' do
         %fieldset.inputs
           %ol
             %li

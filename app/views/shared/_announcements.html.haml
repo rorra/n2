@@ -2,16 +2,16 @@
 - cache :newest_announcements_html, :expires_in => 180.minutes do
   - newest_announcements ||= Announcement.newest
   .panel-2
-    #hotTopicBar 
+    #hotTopicBar
       %ul
         - unless newest_announcements.empty?
           - newest_announcements.each do |announcement|
             %li.topicTitle
               #{announcement.prefix}
             %li.topic
-              - if announcement.url.present?          
+              - if announcement.url.present?
                 = link_to announcement.title, announcement.url, :target=> "_parent"
-              - else 
+              - else
                 = announcement.title
         - else
           %li.topicTitle

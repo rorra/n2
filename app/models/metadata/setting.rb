@@ -1,6 +1,7 @@
 class Metadata::Setting < Metadata
+  metadata_keys :setting_sub_type_name, :setting_name, :setting_value, :setting_hint
 
-  named_scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
+  scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
   # HACK:: emulate validate_presence_of
   # these are dynamicly created attributes so they don't exist for the model
@@ -12,8 +13,8 @@ class Metadata::Setting < Metadata
     self.find_setting(name, sub_type)
   end
 
-  def self.get_setting name, sub_type = nil
-    self.find_setting(name, sub_type)
+  def self.get_setting *args
+    get(*args)
   end
 
   def self.find_setting name, sub_type = nil

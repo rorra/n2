@@ -4,7 +4,7 @@ class Classified < ActiveRecord::Base
   acts_as_authorization_object
 
   acts_as_taggable_on :tags, :location
-  acts_as_voteable 
+  acts_as_voteable
   acts_as_media_item
 
   acts_as_categorizable
@@ -13,21 +13,21 @@ class Classified < ActiveRecord::Base
   acts_as_relatable
   acts_as_wall_postable
   acts_as_tweetable
-  
-  named_scope :top, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :auto_expired, lambda { |*args| { :conditions => ["expires_at < ? AND aasm_state IN (?)", Time.zone.now, [:unpublished, :available, :hidden].map(&:to_s)] } }
-  named_scope :no_auto_expire, lambda { |*args| { :conditions => ["expires_at < ? AND aasm_state NOT IN (?)", Time.zone.now, [:unpublished, :available, :hidden].map(&:to_s)] } }
-  named_scope :with_state, lambda { |*args| { :conditions => ["aasm_state = ?", args.first] } }
-  named_scope :for_sale, { :conditions => ["listing_type = ?", "sale"] }
-  named_scope :for_free, { :conditions => ["listing_type = ?", "free"] }
-  named_scope :for_loan, { :conditions => ["listing_type = ?", "loan"] }
-  named_scope :allow_all, { :conditions => ["allow = ?", "all"] }
-  named_scope :allow_friends, { :conditions => ["allow = ?", "friends"] }
-  named_scope :allow_friends_of_friends, { :conditions => ["allow = ?", "friends_of_friends"] }
-  named_scope :available, { :conditions => ["aasm_state = ?", "available"] }
-  named_scope :search_on, lambda { |keyword| { :conditions => ["title LIKE ? OR details LIKE ?", "%#{keyword}%", "%#{keyword}%"] } }
-  named_scope :in_category, lambda { |category_id|
+
+  scope :top, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :auto_expired, lambda { |*args| { :conditions => ["expires_at < ? AND aasm_state IN (?)", Time.zone.now, [:unpublished, :available, :hidden].map(&:to_s)] } }
+  scope :no_auto_expire, lambda { |*args| { :conditions => ["expires_at < ? AND aasm_state NOT IN (?)", Time.zone.now, [:unpublished, :available, :hidden].map(&:to_s)] } }
+  scope :with_state, lambda { |*args| { :conditions => ["aasm_state = ?", args.first] } }
+  scope :for_sale, { :conditions => ["listing_type = ?", "sale"] }
+  scope :for_free, { :conditions => ["listing_type = ?", "free"] }
+  scope :for_loan, { :conditions => ["listing_type = ?", "loan"] }
+  scope :allow_all, { :conditions => ["allow = ?", "all"] }
+  scope :allow_friends, { :conditions => ["allow = ?", "friends"] }
+  scope :allow_friends_of_friends, { :conditions => ["allow = ?", "friends_of_friends"] }
+  scope :available, { :conditions => ["aasm_state = ?", "available"] }
+  scope :search_on, lambda { |keyword| { :conditions => ["title LIKE ? OR details LIKE ?", "%#{keyword}%", "%#{keyword}%"] } }
+  scope :in_category, lambda { |category_id|
     return {} if category_id.nil?
     { :conditions => ["id IN (SELECT categorizable_id FROM categorizations WHERE categorizable_type = ? AND category_id = ?)", self.name, category_id] }
   }
@@ -104,12 +104,12 @@ class Classified < ActiveRecord::Base
   def loanable?; listing_type == "loan" end
   def wanted?; listing_type == "wanted" end
   def free?; listing_type == "free" end
-  
+
   def unhide!
     # notify waiting list users
     renewed!
   end
-  
+
   def has_expired?
     Time.now > expires_at
   end
@@ -128,6 +128,10 @@ class Classified < ActiveRecord::Base
   end
 
   def self.enable_sale_items?
+    # TODO RAILS3
+    return true
+
+    # Probably a better way to do the below
     return @enable_sale_items if defined?(@enable_sale_items)
     @enable_sale_items = Metadata::Setting.get_setting('enable_sale_items').try(:value)
   end
@@ -140,7 +144,7 @@ class Classified < ActiveRecord::Base
     return false unless type
     self.listing_types.include? type.to_sym
   end
-  
+
   def self.allow_types
     [:all, :friends, :friends_of_friends]
   end
@@ -153,7 +157,7 @@ class Classified < ActiveRecord::Base
     return false unless type
     self.allow_types.include? type.to_sym
   end
-  
+
   def is_owner? user
     user == self.user
   end
@@ -164,9 +168,9 @@ class Classified < ActiveRecord::Base
     method = "__#{state.to_s}_is_allowed?".to_sym
 
     if respond_to?(method)
-    	send(method, user)
+      send(method, user)
     else
-    	false
+      false
     end
   end
 
@@ -213,43 +217,32 @@ class Classified < ActiveRecord::Base
     end
 
     if keyword
-    	chains << [:search_on, keyword]
+      chains << [:search_on, keyword]
     end
 
     chains << :newest
 
     results = chains.inject(self) do |chain, scope|
       if scope.is_a? Array
-      	chain.send scope[0], scope[1]
+        chain.send scope[0], scope[1]
       else
-      	chain.send scope
+        chain.send scope
       end
     end
 
     results.find(:all, :conditions => ["id IN (?)", $redis.sunion(*user_sets)])
   end
 
-=begin
-  def recipient_voices
-    users = self.voices
-    users << self.commentable.user
-    # get list of people who liked commentable item
-    users.concat self.commentable.votes.map(&:voter) 
-    users.delete self.user
-    users.uniq
-  end
-=end
-
   def self.for_user user = nil
     sets = sets_for_user(user)
-    self.available.active.find(:all, :conditions => ["id IN (?)", $redis.sunion(*sets)], :order => "created_at desc")
+    self.available.active.where(["id IN (?)", $redis.sunion(*sets)]).order("created_at desc")
   end
 
   def self.sets_for_user user = nil
     sets = ["items:classifieds:public:free", "items:classifieds:public:sale", "items:classifieds:public:loan"]
     if user
-    	#sets.push "items:classifieds:public:loan"
-    	sets = sets | $redis.smembers("#{user.cache_id}:friends").map {|f| "user:#{f}:items:classifieds:friends"}
+      #sets.push "items:classifieds:public:loan"
+      sets = sets | $redis.smembers("#{user.cache_id}:friends").map {|f| "user:#{f}:items:classifieds:friends"}
     end
     sets
   end
@@ -325,26 +318,26 @@ class Classified < ActiveRecord::Base
       #elsif loanable?
         #allow_user? user, :require_user => true, :default => false
       else
-      	false
+        false
       end
     end
 
   private
-    
+
     def self.default_tags(options = {})
       conditions = {
         :context       => (options[:on] || "tags").to_s,
         :taggable_type => self.name,
         :taggable_id   => nil
       }
-      Tagging.find(:all, :include => :tag, :conditions => conditions).map(&:tag).uniq
+      ActsAsTaggableOn::Tagging.find(:all, :include => :tag, :conditions => conditions).map(&:tag).uniq
     end
 
     def self.build_default_tag_on(tag_name, context = "tags")
       return true if self.default_tags(:on => context).map(&:name).include? tag_name.to_s
       tag = Tag.find_or_create_by_name(tag_name.to_s)
       if tag
-      	Tagging.create!({
+        ActsAsTaggableOn::Tagging.create!({
           :context       => context,
           :taggable_type => self.name,
           :taggable_id   => nil,

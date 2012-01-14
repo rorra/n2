@@ -12,11 +12,11 @@
           = content.caption
     .meta-data      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
-      %h6 
+      %h6
         %span.count== #{like_link content} #{content.votes_tally}
         %span.count== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
         - if content.article.preamble_complete
-          %span.count== #{link_to t('articles.permalink'), story_path(content)} 
+          %span.count== #{link_to t('articles.permalink'), story_path(content)}
         - else
           %span.count== #{link_to t('articles.read_full'), story_path(content)}
 -else
@@ -30,10 +30,10 @@
           = content.caption
     .meta-data      .profile-pic= local_linked_profile_pic content.user
       %h6= generic_posted_by content
-      %h6 
+      %h6
         %span.count== #{like_link content} #{content.votes_tally}
         %span.count== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
         - if content.article.preamble_complete
-          %span.count== #{link_to t('articles.permalink'), story_path(content)} 
+          %span.count== #{link_to t('articles.permalink'), story_path(content)}
         - else
           %span.count== #{link_to t('articles.read_full'), story_path(content)}

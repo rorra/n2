@@ -20,7 +20,7 @@
   <%=h @translation.default_locale_value %>
 </p>
 
-<% form_for([:admin, @locale, @translation]) do |f| %>
+<%= form_for admin_locale_translation_path(@locale, @translation) do |f| %>
   <%= f.error_messages %>
 
     <% if @translation.raw_key =~ /^static_pages/ %>

@@ -1,7 +1,4 @@
-require 'action_controller'
 require 'net/http'
-
-include ActionController::UrlWriter
 
 module Newscloud
 
@@ -123,8 +120,8 @@ module Newscloud
       end
 
       if @oauth_key == @base_oauth_key or @oauth_consumer_key == @base_oauth_key or
-      	 @oauth_secret == @base_oauth_secret or @oauth_consumer_secret == @base_oauth_secret
-      	  raise Newscloud::TweeterNotConfigured.new("You must configure your oauth settings and run the rake twitter connect task.")
+         @oauth_secret == @base_oauth_secret or @oauth_consumer_secret == @base_oauth_secret
+          raise Newscloud::TweeterNotConfigured.new("You must configure your oauth settings and run the rake twitter connect task.")
       end
 
       Twitter.configure do |config|
@@ -156,7 +153,7 @@ module Newscloud
     end
 
     def tweet_hot_items
-      klasses = Dir.glob("#{RAILS_ROOT}/app/models/*.rb").map {|f| f.sub(%r{^.*/(.*?).rb$}, '\1').pluralize.classify }.map(&:constantize).select {|m| m.respond_to?(:tweetable?) and m.tweetable? }
+      klasses = Dir.glob("#{Rails.root}/app/models/*.rb").map {|f| f.sub(%r{^.*/(.*?).rb$}, '\1').pluralize.classify }.map(&:constantize).select {|m| m.respond_to?(:tweetable?) and m.tweetable? }
       klasses.each do |klass|
         hot_items = klass.hot_items
         next unless hot_items
@@ -171,10 +168,10 @@ module Newscloud
       @bitly_api_key = Metadata::Setting.find_setting('bitly_api_key').try(:value)
 
       if @bitly_username and @bitly_api_key
-      	bitly = Bitly.new(@bitly_username, @bitly_api_key)
-      	bitly.shorten(url).short_url
+        bitly = Bitly.new(@bitly_username, @bitly_api_key)
+        bitly.shorten(url).short_url
       else
-      	url
+        url
       end
     end
 

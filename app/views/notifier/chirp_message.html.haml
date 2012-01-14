@@ -2,6 +2,6 @@
 %br
 %p= nl2br(@message[:participant].message)
 %br
-%a{:href=> home_index_url(:only_path => false) }= I18n.translate('message.click_return_site', :site_title => @message[:site_title])
+%a{:href=> root_url}= I18n.translate('message.click_return_site', :site_title => @message[:site_title])
 %br
 %p= I18n.translate('message.unsubscribe', :href => edit_user_path(@message[:recipient], :only_path => false), :site_title => @message[:site_title] ).html_safe

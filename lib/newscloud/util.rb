@@ -3,7 +3,7 @@ module Newscloud
 
     # Thanks to restful_auth authentication.rb for these
     mattr_accessor :email_name_regex, :domain_head_regex, :domain_tld_regex, :email_regex, :bad_email_message, :login_regex, :bad_login_message, :name_regex, :bad_name_message, :url_regex
-    
+
     self.name_regex        = /\A[^[:cntrl:]\\<>\/&]*\z/              # Unicode, permissive
     self.bad_name_message  = "avoid non-printing characters and \\&gt;&lt;&amp;/ please.".freeze
 
@@ -42,7 +42,7 @@ module Newscloud
     #
     # We can return to this location by calling #redirect_back_or_default.
     def store_location location = nil
-      session[:return_to] = location || request.request_uri
+      session[:return_to] = location || request.fullpath
     end
 
     # Redirect to the URI stored by the most recent store_location call or
@@ -52,7 +52,7 @@ module Newscloud
     def redirect_back_or_default(default)
       redirect_to(session.delete(:return_to) || default)
     end
-    
+
     def self.included(base)
       base.send :helper_method, :current_user, :current_user=, :logged_in?, :authorized?, :store_location, :redirect_back_or_default if base.respond_to? :helper_method
     end

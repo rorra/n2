@@ -21,8 +21,8 @@ class Topic < ActiveRecord::Base
   validates_presence_of :forum, :user, :title
   validates_presence_of :body, :if => :new_record?
 
-  named_scope :newest, lambda { |*args| { :order => ["replied_at desc"], :limit => (args.first || 5)} }
-  named_scope :top, lambda { |*args| { :order => ["comments_count desc, created_at desc"], :limit => (args.first || 5)} }
+  scope :newest, lambda { |*args| { :order => ["replied_at desc"], :limit => (args.first || 5)} }
+  scope :top, lambda { |*args| { :order => ["comments_count desc, created_at desc"], :limit => (args.first || 5)} }
 
   attr_accessor :body, :tags_string
 

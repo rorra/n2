@@ -15,21 +15,21 @@ class Question < ActiveRecord::Base
   validates_presence_of :question
 
   attr_accessor :tags_string
-  
+
   has_friendly_id :question, :use_slug => true
 
-  named_scope :top, lambda { |*args| { :order => ["(2*answers_count+votes_tally) desc, created_at desc"], :limit => (args.first || 10)} }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :unanswered, lambda { |*args| { :conditions => ["answers_count = 0"], :order => ["created_at asc"], :limit => (args.first || 10) } }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
+  scope :top, lambda { |*args| { :order => ["(2*answers_count+votes_tally) desc, created_at desc"], :limit => (args.first || 10)} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :unanswered, lambda { |*args| { :conditions => ["answers_count = 0"], :order => ["created_at asc"], :limit => (args.first || 10) } }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
 
   def self.per_page; 20; end
 
   def self.get_top
     self.tally({
-    	:at_least => 1,
-    	:limit    => 10,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 10,
+      :order    => "vote_count desc"
     })
   end
 

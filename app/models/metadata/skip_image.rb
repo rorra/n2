@@ -1,6 +1,6 @@
 class Metadata::SkipImage < Metadata
   after_save :remove_all_images
-  named_scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
+  scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
   # taking these out to allow for partial strings
   # HACK:: emulate validate_presence_of
@@ -30,5 +30,5 @@ class Metadata::SkipImage < Metadata
       end
     end
   end
-  
+
 end

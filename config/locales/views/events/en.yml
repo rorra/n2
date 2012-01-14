@@ -22,7 +22,7 @@ en:
           hint_event_description: "Please provide any additional details here"
           hint_event_location: "Where is the venue for your event?"
         show:
-          asked_by: "Asked by {{fb_name}} {{date}} ago"
+          asked_by: "Asked by %{fb_name} %{date} ago"
           share: "Share it"
           like: "Like"
           view: "View Event Listing"

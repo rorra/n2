@@ -3,20 +3,20 @@
     $(function() {
       $('.destroy, .destroy-ignore').click(function(event) {
         event.preventDefault();
-      	var message;
-      	if ($(this).hasClass('destroy-ignore')) {
-      		message = "Are you sure you want to destroy this image and ignore all future copies of this image url?";
-      	} else {
-      		message = "Are you sure you want to delete this image?";
+        var message;
+        if ($(this).hasClass('destroy-ignore')) {
+          message = "Are you sure you want to destroy this image and ignore all future copies of this image url?";
+        } else {
+          message = "Are you sure you want to delete this image?";
         }
         if (confirm(message)) {
-        	var $link = $(this).parents('tr');
-        	$.ajax({
-        		url   : this.href.replace(/html/, 'json'),
-        		type  : 'post',
-        		dataType  : 'script',
-        		data      : { '_method' : 'delete' },
-        		success   : function() {
+          var $link = $(this).parents('tr');
+          $.ajax({
+            url   : this.href.replace(/html/, 'json'),
+            type  : 'post',
+            dataType  : 'script',
+            data      : { '_method' : 'delete' },
+            success   : function() {
               setTimeout(function() {
                 $link.effect('highlight', {color: 'green'}, 2000);
                 $link.hide('fold', {}, 'slow');

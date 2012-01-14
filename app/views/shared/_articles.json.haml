@@ -5,7 +5,7 @@
       .article
         .thumb
           - if content.images.present?
-            = image_tag content.images.first.url(:thumb)                  
+            = image_tag content.images.first.url(:thumb)
           - else
             = image_tag ('skin/watermark.jpg', :width => "100%")
         .item-block

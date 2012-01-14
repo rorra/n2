@@ -9,8 +9,8 @@ class OauthController < ApplicationController
       redirect_to authenticator.authorize_url(:scope => 'publish_stream,offline_access', :display => 'page')
     end
   end
-  
-  def create    
+
+  def create
     if params[:error].present?
       if params[:error][:type] == "OAuthAccessDeniedException" or params[:error_reason] == "user_denied"
         current_user.update_attribute(:fb_oauth_denied_at, Time.now)
@@ -23,12 +23,12 @@ class OauthController < ApplicationController
       current_user.update_attribute(:fb_oauth_key, mogli_client.access_token)
     end
     if iframe_facebook_request?
-    	redirect_top home_index_path(:only_path => false, :canvas => true)
+      redirect_top root_url(:canvas => true)
     else
-      redirect_to home_index_path
+      redirect_to root_url
     end
   end
-  
+
   def authenticator
     if Metadata::Setting.find_setting('app_id').present?
       app_id = Metadata::Setting.find_setting('app_id').value

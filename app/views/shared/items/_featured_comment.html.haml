@@ -1,4 +1,4 @@
--# expects: local 'item' 
+-# expects: local 'item'
 .featured
   .item_2.comment
     .item-block
@@ -13,4 +13,4 @@
           %span.ellipsis_text
             = link_to item.item_title, polymorphic_url(item.item_link)
         -# %span== #{link_to t('featured_comment.view'), polymorphic_url(item.item_link, :anchor => "commentListTop")}
-        -# %span= votes_link(item, item.votes_tally)        
+        -# %span= votes_link(item, item.votes_tally)

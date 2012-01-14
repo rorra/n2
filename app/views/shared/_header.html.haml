@@ -2,19 +2,19 @@
   #sponsor
     %a
   %h1#site-name-wrap
-    %a#site-name{:title => "Front Page - #{get_setting('site_title').try(:value)}", :href => "#{home_index_path(:only_path => false)}"}= get_setting('site_title').try(:value)
-      
+    %a#site-name{:title => "Front Page - #{get_setting('site_title').try(:value)}", :href => "#{root_url}"}= get_setting('site_title').try(:value)
+
   #header-actions
     - cache :google_search_header_html, :expires_in => 180.minute do
       - if Metadata::Setting.find_setting('google_search_engine_id').present?
         - search_engine_id = Metadata::Setting.find_setting('google_search_engine_id').value
       - if search_engine_id and search_engine_id != "your-google-search-engine-id"
-        - form_tag("http://www.google.com/cse", :id => "cse-search-box", :remote => true, :method => "get") do
+        = form_tag("http://www.google.com/cse", :id => "cse-search-box", :remote => true, :method => "get") do
           = hidden_field_tag 'cx', search_engine_id
           = hidden_field_tag 'ie', 'ISO-8859-1'
           = text_field_tag 'q',  nil, :class =>'meta-search'
           = submit_tag("search", :name => 'sa', :class => "meta-submit button")
-        %script{:type => "text/javascript", :src => "http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"}  
+        %script{:type => "text/javascript", :src => "http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"}
         :javascript
           var masonryCallback = function() {
             $('#full-col').masonry({
@@ -33,8 +33,8 @@
       - if iframe_facebook_request?
         = link_to t('.register_facebook'), link_user_accounts_users_path(:only_path => false, :canvas => true), :target => '_parent'
       - else
-        = link_to t('.sign_in'), login_path(:return_to => request.request_uri)
+        = link_to t('.sign_in'), login_path(:return_to => request.fullpath)
         = pipe_spacer
-        = link_to t('.register'), signup_path(:return_to => request.request_uri)
+        = link_to t('.register'), signup_path(:return_to => request.fullpath)
 
   = render :partial => 'shared/page_tabs'

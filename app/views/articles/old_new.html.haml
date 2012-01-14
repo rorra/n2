@@ -1,17 +1,17 @@
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/news_subnav'
 
-= stylesheet_link_tag 'jquery.wysiwyg'  
+= stylesheet_link_tag 'jquery.wysiwyg'
 = javascript_include_tag 'jquery.wysiwyg'
-  
+
 #full-col
   .panel-3
     .panel-bar
       %h2= t '.header'
     .formBox
-      - semantic_form_for @article, :html => { :multipart => true } do |form|
+      = semantic_form_for @article, :html => { :multipart => true } do |form|
         = render :partial => 'article_form', :locals => { :form => form }
-        - form.buttons do
+        = form.buttons do
           = form.commit_button :class => 'float-right', :button_html => { :class => 'btn'   }
 
 :javascript
@@ -49,7 +49,7 @@
         insertOrderedList    : { visible : true },
         insertUnorderedList  : { visible : true },
         insertHorizontalRule : { visible : true },
-        
+
         createLink : {
             visible : true,
         },

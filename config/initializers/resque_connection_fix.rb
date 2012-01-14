@@ -6,7 +6,7 @@
 # This hack ensures we re-connect whenever a connection is
 # lost. Because, really. why not?
 #
-# Stick this in RAILS_ROOT/config/initializers/connection_fix.rb (or somewhere similar)
+# Stick this in Rails.root/config/initializers/connection_fix.rb (or somewhere similar)
 #
 # From:
 #   http://coderrr.wordpress.com/2009/01/08/activerecord-threading-issues-and-resolutions/

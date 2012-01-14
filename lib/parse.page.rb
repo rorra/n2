@@ -4,7 +4,7 @@ require 'open-uri'
 
 module Parse
   module Page
-    
+
     def parse_page(url, local_file = false)
       parsed_url = URI.parse(url)
       url = "http://#{url}" unless url =~ %r(^https?://) or local_file == true
@@ -74,10 +74,10 @@ module Parse
 
       size = response['content-length'].to_i
       if size >= min_image_size and not image_url =~ /\.gif(\??.*)?$/
-      	@images_sized << {:size => size, :url => image_url}
-      	return true
+        @images_sized << {:size => size, :url => image_url}
+        return true
       else
-      	return false
+        return false
       end
     end
 

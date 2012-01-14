@@ -9,7 +9,7 @@
       %h2= t(locale_var)
     - unless klass.send("top_#{tag_type}").count == 0
       .category-list
-        %ul        
+        %ul
           - klass.send("top_#{tag_type}").each do |tag|
             %li
               == (#{tag.count})  #{link_to tag.name, url_for(send("tagged_#{klass_name.underscore.pluralize}_path", CGI.escape(tag.name))) }

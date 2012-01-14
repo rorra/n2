@@ -5,11 +5,11 @@
     .formBox
       .login
         %p Choose a service to login with
-        
+
         .provider-links
           - ['facebook', 'twitter'].each do |provider|
             = provider_image_link provider
-        
+
         -# TODO: complete form
         .clear
         - if setting_enabled? 'allow_web_auth'

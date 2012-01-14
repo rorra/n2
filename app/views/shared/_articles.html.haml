@@ -17,7 +17,7 @@
           - contents.each do |article|
             - content = article.is_a?(Article) ? article.content : article
             %li{'data-id' => content.cache_key}
-              = render :partial => 'shared/items/article', :locals => { :article => article} 
+              = render :partial => 'shared/items/article', :locals => { :article => article}
     - if paginate
       .clearfix
         = will_paginate contents

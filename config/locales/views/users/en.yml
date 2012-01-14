@@ -3,7 +3,7 @@ en:
     edit:
       title: "Edit Your Settings"
     show:
-      title: "{{name}} Profile"
+      title: "%{name} Profile"
       points: "points"
       karma: "points"
       points_this_week: "this week"

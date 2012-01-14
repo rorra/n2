@@ -1,14 +1,30 @@
 class Metadata < ActiveRecord::Base
-  serialize :data
+  set_table_name :metadatas
+  serialize :data, Hash
 
   belongs_to :metadatable, :polymorphic => true
 
-  named_scope :key, lambda { |*args| { :conditions => ["key_name = ?", args.first] } }
-  named_scope :key_type_name, lambda { |*args| { :conditions => ["key_type = ? AND key_name = ?", args.first, args.second] } }
-  named_scope :key_type_sub_name, lambda { |*args| { :conditions => ["key_type = ? AND key_sub_type = ? AND key_name = ?", args.first, args.second, args.third] } }
-  named_scope :meta_type, lambda { |*args| { :conditions => ["meta_type = ?", args.first] } }
+  scope :key, lambda { |*args| { :conditions => ["key_name = ?", args.first] } }
+  scope :key_type_name, lambda { |*args| { :conditions => ["key_type = ? AND key_name = ?", args.first, args.second] } }
+  scope :key_type_sub_name, lambda { |*args| { :conditions => ["key_type = ? AND key_sub_type = ? AND key_name = ?", args.first, args.second, args.third] } }
+  scope :meta_type, lambda { |*args| { :conditions => ["meta_type = ?", args.first] } }
 
   before_save :set_meta_keys
+
+  # Given a list of keys, define methods that delegate
+  # to the data hash. Try both strings and symbols when
+  # looking up the attribute.
+  def self.metadata_keys *keys
+    keys.each do |key|
+      key = key.to_s
+      define_method key do
+        data[key.to_s] || data[key.to_sym]
+      end
+      define_method "#{key}=" do |value|
+        data[key] = value
+      end
+    end
+  end
 
   def self.find_by_key_type_name key_type, key_name
     self.key_type_name(key_type, key_name).first
@@ -19,6 +35,7 @@ class Metadata < ActiveRecord::Base
   end
 
   def self.get_ad_slot key_sub_type, key_name
+    # Can use SQL 'or' query here instead of doing two queries
     @ad_slot = self.key_type_sub_name('ads', key_sub_type, key_name).first
     @ad_slot = self.key_type_sub_name('ads', key_sub_type, 'default').first if @ad_slot.nil?
     @ad_slot
@@ -28,50 +45,7 @@ class Metadata < ActiveRecord::Base
     self.key_type_sub_name('ads', 'banner', 'default').first
   end
 
-  def attributes= attrs
-    begin
-      super
-    rescue ActiveRecord::UnknownAttributeError
-      init_data
-      attrs.each {|k,v| data[k.to_sym] = v }
-    end
-  end
-
-# TODO:: port this method in
-# from rails initializer.rb, cleaner
-#  def method_missing(name, *args)
-#    if name.to_s =~ /(.*)=$/
-#      self[$1.to_sym] = args.first
-#    else
-#      self[name]
-#    end
-#  end
-
-  def method_missing(name, *args)
-    return self.send(name, *args) if self.respond_to? name
-    init_data
-    name = key_from_assign name
-    if data[name].present?
-      data[name] = args.first if args.present?
-      return data[name]
-    else
-    	data[name] = args.empty? ? nil : args.first
-    end
-  end
-
-  private
-
-  def key_from_assign key
-    key = $1 if key.to_s =~ /^(.*)=$/
-    key.to_sym
-  end
-
-  def init_data
-    self.data = {} if self.data.nil?
-  end
-
   # overwrite in sub metadata models as needed
   def set_meta_keys
   end
-  
 end

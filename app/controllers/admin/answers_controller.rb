@@ -1,6 +1,6 @@
 class Admin::AnswersController < AdminController
   skip_before_filter :admin_user_required
-  
+
   def index
     @answers = Answer.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
   end
@@ -16,7 +16,7 @@ class Admin::AnswersController < AdminController
   def update
     @answer = Answer.find(params[:id])
     if @answer.update_attributes(params[:answer])
-    	@answer.expire
+      @answer.expire
       flash[:success] = "Successfully updated your Answer ."
       redirect_to [:admin, @answer]
     else

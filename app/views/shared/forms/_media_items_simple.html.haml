@@ -8,7 +8,7 @@
 
 %fieldset.inputs
   - item.videos.build if item.videos.empty?
-  - form.semantic_fields_for :videos do |video_form|
+  = form.semantic_fields_for :videos do |video_form|
     = video_form.input :remote_video_url, :label => false, :required => false
     = video_form.input :embed_code, :required => false, :input_html => {:class => 'hide embed-video'}
     %a.toggle-embed-video{:href=> "#"}= t('add_by_embed_code')
@@ -24,7 +24,7 @@
 %h3= t('media.add_audio_title')
 %fieldset.inputs
   - item.audios.build if item.audios.empty?
-  - form.semantic_fields_for :audios do |audio_form|
+  = form.semantic_fields_for :audios do |audio_form|
     = audio_form.input :url, :required => false, :label => false
     - if get_setting_value('enable_audio_embed') and current_user.is_moderator?
       = audio_form.input :embed_code, :required => false, :input_html => {:class => 'hide embed-audio'}

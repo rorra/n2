@@ -16,11 +16,11 @@ module Newscloud
 
           after_save :rescore_item
 
-          named_scope :active, { :conditions => ["#{self.name.tableize}.is_blocked = 0"] }
-          named_scope :inactive, { :conditions => ["#{self.name.tableize}.is_blocked = 1"] }
-          named_scope :user_items, { :conditions => 
+          scope :active, { :conditions => ["#{self.name.tableize}.is_blocked = 0"] }
+          scope :inactive, { :conditions => ["#{self.name.tableize}.is_blocked = 1"] }
+          scope :user_items, { :conditions =>
               "#{self.name.tableize}.user_id not in (select id from users where is_editor = true or is_moderator = true or is_admin = true)" }
-          named_scope :curator_items, { :conditions => 
+          scope :curator_items, { :conditions =>
               "#{self.name.tableize}.user_id in (select id from users where is_editor = true or is_moderator = true or is_admin = true)" }
 
           include Newscloud::Acts::Moderatable::InstanceMethods
@@ -87,23 +87,23 @@ module Newscloud
         def cascade_block blocked = nil
           [self.class.reflect_on_all_associations(:has_many), self.class.reflect_on_all_associations(:has_one)].flatten.each do |association|
             if not association.options.include?(:through)
-            	items = Array(self.send(association.name)).flatten.compact
+              items = Array(self.send(association.name)).flatten.compact
 
-            	items.each do |item|
-            	  if item.moderatable?
+              items.each do |item|
+                if item.moderatable?
                   item.update_attribute(:is_blocked, blocked) unless item.is_blocked == blocked
                   item.expire
                   item.cascade_block blocked if item.respond_to? :cascade_block
                   item.cascade_block_pfeed_items blocked
                 end
-            	end
+              end
             end
           end
           return true
         end
 
         def cascade_block_pfeed_items blocked = nil
-          PfeedItem.find(:all, :conditions => ["participant_type = ? and participant_id = ?", self.class.name, self.id]).each do |pitem|
+          PfeedItem.where(["participant_type = ? and participant_id = ?", self.class.name, self.id]).each do |pitem|
             pitem.update_attribute(:is_blocked, blocked || false)
             pitem.expire
             pitem.participant.cascade_block blocked if pitem.participant.moderatable?
@@ -113,15 +113,15 @@ module Newscloud
         def verify_cascade blocked = nil
           [self.class.reflect_on_all_associations(:has_many), self.class.reflect_on_all_associations(:has_one)].flatten.each do |association|
             if not association.options.include?(:through)
-            	items = Array(self.send(association.name)).flatten.compact
+              items = Array(self.send(association.name)).flatten.compact
 
-            	count = 0
-            	items.each do |item|
-            	  if item.moderatable?
+              count = 0
+              items.each do |item|
+                if item.moderatable?
                   raise "Block Discrepancy: #{item.inspect}" unless item.is_blocked == blocked
                   item.verify_cascade blocked if item.respond_to? :verify_cascade
                 end
-            	end
+              end
             end
           end
           return true

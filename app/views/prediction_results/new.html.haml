@@ -8,11 +8,11 @@
     .formBox
       #wizard
         #flowplayer-block
-          - semantic_form_for [@prediction_question, @prediction_result], :html => { :class => "post_prediction_result" } do |form|
+          = semantic_form_for [@prediction_question, @prediction_result], :html => { :class => "post_prediction_result" } do |form|
             .panes
               .panel1
                 %fieldset
-                  - form.inputs do                
+                  = form.inputs do
                     - case @prediction_question.prediction_type
                       - when 'multi'
                         = form.input :result, :as => :select, :collection => @prediction_question.prediction_choice_options.push(['None of the above', 'incorrect'])
@@ -27,5 +27,5 @@
                     = form.input :alternate_result, :required => false, :hint => t('predictions.new.hint.alternate_result')
                     = form.input :url, :required => false, :hint => t('predictions.new.hint.url')
                     = form.input :details, :required => false, :input_html => { :rows => 5 }
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }

@@ -14,41 +14,41 @@ class FlagsController < ApplicationController
     @flaggable = find_moderatable_item
     respond_to do |format|
       if @flaggable.flag_item params[:flag_type], current_user
-       	success = "Thanks. We'll review shortly."
-      	format.html { flash[:success] = success; redirect_to @flaggable.item_link }
-      	format.json { render :json => { :msg => success }.to_json }
+         success = "Thanks. We'll review shortly."
+        format.html { flash[:success] = success; redirect_to @flaggable.item_link }
+        format.json { render :json => { :msg => success }.to_json }
       else
-      	error = "Failed to record flag"
-      	format.html { flash[:error] = error; redirect_to @flaggable.item_link }
-      	format.json { render :json => { :msg => error }.to_json }
+        error = "Failed to record flag"
+        format.html { flash[:error] = error; redirect_to @flaggable.item_link }
+        format.json { render :json => { :msg => error }.to_json }
       end
     end
-  	# TODO:: change this to work with polymorphic associations, switch to using touch
-  	#expire_page :controller => 'stories', :action => 'show', :id => @story
+    # TODO:: change this to work with polymorphic associations, switch to using touch
+    #expire_page :controller => 'stories', :action => 'show', :id => @story
   end
 
   def block
     @item = find_moderatable_item
     if @item.moderatable? and @item.blockable? and @item.toggle_blocked
-    	@item.expire
+      @item.expire
       # todo - if block user, then use fb:ban api call too! or unban
-    	flash[:success] = "Successfully #{@item.blocked? ? "Blocked" : "UnBlocked"} your item."
-    	#redirect_to @item.item_link
-    	redirect_to home_index_path
+      flash[:success] = "Successfully #{@item.blocked? ? "Blocked" : "UnBlocked"} your item."
+      #redirect_to @item.item_link
+      redirect_to root_url
     else
-    	flash[:error] = "Could not block this item."
-    	redirect_to @item.item_link
+      flash[:error] = "Could not block this item."
+      redirect_to @item.item_link
     end
   end
 
   def feature
     @item = find_moderatable_item
     if @item.moderatable? and @item.featurable? and @item.toggle_featured
-    	flash[:success] = "Successfully #{@item.featured? ? "Featured" : "UnFeatured"} your item."
-    	redirect_to @item
+      flash[:success] = "Successfully #{@item.featured? ? "Featured" : "UnFeatured"} your item."
+      redirect_to @item
     else
-    	flash[:error] = "Could not feature this item."
-    	redirect_to @item.item_link
+      flash[:error] = "Could not feature this item."
+      redirect_to @item.item_link
     end
   end
 

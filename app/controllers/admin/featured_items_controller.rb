@@ -60,7 +60,7 @@ class Admin::FeaturedItemsController < AdminController
       when PredictionQuestion.name.tableize
         @items = PredictionQuestion.active.paginate :page => params[:page], :per_page => 12, :order => "created_at desc"
       else
-      	return false
+        return false
     end
   end
 
@@ -107,7 +107,7 @@ class Admin::FeaturedItemsController < AdminController
       when 'question'
         return Question.find_by_id($2)
       else
-      	return false
+        return false
     end
   end
 
@@ -125,7 +125,7 @@ class Admin::FeaturedItemsController < AdminController
 
   def tweet item
     return if item.tweeted_item.present?
-    
+
     if Metadata::Setting.find_setting('bitly_username').value
       bitly = Bitly.new(Metadata::Setting.find_setting('bitly_username').value, Metadata::Setting.find_setting('bitly_api_key').value)
       shrt = bitly.shorten(url)
@@ -133,11 +133,11 @@ class Admin::FeaturedItemsController < AdminController
     else
       return url
     end
-    
+
     oauth = Twitter::OAuth.new(Metadata::Setting.find_setting('oauth_key').value, Metadata::Setting.find_setting('oauth_secret').value)
     oauth.authorize_from_access(Metadata::Setting.find_setting('twitter_oauth_consumer_key').value, Metadata::Setting.find_setting('twitter_oauth_consumer_secret').value)
     twitter = Twitter::Base.new(oauth)
-    
+
     case item.class.name
     when "Content"
       msg = "#{item.title} #{shorten_url(story_url(item))}"

@@ -10,29 +10,29 @@
       - if get_setting('site_topic').present?
         %h2== What's your event for #{get_setting('site_topic').value}?
       - else
-        %h2== What's your event for?      
+        %h2== What's your event for?
     .formBox
-      - semantic_form_for @event, :html => { :multipart => true } do |form|
-        - form.inputs do
+      = semantic_form_for @event, :html => { :multipart => true } do |form|
+        = form.inputs do
           = form.input :name, :label => t('.label_event_name'), :hint => t('.hint_event_name')
           = form.input :tagline, :required => false, :label => t('.label_event_tagline'), :hint => t('.hint_event_tagline')
           = form.input :description, :input_html => { :rows => 5 }, :label => t('.label_event_description'), :hint => t('.hint_event_description'), :required => false
           = form.input :url, :required => false, :label => t('.label_event_url'), :hint => t('.hint_event_url')
           = form.input :tags_string,:label => t('tags'),  :required => false, :hint => t('tags_hint')
-        - form.inputs do
+        = form.inputs do
           .half-panel
             = form.input(:start_time, :as => :string, :required =>true)
           .half-panel
-            = form.input(:end_time, :as => :string, :required =>false) 
-        - form.inputs do
+            = form.input(:end_time, :as => :string, :required =>false)
+        = form.inputs do
           = form.input :location, :required => true,:label => t('.label_event_location'), :hint => t('.hint_event_location')
           = form.input :street, :required => false
           = form.input :city, :required => false
           = form.input :state, :required => false
           = form.input :host, :required => false
           = render :partial => 'shared/forms/media_items', :locals => { :form => form, :item => @event }
-        - form.buttons do
-          = form.commit_button  :button_html => { :class => 'btn'   } 
+        = form.buttons do
+          = form.commit_button  :button_html => { :class => 'btn'   }
 
 :javascript
   var oneDay = 24*60*60*1000;
@@ -40,18 +40,18 @@
   var rangeConv = new AnyTime.Converter({format:rangeFormat});
   $("#event_start_time").AnyTime_picker({ format: rangeFormat,formatUtcOffset: "%: (%@)",hideInput: true,placement: "inline", earliest: new Date() } );
   $('#event_end_time').AnyTime_picker({ format: rangeFormat,formatUtcOffset: "%: (%@)",hideInput: true,placement: "inline" } );
- 
+
   $("#event_start_time").change( function(e) { try {
         var fromDay = rangeConv.parse($("#event_start_time").val()).getTime();
-        var dayLater = new Date(fromDay); 
+        var dayLater = new Date(fromDay);
         var now = new Date()
         if (dayLater != now) { dayLater.setHours(0,0,0,0); }
         else { dayLater.setHours(now.getHours(), now.getMinutes(),0,0); }
         var ninetyDaysLater = new Date(fromDay+(90*oneDay));
-        ninetyDaysLater.setHours(23,59,59,999); 
+        ninetyDaysLater.setHours(23,59,59,999);
         $("#event_end_time").AnyTime_noPicker().removeAttr("disabled").val(rangeConv.format(dayLater)).AnyTime_picker(
                 { earliest: dayLater,
                   format: rangeFormat,
-                  latest: ninetyDaysLater, formatUtcOffset: "%: (%@)",hideInput: true,placement: "inline" 
+                  latest: ninetyDaysLater, formatUtcOffset: "%: (%@)",hideInput: true,placement: "inline"
                 } );
         } catch(e){ $("#event_end_time").val("").attr("disabled","disabled"); } } );

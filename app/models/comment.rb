@@ -8,10 +8,10 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, :polymorphic => true, :counter_cache => true, :touch => true
 
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 5)} }
-  named_scope :top, lambda { |*args| { :order => ["likes_count desc"], :limit => (args.first || 10)} }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 1)} }
-#  named_scope :controversial, lambda { |*args| { :order => ["??? desc"], :limit => (args.first || 10)} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 5)} }
+  scope :top, lambda { |*args| { :order => ["likes_count desc"], :limit => (args.first || 10)} }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 1)} }
+#  scope :controversial, lambda { |*args| { :order => ["??? desc"], :limit => (args.first || 10)} }
 
   validates_presence_of :comments
 
@@ -26,7 +26,7 @@ class Comment < ActiveRecord::Base
     users = self.voices
     users << self.commentable.user
     # get list of people who liked commentable item
-    users.concat self.commentable.votes.map(&:voter) 
+    users.concat self.commentable.votes.map(&:voter)
     users.delete self.user
     users.uniq
   end
@@ -38,7 +38,7 @@ class Comment < ActiveRecord::Base
   def item_description
     self.commentable.item_description
   end
-  
+
   def wall_caption
     self.comments
   end
@@ -46,7 +46,7 @@ class Comment < ActiveRecord::Base
   def item_link
     self.commentable
   end
-  
+
   def downvoteable?
     true
   end

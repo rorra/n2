@@ -54,3 +54,4 @@ capybara*.html
 auto-save-list
 tramp
 .\#*
+.rspec

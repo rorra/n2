@@ -4,7 +4,7 @@
   .generic.small
     .item-block
       %h4= prediction_question.title
-  .prediction_question_wrapper    
+  .prediction_question_wrapper
     - if current_user.present? and prediction_question.status == 'open'
       - unless prediction_question.user_guessed? current_user
         = render :partial => 'shared/prediction_question', :locals => { :prediction_question => prediction_question, :from_groups => from_groups }

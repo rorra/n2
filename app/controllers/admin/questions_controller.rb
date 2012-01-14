@@ -1,6 +1,6 @@
 class Admin::QuestionsController < AdminController
   skip_before_filter :admin_user_required
-  
+
   def index
     @questions = Question.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
   end
@@ -16,7 +16,7 @@ class Admin::QuestionsController < AdminController
   def update
     @question = Question.find(params[:id])
     if @question.update_attributes(params[:question])
-    	@question.expire
+      @question.expire
       flash[:success] = "Successfully updated your Question ."
       redirect_to [:admin, @question]
     else

@@ -1,4 +1,4 @@
-- form.semantic_fields_for user.user_profile do |user_profile_form| 
+= form.semantic_fields_for user.user_profile do |user_profile_form|
   = user_profile_form.input :receive_email_notifications, :required => false
   = user_profile_form.input :bio, :as => :text, :input_html => { :rows => 5, :cols => 40 }, :required => false
   = user_profile_form.input :post_comments, :required => false, :hint => t('hint.user_profile.post_comments')

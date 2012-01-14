@@ -29,7 +29,7 @@ module TemplateHelper
   def large_feature_panel(&block) feature_panel('large', &block) end
   def medium_feature_panel(&block) feature_panel('medium', &block) end
   def small_feature_panel(&block) feature_panel('small', &block) end
-  
+
   def featured_item_block extra_options = {}, &block
     options = {
       :description => false,
@@ -117,7 +117,7 @@ module TemplateHelper
                      :title_tag   => :h2,
                      :description => true
                    })
-    
+
     featured_item item, options, &block
   end
 
@@ -127,7 +127,7 @@ module TemplateHelper
                      :title_tag   => :h2,
                      :description => true
                    })
-    
+
     featured_item item, options, &block
   end
 
@@ -206,7 +206,7 @@ module TemplateHelper
       :class         => nil,
       :extra_info    => true
     }.merge(extra_options)
-    
+
     content_tag(:div, :class => 'meta-profile') do
       content = content_tag(:div, local_linked_profile_pic(item.item_user), :class => 'profile-pic')
       content << content_tag(:h6, generic_posted_by(item))
@@ -221,5 +221,5 @@ module TemplateHelper
       content << item_meta_profile(item)
     end
   end
-  
+
 end
