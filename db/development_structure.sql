@@ -597,7 +597,7 @@ CREATE TABLE `messages` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `metadatas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -879,7 +879,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`id`),
   KEY `index_sessions_on_session_id` (`session_id`),
   KEY `index_sessions_on_updated_at` (`updated_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=1084 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1085 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `slugs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -965,7 +965,7 @@ CREATE TABLE `translations` (
   `locale_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_translations_on_locale_id_and_key_and_pluralization_index` (`locale_id`,`key`,`pluralization_index`)
-) ENGINE=InnoDB AUTO_INCREMENT=34350 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34345 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `tweet_accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1205,7 +1205,7 @@ CREATE TABLE `view_tree_edges` (
   PRIMARY KEY (`id`),
   KEY `index_view_tree_edges_on_parent_id` (`parent_id`),
   KEY `index_view_tree_edges_on_child_id` (`child_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `votes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1220,7 +1220,7 @@ CREATE TABLE `votes` (
   PRIMARY KEY (`id`),
   KEY `fk_voteables` (`voteable_id`,`voteable_type`),
   KEY `fk_voters` (`voter_id`,`voter_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `widget_pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1561,3 +1561,5 @@ INSERT INTO schema_migrations (version) VALUES ('20111026003847');
 INSERT INTO schema_migrations (version) VALUES ('20111116005258');
 
 INSERT INTO schema_migrations (version) VALUES ('20120104022225');
+
+INSERT INTO schema_migrations (version) VALUES ('20120116134428');
