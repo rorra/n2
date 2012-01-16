@@ -88,6 +88,7 @@ N2::Application.routes.draw do
       resources :translations
     end
 
+    resources :menu_items
     resources :newswires
     resources :prediction_groups do
       member do

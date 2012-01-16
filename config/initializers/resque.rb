@@ -9,7 +9,8 @@ unless defined?(APP_CONFIG)
   APP_CONFIG = {}
 end
 
-resque_file = Rails.root.join('config/resque.yml')
+resque_base_file = Rails.root.join('config/resque.yml')
+resque_file = File.exists?(resque_base_file) ? resque_base_file : (resque_base_file.to_s + '.sample')
 resque_config = YAML.load_file(resque_file)
 Resque.redis = resque_config[rails_env]
 APP_CONFIG['redis'] = resque_config[rails_env]
@@ -24,7 +25,8 @@ if defined?(Newscloud)
 end
 
 require 'resque_scheduler'
-resque_schedule_file = Rails.root.join('config/resque_schedule.yml')
+resque_schedule_base_file = Rails.root.join('config/resque_schedule.yml')
+resque_schedule_file = File.exists?(resque_schedule_base_file) ? resque_schedule_base_file : (resque_schedule_base_file.to_s + '.sample')
 resque_schedule_config = YAML.load_file(resque_schedule_file)
 Resque.schedule = resque_schedule_config
 

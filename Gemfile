@@ -25,6 +25,7 @@ gem 'sitemap_generator'
 gem "SystemTimer"
 gem "aasm"
 gem "aws-s3"
+gem "aws-sdk"
 gem "acl9"
 gem "paperclip"
 gem 'amazon-ecs'
