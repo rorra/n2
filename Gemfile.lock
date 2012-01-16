@@ -103,6 +103,11 @@ GEM
       builder
       mime-types
       xml-simple
+    aws-sdk (1.2.6)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     babosa (0.3.5)
     bitly (0.7.0)
       crack (>= 0.1.4)
@@ -320,6 +325,7 @@ GEM
       kgio (~> 2.4)
       rack
       raindrops (~> 0.6)
+    uuidtools (2.1.2)
     vegas (0.1.8)
       rack (>= 1.0.0)
     will_paginate (3.0.2)
@@ -341,6 +347,7 @@ DEPENDENCIES
   amazon-ecs
   awesome_print
   aws-s3
+  aws-sdk
   bitly
   capistrano
   capistrano-ext

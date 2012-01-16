@@ -10,7 +10,7 @@
 
   - unless current_user.present?
     .subtitle
-      = t('.logged_in_error'
+      == #{t '.logged_in_error'} #{link_to 'Login now', login_path(:return_to => request.request_uri)}
       = link_to 'Login now', login_path(:return_to => request.url)
 
   - else
