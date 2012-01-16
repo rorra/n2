@@ -3,6 +3,7 @@ en:
     page_tabs:
       home: "Home"
       stories: "News"
+      classifieds: "Classifieds"
       stories_list: "Top Stories"
       new_story: "Post a Story"
       articles: "Community"

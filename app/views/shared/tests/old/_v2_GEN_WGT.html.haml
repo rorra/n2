@@ -1,0 +1,62 @@
+.panel-1
+  .panel-title-bar
+    .panel-title
+      %h3 Most Active
+    .panel-bar-links
+      %a View All
+      %span 
+        |
+      %a Post
+  .panel-content
+    %ul.item-list
+      %li
+        .item-with-image
+          .item-thumb
+            %a= image_tag('default/default_thumb.gif')
+          .item-text
+            %h4
+              %a  
+                Sit volup tatem accus antium dolorem que volup tatem accus antium dolorem que
+          .meta-data.clearfix
+            %h6  
+              Written by
+              %a Abraham Esquire Lincoln
+              in
+              %a News
+              4 days ago
+            %h6 
+              %a 
+                Comment
+              &nbsp;|&nbsp;
+              %a 
+                Like
+              &nbsp;|&nbsp;
+              %a 
+                View
+      %li
+        .item-with-no-image
+          .item-text
+            %h3
+              %a
+                Sit volup tatem accus antium dolorem que
+          .meta-data            .profile-pic
+              =link_to image_tag('default/test-profile-pic.jpg'), '#'
+            %h6  
+              Written by
+              %a Abraham Esquire Lincoln
+              in
+              %a News
+              4 days ago
+            %h6 
+              %span.count 
+                8
+              %a 
+                Comments
+              &nbsp;|&nbsp;
+              %span.count 
+                3
+              %a 
+                Likes
+              &nbsp;|&nbsp;
+              %a 
+                View

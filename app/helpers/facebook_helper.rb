@@ -19,7 +19,7 @@ module FacebookHelper
   def fb_share_app_button
     stream_post = Facebooker::StreamPost.new
     attachment = Facebooker::Attachment.new
-	  attachment.add_image(image_path('default/icon-fan-app.gif'), home_index_path(:only_path => false, :canvas => true))
+	  attachment.add_image(image_path(icon_fan_app_location), home_index_path(:only_path => false, :canvas => true))
     stream_post.message = t('header.share_description')
     stream_post.action_links = [{:text => t('facebook_learn_more'), :href => home_index_path(:only_path => false, :canvas => true)}]
     stream_post.attachment = attachment
@@ -71,7 +71,7 @@ module FacebookHelper
     attachment.name = Metadata::Setting.find_setting('site_title').try(:value)
     attachment.description = t('header.share_description')
     attachment.href = home_index_path(:only_path => false, :canvas => true)
-	  attachment.add_image(image_path('default/icon-fan-app.gif'), home_index_path(:only_path => false, :canvas => true))
+	  attachment.add_image(image_path(icon_fan_app_location), home_index_path(:only_path => false, :canvas => true))
     stream_post.attachment = attachment
     stream_post
   end

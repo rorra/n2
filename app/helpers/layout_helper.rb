@@ -35,6 +35,14 @@ module LayoutHelper
     content_tag(:meta, nil, :property => tag, :content => content)
   end
 
+  def icon_fan_app_location
+    'skin/icon-fan-app.gif'
+  end
+
+  def icon_fan_app_url
+    base_url(path_to_image(icon_fan_app_location))
+  end
+
   def item_page_title item
     page_title :item => item
   end
@@ -65,5 +73,9 @@ module LayoutHelper
     s3_config = YAML.load_file(File.join(Rails.root, "config", "s3.yml"))[Rails.env]
 
     "http://s3.amazonaws.com/#{s3_config['bucket']}/sitemaps/sitemap1.xml.gz"
+  end
+
+  def link_to_menu_item menu_item, current_tab = nil
+    link_to t(menu_item.locale_string), send(menu_item.resource_path), :class => tab_selected?(current_tab, menu_item.name_slug)
   end
 end

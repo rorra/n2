@@ -1,0 +1,1662 @@
+// CSS --------------------------------------------------- //
+// global ------------------------------ //
+body
+  background-color: $primary-bg-color
+  color: $primary-body-color
+  font-family: $primary-body-font
+  font-size: $primary-body-size
+
+// text -------------------------------- //
+
+// headers
+h1, h2, h3, h4, h5, h6
+  font-family: $primary-header-font
+  line-height: $primary-line-height
+  padding: 0
+  margin: 0
+h1, h2, h3, h4
+  color: $primary-header-color
+  a
+    color: $primary-header-color
+    &:hover
+      color: scale-color($primary-header-color, $lightness:  -50%)
+h5
+  color: $secondary-header-color
+  a
+    color: $secondary-header-color
+    &:hover
+      color: scale-color($secondary-header-color, $lightness: -50%)
+      text-decoration: none
+h1
+  font-size: $h1-size
+  font-weight: bold
+h2
+  font-size: $h2-size
+  font-weight: bold
+h3
+  font-size: $h3-size
+  font-weight: bold
+h4
+  font-size: $h4-size
+  font-weight: normal
+h5
+  font-size: $h5-size
+  font-weight: normal
+h6
+  color: $tertiary-header-color
+  font-family: $primary-body-font
+  font-size: $h6-size
+  font-weight: normal
+// text
+a
+  color: $primary-link-color
+  text-decoration: none
+  &:focus
+    outline: none
+  &:hover
+    color: scale-color($primary-link-color, $lightness: -50%)
+    cursor: pointer
+    text-decoration: underline
+p
+  line-height: $primary-line-height
+  margin-bottom: $ninesixty_gutter_width / 2
+
+
+// containers -------------------------- //
+#page
+  width: $ninesixty_grid_width
+  margin: 0 auto
+
+#header, #footer
+  width: $ninesixty_grid_width
+  position: relative
+
+#home-content
+  float: left
+  position: relative
+  display: inline
+  width: $ninesixty_grid_width
+  z-index: 1
+
+// header ------------------------------ //
+#header
+  border-bottom: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+  margin-bottom: 20px
+  background-color: $primary-bg-color
+  background-image: $header-image
+  background-position: bottom left
+  background-repeat: no-repeat
+  height: 130px
+  padding-bottom: 30px
+  z-index: 10
+  // Site name (h1) or <img />
+  #site-name-wrap
+    display: block
+    position: absolute
+    top: $site-name-y-position
+    left: $site-name-x-position
+    #site-name
+      // if site name is an image
+      background-image: $site-name-image
+      background-position: top left
+      background-repeat: no-repeat
+      // if site name is just text
+      color: $site-name-text-color
+      display: block
+      // dimensions
+      height: $site-name-height
+      width: $site-name-width
+      // to hide text
+      text-indent: $hide-text
+  #site-sponsor
+    background-image: $sponsor-image
+    background-position: top left
+    background-repeat: no-repeat
+    display: $sponsor-hide
+    top: $sponsor-y-position
+    left: $sponsor-x-position
+    height: $sponsor-height
+    width: $sponsor-width
+
+
+
+// Primary Navigation
+#primary-navigation
+  position: absolute
+  width: 940px
+  bottom: 0px
+  left: 10px
+  z-index: 2
+  // parent tabs
+  > ul
+    float: right
+    display: block
+    height: 30px
+    > li
+      margin-left: 1px
+      position: relative
+      z-index: 10
+      // dropdown for current tab
+      &.selected
+        > a
+          height: 22px
+        > ul
+          background-color: $primary-tab-on
+          border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+          > li
+            > a
+              color: scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+              text-shadow: none
+              &:hover
+                color: $primary-tab-on
+                text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+      // hover states
+      &:hover
+        > a
+          position: relative
+          height: 22px
+          z-index: 10
+        > ul
+          display: block
+      > a
+        height: 21px
+        padding: 8px 10px 0
+      // dropdowns
+      > ul
+        background-color: scale-color($primary-tab-off, $lightness: $tab-bg-lightness)
+        border: 1px solid scale-color(scale-color($primary-tab-off, $lightness: $tab-bg-lightness), $lightness: $tab-border-lightness)
+        box-shadow: $box-shadow
+        display: none
+        float: none
+        padding: 5px
+        position: absolute
+        top: 30px
+        right: 0px
+        min-width: 120px
+        > li
+          display: block
+          margin: 0
+          padding: 0
+          z-index: 20
+          > a
+            color: $primary-tab-on
+            display: block
+            font-size: $primary-body-size
+            padding: 5px 10px
+            white-space: nowrap
+            text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -20%)
+            &:hover
+              background-color: scale-color($primary-tab-off, $lightness: $tab-hover-lightness)
+              text-decoration: none
+
+
+// Secondary Navigation
+#secondary-navigation
+  +grid(12)
+  border-bottom: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+  height: 22px
+  margin-bottom: 20px
+  // tabs
+  > ul
+    height: 22px
+    padding-left: 10px
+    > li
+      margin-right: 1px
+      > a
+        font-size: $primary-body-size
+        height: 17px
+        padding: 5px 10px 0
+
+
+// Shared Navigation Styles
+#primary-navigation, #secondary-navigation
+  > ul > li
+    display: block
+    float: left
+    &.selected
+      > a
+        border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+        border-bottom-width: 0
+        background-color: $primary-tab-on
+        color: #666
+        text-decoration: none
+        text-shadow: none
+        &:hover
+          background-color: $primary-tab-on
+          border-bottom-width: 0
+          text-decoration: none
+    &:hover
+      > a
+        background-color: scale-color($primary-tab-off, $lightness: $tab-bg-lightness)
+  > ul > li > a
+    background-color: $primary-tab-off
+    border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
+    border-bottom-width: 0
+    color: $primary-tab-on
+    display: block
+    font-weight: bold
+    text-decoration: none
+    text-shadow: 1px 1px 1px scale-color($primary-tab-off, $lightness: -20%)
+    &:hover
+      border: 1px solid scale-color(scale-color($primary-tab-off, $lightness: $tab-bg-lightness), $lightness: $tab-border-lightness)
+      border-bottom-width: 0
+      background-color: scale-color($primary-tab-off, $lightness: $tab-bg-lightness)
+
+
+
+// Header actions bar
+#header-actions
+  background: image_url("site/bg-hdr-actions.png") top left repeat-y
+  padding: 10px 10px 10px 80px
+  position: absolute
+  top: 0px
+  right: 0px
+  .pipe
+    margin: 0 4px
+  .meta-search
+    border: 1px solid $secondary-bg-color
+    padding: 2px 9px
+    width: 68px
+  .meta-search, .meta-submit
+    font-size: $primary-body-size - 1px
+    float: left
+    margin-top: -2px
+  #cse-search-box
+    float: left
+    margin: 0px 10px 0px 0px
+
+.account-dropdown
+  float: left
+  position: relative
+  z-index: 10
+  .account-loading-spinner
+    background: transparent image_url("site/spinner-tiny.gif") center no-repeat
+    height: 20px
+  .account-links
+    background: #FFF
+    border: 1px solid #CCC
+    padding: 10px
+    position: absolute
+    right: 0
+    top: 18px
+    width: 140px
+    li
+      padding-top: 10px
+    .account-profile
+      border-bottom: 1px solid #CCC
+      padding-top: 0
+      padding-bottom: 10px
+      padding-left: 50px
+      .profile-pic
+        float: left
+        margin-left: -50px
+
+
+
+
+
+// Content ----------------------------------------------- //
+#home-content
+  .panel-1, .panel-2, .panel-3
+    min-height: 100px 
+
+// breadcrumbs
+.breadcrumbs
+  +grid(12)
+  margin-bottom: 20px
+  position: relative
+  > p
+    font-weight: bold
+    margin-bottom: 0
+    > a
+      font-weight: normal
+    > span
+      color: #666
+
+// panel margin removal
+.panel-1, .panel-2, .panel-3
+  .first, &.first
+    +alpha()
+  .last, &.last
+    +omega()
+  // panel margin removal for feature panels
+  .feature-panel
+    .first, &.first
+      +alpha() 
+    .last, &.last
+      +omega()
+
+// Shared Classes ---------------------- //
+// Panel Bar
+.panel-bar
+  border-bottom: 1px solid $primary-border-color
+  padding: 4px 0 0 0
+  position: relative
+  bottom: -1px
+  > h2
+    color: $tertiary-header-color
+    font-family: $primary-body-font
+    font-size: 12px
+    font-weight: normal
+    margin-bottom: 0
+    text-transform: uppercase
+  > .panel-bar-actions
+    font-size: 11px
+    float: right
+    position: absolute
+    top: 6px
+    right: 0px
+
+// Thumb
+.thumb
+  img
+    max-width: 300px
+
+// Profile Pics
+.profile-pic
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+  width: 38px
+  height: 38px
+  position: relative
+  z-index: 1
+  img
+    width: 100%
+    height: 100%
+    z-index: 2
+  .moderator
+    height: 16px
+    width: 16px
+    position: absolute
+    left: 2px
+    bottom: 2px
+    z-index: 3
+
+// Meta Data containers
+.meta-data, .meta-profile
+  padding-top: 5px
+.meta-profile
+  padding-left: 50px
+  min-height: 40px
+  .profile-pic
+    float: left
+    margin-left: -50px
+
+// Form Wrapper
+.form-wrap
+  background: $tertiary-bg-color
+
+// Subtitle
+.subtitle
+  background-color: $tertiary-bg-color
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+  color: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
+  padding: 8px 
+
+// Single Item
+.item-single-wrap
+  padding-top: $ninesixty_gutter_width / 2
+
+// List of Items
+.item-list-wrap
+  // bulleted list
+  .bullet-list
+    padding-top: $ninesixty_gutter_width / 2
+    > ul
+      > li
+        display: list-item
+        margin: 0
+        margin-left: $ninesixty_gutter_width
+        padding: 2px
+        line-height: 150%
+        list-style-type: disc
+        list-style-position: outside
+  // generic list wrap
+  .item-list
+    li
+      border-bottom: 1px solid scale-color($primary-bg-color, $lightness: -10%)
+      display: block
+      float: left
+      padding: ($ninesixty_gutter_width / 2) 0
+      width: 100%
+      // for featured panels only
+      &.last
+        border-bottom: none
+      // header vertical spacing
+      h1, h2, h3, h4, h5, h6, p
+        margin-bottom: 0
+
+// Featured Panels --------------------- //
+
+.panel-1
+  margin-bottom: $ninesixty_gutter_width
+  .feature-panel
+    margin-bottom: 0
+    .feature-item-medium
+      +alpha()
+      +omega()
+      .single-item-wrap
+        padding-bottom: $ninesixty_gutter_width / 2
+        padding-top: $ninesixty_gutter_width / 2
+
+.feature-panel
+  float: left
+  margin-bottom: $ninesixty_gutter_width
+  &.xlarge
+    > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
+      min-height: $feature-item-large-height 
+      .item-list-wrap
+        min-height: $feature-item-large-height - 26px
+  &.large
+    > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
+      min-height: $feature-item-large-height 
+      .item-list-wrap
+        min-height: $feature-item-large-height - 26px
+  &.medium
+    > .feature-item-small, .feature-item-medium
+      min-height: $feature-item-medium-height
+      .item-list-wrap
+        min-height: $feature-item-medium-height - 26px
+  &.small
+    padding-top: $ninesixty_gutter_width / 2
+    > .feature-item-small, .feature-item-large
+      min-height: $feature-item-small-height
+  .feature-item-xlarge, .feature-item-small
+    overflow: hidden
+  .feature-item-xlarge
+    +grid(6)
+    height: $feature-item-large-height 
+  .feature-item-large
+    +grid(5)
+  .feature-item-medium
+    +grid(4)
+  .feature-item-wrap-small, .feature-item-small
+    +grid(3)
+    .feature-item-small
+      +grid(3)
+      +alpha()
+      +omega()
+      // small featured item height when wrapped
+      height: $feature-item-small-wrap-height
+      &.top
+        margin-bottom: $ninesixty_gutter_width + 1px
+  // Featured Panel Shared Styles
+  .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-third, .feature-item-xlarge, .feature-item-wrap
+    position: relative
+    .panel-bar
+      background: $tertiary-bg-color
+      border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+      border-bottom-width: 0
+      bottom: 0px
+      height: 20px
+      h2
+        padding: 0px 5px
+        color: scale-color($tertiary-bg-color, $lightness: -60%)
+      .panel-bar-actions
+        padding-right: 5px
+    .item-list-wrap
+      float: left
+    .item-list-wrap, .user-bio-wrap, .single-item-wrap
+      border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+      border-top-width: 0
+      padding: $ninesixty_gutter_width / 2
+      padding-bottom: 0
+      padding-top: 0
+      position: relative
+      top: 0px
+      left: 0px
+      .bio-wrap
+        padding: $ninesixty_gutter_width / 2 0
+        line-height: $primary-line-height
+        position: relative
+
+    .overlay-link
+      background: transparent image_url ("site/alpha.gif") top left repeat
+      font-size: 0
+      text-indent: -99999
+      border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+      display: block
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      z-index: 3
+      &:hover
+        border: 1px solid scale-color($primary-bg-color, $lightness: -80%)
+        z-index: 3
+
+    img
+      width: 100%
+      position: relative
+      top: 0
+      left: 0
+      z-index: 1
+    .feature-caption
+      background: rgba(0,0,0, 0.75) // make black png tile for compatability
+      padding: 10px
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      z-index: 2
+      h1, h2, h3, h4, h5, h6, p,
+        color: #FFF
+        margin-bottom: 0
+        text-shadow: 0px 0px 2px #000
+        a
+          color: #FFF
+
+// Two Column Three Item Widget
+.panel-2
+  .feature-panel
+    .feature-item-third
+      float: left
+      position: relative
+      width: $feature-item-panel-third-width
+      &.first
+        margin-right: 10px
+      &.last
+        margin-left: 10px
+
+
+// Full Column ------------------------- //
+#full-col
+  +grid(12)
+  margin-bottom: $ninesixty_gutter_width * 2
+  .panel-3
+    margin-left: 0
+    margin-right: 0
+
+
+// Left Column ------------------------- //
+#left-col
+  +grid(8)
+  margin-bottom: $ninesixty_gutter_width * 2
+  .panel-2
+    margin-left: 0
+    margin-right: 0
+    margin-bottom: $ninesixty_gutter_width
+    .panel-2
+
+// Two Column Widgets
+.panel-2
+  // listing filter
+  .list-filter
+    padding-bottom: 0
+    border-bottom: 0
+    li
+      float: left
+      margin-bottom: $ninesixty_gutter_width / 2
+      margin-right: $ninesixty_gutter_width / 2
+      &.keywords
+        width: 100%
+        margin-right: 0
+        input
+          height: 18px
+          width: 75%
+  // two column item list 
+  .item-list-wrap
+    .item-list
+      li
+        float: left
+        // simple item with image
+        .item-image
+          .title
+            +grid(8)
+            +alpha()
+            +omega()
+            margin-bottom: 5px
+          .thumb
+            +grid(2)
+            +alpha()
+            img
+              width: 100%
+          .content
+            +grid(6)
+            +omega()
+        // simple item with no image
+        .item-no-image
+          .content
+            +grid(8)
+            +alpha()
+            +omega()
+        // complex item with image
+        .item-complex-image
+          .thumb
+            +grid(2)
+            +alpha()
+            img
+              width: 100%
+          .content
+            +grid(4)
+          .details
+            +grid(2)
+            +omega()
+        // complex item with no image
+        .item-complex-no-image
+          .content
+            +grid(5)
+            +alpha()
+          .details
+            +grid(3)
+            +omega()
+        // complex item details wrap
+        .item-complex-no-image, .item-complex-image
+          .details
+            .details-wrap
+              border-left: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+              font-size: $primary-body-size - 1px
+              padding-left: 9px
+              p
+                margin-bottom: 5px
+                &.title
+                  font-weight: bold
+
+// Gallery
+.gallery-content
+  li
+    +grid(2)
+    padding-top: $ninesixty_gutter_width / 2
+    img
+      width: 100%
+    &.hide-strong
+      display: none
+  .single-gallery-item
+    padding-top: $ninesixty_gutter_width / 2
+    +grid(4)
+    +alpha()
+    +omega()
+    img
+      width: 100%
+.panel-2
+  .gallery-content
+    margin-bottom: $ninesixty_gutter_width
+
+// bio widget
+.bio, .user-bio-wrap
+  padding-top: $ninesixty_gutter_width / 2
+
+
+
+
+// Right Column ------------------------ //
+#right-col
+  +grid(4)
+  margin-bottom: $ninesixty_gutter_width * 2
+  .panel-1
+    margin-left: 0
+    margin-right: 0
+
+// Single Column Widgets
+.panel-1
+  &.twitter-wrap
+    margin-bottom: $ninesixty_gutter_width
+  // header bottom margin removal
+  h3, h4, h5
+    margin-bottom: 0
+  // panel-content styles
+  .panel-content
+    padding-top: $ninesixty_gutter_width / 2
+    margin-bottom: $ninesixty_gutter_width / 2
+
+  // Item List widgets
+  .item-list
+    .story, .generic-item
+      padding-left: 50px
+      .profile-pic
+        float: left
+        margin-left: -50px
+    // generic item with image
+    .item-image
+      .thumb
+        +grid(1)
+        +alpha()
+        img
+          width: 100%
+      .content
+        +grid(3)
+        +omega()
+    // top users list
+    .item-users
+      padding-left: 50px
+      .profile-pic
+        float: left
+        margin-left: -50px
+
+  // users online widget
+  .users-online
+    background-color: $tertiary-bg-color
+    display: block
+    padding: 10px 5px 0
+    > ul > li
+      float: left
+      width: 31px
+      height: 31px
+      margin: 0 5px 10px
+      > .profile-pic
+        border-color: scale-color($tertiary-bg-color, $lightness: -30%)
+        height: 30px
+        width: 30px
+  // bio widget
+  .bio
+    padding-top: $ninesixty_gutter_width / 2
+    font-size: 11px
+    .profile-pic
+      float: left
+      margin-right: 10px
+      margin-bottom: 10px
+  
+
+// Info Widget (Welcome Panel, What is this? panel, etc...)
+.info-widget
+  background: $tertiary-bg-color
+  .content, .content-profile
+    padding: $ninesixty_gutter_width / 2
+    border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
+    min-height: 40px
+  .content-profile
+    padding-left: 60px
+    .profile-pic
+      float: left
+      margin-left: -50px
+  .actions-wrap
+    border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
+    border-top-width: 0
+    padding: $ninesixty_gutter_width / 2
+    text-align: center
+  .email-widget
+    padding-top: $ninesixty_gutter_width / 2
+    padding-right: 2px
+    margin-bottom: $ninesixty_gutter_width / 2
+    input
+      padding: 0
+      margin: 0
+      border: 1px inset #CCC
+      width: 100%
+      height: 20px
+
+// Bookmarklet Styles //
+.bookmarklet
+  padding: $ninesixty_gutter_width / 2 $ninesixty_gutter_width /2 0 
+  border-bottom: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
+  background: $tertiary-bg-color
+  > h2
+    font-weight: bold
+  > p
+    text-align: center
+  .demo
+    background: #FFF
+    margin-bottom: $ninesixty_gutter_width / 2
+    padding: $ninesixty_gutter_width / 2 0px
+    position: relative
+    text-align: center
+    .demo-img
+      margin: 0 auto
+      position: relative
+      z-index: 1
+  .button-link
+    font-size: $primary-body-size
+    position: absolute
+    left: $ninesixty_gutter_width / 2
+    bottom: $ninesixty_gutter_width
+    z-index: 10
+
+// button for links
+.button-link, .button-input
+  border-width: 1px
+  border-style: solid
+  -webkit-border-radius: 4px
+  -moz-border-radius: 4px
+  border-radius: 4px
+
+.button-link
+  background-color: $primary-btn
+  border-top-color: scale-color($primary-btn, $lightness: -30%)
+  border-left-color: scale-color($primary-btn, $lightness: -30%)
+  border-right-color: scale-color($primary-btn, $lightness: -50%)
+  border-bottom-color: scale-color($primary-btn, $lightness: -50%)
+  color: #FFF
+  display: inline-block
+  font-size: $primary-body-size + 2
+  font-weight: bold
+  line-height: $primary-body-size +2
+  padding: 5px 10px
+  text-shadow: -1px -1px 1px scale-color($primary-btn, $lightness: -50%), 1px 1px 1px scale-color($primary-btn, $lightness: 20%)
+  &:hover
+    background-color: scale-color($primary-btn, $lightness: -20%)
+    color: #FFF
+    text-decoration: none
+// button for inputs/forms
+.button-input
+  background-color: $primary-btn
+  border-top-color: scale-color($primary-btn, $lightness: -30%)
+  border-left-color: scale-color($primary-btn, $lightness: -30%)
+  border-right-color: scale-color($primary-btn, $lightness: -50%)
+  border-bottom-color: scale-color($primary-btn, $lightness: -50%)
+  color: #FFF
+  display: inline-block
+  font-size: $primary-body-size + 2
+  font-weight: bold
+  line-height: $primary-body-size +2
+  padding: 5px 10px
+  text-shadow: -1px -1px 1px scale-color($primary-btn, $lightness: -50%), 1px 1px 1px scale-color($primary-btn, $lightness: 20%)
+  &:hover
+    background-color: scale-color($primary-btn, $lightness: -20%)
+  // next button colors
+  &.next
+    background-color: $secondary-btn
+    border-top-color: scale-color($secondary-btn, $lightness: -30%)
+    border-left-color: scale-color($secondary-btn, $lightness: -30%)
+    border-right-color: scale-color($secondary-btn, $lightness: -50%)
+    border-bottom-color: scale-color($secondary-btn, $lightness: -50%)
+    text-shadow: -1px -1px 1px scale-color($secondary-btn, $lightness: -50%), 1px 1px 1px scale-color($secondary-btn, $lightness: 20%)
+    &:hover
+      background-color: scale-color($secondary-btn, $lightness: -20%)
+  // prev button colors
+  &.prev
+    background-color: $tertiary-btn
+    border-top-color: scale-color($tertiary-btn, $lightness: -30%)
+    border-left-color: scale-color($tertiary-btn, $lightness: -30%)
+    border-right-color: scale-color($tertiary-btn, $lightness: -50%)
+    border-bottom-color: scale-color($tertiary-btn, $lightness: -50%)
+    text-shadow: -1px -1px 1px scale-color($tertiary-btn, $lightness: -50%), 1px 1px 1px scale-color($tertiary-btn, $lightness: 20%)
+    &:hover
+      cursor: pointer
+      background-color: scale-color($tertiary-btn, $lightness: -20%)
+      text-decoration: none
+.button-input, .button-input.next, .button-input.prev
+  &:hover
+    cursor: pointer
+    text-decoration: none
+
+// Comment Rating Buttons
+.thumb-up, .thumb-down, .likes-tally
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)r
+  display: block
+  float: left
+  height: 16px
+  margin-right: 2px
+.thumb-up, .thumb-down
+  background-color: $primary-bg-color
+  background-position: center 
+  background-repeat: no-repeat
+  width: 24px
+  &:hover
+    background-color: scale-color($tertiary-bg-color, $lightness: -10%)
+.thumb-up
+  background-image: image_url("site/thumb-up.gif") 
+.thumb-down
+  background-image: image_url("site/thumb-down.gif")
+.likes-tally
+  font-size: 11px
+  line-height: 16px
+  padding: 0 4px
+
+
+// Moderator Styles
+.mod-panel
+  margin-bottom: $ninesixty_gutter_width
+  padding: 5px
+.mod-flag-wrap
+  position: relative
+  z-index: 2
+.flag-wrap
+  display: inline-block
+  position: relative
+  z-index: 1
+  .flag-toggle
+    position: relative
+    z-index: 2
+  .flag-box
+    background: $primary-bg-color
+    border: 1px solid scale-color($primary-bg-color, $lightness: -20%)
+    box-shadow: $box-shadow
+    padding: 30px 10px 10px
+    position: absolute
+    top: -11px
+    right: -11px
+    z-index: 1
+
+// Tags
+.top-tags, .top-categories, .category-list
+  padding-top: $ninesixty_gutter_width / 2
+  > ul
+    > li
+      float: left
+      margin: 0 5px 10px
+      font-size: $primary-body-size - 1
+      color: $tertiary-header-color
+      > a
+        font-size: $primary-body-size
+
+// My Profile Page
+.bio-box
+  background-color: $tertiary-bg-color
+  position: relative
+  .bio-content
+    padding: 8px
+    border: 1px solid scale-color($primary-bg-color, $lightness: -20%)
+
+// Item Details Page
+#item-details
+  h1, h2, h3, h4, h5, h6
+    margin-bottom: 0
+  // bottom margin
+  .meta-data, .content, .add-this-wrap, .media-wrap
+    margin-bottom: $ninesixty_gutter_width
+  //Story content area
+  .content
+    line-height: $primary-line-height
+  // Story Thumbnail
+  .thumb
+    +grid(4)
+    +omega()
+    float: right
+    margin-bottom: $ninesixty_gutter_width
+  // spacing wrappers
+  .add-this-wrap
+    border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
+    background-color: $tertiary-bg-color
+    padding: 5px
+  // media curtain
+  .media-wrap
+    position: relative
+    background: #000 image_url("site/curtain.png") top left repeat-x
+    // media on the show page
+    .video
+      width: 480px
+      margin: 0 auto
+      z-index: 1
+      object
+        width: 480px
+        z-index: 1
+// details actions wrapper
+.action-wrap
+  margin-bottom: $ninesixty_gutter_width
+  padding: 5px
+
+// Shared Arrow Styling
+.arrow, .arrow-inner
+  display: block
+  position: absolute
+  border-top-color: transparent
+  border-right-color: transparent
+  border-bottom-color: transparent
+  border-left-color: transparent
+  border-style: solid
+  height: 0
+  width: 0
+
+
+// Comment/Answer Threads
+.comment-list
+  margin-bottom: $ninesixty_gutter_width
+.comment-thread-wrap, .answer-thread-wrap
+  padding: $ninesixty_gutter_width / 2 $ninesixty_gutter_width 0 $ninesixty_gutter_width
+  .comment-block
+    margin-bottom: 10px
+    .comment-bubble
+      background: #FFF
+      border: 2px solid scale-color($primary-bg-color, $lightness: -20%)
+      padding: 20px
+      position: relative
+      .arrow
+        border-width: 16px
+        border-top-color: scale-color($primary-bg-color, $lightness: -20%)
+        border-right-color: scale-color($primary-bg-color, $lightness: -20%)
+        bottom: -32px
+        left: 16px
+        .arrow-inner
+          border-width: 16px
+          border-top-color: #FFF
+          border-right-color: #FFF
+          top: -21px
+          left: -18px
+    .comment-quote
+      line-height: $primary-line-height
+    .comment-meta-data
+      height: 40px
+      padding-top: 10px
+      padding-left: 60px
+      position: relative
+      z-index: 1
+      .profile-pic
+        float: left
+        margin-right: 10px
+      .meta-data-actions
+        padding-top: 4px
+      .mod-flag-wrap
+        float: right
+
+// Permalink
+#link-to-item
+  form.formtastic
+    fieldset.inputs
+      margin-bottom: 0
+      padding-bottom: $ninesixty_gutter_width / 2
+
+
+// refine search 
+.refine-search-wrap
+  font-size: 11px
+  float: right
+  position: relative
+  z-index: 2
+  top: 2px
+  .refine-toggle
+    position: relative
+    z-index: 2
+  .refine-box
+    background: $primary-bg-color
+    border: 1px solid scale-color($primary-bg-color, $lightness: -20%)
+    box-shadow: $box-shadow
+    padding: 30px 10px 10px
+    position: absolute
+    top: -11px
+    right: -11px
+    z-index: 1
+    min-width: 200px
+    .button-input
+      font-size: 11px
+      line-height: 11px
+      padding: 3px 10px
+
+// pagination
+.pagination
+  text-align: right
+  margin-bottom: $ninesixty_gutter_width
+  font-size: $primary-body-size
+  a, span
+    display: inline-block
+    padding: 2px
+  a
+    color: $tertiary-link-color
+  span
+    &.disabled
+      color: $tertiary-body-color
+      background: none
+      &:hover
+        text-decoration: none
+        cursor: default
+    &.current
+      color: scale-color($tertiary-link-color, $lightness: 100%)
+      background: $tertiary-link-color
+      border: 1px solid $tertiary-link-color
+
+// Ads
+.ad_160, .ad_200, .ad_250, .ad_300, .ad_336, .ad_468, .ad_728, .sponsor_250
+  background: #CCC image_url("site/bg-ad-title.gif") top center no-repeat
+  border: 5px solid #CCC
+  border-top-width: 0
+  margin: 0 auto
+  margin-bottom: $ninesixty_gutter_width
+  padding-top: 15px
+  box-shadow: 0px 0px 4px rgba(0,0,0, .25)
+  -moz-box-shadow: 0px 0px 4px rgba(0,0,0, .25)
+  -webkit-box-shadow: 0px 0px 4px rgba(0,0,0, .25)
+  .test-frame
+    background-color: #FFF
+    height: 80px
+    width: 100%
+    &.sky-scraper
+      height: 600px
+  iframe, html, body
+    padding: 0
+    margin: 0
+#adspace
+  +grid(12)
+.ad_160
+  width: 160px
+.ad_200
+  width: 200px
+.ad_250
+  width: 250px
+.ad_300
+  width: 300px
+  border: 0
+.ad_336
+  width: 336px
+.ad_468
+  width: 468px
+.ad_728
+  width: 728px
+.sponsor_250
+  width: 250px
+  background: #CCC image_url("site/bg-sponsor-title.gif") top center no-repeat
+  .advertise_here
+    text-align: center
+
+// predictions
+.prediction-details 
+  .item-details
+    margin-bottom: $ninesixty_gutter_width * .5
+  .vote-options
+    border: 1px solid #ccc
+    padding: 10px 10px 0
+    margin-bottom: 10px
+    ul
+      display: inline-block
+      width: 100%
+      margin: 0 
+      padding: 0
+    li
+      background-color: #999
+      float: left
+      width: 100%
+      padding: 5px 0
+      margin-bottom: 10px
+    .vote-opt-list
+      ul
+        margin-bottom: 10px
+      li.option-item
+        &:hover
+          background-color: #666
+        label
+          display: block
+          padding:  $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * 1.15
+          font-weight: bold
+        input
+          float: left
+          margin: $ninesixty_gutter_width * .5 0 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .25
+    .results-list
+      li.results-item
+        background-color: #999
+        &.user-choice
+          background-color: #666
+        .numbers
+          float: left
+          width: 30%
+          span
+            text-align: center
+            display: block
+            padding: 5px
+            font-weight: bold
+        .voter-profiles
+          margin-left: -1px
+          border-left: 1px solid $primary-bg-color
+          float: left
+          width: 70%
+          .profile-pic
+            margin: 0 0 0 10px
+  .pred-nav-bar
+    padding: 5px 0
+    background-color: #f1f1f1
+    display: inline-block
+    width: 100%
+    margin-bottom: 10px
+    
+    a
+      color: $primary-link-color
+      display: inline-block
+      font-weight: bold
+      padding: 0 5px
+      
+      &.previous
+        float: left
+      &.next
+        float: right
+
+
+// My Profile
+#my-profile
+  .profile
+    padding-top: $ninesixty_gutter_width / 2
+    padding-left: 50px
+    .profile-pic
+      float: left
+      margin-left: -50px
+  .statistics
+    margin-bottom: $ninesixty_gutter_width
+    table
+      width: 100%
+      td
+        padding: 5px 10px
+
+
+// footer ----------------------------- //
+#footer
+  border-top: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
+  margin: 0 auto
+  padding-top: $ninesixty_gutter_width / 2
+  width: $ninesixty_grid_width
+  .fb-fanapp
+    height: 60px
+  .footer-panel
+    margin-bottom: $ninesixty_gutter_width
+    &.one
+      +grid(6)
+      .foot-item-wrap
+        +grid(6)
+        +alpha()
+        +omega()
+        margin-bottom: $ninesixty_gutter_width / 2
+        &.first
+          +alpha()
+        &.last
+          +omega()
+    &.two
+      +grid(6)
+    .footer-list
+      +grid(6)
+      +alpha()
+      +omega()
+      margin-bottom: $ninesixty_gutter_width
+      > li
+        border-right: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
+        float: right
+        padding-left: $ninesixty_gutter_width / 2
+        padding-right: $ninesixty_gutter_width / 2
+        &.first
+          border-right: 0
+          padding-right: 0
+// jquery related css ----------------- //
+// flash errors
+.flash
+  margin: 0 auto
+  clear: both
+  z-index: 900
+  position: relative
+  p
+    position: absolute
+    top: -5px
+    width: 80%
+    padding: 5px
+    margin: 0 10%
+    font-weight: bold
+    font-size: 13px
+    display: block
+    text-align: center
+    color: $primary-bg-color
+  &.flash_error
+    p
+      border: $flashErrorBorder
+      background: $flashErrorBG
+  &.flash_success
+    p
+      border: $flashSuccessBorder
+      background: $flashSuccessBG
+  &.flash_notice, &.info
+    p
+      border: $flashNoticeBorder
+      background: $flashNoticeBG
+  &.flash_warning
+    p
+      border: $flashWarningBorder
+      background: $flashWarningBG
+
+/* Clear Floats and Fixes */
+
+// floats 
+.float-left
+  float: left
+.float-right
+  float: right
+// clear
+.clear 
+  clear: both
+  display: block
+  overflow: hidden
+  visibility: hidden
+  width: 0
+  height: 0
+// clearfix
+.clearfix:after 
+  clear: both
+  content: ' '
+  display: block
+  font-size: 0
+  line-height: 0
+  visibility: hidden
+  width: 0
+  height: 0
+
+* html .clearfix, *:first-child+html .clearfix 
+  zoom: 1
+
+
+// root element for the scrollable.
+// when scrolling occurs this element stays still.
+.scrollable 
+  // required settings
+  position: relative
+  overflow: hidden
+  width: 85%
+  height: 110px
+  margin: 2px auto
+  // custom decorations
+  border: 1px solid #636363
+  background: #000
+  .items
+    // this cannot be too large
+    width: 20000em
+    position: absolute
+    clear: both
+    div
+      float: left
+      width: 100%
+  // single scrollable item
+  img 
+    float: left
+    margin: 15px 10px
+    background-color: #888
+    padding: 3px
+    width: 100px
+    height: 75px
+    -moz-border-radius: 4px
+    -webkit-border-radius: 4px
+  // active item
+  .active 
+    border: 2px solid #000
+    position: relative
+    cursor: default
+
+#scrollbox
+  display: none
+  position: relative
+  height: 110px
+
+// single image
+#images
+  position: absolute
+  overflow: hidden
+  margin: 25px
+  width: 300px
+  height: 200px
+  .items 
+    div 
+      float: left
+      width: 300px
+      height: 300px
+      margin-right: 30px
+
+/* prev, next, prevPage and nextPage buttons */
+a.browse 
+  display: block
+  width: 20px
+  height: 40px
+  float: left
+  cursor: pointer
+  font-size: 1px
+
+
+/* right */
+a.right_scroll
+  position: absolute
+  right: 10px
+  top: 40px
+  background: url(/images/arrow/right.png) no-repeat
+  clear: right
+  margin-right: 0px
+  
+  &:hover
+    background-position: 0px -40px
+  
+  &:active
+    background-position: 0px -40px
+
+/* left */
+a.left_scroll
+  position: absolute
+  left: 10px
+  top: 40px
+
+  background: url(/images/arrow/left.png) no-repeat
+  margin-left: 0px
+  &:hover
+    background-position: 0px -40px
+  &:active
+    background-position: 0px -40px
+
+/* up and down */
+a.up_scroll		
+  background: url(/images/arrow/up.png) no-repeat
+  float: none
+  margin: 10px 50px
+	
+  &:hover
+    background-position: -30px 0
+  &:active
+    background-position: -60px 0
+    
+a.down_scroll
+  background: url(/images/arrow/down.png) no-repeat
+  float: none
+  margin: 10px 50px
+  background-position: 0 -30px
+  
+  &:hover
+    background-position: -30px -30px
+  &:active
+    background-position: -60px -30px
+
+/* disabled navigational button */
+a.disabled 
+  visibility: hidden !important
+
+.selected-image
+  border: 1px solid red
+
+#image_box
+
+  .scrollable_popup 
+
+    /* required settings */
+    position: relative
+    overflow: hidden
+    width: 300px
+    height: 300px
+    
+    .items 
+      /* this cannot be too large */
+      width: 20000em
+      position: absolute
+      clear: both
+      
+    img 
+      float: left
+      margin: 20px 5px 20px 21px
+      background-color: #fff
+      padding: 2px
+      
+
+  .navi
+    position: absolute
+    bottom: 33px
+    left: 50px
+    display: block
+    width: 30px
+    height: 20px
+  
+  .next
+    left: 450px
+    background: url(/images/arrow/right.png) no-repeat
+  
+  .prev
+    background: url(/images/arrow/left.png) no-repeat
+
+// jgrowl styling
+body div.jGrowl div.jGrowl-notification, body div.jGrowl div.jGrowl-closer
+  background: #000
+  border: 1px solid #000
+  opacity: .90
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)"
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=85)
+  zoom: 1
+  width: 275px
+  padding: 10px
+  margin-top: 5px
+  margin-bottom: 5px
+  text-align: left
+  display: none
+  -moz-border-radius: 5px
+  -webkit-border-radius: 5px
+
+body div.jGrowl div.jGrowl-notification
+  min-height: 40px
+
+body div.jGrowl div.jGrowl-notification div.jGrowl-header
+  margin: 0 0 10px 0
+  color: #FFF
+body div.jGrowl div.jGrowl-notification div.jGrowl-message
+  h3
+    font-size: 11px
+    margin: 1px 0 3px 0
+  p
+    font-size: 12px
+    color: #FFF
+
+body div.jGrowl div.jGrowl-notification div.user-wrapper
+  background: #FFF
+  padding: 2px
+  width: 271px
+  display: inline-block
+  .profile-pic
+    border: #ccc 1px solid
+    margin: 0 5px 5px 0
+  p
+    font-size: 12px
+    color: #666
+  
+body div.jGrowl div.jGrowl-notification div.jGrowl-close
+  z-index: 99
+  float: right
+  font-weight: bold
+  font-size: 1em
+  cursor: pointer
+  display: inline-block
+  float: right
+  color: #FFF
+  position: relative
+  top: -3px
+body div.jGrowl div.jGrowl-closer
+  color: #FFF
+  text-align: center
+  &:hover
+    color: #FFF
+#wall_post_checkbox
+  clear: both
+  float: left
+  width: 100%
+#wall_post_label  
+  padding-left: 0
+#article_status
+  clear: both
+  float: left
+
+
+.test-shadow
+  background: rgba(0,0,0, .5)
+  +grid(12)
+  padding: 50px 0
+
+.simple-post-wrap
+  background-color: $tertiary-bg-color
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -60%)
+  +grid(8)
+  display: block
+  float: none
+  margin: 0 auto
+  padding: 10px 10px 0 10px
+  position: relative
+  min-height: 140px
+  .close-btn
+    background: image_url("site/btn-close.gif") top left no-repeat
+    position: absolute
+    height: 15px
+    width: 15px
+    top: $ninesixty_gutter_width / 2
+    right: $ninesixty_gutter_width / 2
+    
+// Simple Posting Widget
+.simple-post
+  .media-link
+    display: inline-block
+    padding: 5px 10px
+  .active
+    background: scale-color($tertiary-bg-color, $lightness: -60%)
+    color: #fff
+  .panel-bar
+    width: auto
+  form.formtastic
+    padding: $ninesixty_gutter_width / 2 0 0 0
+    fieldset
+      margin-bottom: $ninesixty_gutter_width / 2
+      &.share-story-input
+        +grid(6)
+        +alpha()
+      &.share-story-submit
+        padding: 0
+        border: 0
+        +grid(2)
+        +omega()
+        input
+          margin: 0
+      .post-input-wrap
+        +grid(5)
+        +omega()
+      .img-rotator-wrap
+        +grid(3)
+        +alpha()
+        .img-viewport-wrap, .no-img-input
+          +grid(3)
+          +alpha()
+          +omega()
+        .img-viewport-wrap
+          padding-top: 10px
+          position: relative
+          .img-viewport
+            min-height: 100px
+            background: #fff
+            margin-bottom: 30px
+          .img-rotate-btn
+            height: 20px
+            width: 20px
+            display: block
+            position: absolute
+            text-align: center
+            bottom: 0px
+            &.prev
+              background: image_url("site/ir-arrows.png") top left no-repeat
+              left: 10px
+              &:hover
+                background-position: bottom left
+            &.next
+              background: image_url("site/ir-arrows.png") top right no-repeat
+              right: 10px
+              &:hover
+                background-position: bottom right
+
+        .no-img-input
+          padding: 10px 0
+          text-align: center
+
+
+// External Header Widget
+#external-header-wrap
+  background: $tertiary-bg-color
+  border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+  border-bottom: 2px solid $primary-border-color
+  #external-header
+    float: left
+    background: $primary-bg-color
+    border-right: 1px solid scale-color($primary-bg-color, $lightness: -10%)
+    height: 70px
+    min-width: 100px
+    padding: 10px 10px 10px 80px
+    .site-icon
+      height: 60px
+      width: 60px
+      border: 1px solid scale-color($primary-bg-color, $lightness: -30%)
+      float: left
+      margin-left: -70px
+      img
+        width: 100%
+  #external-details
+    border-left: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
+    float: left
+    height: 70px
+    min-width: 380px
+    padding: 10px
+    .add-this-wrap
+      padding: 10px 0
+

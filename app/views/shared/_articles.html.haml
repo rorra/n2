@@ -3,16 +3,16 @@
 - cache_if page.present?, "articles_list_#{page}html" do
   - contents ||= Article.active.top_article_items.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
   - paginate ||= false
-  .panel_2
-    .panelBar
-      %h2= t('.articles_title')
+  .panel-2
+    .panel-bar
       -# if refine===true and contents.present? and contents.first.refineable?
-        .refine_link
+        .refine-search-wrap
           = render :partial => 'shared/forms/refine_dropdown'
+      %h2= t('.articles_title')
     .subtitle
       %span= t('.articles_subtitle')
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul
           - contents.each do |article|
             - content = article.is_a?(Article) ? article.content : article
@@ -24,5 +24,5 @@
         %br
     - else
       .clearfix
-      %p= link_to t('read_more'), articles_path, :class => "float_right"
+      %p= link_to t('read_more'), articles_path, :class => "float-right"
       %br

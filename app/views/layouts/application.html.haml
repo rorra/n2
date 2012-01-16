@@ -14,8 +14,8 @@
 
     = csrf_meta_tag
 
-    %link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : base_url('/images/default/icon-fan-app.gif')}
-    %link{:rel  => "icon", :href => base_url('/images/default/icon-fan-app.gif')}
+    %link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : icon_fan_app_url}
+    %link{:rel  => "icon", :href => icon_fan_app_url}
     
     - if iframe_facebook_request?
       = stylesheet_link_tag 'compiled/fb_grid.css', :media => 'screen, projection'
@@ -73,7 +73,7 @@
       	$('.left').removeClass('left');
       	$('.right').removeClass('right');
       	var runMasonry = function() {
-          $('#home_container').masonry({
+          $('#home-content').masonry({
             columnWidth: #{iframe_facebook_request? ? 253 : 320},
             itemSelector: '.box'
           });
@@ -99,7 +99,7 @@
     = yield :head_content
 
   %body
-    #bodyWrapper
+    #page.clearfix
       = render :partial => 'shared/header'
       = flash_messages
 
@@ -107,7 +107,8 @@
 
       = yield
       
-      = render :partial => 'shared/footer'
+    = render :partial => 'shared/footer'
+
     -# Move these out of the footer, they can't be in a wrapper class... oh IE how I loathe thee
     #overlay.standard_overlay
       .contentWrap

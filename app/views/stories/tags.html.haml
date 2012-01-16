@@ -1,7 +1,7 @@
-#col_left
+#left-col
   = render :partial => 'shared/stories', :locals => {:contents => @contents, :paginate => @paginate }
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/top_stories', :locals => { :top_stories => @top_stories }
   = render :partial => 'shared/sidebar/top_discussed_stories'
   = render :partial => 'shared/sidebar/top_users', :locals => { :top_users => @top_users }

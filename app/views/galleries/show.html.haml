@@ -9,42 +9,43 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
-#col_left
+#left-col
   - cache "#{@gallery.cache_key}_html" do
-    #itemDetails.panel_2
-      = add_this @gallery
-      .itemBlock
-        - if @gallery.moderatable?
-          .mod-panel
-            .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @gallery }
-            .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @gallery }
-
-        %h1= @gallery.title
-        %h3 
+    .panel-2#item-details
+      .add-this-wrap
+        = add_this @gallery
+      %h1= @gallery.title
+      .item-meta
+        %h6
           = generic_posted_by @gallery
           %span.moderator-links.hidden{:class => "user-#{@gallery.user.id}"}
             = pipe_spacer
             = link_to t('galleries.edit'), edit_gallery_path(@gallery)
         - if @tags.present?
-          .tag-wrap
-            == Tags: #{tag_list(@tags, @gallery)}
-        %p= sanitize @gallery.description
-
-      .gallery
+          %h6== Tags: #{tag_list(@tags, @gallery)}
+      %p= sanitize @gallery.description
+   
+    .panel-2
+      %ul.gallery-content.clearfix
         - @gallery.gallery_items.each do |item|
-          .gallery-item= link_to image_tag(item.thumb_url, :alt => item.item_title), item.full_url, :rel => "gallery[#{@gallery.title.parameterize}]", :title => item.item_description
+          %li= link_to image_tag(item.thumb_url, :alt => item.item_title), item.full_url, :rel => "gallery[#{@gallery.title.parameterize}]", :title => item.item_description
 
+    .panel-2
+      - if @gallery.moderatable?
+        .mod-panel.clearfix
+          .float-right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @gallery }
+          .float-left= render :partial => 'shared/flag_form', :locals => { :flaggable => @gallery }
     = render_ad(:banner, @ad_layout, @ad_banner)
-    = render :partial => 'shared/comments', :locals => { :comments => @gallery.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @gallery }
-
+    .panel-2.comment-thread
+      = render :partial => 'shared/comments', :locals => { :comments => @gallery.comments }
+    .panel-2.comment-form
+      = render :partial => 'shared/comment_form', :locals => { :commentable => @gallery }
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
-
   = render :partial => 'shared/item_footer', :locals => { :item => @gallery,:title => @gallery.title }
 
 
-#col_right
+#right-col
   - if  @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'
   - if @custom_sidebar_widget
@@ -58,5 +59,5 @@
   = render_ad(:skyscraper, @ad_layout, @ad_skyscraper)
   - if current_user
     - if @gallery.is_public? or @gallery.user == current_user or current_user.is_moderator?
-      .panel_1
-        %h3.btn= link_to t('galleries.add_new_item'), add_gallery_item_gallery_path(@gallery)
+      .panel-1
+        = link_to t('galleries.add_new_item'), add_gallery_item_gallery_path(@gallery), {:class => 'button-link'}

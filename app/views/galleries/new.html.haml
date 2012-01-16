@@ -1,6 +1,6 @@
-#col_left
-  .panel_2
-    .panelBar
+#left-col
+  .panel-2
+    .panel-bar
       %h2= t('galleries.new')
     .formBox
       - unless current_user.present?
@@ -23,8 +23,8 @@
                   = image_form.input :image, :required => false, :as => :file, :label => false, :class => "browse-media-item"
               = add_gallery_item_simple(form)
           - form.buttons do
-            = form.commit_button  :class => 'float_right', :button_html => { :class => "btn" }
+            = form.commit_button  :class => 'float-right', :button_html => { :class => "btn" }
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/newest_galleries'
   = render :partial => 'shared/sidebar/top_galleries'

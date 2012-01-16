@@ -1,0 +1,14 @@
+-# @expects: local '@events','@count'
+- @count ||= 7
+- cache "widget_events_#{@sort}_#{@count}_html", :expires_in => 60.minutes do
+  %div{:class => "panel_1"}
+    = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => @hide_titlebar, :title => @title, :canvas_preference => @canvas_preference}
+    .list_items
+      %ul
+        - unless @events.empty?
+          - @events.each do |item|
+            %li
+              = render :partial => 'shared/items/widget_event', :locals => {:item => item, :canvas_preference => @canvas_preference}
+        - else
+          %li
+            =t('widgets.events_empty')

@@ -1,8 +1,11 @@
-#subNav
-  .tabs
-    %ul#toggle_tabs_unused.toggle_tabs
-      %li= link_to t('predictions.predict'), play_prediction_groups_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Predict')}" 
-      %li= link_to t('predictions.browse_groups'), prediction_groups_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse')}" 
-      - if current_user
-        %li= link_to t('predictions.my_predictions'), my_predictions_predictions_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Yours')}" 
-      %li= link_to t('predictions.scores'), scores_predictions_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Scores')}" 
+#secondary-navigation
+  %ul
+    %li{ :class => "#{sub_tab_selected?(@current_sub_tab, 'Predict')}" }
+      = link_to t('predictions.predict'), play_prediction_groups_path
+    %li{ :class => "#{sub_tab_selected?(@current_sub_tab, 'Browse')}" }
+      = link_to t('predictions.browse_groups'), prediction_groups_path
+    - if current_user
+      %li{ :class => "#{sub_tab_selected?(@current_sub_tab, 'Yours')}" }
+        = link_to t('predictions.my_predictions'), my_predictions_predictions_path
+    %li{ scores_predictions_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Scores')}" }
+      = link_to t('predictions.scores')

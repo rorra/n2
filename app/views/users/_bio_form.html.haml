@@ -1,7 +1,13 @@
-.bio-box{:style => "display: none"}
+.bio-box{:style => "display: none;"}
   .bio-content
-    - form_tag update_bio_users_path, :class => "update-bio-form", :id => 'update-bio-form' do
-      = label_tag :bio_tag, t('label_bio_edit')
-      = text_area_tag :bio, current_user.bio, :rows => 10, :cols => 60
-      .submit-box
-        = submit_tag "Update", :class => "btn"
+    - if current_user
+      - form_tag update_bio_users_path, :class => "update-bio-form formtastic", :id => 'update-bio-form' do
+        %fieldset.inputs
+          %ol
+            %li
+              = label_tag :bio_tag, t('label_bio_edit')
+              = text_area_tag :bio, current_user.bio, :rows => 10, :cols => 60
+        %fieldset.buttons
+          %ol
+            %li.commit.float-right
+              = submit_tag "Update", :class => "button-input"

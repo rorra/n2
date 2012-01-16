@@ -1,25 +1,26 @@
 - gallery ||= vo.dataset.try(:first) || Gallery.top.first
 - if gallery.present?
-  .panel-1.featured-panel.top-secondary-corners.bottom-secondary-corners.gallery
-    %div.panel-bar.panel-full.top-secondary-corners{:class => vo.setting.css_class}
-      -#%h2= gallery_name vo
-      -#%p= gallery.title
-      %h2= gallery.title
+  .panel-1
+    .panel-bar
+      %h2= gallery_name vo
       -#
         - if vo.setting.locale_title
           %h2= vt.t(vo.setting.locale_title)
         - else
           %h2= t('galleries.featured_title', :gallery_title => gallery.title)
-      -#
-        - if vo.setting.locale_subtitle
-          %p= vt.t(vo.setting.locale_subtitle)
-        - else
-          %p= t('galleries.featured_description', :gallery_description => gallery.description, :gallery_url => gallery_path(gallery))
-      = link_to t('galleries.see_full_gallery'), gallery_path(gallery), :class => "button-panel-bar center"
-    .panel-content
-      .media-item.single= link_to image_tag(gallery.medium_url, :alt => sanitize_title(gallery.item_title)), gallery.full_url, :rel => "gallery[big-image-#{gallery.title.parameterize}]", :title => gallery.item_description
+      .panel-bar-actions
+        = link_to t('galleries.see_full_gallery'), gallery_path(gallery)
+    .subtitle
+      = gallery.title
+    -#
+      - if vo.setting.locale_subtitle
+        = vt.t(vo.setting.locale_subtitle)
+      - else
+        = t('galleries.featured_description', :gallery_description => gallery.description, :gallery_url => gallery_path(gallery))
+    .gallery-content.clearfix
+      .single-gallery-item= link_to image_tag(gallery.medium_url, :alt => sanitize_title(gallery.item_title)), gallery.full_url, :rel => "gallery[big-image-#{gallery.title.parameterize}]", :title => gallery.item_description
       .hidden
         %ul
           - gallery.gallery_items.pop
-          - gallery.gallery_items.reverse.slice(0,9).each do |gallery_item|
+          - gallery.gallery_items.slice(0,9).each do |gallery_item|
             %li.hide-strong= link_to image_tag(gallery_item.medium_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item.full_url, :rel => "gallery[big-image-#{gallery.title.parameterize}]", :title => gallery_item.item_description

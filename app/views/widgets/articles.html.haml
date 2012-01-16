@@ -3,9 +3,9 @@
 - unless @filter
   - cache "widget_articles_#{@sort}_#{@count}_html", :expires_in => 60.minutes do
     - unless @article_list.empty?
-      %div{:class => "panel_1"}
+      %div{:class => "panel-1"}
         = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => @hide_titlebar, :title => @title}
-        .list_items
+        .item-list
           %ul
             - @article_list.each do |item|
               %li
@@ -13,9 +13,9 @@
 - else
   - cache "widget_articles_#{@sort}_#{@count}_#{@filter}_html", :expires_in => 60.minutes do
     - unless @article_list.empty?
-      %div{:class => "panel_1"}
+      %div{:class => "panel-1"}
         = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => @hide_titlebar, :title => @title}
-        .list_items
+        .item-list
           %ul
             - @article_list.each do |item|
               %li

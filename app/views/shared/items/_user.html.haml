@@ -2,11 +2,11 @@
 .users
   .thumb.user
     = local_linked_profile_pic user, :size => "small"
-  .itemBlock
-    .float_left{ :style => 'width: 60%' }
+  .item-block
+    .float-left{ :style => 'width: 60%' }
       %h2= local_linked_profile_name(user)
       %p= raw((user.bio.present?) ? user.bio : default_bio(user)).fb_sanitize
-    .float_right{ :style => 'width: 35%' }
+    .float-right{ :style => 'width: 35%' }
       %h4.userPoints= t('total_score', :score => score.total_score)
       - if score.karma_score.to_i > 0
         %h3.userPoints= t('karma_score', :score => score.karma_score)

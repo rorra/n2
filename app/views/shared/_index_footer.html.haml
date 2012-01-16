@@ -1,5 +1,10 @@
-.panel_2.actionLegend
-  .share_and_hide
-    %h4
+.panel-2#link-to-item
+  .panel-bar
+    %h2
       =t('link_here')
-    %input{:type => "text", :value => "#{index_path}",:onclick =>"this.focus();this.select();" }
+  .form-wrap.clearfix
+    %form.formtastic
+      %fieldset.inputs
+        %ol
+          %li
+            %input.text-field{:type => "text", :value => "#{index_path}",:onclick =>"this.focus();this.select();" }

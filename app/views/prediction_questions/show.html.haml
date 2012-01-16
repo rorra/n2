@@ -2,26 +2,26 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/predictions_subnav'
 
-#col_left
-  .panel_2.prediction-details
-    = add_this @prediction_question
+#left-col
+  #item-details.panel-2
+    .add-this-wrap
+      = add_this @prediction_question
     - if not current_user.present?
-      %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
-      %br
+      = t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
     .item-details
       = render :partial => 'shared/prediction_question_container', :locals => { :prediction_question => @prediction_question }
       - if @tags.present?
         .tag-wrap
           == Tags: #{tag_list(@tags, @prediction_question)}
     %p= t('predictions.member_of_group', :prediction_group => link_to(@prediction_question.prediction_group.title, @prediction_question.prediction_group)).html_safe
-  = render_ad(:banner, @ad_layout, @ad_banner)
-  %br
-  %br
+  .panel-2
+    = render_ad(:banner, @ad_layout, @ad_banner)
+
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
   = render :partial => 'shared/item_footer', :locals => { :item => @prediction_question,:title => @prediction_question.title }
 
-#col_right
+#right-col
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/predictions_high_scores', :locals => { :top_scorers => nil }
   = render :partial => 'shared/sidebar/newest_prediction_groups', :locals => { :prediction_groups => @newest_prediction_groups }

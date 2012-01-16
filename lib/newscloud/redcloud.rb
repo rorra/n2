@@ -23,5 +23,21 @@ module Newscloud
       end
     end
 
+    def self.expire_views()
+      ["views/*", "view-tree*"].map do |wkeys|
+        $redis.keys(wkeys).map do |key|
+          $redis.del(key)
+        end.size
+      end
+    end
+
+    def self.expire_locales()
+      Locale.all.map(&:code).map do |locale|
+        $redis.keys("#{locale}:*").map do |translation|
+          $redis.del(translation)
+        end.size
+      end
+    end
+
   end
 end

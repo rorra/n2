@@ -12,5 +12,5 @@
           = fb_req_choice("Visit #{get_setting('site_title').try(:value)}", home_index_url)
           -#TODO:: get register link working
 - else
-  #col_left
+  #left-col
     %h2= "Successfully invited your #{pluralize @fb_user_ids.size, 'friend'} #{fb_list_of_names @fb_user_ids}.".html_safe

@@ -8,7 +8,7 @@ When /^I click on the (.*?) gallery$/ do |title|
 end
 
 Then /^I should see be on the show pizza gallery page$/ do
-	Then "I should see \"#{@gallery.title}\" within \"#itemDetails h1\""
+	Then "I should see \"#{@gallery.title}\" within \"#item-details h1\""
 end
 
 When /^I click on that gallery$/ do
@@ -36,8 +36,8 @@ end
 
 Then /^I should see the galleries table$/ do |galleries_table|
 	galleries_table.hashes.each do |gallery|
-		all('ul.galleries li .itemBlock h2 a').select {|e| e.text == gallery['title']}.should have(1).things
-		all('ul.galleries li .itemBlock p').select {|e| e.text == gallery['description']}.should have(1).things
+		all('ul.galleries li .item-block h2 a').select {|e| e.text == gallery['title']}.should have(1).things
+		all('ul.galleries li .item-block p').select {|e| e.text == gallery['description']}.should have(1).things
 	end
 end
 

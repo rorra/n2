@@ -1,5 +1,6 @@
-#subNav
-  .tabs
-    %ul#toggle_tabs_unused.toggle_tabs
-      %li= link_to t('.browse_stories'), stories_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Stories')}" 
-      %li= link_to t('.browse_wires'), newswires_path, :class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Wires')}" 
+#secondary-navigation
+  %ul
+    %li{:class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Stories')}"}
+      = link_to t('.browse_stories'), stories_path
+    %li{:class => "tab #{sub_tab_selected?(@current_sub_tab, 'Browse Wires')}"}
+      = link_to t('.browse_wires'), newswires_path

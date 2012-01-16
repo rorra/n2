@@ -1,8 +1,8 @@
--#%div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+-#%div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
 - list_title ||= 'feeds.list.title'
-.panel_2
-  .panelBar
+.panel-2
+  .panel-bar
     %h2= t(list_title)
-  .list_items
+  .item-list
     %ul
       = render :partial => "pfeeds/pfeed", :collection => feed_collection

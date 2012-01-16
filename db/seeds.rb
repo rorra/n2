@@ -487,108 +487,195 @@ end
 #
 # View Object Templates
 #
-view_object_templates = [
-  {
-  	:name        => "v2_welcome_panel",
-  	:pretty_name => "Version 2 Welcome Panel",
-  	:template    => "shared/templates/single_col_welcome_panel"
-  },
-  {
-  	:name        => "v2_single_col_list",
-  	:pretty_name => "Version 2 Single Column List",
-  	:template    => "shared/templates/single_col_list"
-  },
-  {
-  	:name        => "v2_single_facebook_widget",
-  	:pretty_name => "Version 2 Single Column Facebook Widget",
-  	:template    => "shared/templates/single_col_facebook_widget"
-  },
-  {
-  	:name        => "v2_triple_col_large_2",
-  	:pretty_name => "Version 2 Triple Column Large Feature With 2 Sub Items",
-  	:template    => "shared/templates/triple_col_large_2"
-  },
-  {
-  	:name        => "v2_double_col_feature",
-  	:pretty_name => "Version 2 Double Column Feature",
-  	:template    => "shared/templates/double_col_feature"
-  },
-  {
-  	:name        => "v2_single_col_user_list",
-  	:pretty_name => "Version 2 Single Column User List",
-  	:template    => "shared/templates/single_col_user_list"
-  },
-  {
-  	:name        => "v2_single_col_small_list",
-  	:pretty_name => "Version 2 Single Column Small List",
-  	:template    => "shared/templates/single_col_small_list"
-  },
-  {
-  	:name        => "v2_single_col_gallery_strip",
-  	:pretty_name => "Version 2 Single Column Gallery Strip",
-  	:template    => "shared/templates/single_col_gallery_strip"
-  },
-  {
-  	:name        => "v2_single_col_item",
-  	:pretty_name => "Version 2 Single Column Item",
-  	:template    => "shared/templates/single_col_item"
-  },
-  {
-  	:name        => "v2_double_col_item",
-  	:pretty_name => "Version 2 Double Column Item",
-  	:template    => "shared/templates/double_col_item"
-  },
-  {
-  	:name        => "v2_double_col_item_list",
-  	:pretty_name => "Version 2 Double Column Item List",
-  	:template    => "shared/templates/double_col_item_list"
-  },
-  {
-  	:name        => "v2_single_col_gallery_big_image",
-  	:pretty_name => "Version 2 Single Column Gallery Big Image",
-  	:template    => "shared/templates/single_col_gallery_big_image"
-  },
-  {
-  	:name        => "v2_double_col_gallery_strip",
-  	:pretty_name => "Version 2 Double Column Gallery Strip",
-  	:template    => "shared/templates/double_col_gallery_strip"
-  },
-  {
-  	:name        => "v2_double_col_triple_item",
-  	:pretty_name => "Version 2 Double Column Triple Item",
-  	:template    => "shared/templates/double_col_triple_item"
-  },
-  {
-  	:name        => "v2_double_col_feature_triple_item",
-  	:pretty_name => "Version 2 Double Column Feature With Triple Item",
-  	:template    => "shared/templates/double_col_feature_triple_item"
-  },
-  {
-  	:name        => "old_twitter_standard_list",
-  	:pretty_name => "Old Twitter Standard List",
-  	:template    => "shared/sidebar/twitter_standard_list"
-  },
-  {
-  	:name        => "v2_ad_template",
-  	:pretty_name => "Version 2 Ad Template",
-  	:template    => "shared/templates/ad_template"
-  },
-  {
-  	:name        => "v2_single_col_custom_widget",
-  	:pretty_name => "Version 2 Single Column Custom Widget",
-  	:template    => "shared/templates/single_col_custom_widget"
-  },
-  {
-  	:name        => "v2_double_col_custom_widget",
-  	:pretty_name => "Version 2 Double Column Custom Widget",
-  	:template    => "shared/templates/double_col_custom_widget"
-  },
-  {
-  	:name        => "v2_triple_col_custom_widget",
-  	:pretty_name => "Version 2 Triple Column Custom Widget",
-  	:template    => "shared/templates/triple_col_custom_widget"
-  }
-]
+view_object_templates =
+  [
+   {
+     :name        => "v2_welcome_panel",
+     :pretty_name => "Version 2 Welcome Panel",
+     :template    => "shared/templates/single_col_welcome_panel"
+   },
+   {
+     :name        => "v2_single_col_list",
+     :pretty_name => "Version 2 Single Column List",
+     :template    => "shared/templates/single_col_list"
+   },
+   {
+     :name        => "v2_single_facebook_widget",
+     :pretty_name => "Version 2 Single Column Facebook Widget",
+     :template    => "shared/templates/single_col_facebook_widget"
+   },
+   {
+     :name        => "v2_triple_col_large_2",
+     :pretty_name => "Version 2 Triple Column Large Feature With 2 Sub Items",
+     :template    => "shared/templates/triple_col_large_2"
+   },
+   {
+     :name        => "v2_double_col_feature",
+     :pretty_name => "Version 2 Double Column Feature",
+     :template    => "shared/templates/double_col_feature"
+   },
+   {
+     :name        => "v2_single_col_user_list",
+     :pretty_name => "Version 2 Single Column User List",
+     :template    => "shared/templates/single_col_user_list"
+   },
+   {
+     :name        => "v2_single_col_small_list",
+     :pretty_name => "Version 2 Single Column Small List",
+     :template    => "shared/templates/single_col_small_list"
+   },
+   {
+     :name        => "v2_single_col_gallery_strip",
+     :pretty_name => "Version 2 Single Column Gallery Strip",
+     :template    => "shared/templates/single_col_gallery_strip"
+   },
+   {
+     :name        => "v2_single_col_item",
+     :pretty_name => "Version 2 Single Column Item",
+     :template    => "shared/templates/single_col_item"
+   },
+   {
+     :name        => "v2_double_col_item",
+     :pretty_name => "Version 2 Double Column Item",
+     :template    => "shared/templates/double_col_item"
+   },
+   {
+     :name        => "v2_double_col_item_list",
+     :pretty_name => "Version 2 Double Column Item List",
+     :template    => "shared/templates/double_col_item_list"
+   },
+   {
+     :name        => "v2_single_col_gallery_big_image",
+     :pretty_name => "Version 2 Single Column Gallery Big Image",
+     :template    => "shared/templates/single_col_gallery_big_image"
+   },
+   {
+     :name        => "v2_double_col_gallery_strip",
+     :pretty_name => "Version 2 Double Column Gallery Strip",
+     :template    => "shared/templates/double_col_gallery_strip"
+   },
+   {
+     :name        => "v2_double_col_triple_item",
+     :pretty_name => "Version 2 Double Column Triple Item",
+     :template    => "shared/templates/double_col_triple_item"
+   },
+   {
+     :name        => "v2_double_col_feature_triple_item",
+     :pretty_name => "Version 2 Double Column Feature With Triple Item",
+     :template    => "shared/templates/double_col_feature_triple_item"
+   },
+   {
+     :name        => "old_twitter_standard_list",
+     :pretty_name => "Old Twitter Standard List",
+     :template    => "shared/sidebar/twitter_standard_list"
+   },
+   {
+     :name        => "v2_ad_template",
+     :pretty_name => "Version 2 Ad Template",
+     :template    => "shared/templates/ad_template"
+   },
+   {
+     :name        => "v2_single_col_custom_widget",
+     :pretty_name => "Version 2 Single Column Custom Widget",
+     :template    => "shared/templates/single_col_custom_widget"
+   },
+   {
+     :name        => "v2_double_col_custom_widget",
+     :pretty_name => "Version 2 Double Column Custom Widget",
+     :template    => "shared/templates/double_col_custom_widget"
+   },
+   {
+     :name        => "v2_triple_col_custom_widget",
+     :pretty_name => "Version 2 Triple Column Custom Widget",
+     :template    => "shared/templates/triple_col_custom_widget"
+   },
+   # V3 widgets
+   {
+     :name        => "v3_triple_col_1_large_4_small",
+     :pretty_name => "Version 3 Triple Column 1 Large 4 Small Widget",
+     :template    => "shared/templates/v3/triple_col_1_large_4_small"
+   },
+   {
+     :name        => "v3_triple_col_2_large",
+     :pretty_name => "Version 3 Triple Column 2 Large Widget",
+     :template    => "shared/templates/v3/triple_col_2_large"
+   },
+   {
+     :name        => "v3_triple_col_1_large_2_small_3_links",
+     :pretty_name => "Version 3 Triple Column 1 Large 2 Small 3 Links Widget",
+     :template    => "shared/templates/v3/triple_col_1_large_2_small_3_links"
+   },
+   {
+     :name        => "v3_triple_col_2_medium_2_links",
+     :pretty_name => "Version 3 Triple Column 2 medium 2 links",
+     :template    => "shared/templates/v3/triple_col_2_medium_2_links"
+   },
+   {
+     :name        => "v3_double_col_1_large_2_small",
+     :pretty_name => "Version 3 Double Column 1 Large 2 Small",
+     :template    => "shared/templates/v3/double_col_1_large_2_small"
+   },
+   {
+     :name        => "v3_double_col_2_medium",
+     :pretty_name => "Version 3 Double Column 2 Medium",
+     :template    => "shared/templates/v3/double_col_2_medium"
+   },
+   {
+     :name        => "v3_double_col_2_small_3_medium_links",
+     :pretty_name => "Version 3 Double Column 2 small 3 medium links",
+     :template    => "shared/templates/v3/double_col_2_small_3_medium_links"
+   },
+   {
+     :name        => "v3_double_col_3_medium_links_2_small",
+     :pretty_name => "Version 3 Double Column 3 Medium Links 2 Small",
+     :template    => "shared/templates/v3/double_col_3_medium_links_2_small"
+   },
+   {
+     :name        => "v3_double_col_2_medium_links_1_medium",
+     :pretty_name => "Version 3 Double Column 2 Medium Links 1 Medium",
+     :template    => "shared/templates/v3/double_col_2_medium_links_1_medium"
+   },
+   {
+     :name        => "v3_double_col_1_medium_2_medium_links",
+     :pretty_name => "Version 3 Double Column 1 Medium 2 Medium Links",
+     :template    => "shared/templates/v3/double_col_1_medium_2_medium_links"
+   },
+   {
+     :name        => "v3_double_col_item_list",
+     :pretty_name => "Version 3 Double Column Item List",
+     :template    => "shared/templates/v3/double_col_item_list"
+   },
+   {
+     :name        => "v3_single_col_featured_item",
+     :pretty_name => "Version 3 Single Column Featured Item",
+     :template    => "shared/templates/v3/single_col_featured_item"
+   },
+   {
+     :name        => "v3_single_col_medium",
+     :pretty_name => "Version 3 Single Column Medium",
+     :template    => "shared/templates/v3/single_col_medium"
+   },
+   {
+     :name        => "v3_single_col_item_list",
+     :pretty_name => "Version 3 Single Column Item List",
+     :template    => "shared/templates/v3/single_col_item_list"
+   },
+   {
+     :name        => "v3_single_col_post_story",
+     :pretty_name => "Version 3 Single Column Post Story",
+     :template    => "shared/templates/v3/single_col_post_story"
+   },
+   {
+     :name        => "v3_triple_col_3_medium",
+     :pretty_name => "Version 3 Triple Column 3 Medium Skybox",
+     :template    => "shared/templates/v3/triple_col_3_medium"
+   },
+   {
+     :name        => "v3_triple_col_4_small",
+     :pretty_name => "Version 3 Triple Column 4 Small Skybox",
+     :template    => "shared/templates/v3/triple_col_4_small"
+   },
+  ]
 view_object_templates.each do |view_object_template|
   puts "Creating View Object Template: #{view_object_template[:name]} (#{view_object_template[:template]})" if debug and ViewObjectTemplate.find_by_name(view_object_template[:name]).nil?
   ViewObjectTemplate.find_or_create_by_name(view_object_template)
@@ -598,24 +685,6 @@ end
 # View Objects
 #
 view_objects = [
-=begin  
-  {
-  	:name          => "Latest Gallery",
-  	:template_name => "v2_single_col_gallery_strip",
-  	:settings      => {
-  		:klass_name      => "GalleryItem",
-  		:locale_title    => "gallery.title",
-  		:locale_subtitle => nil,
-  		:use_post_button => false,
-  		:kommands        => [
-  		  {
-          :method_name => "active",
-          :args        => [8]
-        }        
-  		]
-  	}
-  },
-=end
   {
   	:name          => "Welcome Panel",
   	:template_name => "v2_welcome_panel",
@@ -780,7 +849,41 @@ view_objects = [
         }
   		]
   	}
-  },
+                },
+                {
+                  :name          => "Top Items Triple Column 3 Medium Skybox",
+                  :template_name => "v3_triple_col_3_medium",
+                  :settings      => {
+                    :version => 4,
+                    :klass_name      => "ItemScore",
+                    :locale_title    => "generic.top_items.title",
+                    :locale_subtitle => nil,
+                    :use_post_button => false,
+                    :kommands        => [
+                                         {
+                                           :method_name => "top_items",
+                                           :args        => [3]
+                                         }
+                                        ]
+                  }
+                },
+                {
+                  :name          => "Top Items Triple Column 4 Small Skybox",
+                  :template_name => "v3_triple_col_4_small",
+                  :settings      => {
+                    :version => 4,
+                    :klass_name      => "ItemScore",
+                    :locale_title    => "generic.top_items.title",
+                    :locale_subtitle => nil,
+                    :use_post_button => false,
+                    :kommands        => [
+                                         {
+                                           :method_name => "top_items",
+                                           :args        => [4]
+                                         }
+                                        ]
+                  }
+                },
   {
   	:name          => "Top Story Single Column Item",
   	:template_name => "v2_single_col_item",
@@ -947,16 +1050,15 @@ view_objects = [
   	:name          => "Top Universal Items",
   	:template_name => "v2_single_col_list",
   	:settings      => {
-  		:klass_name      => "ItemAction",
+  		:klass_name      => "ItemScore",
   		:locale_title    => "generic.top_items.title",
   		:locale_subtitle => nil,
   		:use_post_button => false,
                     :css_class       => "active",
-                    :version => 2,
+                    :version => 4,
   		:kommands        => [
   		  {
-  		    :method_name => "top_items",
-                                       :options        => {:limit => 5, :minimu => 5}
+  		    :method_name => "top_items"
   		  }
   		]
   	}
@@ -1172,19 +1274,16 @@ view_objects = [
   	:name          => "Double Column Triple Popular Items",
   	:template_name => "v2_double_col_triple_item",
   	:settings      => {
-  		:klass_name      => "ItemAction",
+  		:klass_name      => "ItemScore",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
                     :use_post_button => false,
-                    :version => 4,
+                    :version => 5,
   		:kommands        => [
   		  {
-          :method_name => "top_items",
-                                       :options => {
-                                         :limit => 3,
-                                         :minimum => 3
-                                       }
-        }
+                                       :method_name => "top_items",
+                                       :args        => [3]
+                                     }
   		]
   	}
   },
@@ -1292,5 +1391,319 @@ unless home_view_object.edge_children.any?
   ["Newest Univeral Items Double Column List", "Welcome Panel", "Recent Users", "Newest Story Double Column Item", "Newest Gallery Double Column Small Strip", "Recent Users", "Newswire","Default Ad Medium Rectangle"].each do |name|
     puts "Adding #{name}" if debug
     home_view_object.add_child! ViewObject.find_by_name(name)
+  end
+end
+
+
+#######################################################################
+# Menu Items
+#######################################################################
+menu_items = {
+  :home => {
+    :data => {
+      :name          => "Home Page",
+      :position      => 0,
+      :resource_path => "home_index_path",
+      :locale_string => "shared.page_tabs.home"
+    }
+  },
+  :stories => {
+    :data => {
+      :name          => "Stories Page",
+      :position      => 1,
+      :resource_path => "stories_path",
+      :locale_string => "shared.page_tabs.stories"
+    },
+    :children => {
+      :stories_list => {
+        :data => {
+          :name          => "Stories Page",
+          :position      => 1,
+          :resource_path => "stories_path",
+          :locale_string => "shared.page_tabs.stories_list"
+        }
+      },
+      :newswires => {
+        :data => {
+          :name          => "Newswires Page",
+          :position      => 2,
+          :resource_path => "newswires_path",
+          :locale_string => "shared.page_tabs.newswire"
+        }
+      },
+      :new_story => {
+        :data => {
+          :name          => "New Story Page",
+          :position      => 3,
+          :resource_path => "new_story_path",
+          :locale_string => "shared.page_tabs.new_story"
+        }
+      },
+      :new_article => {
+        :data => {
+          :name          => "New Article Page",
+          :position      => 4,
+          :resource_path => "new_article_path",
+          :locale_string => "shared.page_tabs.newswire",
+          :enabled       => false
+        }
+      }
+    }
+  },
+  :articles => {
+    :data => {
+      :name          => "Articles Page",
+      :position      => 2,
+      :resource_path => "articles_path",
+      :locale_string => "shared.page_tabs.articles"
+    },
+    :children => {
+      :articles_list => {
+        :data => {
+          :name          => "Articles Page",
+          :position      => 1,
+          :resource_path => "articles_path",
+          :locale_string => "shared.page_tabs.articles_list"
+        }
+      },
+      :users_list => {
+        :data => {
+          :name          => "Users Page",
+          :position      => 2,
+          :resource_path => "users_path",
+          :locale_string => "shared.page_tabs.users_list"
+        }
+      },
+      :new_article => {
+        :data => {
+          :name          => "New Article Page",
+          :position      => 3,
+          :resource_path => "new_article_path",
+          :locale_string => "shared.page_tabs.new_article"
+        }
+      }
+    }
+  },
+  :forums => {
+    :data => {
+      :name          => "Forums Page",
+      :position      => 3,
+      :resource_path => "forums_path",
+      :locale_string => "shared.page_tabs.forums"
+    }
+  },
+  :classifieds => {
+    :data => {
+      :name          => "Classifieds Page",
+      :position      => 4,
+      :resource_path => "classifieds_path",
+      :locale_string => "shared.page_tabs.classifieds"
+    },
+    :children => {
+      :classifieds_list => {
+        :data => {
+          :name          => "Classifieds Page",
+          :position      => 1,
+          :resource_path => "classifieds_path",
+          :locale_string => "shared.page_tabs.classifieds_list"
+        }
+      },
+      :new_classified => {
+        :data => {
+          :name          => "New Classified Page",
+          :position      => 2,
+          :resource_path => "new_classified_path",
+          :locale_string => "shared.page_tabs.new_classified"
+        }
+      }
+    }
+  },
+  :questions => {
+    :data => {
+      :name          => "Questions Page",
+      :position      => 5,
+      :resource_path => "questions_path",
+      :locale_string => "shared.page_tabs.questions"
+    },
+    :children => {
+      :questions_list => {
+        :data => {
+          :name          => "Questions Page",
+          :position      => 1,
+          :resource_path => "questions_path",
+          :locale_string => "shared.page_tabs.questions_list"
+        }
+      },
+      :my_questions_list => {
+        :data => {
+          :name          => "My Questions Page",
+          :position      => 2,
+          :resource_path => "my_questions_question_path",
+          :locale_string => "questions.my_questions",
+          :enabled       => false
+        }
+      },
+      :new_question => {
+        :data => {
+          :name          => "New Question Page",
+          :position      => 3,
+          :resource_path => "new_question_path",
+          :locale_string => "shared.page_tabs.new_question"
+        }
+      }
+    }
+  },
+  :resources => {
+    :data => {
+      :name          => "Resources Page",
+      :position      => 6,
+      :resource_path => "resources_path",
+      :locale_string => "shared.page_tabs.resources"
+    },
+    :children => {
+      :resources_list => {
+        :data => {
+          :name          => "Resources Page",
+          :position      => 1,
+          :resource_path => "resources_path",
+          :locale_string => "shared.page_tabs.resources_list"
+        }
+      },
+      :new_resource => {
+        :data => {
+          :name          => "New Resource Page",
+          :position      => 2,
+          :resource_path => "new_resource_path",
+          :locale_string => "shared.page_tabs.new_resource"
+        }
+      }
+    }
+  },
+  :events => {
+    :data => {
+      :name          => "Events Page",
+      :position      => 7,
+      :resource_path => "events_path",
+      :locale_string => "shared.page_tabs.events"
+    },
+    :children => {
+      :events_list => {
+        :data => {
+          :name          => "Events Page",
+          :position      => 1,
+          :resource_path => "events_path",
+          :locale_string => "shared.page_tabs.events_list"
+        }
+      },
+      :my_events_list => {
+        :data => {
+          :name          => "My Events Page",
+          :position      => 2,
+          :resource_path => "my_events_event_path",
+          :locale_string => "share.subnav.events_subnav.my_events",
+          :enabled       => false
+        }
+      },
+      :new_event => {
+        :data => {
+          :name          => "New Event Page",
+          :position      => 3,
+          :resource_path => "new_event_path",
+          :locale_string => "shared.page_tabs.new_event"
+        }
+      }
+    }
+  },
+  :galleries => {
+    :data => {
+      :name          => "Galleries Page",
+      :position      => 8,
+      :resource_path => "galleries_path",
+      :locale_string => "shared.page_tabs.galleries"
+    },
+    :children => {
+      :galleries_list => {
+        :data => {
+          :name          => "Galleries Page",
+          :position      => 1,
+          :resource_path => "galleries_path",
+          :locale_string => "shared.page_tabs.galleries_list"
+        }
+      },
+      :new_gallery => {
+        :data => {
+          :name          => "New Gallery Page",
+          :position      => 2,
+          :resource_path => "new_gallery_path",
+          :locale_string => "shared.page_tabs.new_gallery"
+        }
+      }
+    }
+  },
+  :ideas => {
+    :data => {
+      :name          => "Ideas Page",
+      :position      => 9,
+      :resource_path => "ideas_path",
+      :locale_string => "shared.page_tabs.ideas"
+    },
+    :children => {
+      :ideas_list => {
+        :data => {
+          :name          => "Ideas Page",
+          :position      => 1,
+          :resource_path => "ideas_path",
+          :locale_string => "shared.page_tabs.ideas_list"
+        }
+      },
+      :my_ideas_list => {
+        :data => {
+          :name          => "My Ideas Page",
+          :position      => 2,
+          :resource_path => "my_ideas_idea_path",
+          :locale_string => "share.subnav.ideas_subnav.my_ideas",
+          :enabled       => false
+        }
+      },
+      :new_idea => {
+        :data => {
+          :name          => "New Idea Page",
+          :position      => 3,
+          :resource_path => "new_idea_path",
+          :locale_string => "shared.page_tabs.new_idea"
+        }
+      }
+    }
+  },
+  :predictions => {
+    :data => {
+      :name          => "Predictions Page",
+      :position      => 10,
+      :resource_path => "predictions_path",
+      :locale_string => "shared.page_tabs.predictions"
+    }
+  },
+  :cards => {
+    :data => {
+      :name          => "Cards Page",
+      :position      => 11,
+      :resource_path => "cards_path",
+      :locale_string => "cards.menu_title"
+    }
+  }
+}
+
+menu_items.each do |name, menu_item_data|
+  data = menu_item_data[:data]
+  data[:name_slug] = name.to_s
+  menu_item = MenuItem.find_or_create_by_name_slug(data)
+
+  if menu_item_data[:children].present?
+    menu_item_data[:children].each do |child_name, child_menu_item_data|
+      child_data = child_menu_item_data[:data]
+      child_data[:name_slug] = child_name.to_s
+      child_data[:parent_id] = menu_item.id
+      child_menu_item = MenuItem.find_or_create_by_name_slug(child_data)
+    end
   end
 end

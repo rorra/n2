@@ -1,365 +1,54 @@
-// 960 Grid System ~ Core CSS.
-// Learn more ~ http://960.gs/
-// Licensed under GPL and MIT.
-/**********************************************************************************************/
-// The following generates the default grids provided by the css version of 960.gs
+// 960 Grid System ~ Core CSS. //
+// Learn more ~ http://960.gs. //
+// Licensed under GPL and MIT. //
+// Grid Variables ----------------------------------------- //
 $ninesixty_columns: 12
 $ninesixty_grid_width: 960px
 $ninesixty_gutter_width: 20px
-
-/**********************************************************************************************/
-// GRID VARIABLES
-
-$HeaderOne: 24px
-$HeaderTwo: 20px
-$HeaderThree: 18px
-$HeaderFour: 16px
-$HeaderFive: 13px
-$HeaderSix: 11px
-
-$fontsize: 12px
-
-$PrimaryBorderRadius: 16px
-$SecondaryBorderRadius: 10px
-
-$PanelOnePanelFull: 260px
-
-$PanelTwoPanelHalf: 280px
-$PanelTwoPanelThird: 180px
-$PanelTwoPanelFull: 580px
-
-$panelThreePanelHalf: 440px
-$PanelThreePanelThird: 286px
-$PanelThreePanelTwoThird: 594px
-
-$PanelGutters: 20px
-
-$ButtonLinkFontSize: 130%
-
-$ProfilePicSize: 50px
-
-$MediaItemWidthColOne: 120px
-
-$MediaItemWidthColTwo: 130px
-
-$MediaItemWidthSingle: $PanelOnePanelFull
-
-
-$userPicWidth: 40px
-$userPicHeight: 40px
-
-$postPopOverWidth: 740px
-
-$popOverTabWidth: 104.7px
-
-$fbappMargin: 28px
-
-
-/**********************************************************************************************/
-// Reset and grid stylesheets
+// Default Variables -------------------------------------- //
+// Header Font Sizes
+$h1-size: 22px
+$h2-size: 18px
+$h3-size: 14px
+$h4-size: 14px
+$h5-size: 12px
+$h6-size: 11px
+// box-shadow
+$box-shadow: 0px 0px 4px rgba(0,0,0, 0.5)
+// Forms
+$panel-one-input-width: 270px
+$panel-two-input-width: 590px
+$panel-three-input-width: 910px
+// Widget Heights
+$feature-item-small-height: 165px
+$feature-item-small-wrap-height: 132px
+$feature-item-medium-height: 225px
+$feature-item-large-height: 285px
+$feature-item-xlarge-height: 285px
+// 3 item widget width
+$feature-item-panel-third-width: 200px
+// Imports ---------------------------------------------- //
+// Reset
 @import "compass/utilities/general/reset"
+// Grid
 @import 960/grid.sass
 +global-reset
-
-/**********************************************************************************************/
 // App Skin
 @import skin.sass
-
-/**********************************************************************************************/
 // App stylesheets
-@import default.sass
-@import default_v2.sass
+@import default_v3.sass
 @import application.sass
 @import formtastic.sass
-//@import ui-lightness/jquery-ui-1.7.2.custom.sass
 @import jquery.jcarousel.sass
 @import jcarousel.skin.sass
 @import flowplayer_tabs.sass
 @import scrollable.sass
 @import addthis.sass
-
-/**********************************************************************************************/
-/* GRID CONTAINERS */
-
-#header, #footer, #pageBody, #adspace, #subNav, .breadcrumbs
-  +grid(12)
-
-#home_container
-  float: left
-  position: relative
-  display: inline
-  width: 960px
-  z-index: 1
-
-#col_full
-  position: relative
-  z-index: 1
-  +grid(12)
-
-#col_left
-  position: relative
-  z-index: 1
+// CSS ------------------------------------------------- //
+// Panels
+.panel-1
+  +grid(4)
+.panel-2
   +grid(8)
-  float: left
-  .right
-    float: right
-  .left
-    float: left
-
-#col_right
-  position: relative
-  z-index: 1
-  +grid(4)
-  float: left
-
-.panel_3
-  &.first
-    +alpha
-  &.last
-    +omega
+.panel-3
   +grid(12)
-  margin: 0 10px 10px 0
-
-/**********************************************************************************************/
-/* PANEL TITLE SIZES */
-.panel_1, .panel_2
-  .panelBar
-    h2
-      font-size: $pbh2
-  .third-panel
-    p
-      font-size: 11px
-  .quarter-panel
-    p
-      font-size: 11px
-
-.panel_2
-  h1
-    font-size: 24px
-  h2
-    font-size: 17px
-  h3
-    font-size: 11px
-  h4
-    font-size: 12.5px
-  p
-    font-size: 12px
-
-.panel_1
-  h1
-    font-size: 20px
-  h2
-    font-size: 15px
-  h3
-    font-size: 11px
-  h4
-    font-size: 13px
-  p
-    font-size: 12px
-
-/**********************************************************************************************/
-/* UNIVERSAL LIST PANEL_1 */
-.panel_1
-  +grid(4)
-  /* FEATURED STORY SIDEBAR WIDGET */
-  .full-panel
-    .thumb
-      width: 290px
-      height: 164px
-      img
-        top: -27px
-        width: 290px
-    .itemBlock
-      width: 290px
-  /* CATEGORY CLASS STYLES */
-  .item_1
-    .itemBlock
-      float: left
-      width: 210px
-    .thumb
-      height: 52px
-      width: 70px
-      float: left
-      img
-        width: 70px
-    .itemMeta
-      width: 100%
-  .article, .topic
-    .thumb.user
-      margin: 5px
-      width: 50px
-      height: 50px
-      img
-        width: 50px
-        height: 50px
-        &.moderator
-          height: 18px 
-          width: 18px
-  .item_2
-    .itemMeta
-      width: 100%
-    .itemBlock
-      width: 290px
-  .users
-    .thumb
-      height: 50px
-      width: 50px
-      img
-        width: 50px
-  .media
-    .thumb
-      width: 270px
-      height: 202px
-      margin: 10px 15px
-      img
-        width: 270px
-      object
-        width: 270px
-        height: 202px
-  .list_media
-    ul
-      width: 100%
-      display: inline-block      
-      margin: 4px 0
-      li
-        width: 71px
-        height: 53px
-        img
-          width: 73px
-
-/**********************************************************************************************/
-/* UNIVERSAL LIST PANEL_2 */
-.panel_2
-  +grid(8)
-  &.featureWrap
-    .thumb.wide
-      width: 610px
-      height: 180px
-      img
-        top: -139px
-        width: 610px
-  .thumb
-    width: 90px
-    height: 75px
-    margin: 5px
-    float: left
-    img
-      width: 90px
-  /* CATEGORY CLASSES */
-  .list_items
-    .answer, .article, .comment, .content, .idea, .item_1, .question, .resource, .users
-      .itemBlock
-        width: 510px
-    .users
-      .thumb
-        height: 90px
-        width: 90px
-
-    .blog, .event, .item_2, .newswire
-      .itemBlock
-        width: 610px
-
-  .list_media
-    li
-      width: 73px
-      height: 55px
-      img
-        width: 73px
-
-/**********************************************************************************************/
-/* FEATURED STORY PANEL IMAGE SIZES */
-.half-panel
-  .thumb
-    height: 225px
-    width: 300px
-    img
-      width: 300px
-
-.quarter-panel
-  .thumb
-    height: 110px
-    width: 145px
-    img
-      width: 145px
-  p
-    display: none
-
-.third-panel
-  .thumb
-    height: 146px
-    width: 196px
-    img
-      width: 196px
-
-.third-panel-small
-  .thumb
-    float: left
-    height: 45px
-    width: 60px
-    img
-      width: 60px
-
-/**********************************************************************************************/
-/* UNIQUE SIZE IMAGES */
-.thumb
-  &.banner
-    margin: 2px auto
-    width: 292px
-    padding: 0
-    display: block
-  &.short
-    height: 168px
-    img
-      top: -28px
-
-/**********************************************************************************************/
-/* DETAILS PAGE THUMB SIZE */
-#itemDetails
-  .topBar
-    ul
-      li
-        width: 120px
-
-  .thumb
-    width: 280px
-    height: 210px
-    float: right
-    margin: 0 0 10px 10px
-    img
-      width: 280px
-    .video
-      position: absolute
-      top: 0
-      left: 0
-      object
-        height: 225px
-        width: 300px
-  .itemMeta
-    width: 50%
-  .itemBlock
-    display: inline-block
-    width: 610px
-    margin: 5px 5px 10px
-    line-height: 140%
-    font-size: $fontsize
-
-/**********************************************************************************************/
-/* FLASH MESSAGE STYLES */
-.flash
-  width: 940px
-  margin: 0 10px
-
-
-/**********************************************************************************************/
-/* ADDTHIS DROPDOWN WIDTH */
-
-.addthis_toolbox
-  .custom_hover
-    .hover_menu 
-      width: 118px
-
-/** Twitter Widgets **/
-.twitter_widget_container
-  +grid(4)
-  height: 390px
-  margin-bottom: $PanelGutters

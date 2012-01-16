@@ -5,11 +5,12 @@
 - hide_titlebar =  (not @hide_titlebar.nil? and @hide_titlebar ) || false
 - canvas_preference ||= false
 - item_type ||= "topic" 
-%div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+%div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => hide_titlebar, :title => list_title}
-  .list_items
-    %ul
-      - item_list.each_with_index do |item, index|
-        - unless index > count
-          %li
-            = render :partial => 'shared/items/micro_topic', :locals => { :item => item, :external_widget => external_widget, :canvas_preference => canvas_preference, :item_type => item_type }
+  .item-list-wrap
+    .item-list
+      %ul
+        - item_list.each_with_index do |item, index|
+          - unless index > count
+            %li
+              = render :partial => 'shared/items/micro_topic', :locals => { :item => item, :external_widget => external_widget, :canvas_preference => canvas_preference, :item_type => item_type }

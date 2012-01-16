@@ -11,48 +11,55 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
 
-#col_left
+#left-col
   - cache "#{@story.cache_key}_top_html" do
-    #itemDetails.panel_2
-      = add_this @story
-      .itemBlock
-
-        - if @story.images.present?
-          .thumb= image_tag @story.images.first.url(:medium)
-
-        %h1= sanitize_title @story.title
-        - unless @story.is_article?
-          %h3= stories_posted_by_via @story
-        - else
-          %h3 
+    .panel-2#item-details
+      .add-this-wrap
+        = add_this @story
+      - if @story.images.present?
+        .thumb= image_tag @story.images.first.url(:medium)
+      %h1= sanitize_title @story.title
+      - unless @story.is_article?
+        .meta-data
+          %h6= stories_posted_by_via @story
+      - else
+        .meta-data
+          %h6
             = stories_posted_by @story
             = pipe_spacer
             %span.moderator-links.hidden{:class => user_css_class(@story.user)}
               = link_to t('articles.edit_draft'), edit_article_path(@story.article)
-        - if @tags.present?
-          .tag-wrap
-            == Tags: #{tag_list(@tags, (@story.is_article? ? @story.article : @story))}
-        - if @story.is_article?
-          %p= sanitize nl2br(@story.caption)
-        - elsif @story.respond_to?(:twitter_item?) and @story.twitter_item?
-          %p= tweet_blurb @story
-        - elsif @story.full_html?
-          %p= sanitize nl2br(@story.caption)
-        - else
-          %p= sanitize caption(@story.caption, 500)
-        - if @story.url.present?
-          .float_left= link_to t('.read_story'), @story.url, :target => "_cts", :class => "btn"
-      - if @story.media_item?
-        = render_media_items @story, :size => 'large'
+          - if @tags.present?
+            .tags
+              %h6== Tags: #{tag_list(@tags, (@story.is_article? ? @story.article : @story))}
+      - if @story.is_article?
+        .content= sanitize nl2br(@story.caption)
+      - elsif @story.respond_to?(:twitter_item?) and @story.twitter_item?
+        .content= tweet_blurb @story
+      - elsif @story.full_html?
+        .content= sanitize nl2br(@story.caption)
+      - else
+        .content= sanitize caption(@story.caption, 500)
+    - if @story.url.present?
+      .panel-2
+        .actions-wrap.clearfix
+          .float-right= link_to t('.read_story'), @story.url, :target => "_cts", :class => "button-link"
 
+    - if @story.media_item?
+      = render_media_items @story, :size => 'large'
+ 
     - if @story.moderatable?
-      .mod-panel.panel_2
-        .float_right= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
-        .float_left= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
+      .panel-2
+        .mod-panel.clearfix
+          .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @story }
+          .float-right= render :partial => 'shared/flag_form', :locals => { :flaggable => @story }
 
     = render_ad(:banner, @ad_layout, @ad_banner)
-    = render :partial => 'shared/comments', :locals => { :comments => @story.comments }
-  = render :partial => 'shared/comment_form', :locals => { :commentable => @story }
+
+    .panel-2.comment-list
+      = render :partial => 'shared/comments', :locals => { :comments => @story.comments }
+    .panel-2.comment-form
+      = render :partial => 'shared/comment_form', :locals => { :commentable => @story }
 
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
@@ -60,7 +67,7 @@
   = render :partial => 'shared/item_footer', :locals => { :item => @story,:title => @story.title }
 
 
-#col_right
+#right-col
   - if  @story.is_article? and @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'
   - if @custom_sidebar_widget

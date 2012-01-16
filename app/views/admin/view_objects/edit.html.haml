@@ -71,7 +71,7 @@
 #content
   #admin-actions
     =# link_to 'Return to View Objects index', admin_view_objects_path, :class=>"admin-btn"
-    %button#save-button.admin-btn.float_right{:type => "button"} Update Template Settings
+    %button#save-button.admin-btn.float-right{:type => "button"} Update Template Settings
 
   - item_count = 0
   - case @view_object_template.name
@@ -100,7 +100,7 @@
     = select_tag 'featured-items-select', options_for_select(@featurables)
     #items
 
-.clearfix
+-#.clearfix
   %h2 Existing Layout
   - if @view_object.setting.dataset
     .view-object= ViewTree.render(@view_object.name, @controller).html_safe

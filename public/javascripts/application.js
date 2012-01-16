@@ -86,7 +86,7 @@ function rebuild_facebook_dom() {
   	event.preventDefault();
   	var url = change_url_format($(this).attr('href')).replace(/json/, 'js');
 	if ($(this).next().children().length==0) {
-		$(this).next().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		$(this).next().html("<div class=\"account-loading-spinner\"></div>");
   	$(this).next().toggle(); // after spinner appears, toggle it
  		$(this).next().load(url, function() {
   			rebuild_facebook_dom();
@@ -123,7 +123,7 @@ function rebuild_facebook_dom() {
   	$(this).parent().parent().toggle();
 
   	var url = change_url_format($(this).attr('action'));
-  	var list = $('.list_items ul', $(this).parents().filter('.panel_2'));
+  	var list = $('.item-list ul', $(this).parents().filter('.panel-2'));
   	$.ajax({
       'url': url,
       'data': $(this).serializeJSON(),
@@ -131,7 +131,7 @@ function rebuild_facebook_dom() {
       'success': function(data) {
   		$(list).quicksand( $(data).find('li'), {adjustHeight: false} );
         $.timeago.settings.strings.suffixAgo = '';
-        $('abbr.timeago', $('.itemListWrap') ).timeago();
+        $('abbr.timeago', $('.item-list-wrap') ).timeago();
   		rebuild_facebook_dom();
       }
     });
@@ -181,11 +181,11 @@ function rebuild_facebook_dom() {
   	var submitBtn = $('input[type=submit]', this);
   	submitBtn.attr('disabled', 'disabled');
   	submitBtn.hide();
-  	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
+  	submitBtn.parent().append('<img style="float: left;" src="/images/site/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
 
   	var url = change_url_format($(this).attr('action'));
-  	var parentForm = $(this).parents('.postComment');
-  	var commentThread = parentForm.siblings('.commentThread');
+  	var parentForm = $(this).parents('.post-comment');
+  	var commentThread = parentForm.siblings('.comment-thread-wrap');
 
   	$.post(url, $(this).serialize(), function(data) {
       commentThread.fadeOut("normal", function() {
@@ -196,19 +196,19 @@ function rebuild_facebook_dom() {
 
         rebuild_facebook_dom();
         setTimeout(function() {
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
+          $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
           $('li', commentThread).last().effect('highlight', {color: 'green'}, 3000);
           /*
           // TODO:: FIX THIS
           // here are two different queueing options
           // they are both triggering highlight twice for some reason
           // but the delay on highlighting is much more natural
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'}).queue(function() {
-            $('.commentThread li').last().effect('highlight', {color: 'green'}, 3000);
+          $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'}).queue(function() {
+            $('.comment-thread-wrap li').last().effect('highlight', {color: 'green'}, 3000);
             $(this).dequeue();
           });
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, 'slow', 'swing', function() {
-            $('.commentThread li').last().effect('highlight', {color: 'green'}, 3000);
+          $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, 'slow', 'swing', function() {
+            $('.comment-thread-wrap li').last().effect('highlight', {color: 'green'}, 3000);
             //$(this).dequeue();
           });
           */
@@ -226,7 +226,7 @@ function rebuild_facebook_dom() {
 		var flag_form = $(this);
  		var flag_parent = flag_form.parent().parent().parent();
     if ( $('[name=flag_type]', this).val() != 'choose_flag') {
-		  $(this).parent().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		  $(this).parent().html("<img src=\"/images/site/spinner-tiny.gif\" />");
       var url = change_url_format(flag_form.attr('action'));
       $.post(url, flag_form.serialize(), function(data) {
 				flag_parent.html('<span class="flag-toggle btnComment">'+data.msg+'</span>').fadeIn("normal");
@@ -237,7 +237,7 @@ function rebuild_facebook_dom() {
 	$('.voteLink, .voteUp, .voteDown, .thumb-up, .thumb-down').live('click', function(event) {
 		event.preventDefault();
 		var span = $(this).parent();
-		$(this).parent().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		$(this).parent().html("<img src=\"/images/site/spinner-tiny.gif\" />");
 		var url = $(this).attr("href");
     url = url.replace(/\?return_to=.*$/, '');
     if (url.substring(url.length - 5) == '.html') {
@@ -286,7 +286,7 @@ function rebuild_facebook_dom() {
 		event.preventDefault();
 		var span = $(this).parent();
     var $li_parent = $(this).parents().filter('li').first();
-		$(this).parent().html("<img src=\"/images/default/spinner.gif\" />");
+		$(this).parent().html("<img src=\"/images/site/spinner.gif\" />");
 		var url = $(this).attr("href");
     url = url.replace(/\?return_to=.*$/, '');
     if (url.substring(url.length - 5) == '.html') {
@@ -343,10 +343,10 @@ function rebuild_facebook_dom() {
   	event.preventDefault();
   	$('#answerForm').toggle();
   });
-  $('.commentThread, .postComment', $('#answersList')).hide();
+  $('.comment-thread-wrap, .post-comment', $('#answersList')).hide();
   $('.answer_comments_link').click(function(event) {
   	event.preventDefault();
-    $('.commentThread, .postComment', $(this).parents().filter('.answer')).toggle();
+    $('.comment-thread-wrap, .post-comment', $(this).parents().filter('.answer')).toggle();
   });
 
   /* Predictions */
@@ -361,11 +361,11 @@ function rebuild_facebook_dom() {
   	var submitBtn = $('input[type=submit]', this);
   	submitBtn.attr('disabled', 'disabled');
   	submitBtn.hide();
-  	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your guess...</p>');
+  	submitBtn.parent().append('<img style="float: left;" src="/images/site/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your guess...</p>');
 
   	var url = change_url_format($(this).attr('action'));
   	var parentForm = $(this).parents('.prediction_question_wrapper');
-  //	var commentThread = parentForm.siblings('.commentThread');
+  //	var commentThread = parentForm.siblings('.comment-thread-wrap');
 
   	$.post(url, $(this).serialize(), function(data) {
       parentForm.fadeOut("normal", function() {
@@ -376,7 +376,7 @@ function rebuild_facebook_dom() {
 
         rebuild_facebook_dom();
         setTimeout(function() {
-          // $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
+          // $('html,body').animate({ scrollTop: ($('.comment-thread-wrap li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
           $('li', parentForm).last().effect('highlight', {color: 'green'}, 3000);
         }, 500);
       });

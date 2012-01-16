@@ -5,13 +5,14 @@
   - topics ||= forum.topics.active
   - paginate ||= false
   - page ||= ""
-  .panel_2
-    .panelBar
+  .panel-2
+    = add_this @forum
+    .panel-bar
       %h2= t('forums.topics.list_title', :forum_name => forum.name)
       -#%span.bar_link= fb_share_item_button(forum)
     .subtitle
       %span= t('forums.topics.list_subtitle', :forum_description => forum.description)
-    .itemListWrap
+    .forum-wrap
       - if topics.any?
         %table.tablesorter
           %thead
@@ -32,10 +33,15 @@
     - if paginate
       .clearfix
         = will_paginate topics
-        %br
 
-  .panel_2
-    %div.float_left= link_to t('forums.topics.new'), new_forum_topic_path(forum), :class => "btn"
+  .panel-2.mod-panel
+    .subtitle.clearfix
+      .float-right= link_to t('forums.topics.new'), new_forum_topic_path(forum)
+      - if @forum.moderatable?
+        .float-left= render :partial => 'shared/moderate_form', :locals => { :moderatable => @forum }
+
+  = render_ad(:banner, @ad_layout, @ad_banner)
+
   - if @outbrain_item
     = render :partial => 'shared/external/outbrain_wrapper'
 = render :partial => 'shared/item_footer', :locals => { :item => forum, :title => forum.name }

@@ -2,44 +2,53 @@
 - item2 = vo.dataset[1]
 - item3 = vo.dataset.last
 .panel-3
-  .panel-content.featured-panel
-    .panel-twothird
-      - if item1
-        .item-with-image
-          .item-thumb
-            %a= image_tag(medium_image_or_default(item1))
-          .item-text
-            %h1
-              %span.ellipsis_title_2= link_to sanitize_title(item1.item_title), item1.item_link, :class => 'ellipsis_text'
-            %p.ellipsis_caption_5
-              %span.ellipsis_text= item1.item_description
-            .meta-data
-              .profile-pic
-                = local_linked_profile_pic item1.item_user
-              %h6= posted_by_with_topic item1
+  / Feature Panel Wrap - 3 Column 1 large story w/ img, 2 small w/ img and 3 listed stories 
+  .feature-panel.large
+    / One Large Story 
+    - if item1
+      .feature-item-large.first
+        = link_to sanitize_title(item1.item_title), item1.item_link, :class => 'overlay-link'
+        = image_tag(medium_image_or_default(item1))
+        .feature-caption
+          %h2= link_to sanitize_title(item1.item_title), item1.item_link
+          %p= item1.item_description
 
-              %h6= action_links(item1)
-
-    .panel-third.alpha
-      %ul.list-items
+      / Two Small Stories 
+      .feature-item-wrap-small
         - if item2
-          %li
-            .item-with-image
-              .item-thumb
-                %a= image_tag(thumb_image_or_default(item2))
-              .item-text
-                %h3
-                  %span.ellipsis_title_2= link_to sanitize_title(item2.item_title), item2.item_link, :class => 'ellipsis_text'
-                .meta-data
-                  %h6= action_links(item2)
-
+          .feature-item-small.top
+            = link_to sanitize_title(item2.item_title), item2.item_link, :class => 'overlay-link'
+            = image_tag(thumb_image_or_default(item2))
+            .feature-caption
+              %h3= link_to sanitize_title(item2.item_title), item2.item_link
         - if item3
-          %li.last
-            .item-with-image
-              .item-thumb
-                %a= image_tag(thumb_image_or_default(item3))
-              .item-text
-                %h3
-                  %span.ellipsis_title_2= link_to sanitize_title(item3.item_title), item3.item_link, :class => 'ellipsis_text'
-                .meta-data
-                  %h6= action_links(item3)
+          .feature-item-small
+            = link_to sanitize_title(item3.item_title), item3.item_link, :class => 'overlay-link'
+            = image_tag(thumb_image_or_default(item3))
+            .feature-caption
+              %h3= link_to sanitize_title(item3.item_title), item3.item_link
+
+    / list of stories 
+    .feature-item-medium.last
+      -# needs functionality
+      .panel-bar
+        %h2
+          Popular 
+      .item-list-wrap
+        .item-list
+          %ul
+            %li
+              %h4
+                %a{ :href => "#"} 
+                  Sit volup tatem accus antium dolorem 
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
+            %li
+              %h4
+                %a{ :href => "#"} 
+                  Sit volup tatem accus antium dolorem
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem
+            %li.last
+              %h4
+                %a{ :href => "#"} 
+                  Sit volup tatem accus antium volup 
+              %p Sit volup tatem accus antium dolorem que Sit volup tatem dolorem que Sit volup tatem

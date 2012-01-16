@@ -1,15 +1,17 @@
-.answer.large
-  %blockquote
-    .quotes= nl2br linkify(answer.answer)
-  .itemBlock
-    .profilePic= local_linked_profile_pic answer.user
-    .itemMeta
-      %h3= answered_by answer
-      %span.btnComment.btn_left= link_to answer_comments_translate(answer.comments.size), '#', :class => 'answer_comments_link'
+%li.comment-block
+  .comment-bubble
+    .comment-quote= nl2br linkify(answer.answer)
+    .arrow
+      .arrow-inner
+  .comment-meta-data
+    .profile-pic= local_linked_profile_pic answer.user
+    .mod-flag-wrap
+      - if @answer.moderatable?
+        = render :partial => 'shared/moderate_form', :locals => { :moderatable => answer }
+    %h6= answered_by answer
+    %h6
+      %span= link_to answer_comments_translate(answer.comments.size), '#', :class => 'answer_comments_link'
   - if show_comments.present?
-    %br
-    .clearfix
-    = render :partial => 'shared/comments', :locals => { :comments => answer.comments }
-    = render :partial => 'shared/comment_form', :locals => { :commentable => answer }
-  - if @answer.moderatable?
-    = render :partial => 'shared/moderate_form', :locals => { :moderatable => answer }
+    %li= render :partial => 'shared/comments', :locals => { :comments => answer.comments }
+    %li= render :partial => 'shared/comment_form', :locals => { :commentable => answer }
+

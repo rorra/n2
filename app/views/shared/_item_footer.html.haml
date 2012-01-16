@@ -1,5 +1,10 @@
-.panel_2.actionLegend
-  .share_and_hide
-    %h4
+.panel-2#link-to-item
+  .panel-bar
+    %h2
       Link to this page
-    %input{:type => "text", :value => "#{path_to_self item, true}",:onclick =>"this.focus();this.select();" }
+  .form-wrap.clearfix
+    %form.formtastic
+      %fieldset.inputs
+        %ol
+          %li.clearfix
+            %input{:type => "text", :value => "#{path_to_self item, true}",:onclick =>"this.focus();this.select();" }

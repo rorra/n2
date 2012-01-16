@@ -1,8 +1,6 @@
-#subNav
-  .tabs
-    %ul#toggle_tabs_unused.toggle_tabs
-      -#%li= link_to t('top_users.daily'), top_users_path(:top => 'daily'), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'daily')}"
-      %li= link_to t('top_users.weekly'), top_users_path(:top => 'weekly'), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'weekly')}"
-      -#%li= link_to t('top_users.monthly'), top_users_path(:top => 'monthly'), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'monthly')}"
-      -#%li= link_to t('top_users.yearly'), top_users_path(:top => 'yearly'), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'yearly')}"
-      %li= link_to t('top_users.alltime'), top_users_path(:top => 'alltime'), :class => "tab #{sub_tab_selected?(@current_sub_tab, 'alltime')}"
+#secondary-navigation
+  %ul
+    %li{:class => "tab #{sub_tab_selected?(@current_sub_tab, 'weekly')}"}
+      = link_to t('top_users.weekly'), top_users_path(:top => 'weekly')
+    %li{ :class => "tab #{sub_tab_selected?(@current_sub_tab, 'alltime')}"}
+      = link_to t('top_users.alltime'), top_users_path(:top => 'alltime')

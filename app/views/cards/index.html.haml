@@ -13,7 +13,7 @@
   -#%fb:js-string{:var => "card_loading_msg"}
     = t('cards.loading_message')
 
-#col_left
+#left-col
   .cards_fancyTitle.cards_floatwide
     = image_tag 'cardGraphic.jpg', :width => '13', :height => '14'
     %span.cards_fancyTitleText= t('cards.send')
@@ -34,6 +34,6 @@
   %br
   #card-request-box
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/top_sent_cards'
   = render :partial => 'shared/sidebar/newest_sent_cards'

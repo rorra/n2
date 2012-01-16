@@ -114,7 +114,7 @@ end
 #########################################################################
 
 def skin_dir_exists?
-  dir_exists? "#{skin_dir}/#{application}"
+  dir_exists? "#{skin_dir}/#{application}/public/images/skin"
 end
 
 def skin_file_exists?

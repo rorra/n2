@@ -2,11 +2,11 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/questions_subnav'
 
-#col_left
-  .panel_2
-    .panelBar
+#left-col
+  .panel-2
+    .panel-bar
       %h2 Ask a question
-    .formBox
+    .form-wrap.clearfix
       - unless current_user.present?
         %p== #{t 'questions.logged_in_error'} #{link_to 'Login now', login_path}
       - else
@@ -25,41 +25,42 @@
     - questions ||= Question.active.paginate :page => params[:page], :per_page => Question.per_page, :order => "created_at desc"
     - @paginate ||= false
     - unless questions.empty?
-      .panel_2
-        .panelBar
-          %h2= t('questions.list_title')
+      .panel-2
+        .panel-bar
           - if questions.present? and questions.first.refineable?
-            .refine_link
+            .refine-search-wrap
               = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => Question.refineable_select_options }
+          %h2= t('questions.list_title')
         .subtitle
           %span= t('questions.list_subtitle')
-        .itemListWrap
-          #front-stories.list_items
+        .item-list-wrap
+          .item-list
             %ul
               - questions.each do |question|
                 %li.askQuestionWrap{'data-id' => question.cache_key}
-                  .item_1
+                  .item-image
                     .thumb
                       - if question.images.present?
                         = image_tag question.images.first.url(:thumb)
                       - else
-                        = image_tag ('default/watermark.jpg')
-                    .itemBlock
-                      %h2= link_to question.question, question
+                        = image_tag ('skin/watermark.jpg')
+                    .content
+                      %h3= link_to question.question, question
                       %p= linked_item_details question
-                      .profilePic= local_linked_profile_pic question.user
-                      .itemMeta
-                        %h3= asked_by question
-                        %span.btnComment== #{like_link question} #{question.votes.size}
-                        %span.btnComment== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
-                        -#%span.btnComment= fb_share_item_button question
+                      .meta-profile
+                        .profile-pic= local_linked_profile_pic question.user
+                        %h6= asked_by question
+                        %h6
+                          %span== #{like_link question} #{question.votes.size}
+                          = pipe_spacer
+                          %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
+                          -#%span= fb_share_item_button question
 
       - if @paginate
-        .clearfix
+        .panel-2
           = will_paginate questions
-          %br
 
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/questions_whatisthis'
   - if @sponsor_zone_code
     = render :partial => 'shared/ads/sponsor_zone_wrapper'

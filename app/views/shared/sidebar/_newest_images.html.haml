@@ -3,8 +3,8 @@
 - cache :newest_images_html do
   - newest_images ||= Image.newest 8
   - unless newest_images.empty?
-    %div{:class => "panel_2 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+    %div{:class => "panel-2 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+      .panel-bar
         %h2= t('newest_images_title')
       .list_media
         %ul          

@@ -1,8 +1,8 @@
 - cache :gallery_small_images_html do
   - gallery ||= Gallery.featured.first || Gallery.top.first
   - if gallery
-    %div{:class => "panel_1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
-      .panelBar
+    %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+      .panel-bar
         %h2= gallery.title
       .featured.media
         .scrollable_list_media
@@ -11,7 +11,7 @@
               %ul 
                 -# gallery.gallery_items.find(:all, :limit => 8).each do |gallery_item|
                 - count = 0
-                - gallery.gallery_items.reverse.each do |gallery_item|
+                - gallery.gallery_items.each do |gallery_item|
                   - count += 1
                   - if count > 8
                     %li.hide-strong= link_to image_tag(gallery_item.thumb_url, :alt => gallery_item.item_title), gallery_item.full_url, :rel => "gallery[small-image-#{gallery.title.parameterize}]", :title => gallery_item.item_description

@@ -10,15 +10,15 @@
     });
 
 
-#col_left
-  .panel_2
-    .panelBar
+#left-col
+  .panel-2
+    .panel-bar
       %h1 View Objects
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul.view-objects
           - @view_objects.each do |view_object|
             %li= link_to view_object.name, view_object_path(view_object, :format => 'json')
 
-#home_container
+#home-content
   #output

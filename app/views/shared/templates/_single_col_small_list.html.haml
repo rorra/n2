@@ -1,18 +1,16 @@
-.panel-1.float-right
-  /change the class where "active" is to switch out the icon in the background.
-  %div.panel-bar.top-secondary-corners{:class => vo.setting.css_class}
-    .panel-full
-      - if vo.setting and vo.setting.locale_title
-        %h3.float-left= vt.t(vo.setting.locale_title)
+.panel-1
+  -#change the class where "active" is to switch out the icon in the background.
+  .panel-bar{:class => vo.setting.css_class}
+    - if vo.setting and vo.setting.locale_title
+      %h2= vt.t(vo.setting.locale_title)
+      .panel-bar-actions
         - if vo.setting.use_post_button
           = post_something vo.setting.klass_name
-  .panel-content
-    %ul.list-items
-      - vo.dataset.each_with_index do |item, index|
-        %li
-          .item-with-no-image
-            %p
-              %b
-                %span.ellipsis_title_2= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
+  .item-list-wrap
+    .item-list
+      %ul
+        - vo.dataset.each_with_index do |item, index|
+          %li
+            %h5= link_to sanitize_title(item.item_title), item.item_link, :class => 'ellipsis_text'
             .meta-data
               %h6= action_links(item)

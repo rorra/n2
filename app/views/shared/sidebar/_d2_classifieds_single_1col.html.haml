@@ -1,8 +1,8 @@
 -# @expects: local 'classifieds'
 - cache :d2_classifieds_single do
-  .panel_1
-    .welcomePanel
-      .itemBlock
+  .panel-1
+    .info-widget
+      .content
         %h2= t('classifieds.single_classifieds_title')
         %p= t('classifieds.single_classifieds_intro')
         = link_to t('classifieds.single_classifieds_post'), new_classified_path, :class => "btn"

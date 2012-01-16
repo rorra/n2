@@ -1,17 +1,15 @@
 - item = vo.dataset.first
 .panel-2
-  .panel-content.featured-panel
-    .panel-full
-      .item-with-image.nested
-        - if item
-          .item-thumb
-            %a= image_tag(medium_image_or_default(item))
-          .item-text
-            %h1= link_to sanitize_title(item.item_title), item.item_link
-            %p
-              = item_text(item)
-            .meta-data
-              .profile-pic
-                = local_linked_profile_pic item.item_user
-              %h6= posted_by_with_topic(item)
-              %h6= action_links(item)
+  .panel-bar
+    - if vo.setting and vo.setting.locale_title
+      %h2= vt.t(vo.setting.locale_title)
+  .feature-panel.small.clearfix
+    - if item
+      .feature-item-small.first
+        = image_tag(medium_image_or_default(item))
+      .feature-item-large.last
+        %h4= link_to sanitize_title(item.item_title), item.item_link
+        .meta-data
+          %h6= posted_by_with_topic(item)
+        %p= item_text(item)
+

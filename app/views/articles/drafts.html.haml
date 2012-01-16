@@ -2,10 +2,10 @@
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
   = render :partial => 'shared/subnav/news_subnav'
   
-#col_left
+#left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
-  .panel_2
-    .panelBar
+  .panel-2
+    .panel-bar
       %h2= t 'articles.drafts'
     %br
     %ul.bullet_list
@@ -20,7 +20,7 @@
       - else
         %li= t('article.nodrafts')
   
-#col_right
+#right-col
   = render :partial => 'shared/sidebar/post_article'
   = render_ad(:small_square, @ad_layout, @ad_small_square)
   = render :partial => 'shared/sidebar/top_tags', :locals => { :klass => Article, :locale_var => 'top_article_tags' }

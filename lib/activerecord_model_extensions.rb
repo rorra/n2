@@ -15,6 +15,11 @@ module Newscloud
         ['article', 'audio', 'content', 'event', 'gallery', 'idea', 'question', 'resource']
       end
 
+      def rankable_classes
+        #["Image", "PredictionGuess", "Question",  "Idea", "Forum", "Event", "PredictionGroup", "IdeaBoard", "Video", "Url", "Gallery", "Resource", "Comment", "Audio", "Classified", "GalleryItem", "PredictionQuestion", "Feed", "Card", "Content", "ResourceSection", "Article", "Topic", "Answer"].map(&:constantize)
+        ["PredictionGuess", "Question",  "Idea", "Forum", "Event", "PredictionGroup", "IdeaBoard", "Gallery", "Resource", "Classified", "PredictionQuestion", "Card", "Content", "ResourceSection", "Article", "Topic", "Answer"].map(&:constantize)
+      end
+
       def top_article_items limit = 100
         table = self.name.tableize
         now = Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")
@@ -148,6 +153,14 @@ module Newscloud
           return self.send(method) if self.respond_to?(method) and self.send(method).present?
         end
         "#{self.class.name.titleize} ##{self.id}"
+      end
+
+      def item_score
+        ItemScore.get_score(self)
+      end
+
+      def item_tally
+        ItemAction.tally_for_item(self)
       end
 
       def item_description

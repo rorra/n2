@@ -12,14 +12,16 @@
     = javascript_include_tag 'hoverIntent'
     = javascript_include_tag 'superfish'
     = javascript_include_tag 'jquery.tablesorter.min'
+    = javascript_include_tag 'jquery.ui.nestedSortable'
     = javascript_include_tag 'admin.js'
 
     -# IE Debugging 
     =# javascript_include_tag 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'
 
-    = stylesheet_link_tag 'compiled/grid.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/text.css', :media => 'print'
     = stylesheet_link_tag 'compiled/admin'
+    = stylesheet_link_tag 'compiled/admin_grid.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'compiled/text.css', :media => 'print'
+
     = stylesheet_link_tag 'superfish'
     = stylesheet_link_tag 'tablesorter'
     = stylesheet_link_tag 'ui-lightness/jquery-ui-1.7.2.custom'
@@ -164,6 +166,7 @@
                   %li= link_to 'Locales', admin_locales_path
                   %li= link_to 'Translations', admin_translations_path
                   %li= link_to 'Refresh changes', refresh_admin_locales_path
+              %li= link_to 'Menu Items', admin_menu_items_path
           %li
             %a{:href => "#links"} Your Site
             %ul

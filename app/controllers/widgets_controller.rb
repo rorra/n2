@@ -103,6 +103,17 @@ class WidgetsController < ApplicationController
     end
   end
 
+  def events
+    case @sort
+      when "newest"
+        @events = Event.active.newest @count
+        @title = t('widgets.events_newest_title', :site_title => get_setting('site_title').value)
+      when "upcoming"
+        @events = Event.active.upcoming @count
+        @title = t('widgets.events_upcoming_title', :site_title => get_setting('site_title').value)
+    end
+  end
+
   def newswires
     @newswires = Newswire.active.unpublished.newest @count
     @title = t('widgets.newswires_newest_title', :site_title => get_setting('site_title').value)

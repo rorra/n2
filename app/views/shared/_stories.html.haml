@@ -5,42 +5,41 @@
   -else
     - contents ||= Content.active.top_items.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
   - paginate ||= false
-  .panel_2
-    .panelBar
-      %h2= t('.stories_title')
+  .panel-2
+    .panel-bar
       - if contents.present? and contents.first.refineable?
-        .refine_link
+        .refine-search-wrap
           = render :partial => 'shared/forms/refine_dropdown'
+      %h2= t('.stories_title')
     .subtitle
       %span= t('.stories_subtitle')
-    .itemListWrap
-      .list_items
+    .item-list-wrap
+      .item-list
         %ul
           - contents.each do |content|
             -# todo hack to fix drafts appearing until we can switch articles out of this widget
             - unless content.article.present? and content.article.is_draft?
               %li{'data-id' => content.cache_key}
-                .article
+                .item-image
                   .thumb
                     - if content.images.present?
                       = image_tag content.images.first.url(:thumb)
                     -else
-                      = image_tag ('default/watermark.jpg')
-                  .itemBlock
-                    %h2= link_to sanitize_title(content.title), story_path(content)
+                      = image_tag ('skin/watermark.jpg')
+                  .content
+                    %h3= link_to sanitize_title(content.title), story_path(content)
                     %p= linked_story_caption content
-                  
-                    .profilePic= local_linked_profile_pic content.user
-                    .itemMeta
-                      %h3= stories_posted_by content
-                      %span.btnComment== #{like_link content} #{content.votes_tally}
-                      %span.btnComment== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
- 
-    - if paginate
-      .clearfix
-        = will_paginate contents
-        %br
-    - else
-      .clearfix
-      %p= link_to t('read_more'), stories_path, :class => "float_right"
-      %br
+                    .meta-profile
+                      .profile-pic= local_linked_profile_pic content.item_user
+                      %h6= stories_posted_by content
+                      %h6
+                        %span== #{like_link content} #{content.votes_tally}
+                        %span.pipe
+                          |
+                        %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
+  - if paginate
+    .panel-2
+      = will_paginate contents
+  - else
+    .panel-2
+      %p= link_to t('read_more'), stories_path, :class => "float-right"
