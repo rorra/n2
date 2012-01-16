@@ -7,10 +7,12 @@
   %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
     .panel-bar
       %h2= t(locale_var)
-    - unless klass.send("#{category_type}_counts").count == 0
+    - # HACK:: LAZY:: arel conflicts with category_counts method and its counting of rows
+    - category_results = klass.send("#{category_type}_counts").map {|i| i}
+    - unless category_results.size == 0
       .top-categories
         %ul
-          - klass.send("#{category_type}_counts").each do |categorization|
+          - category_results.each do |categorization|
             %li
               == (#{categorization.count})  #{link_to categorization.category.name, url_for(send("categorized_#{klass_name.underscore.pluralize}_path", CGI.escape(categorization.category.name))) }
     - else

@@ -15,7 +15,7 @@
 
   - else
     .form-wrap
-      - semantic_form_for [commentable, Comment.new] do |form|
+      = semantic_form_for [commentable, Comment.new] do |form|
         = form.inputs do
           = form.input :comments, :input_html => { :rows => '4', :cols => '60' }, :label => false
           -# unless current_user.post_comments?
