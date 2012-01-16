@@ -7,8 +7,7 @@ describe "Front page" do
     # Apparently the master branch removed these?
     # click_on "News"
     # click_on "Galleries"
-
-    click_on "Register"
+    # click_on "Register"
   end
 
 end
