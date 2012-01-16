@@ -1,4 +1,6 @@
 class Metadata::SkipImage < Metadata
+  metadata_keys :image_url
+  
   after_save :remove_all_images
   scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
