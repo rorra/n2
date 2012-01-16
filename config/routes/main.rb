@@ -1,4 +1,8 @@
+require 'routing-filter'
+
 N2::Application.routes.draw do
+  filter :locale # Provided by routing-filter
+
   match '/' => "home#index", :as => :root
 
   match '/auth/:provider/callback' => "sessions#create"
