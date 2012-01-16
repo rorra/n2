@@ -2,11 +2,11 @@ class Admin::NewswiresController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Newswire.newest.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Newswire,
-    	:fields => [:title, :feed_id, :created_at],
-    	:associations => { :belongs_to => { :feed => :feed_id } },
-    	:paginate => true
+      :items => Newswire.newest.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Newswire,
+      :fields => [:title, :feed_id, :created_at],
+      :associations => { :belongs_to => { :feed => :feed_id } },
+      :paginate => true
     }
   end
 
@@ -23,7 +23,7 @@ class Admin::NewswiresController < AdminController
   def update
     @newswire = Newswire.find(params[:id])
     if @newswire.update_attributes(params[:newswire])
-    	@newswire.expire
+      @newswire.expire
       flash[:success] = "Successfully updated your Newswire."
       redirect_to [:admin, @newswire]
     else
@@ -34,10 +34,10 @@ class Admin::NewswiresController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => Newswire.find(params[:id]),
-    	:model => Newswire,
-    	:fields => [:title, :feed_id, :caption, :created_at],
-    	:associations => { :belongs_to => { :feed => :feed_id } }
+      :item => Newswire.find(params[:id]),
+      :model => Newswire,
+      :fields => [:title, :feed_id, :caption, :created_at],
+      :associations => { :belongs_to => { :feed => :feed_id } }
     }
   end
 
@@ -66,21 +66,21 @@ class Admin::NewswiresController < AdminController
     newswire ||= Newswire.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => newswire,
-    	:model => Newswire,
-    	:fields => [:title, :caption, :feed],
-    	:include_media_form => true,
-    	:associations => { :belongs_to => { :feed => :feed_id } }
+      :item => newswire,
+      :model => Newswire,
+      :fields => [:title, :caption, :feed],
+      :include_media_form => true,
+      :associations => { :belongs_to => { :feed => :feed_id } }
     }
   end
 
   def render_edit newswire
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => newswire,
-    	:model => Newswire,
-    	:fields => [:title, :caption],
-    	:include_media_form => true,
-    	:associations => { :belongs_to => { :feed => :feed_id } }
+      :item => newswire,
+      :model => Newswire,
+      :fields => [:title, :caption],
+      :include_media_form => true,
+      :associations => { :belongs_to => { :feed => :feed_id } }
     }
   end
 

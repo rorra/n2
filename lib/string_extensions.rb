@@ -10,7 +10,7 @@ class String
   def sanitize(options={})
     ActionController::Base.helpers.sanitize(CGI.unescapeHTML(self), options)
   end
-  
+
   def sanitize_standard()
     self.gsub!(/<!--(.*?)-->[\n]?/m, "")
     ActionController::Base.helpers.sanitize(self, :tags => %w(del, dd, h3, address, big, sub, tt, a, ul, h4, cite, dfn, h5, small, kbd, code,

@@ -24,7 +24,7 @@ en:
           body: "Edit body"
       comment:
         comments: "Comments"
-        new: 
+        new:
           comments: "Share your thoughts below"
           post_wall: "Post to your wall"
     hints:
@@ -42,6 +42,6 @@ en:
     actions:
       question:
         create: "Submit question"
-      create: "Create my {{model}}"
+      create: "Create my %{model}"
       update: "Save changes"
       dummie: "Launch!"

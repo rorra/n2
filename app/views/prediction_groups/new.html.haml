@@ -2,9 +2,9 @@
   :javascript
     $(function() {
       var wizard = $('#wizard');
-    	$("ul.arrows", wizard).tabs("div.panes > div", function(event, index) {
-    		if (index > 0) {
-    			var url = $("#idea_title");
+      $("ul.arrows", wizard).tabs("div.panes > div", function(event, index) {
+        if (index > 0) {
+          var url = $("#idea_title");
           url.siblings("label").removeClass("wizard-errors");
         }
       });
@@ -12,16 +12,16 @@
 
       // "next tab" button
       $("input.button-input.next", wizard).click(function(event) {
-      	event.preventDefault();
+        event.preventDefault();
         api.next();
       });
 
       // "previous tab" button
       $("input.button-input.prev", wizard).click(function() {
-      	event.preventDefault();
+        event.preventDefault();
         api.prev();
       });
-    });      
+    });
 - content_for :sub_nav do
   = render :partial => 'shared/subnav/predictions_subnav'
 #full-col
@@ -31,13 +31,13 @@
     .formBox
       #wizard
         #flowplayer-block
-          - semantic_form_for @prediction_group, :url => prediction_groups_path do |form|
+          = semantic_form_for @prediction_group, :url => prediction_groups_path do |form|
             .panes
               .panel1
                 %fieldset
-                  - form.inputs do                
+                  = form.inputs do
                     = form.input :title, :label => t('predictions.new.prediction_group_title'), :hint => t('predictions.new.prediction_group_title_hint')
-                    = form.input :description, :hint => t('wizard.details'), :required => false 
+                    = form.input :description, :hint => t('wizard.details'), :required => false
                     = form.input :tags_string, :label => t('tags'), :required => false, :hint => t('tags_hint')
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.submit'), :class => 'float-right', :button_html => { :class => 'button-input' }

@@ -23,9 +23,9 @@ class MagicParse
 
   def method_missing(name, *args)
     if name.to_s =~ /(.*)=$/
-    	@data[$1] = args.first
+      @data[$1] = args.first
     else
-    	@data[name] || name.to_s =~ /^get_(.*)$/ ? parse_value($1, nil, true) : parse_value(name)
+      @data[name] || name.to_s =~ /^get_(.*)$/ ? parse_value($1, nil, true) : parse_value(name)
     end
   end
 
@@ -51,9 +51,9 @@ class MagicParse
 
   def inner_text item
     if item.children.any? and item.children.first.is_a?(Hpricot::CData)
-    	item.children.first.inner_text
+      item.children.first.inner_text
     else
-    	item.html
+      item.html
     end
   end
 
@@ -62,14 +62,14 @@ class MagicParse
     items.each do |item|
       title = parse_value('title', item, true)
       title = @title_filters.inject(title) {|str,key| str.gsub(%r{#{key}}, '') }
-      title.sub(/^[|\s]+/,'').sub(/[|\s]+$/,'')      
+      title.sub(/^[|\s]+/,'').sub(/[|\s]+$/,'')
       results << {
-      	:title    => title,
-      	:link     => parse_value('link', item, true),
-      	:body     => parse_value('body', item, true),
-      	:caption  => parse_value('caption', item, true),
-      	:date     => parse_value('date', item, true),
-      	:image    => parse_pub_images(item)
+        :title    => title,
+        :link     => parse_value('link', item, true),
+        :body     => parse_value('body', item, true),
+        :caption  => parse_value('caption', item, true),
+        :date     => parse_value('date', item, true),
+        :image    => parse_pub_images(item)
       }
     end
 

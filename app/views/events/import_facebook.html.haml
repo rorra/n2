@@ -9,7 +9,7 @@
       - if get_setting('site_topic').present?
         %h2== What's your event for #{get_setting('site_topic').value}?
       - else
-        %h2== What's your event for?      
+        %h2== What's your event for?
     .formBox
       - if not @events_allowed
         %br
@@ -18,7 +18,7 @@
         %strong No Events to Import
       - else
 
-        - form_for @event, :html=>{:class=>"formtastic", :id=>'import-events'}, :url => import_facebook_events_path do |form|
+        = form_for @event, :html=>{:class=>"formtastic", :id=>'import-events'}, :url => import_facebook_events_path do |form|
           %fieldset{:class=>"inputs"}
             %ol
             - @fb_events.each do |event|
@@ -32,10 +32,10 @@
                         Event:
                       = event.name
                     .meta-data
-                      %h3= truncate(event.description, :length => 255)       
+                      %h3= truncate(event.description, :length => 255)
                 .complexMiniBlock
                   %ul
-                    %li 
+                    %li
                       %b Event Details
                     %li== #{event.location}
                     %li== #{Time.at(event.start_time.to_i).to_date}

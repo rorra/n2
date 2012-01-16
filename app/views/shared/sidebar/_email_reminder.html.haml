@@ -12,6 +12,6 @@
                   %p= t('email_reminder.message',  :settings_link => edit_user_path(current_user, :format => 'html') ).html_safe
                 - else
                   %p= t('email_reminder.login_required')
-                -# todo 
+                -# todo
                   - else
                     %p= t('email_reminder.login_required', :sign_in_link => , :register_link =>  ).html_safe

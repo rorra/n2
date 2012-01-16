@@ -13,7 +13,7 @@ module Newscloud
           has_many :featured_items, :as => :featurable
           # TODO:: get this working
           # TODO:: add tests to ensure models that acts_as_featured have both is_featured and featured_at
-          named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 3)} }
+          scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 3)} }
 
           include Newscloud::Acts::FeaturedItem::InstanceMethods
         end

@@ -15,7 +15,7 @@
       - if @tags.present?
         %h3== Tags #{tag_list(@tags, @prediction_group)}
       - if @prediction_group.media_item?
-        =render_media_items @prediction_group, :size => 'large'        
+        =render_media_items @prediction_group, :size => 'large'
       - unless @prediction_group.description.empty?
         %p= sanitize @prediction_group.description
       %p
@@ -39,7 +39,7 @@
       %p= t('predictions.login_required',:login_url => login_path, :register_url => register_path).html_safe
 
   .panel-2.predictions.question_block
-    - if @prediction_group.prediction_questions.present?    
+    - if @prediction_group.prediction_questions.present?
       %ul
         - @prediction_group.prediction_questions.find(:all,:conditions => "is_approved=1 and is_blocked = 0 and status = 'open' ").each do |prediction_question|
           = render :partial => 'shared/prediction_question_container', :locals => { :prediction_question => prediction_question }

@@ -19,9 +19,9 @@ module FacebookHelper
   def fb_share_app_button
     stream_post = Facebooker::StreamPost.new
     attachment = Facebooker::Attachment.new
-	  attachment.add_image(image_path(icon_fan_app_location), home_index_path(:only_path => false, :canvas => true))
+    attachment.add_image(image_path(icon_fan_app_location), root_url(:canvas => true))
     stream_post.message = t('header.share_description')
-    stream_post.action_links = [{:text => t('facebook_learn_more'), :href => home_index_path(:only_path => false, :canvas => true)}]
+    stream_post.action_links = [{:text => t('facebook_learn_more'), :href => root_url(:canvas => true)}]
     stream_post.attachment = attachment
 
     render :partial => 'shared/misc/share_app_button', :locals => {:stream_post => stream_post}
@@ -32,7 +32,7 @@ module FacebookHelper
     text += %{<meta name="title" content="#{item.item_title}" />}
     text += %{<meta name="description" content="#{caption(strip_tags(item.item_description),200)}" />}
     if item.respond_to?(:images) and item.images.present?
-    	text += %{<link rel="image_src" href="#{meta_image item.images.first}"}
+      text += %{<link rel="image_src" href="#{meta_image item.images.first}"}
     end
     text += %{<link rel="target_url" href="#{polymorphic_path(item, :only_path => false, :canvas => true)}"}
     text += %{</fb:share-button>}
@@ -51,9 +51,9 @@ module FacebookHelper
     stream_post.action_links = [{:text => t('facebook_learn_more'), :href => polymorphic_url(item.item_link, :only_path => false, :canvas => true)}]
     attachment = Facebooker::Attachment.new
     if item.respond_to?(:images) and item.images.present?
-    	item.images.each do |image|
-    	  attachment.add_image(image_path(image.url(:thumb)), polymorphic_url(item.item_link, :only_path => false, :canvas => true))
-    	end
+      item.images.each do |image|
+        attachment.add_image(image_path(image.url(:thumb)), polymorphic_url(item.item_link, :only_path => false, :canvas => true))
+      end
     end
     attachment.name = strip_tags(item.item_title)
     attachment.description = caption(strip_tags(item.item_description),999) # 999 is fb limit
@@ -66,12 +66,12 @@ module FacebookHelper
     # todo - is this not being used
     stream_post = Facebooker::StreamPost.new
     stream_post.message = ''
-    stream_post.action_links = [{:text => t('facebook_learn_more'), :href => home_index_path(:only_path => false, :canvas => true)}]
+    stream_post.action_links = [{:text => t('facebook_learn_more'), :href => root_url(:canvas => true)}]
     attachment = Facebooker::Attachment.new
     attachment.name = Metadata::Setting.find_setting('site_title').try(:value)
     attachment.description = t('header.share_description')
-    attachment.href = home_index_path(:only_path => false, :canvas => true)
-	  attachment.add_image(image_path(icon_fan_app_location), home_index_path(:only_path => false, :canvas => true))
+    attachment.href = root_url(:canvas => true)
+    attachment.add_image(image_path(icon_fan_app_location), root_url(:canvas => true))
     stream_post.attachment = attachment
     stream_post
   end

@@ -1,5 +1,5 @@
 module GenericItemHelper
-  
+
   def render_generic_item item
     klass = item.class.name.underscore
     render :partial => "shared/items/#{klass}", :locals => { klass.to_sym => item }

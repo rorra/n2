@@ -45,11 +45,11 @@ module Newscloud
           required  = options[:required] || false
           range     = options[:range] || (1..20)
           label     = options[:label] || 'count'
-      	  return {
-      	  	:label    => label,
-      	  	:type     => Fixnum,
-      	  	:required => required,
-      	  	:range    => range.to_a
+          return {
+            :label    => label,
+            :type     => Fixnum,
+            :required => required,
+            :range    => range.to_a
           }
         end
 
@@ -62,18 +62,18 @@ module Newscloud
           Rails.logger.debug "*** Method valid"
           if wmethod[:args].any?
             Rails.logger.debug "*** Validating args"
-          	wmethod[:args].each_with_index do |arg,index|
+            wmethod[:args].each_with_index do |arg,index|
               Rails.logger.debug "*** Validating arg(#{index}) #{arg.inspect}"
-          	  val = args[index]
+              val = args[index]
               Rails.logger.debug "*** Arg value is: (#{val})"
-          	  return false if val.nil? and arg[:required]
-          	  next if val.nil? and not arg[:required] 
+              return false if val.nil? and arg[:required]
+              next if val.nil? and not arg[:required]
               Rails.logger.debug "*** Arg type is: (#{val.class.name})"
-          	  return false unless val.is_a? arg[:type]
+              return false unless val.is_a? arg[:type]
               Rails.logger.debug "*** Arg val(#{val}) in range #{arg[:range].inspect}?"
               return false if arg[:range].present? and not arg[:range].include?(val)
               Rails.logger.debug "*** Arg validated successfully!"
-          	end
+            end
           end
           return true
         end

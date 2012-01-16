@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_filter :find_forum
   before_filter :set_meta_klass, :only => [:index]
-  
+
   access_control do
     allow all, :to => [:index, :show, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
@@ -37,15 +37,15 @@ class TopicsController < ApplicationController
     end
 
     if success
-    	ForumSweeper.expire_topic_all @topic
+      ForumSweeper.expire_topic_all @topic
 
       if @topic.post_wall?
         session[:post_wall] = @topic
-      end                
-    	flash[:success] = "Successfully posted your new topic!"
-    	redirect_to [@forum, @topic]
+      end
+      flash[:success] = "Successfully posted your new topic!"
+      redirect_to [@forum, @topic]
     else
-    	render :new
+      render :new
     end
   end
 
@@ -61,10 +61,10 @@ class TopicsController < ApplicationController
     if params[:forum_id]
       @forum = Forum.active.find(params[:forum_id])
     elsif params[:id]
-    	@topic = Topic.active.find(params[:id])
-    	redirect_to forum_topic_path(@topic.forum, @topic)
+      @topic = Topic.active.find(params[:id])
+      redirect_to forum_topic_path(@topic.forum, @topic)
     else
-    	redirect_to forums_path
+      redirect_to forums_path
     end
   end
 

@@ -13,26 +13,26 @@ describe ViewTree do
   describe "#fetch" do
     context "item is cached" do
       before(:each) do
+        pending("Update viewtree spec")
         mock($redis).get(anything) { true }
         mock(ViewObject).load(anything).times(0)
         @key_name = "stories--index"
       end
 
       it "should fetch" do
-        pending("Update viewtree spec")
         ViewTree.fetch(@key_name)
       end
     end
 
     context "item is not cached" do
       before(:each) do
+        pending("Update viewtree spec")
         @key_name = "stories--index"
         mock(ViewObject).load(@key_name) { true }
         mock($redis).get(@key_name) { nil }
       end
 
       it "should fetch" do
-        pending("Update viewtree spec")
         ViewTree.fetch(@key_name)
       end
     end

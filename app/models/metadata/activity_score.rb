@@ -1,6 +1,7 @@
 class Metadata::ActivityScore < Metadata
+  metadata_keys :activity_score_sub_type_name, :activity_score_name, :activity_score_value, :activity_score_hint
 
-  named_scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
+  scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
   # HACK:: emulate validate_presence_of
   # these are dynamicly created attributes so they don't exist for the model
@@ -12,12 +13,12 @@ class Metadata::ActivityScore < Metadata
   def self.get name, sub_type = nil
     self.find_activity_score(name, sub_type)
   end
-  
+
   def get_multiplier
     multiplier = Metadata::ActivityScore.find_activity_score(self.key_sub_type, 'importance')
     return (multiplier ? multiplier.value.to_i : 0)
   end
-  
+
   def self.get_activity_score name, sub_type_name = nil
     self.find_activity_score(name, sub_type_name)
   end
@@ -35,11 +36,11 @@ class Metadata::ActivityScore < Metadata
 
   def score_type
     key_sub_type
-  end  
+  end
 
   def score_value
     get_multiplier * value.to_i
-  end  
+  end
 
   def enabled?
     !! self.value

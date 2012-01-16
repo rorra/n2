@@ -24,7 +24,7 @@ module LayoutHelper
     else
       return nil
     end
-    
+
     if APP_CONFIG['omniauth']['providers'] and APP_CONFIG['omniauth']['providers']['facebook']
       metas << ["fb:app_id", APP_CONFIG['omniauth']['providers']['facebook']['key']]
     end
@@ -50,7 +50,7 @@ module LayoutHelper
   def klass_page_title klass
     page_title :klass => klass
   end
-  
+
   def text_page_title text
     content_for(:title, text)
   end

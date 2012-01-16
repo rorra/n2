@@ -4,7 +4,7 @@
   - animation_speed = get_setting('animation_speed_features').try(:value) || 500
   - animation_interval = get_setting('animation_interval_general').try(:value) || 1000
   - auto_feature ||= Image.active.curator_items.find(:all, :conditions => "imageable_type = 'Content'", :limit => 6, :order => ["created_at desc"], :include => 'imageable').map(&:imageable).uniq
-  - unless auto_feature.empty? 
+  - unless auto_feature.empty?
     - if get_setting('auto_feature_only_moderator_items').try(:value)
       - auto_feature = auto_feature.delete_if{|imageable| imageable.user.is_admin == false and imageable.user.is_editor == false and imageable.user.is_moderator == false}
     -# if get_setting('exclude_articles_from_news').try(:value)
@@ -35,6 +35,6 @@
                       %span== #{like_link item.item_link} #{item.votes_tally}
                       %span== #{link_to t('comments'), polymorphic_url(item.item_link, :anchor => "commentListTop")} #{item.comments_count}
       :javascript
-        $(function() {            
+        $(function() {
           $(".feature_scrollable_panel_mini").scrollable({speed : #{animation_speed}, circular: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
         });

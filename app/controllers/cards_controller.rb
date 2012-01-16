@@ -26,17 +26,17 @@ class CardsController < ApplicationController
     @success_list = []
     @received_users.each do |ruser_id|
       @success_list << ruser_id if SentCard.create({
-      	:card => @card,
-      	:from_user => current_user,
-      	:to_fb_user_id => ruser_id,
+        :card => @card,
+        :from_user => current_user,
+        :to_fb_user_id => ruser_id,
       })
     end
     if @success_list.size > 0
-    	CardSweeper.expire_card_all @card
+      CardSweeper.expire_card_all @card
       flash[:success] = t('cards.flash_success')
       redirect_to cards_path
     else
-    	flash[:error] = t('cards.flash_error')
+      flash[:error] = t('cards.flash_error')
       redirect_to cards_path
     end
   end

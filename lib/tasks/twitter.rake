@@ -1,5 +1,4 @@
-require 'action_controller'
-include ActionController::UrlWriter
+include Rails.application.routes.url_helpers
 
 namespace :n2 do
   namespace :twitter do
@@ -17,7 +16,7 @@ namespace :n2 do
           puts "#{oauth.request_token.authorize_url}"
 
           pin = STDIN.gets.chomp
-          
+
           begin
             oauth.authorize_from_request(request_token.token, request_token.secret, pin)
 
@@ -28,15 +27,15 @@ namespace :n2 do
           rescue OAuth::Unauthorized
             puts "> FAIL!"
           end
-          
+
           atk = Metadata::Setting.find_setting('oauth_consumer_key')
           ats = Metadata::Setting.find_setting('oauth_consumer_secret')
-          
+
           atk.value = oauth.access_token.token
           ats.value = oauth.access_token.secret
           atk.save
           ats.save
-          
+
           puts "Your settings have been updated"
 
         else
@@ -44,7 +43,7 @@ namespace :n2 do
         end
       end
     end
-    
+
     desc "Post hot items to Twitter"
     task :post_hot_items => :environment do
       default_url_options[:host] = APP_CONFIG['base_url'].sub(%r{^https?://}, '')
@@ -54,20 +53,20 @@ namespace :n2 do
           puts "Your Twitter account is not configured run 'rake n2:twitter:connect'."
         else
           options =Event.options_for_tally().merge({:include => [:tweeted_item], :conditions=>"tweeted_items.item_id IS NULL"})
-        
+
           event_options = Event.options_for_tally(
-            {   :at_least => Metadata::Setting.find_setting( 'tweet_events_min_votes').value, 
-                :at_most => 1000,  
+            {   :at_least => Metadata::Setting.find_setting( 'tweet_events_min_votes').value,
+                :at_most => 1000,
                 :start_at => 1.day.ago,
                 :limit => Metadata::Setting.find_setting('tweet_events_limit').value,
                 :order => "events.created_at desc"
             }).merge({:include => [:tweeted_item], :conditions=>"tweeted_items.item_id IS NULL"})
-        
+
           @events = Event.find(:all, event_options)
-          # 
+          #
           # article_options = Article.options_for_tally(
-          #   {   :at_least => APP_CONFIG['tweet_articles_min_votes'], 
-          #       :at_most => 1000,  
+          #   {   :at_least => APP_CONFIG['tweet_articles_min_votes'],
+          #       :at_most => 1000,
           #       :start_at => 1.day.ago,
           #       :limit => APP_CONFIG['tweet_articles_limit'],
           #       :order => "articles.created_at desc"
@@ -75,36 +74,36 @@ namespace :n2 do
           # @articles = Article.find(:all, article_options)
 
           story_options = Content.options_for_tally(
-            {   :at_least =>Metadata::Setting.find_setting('tweet_stories_min_votes').value, 
-                :at_most => 1000,  
+            {   :at_least =>Metadata::Setting.find_setting('tweet_stories_min_votes').value,
+                :at_most => 1000,
                 :start_at => 1.day.ago,
                 :limit => Metadata::Setting.find_setting('tweet_stories_limit').value,
                 :order => "contents.created_at desc"
             }).merge({:include => [:tweeted_item], :conditions=>"tweeted_items.item_id IS NULL"})
           @stories = Content.find(:all, story_options)
-                
+
           question_options = Question.options_for_tally(
-            {   :at_least => Metadata::Setting.find_setting('tweet_questions_min_votes').value, 
-                :at_most => 1000,  
+            {   :at_least => Metadata::Setting.find_setting('tweet_questions_min_votes').value,
+                :at_most => 1000,
                 :start_at => 1.day.ago,
                 :limit => Metadata::Setting.find_setting('tweet_questions_limit').value,
                 :order => "questions.created_at desc"
-            }).merge({:include => [:tweeted_item], :conditions=>"tweeted_items.item_id IS NULL"})  
+            }).merge({:include => [:tweeted_item], :conditions=>"tweeted_items.item_id IS NULL"})
           @questions = Question.find(:all, question_options)
-        
+
           idea_options = Idea.options_for_tally(
-            {   :at_least => Metadata::Setting.find_setting('tweet_ideas_min_votes').value, 
-                :at_most => 1000,  
+            {   :at_least => Metadata::Setting.find_setting('tweet_ideas_min_votes').value,
+                :at_most => 1000,
                 :start_at => 1.day.ago,
                 :limit => Metadata::Setting.find_setting('tweet_ideas_limit').value,
                 :order => "ideas.created_at desc"
             }).merge({:include => [:tweeted_item], :conditions=>"tweeted_items.item_id IS NULL"})
           @ideas = Idea.find(:all, idea_options)
-          
+
           oauth = Twitter::OAuth.new(Metadata::Setting.find_setting('oauth_key').value, Metadata::Setting.find_setting('oauth_secret').value)
           oauth.authorize_from_access(Metadata::Setting.find_setting('oauth_consumer_key').value, Metadata::Setting.find_setting('oauth_consumer_secret').value)
-          twitter = Twitter::Base.new(oauth)  
-        
+          twitter = Twitter::Base.new(oauth)
+
           tweet_events(twitter, @events)
           tweet_questions(twitter, @questions)
           tweet_ideas(twitter, @ideas)
@@ -171,5 +170,5 @@ def shorten_url(url)
     return shrt.short_url
   else
     return url
-  end  
+  end
 end

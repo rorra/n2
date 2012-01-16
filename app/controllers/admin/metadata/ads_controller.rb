@@ -2,10 +2,10 @@ class Admin::Metadata::AdsController < Admin::MetadataController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Metadata::Ad.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Metadata::Ad,
-    	:fields => [:key_name, :key_sub_type, :width, :height, :background, :created_at],
-    	:paginate => true
+      :items => Metadata::Ad.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Metadata::Ad,
+      :fields => [:key_name, :key_sub_type, :width, :height, :background, :created_at],
+      :paginate => true
     }
   end
 
@@ -35,7 +35,7 @@ class Admin::Metadata::AdsController < Admin::MetadataController
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::Ad.find(params[:id]),
       :model => Metadata::Ad,
-    	:fields => [:key_name, :key_sub_type, :width, :height, :background, :created_at],
+      :fields => [:key_name, :key_sub_type, :width, :height, :background, :created_at],
     }
   end
 
@@ -63,9 +63,9 @@ class Admin::Metadata::AdsController < Admin::MetadataController
     ad ||= Metadata::Ad.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => ad,
-    	:model => Metadata::Ad,
-    	:fields => [:name, :background, :height, :width]
+      :item => ad,
+      :model => Metadata::Ad,
+      :fields => [:name, :background, :height, :width]
     }
   end
 
@@ -73,9 +73,9 @@ class Admin::Metadata::AdsController < Admin::MetadataController
     ad ||= Metadata::Ad.new
 
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => ad,
-    	:model => Metadata::Ad,
-    	:fields => [:name, :background, :height, :width]
+      :item => ad,
+      :model => Metadata::Ad,
+      :fields => [:name, :background, :height, :width]
     }
   end
 

@@ -87,16 +87,16 @@ module AdminHelper
     ]
 
     if item.moderatable?
-    	links << link_to(item.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.class.name.foreign_key.to_sym => item))
+      links << link_to(item.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.class.name.foreign_key.to_sym => item))
       if item.class.name != 'RelatedItem' and item.class.name != 'IdeaBoard' and item.class.name != 'ResourceSection'
-    	  links << link_to(item.featured? ? 'UnFeature' : 'Feature', admin_feature_path(item.class.name.foreign_key.to_sym => item))
-    	  links << link_to('Flag', admin_flag_item_path(item.class.name.foreign_key.to_sym => item))
-    	end
+        links << link_to(item.featured? ? 'UnFeature' : 'Feature', admin_feature_path(item.class.name.foreign_key.to_sym => item))
+        links << link_to('Flag', admin_flag_item_path(item.class.name.foreign_key.to_sym => item))
+      end
     end
     if item.class.name == 'User'
       links << link_to('FB Profile', "http://www.facebook.com/profile.php?id=#{item.fb_user_id}", :target => "_fb")
     end
-    
+
     if item.class.name == 'PredictionGroup'
       links << link_to('Approve', approve_admin_prediction_group_path(item)) unless item.is_approved?
     end
@@ -108,16 +108,16 @@ module AdminHelper
     if item.class.name == 'PredictionResult'
       links << link_to('Accept', accept_admin_prediction_result_path(item)) unless item.is_accepted?
     end
-    
+
     if item.class.name == 'DashboardMessage'
       links << link_to('Send', send_global_admin_dashboard_message_path(item)) unless item.sent?
       links << link_to('Clear', clear_global_admin_dashboard_message_path(item)) if item.sent?
     end
-    
+
     if item.class.name == 'TweetStream'
       links << link_to('Fetch New Tweets', fetch_new_tweets_admin_tweet_stream_path(item))
     end
-    
+
     if item.class.name == 'Feed'
       #links << link_to('Destroy', [:admin, item], :confirm => 'Are you sure?', :method => :delete)
       links << link_to('Fetch New items', fetch_new_admin_feed_path(item))

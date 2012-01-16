@@ -13,7 +13,7 @@ module RoutingFilter
       returning yield do |result|
         if locale != 'uk'
           result.sub!(%r(^(http.?://[^/]*)?(.*))){ "#{$1}/#{locale}#{$2}" }
-        end 
+        end
       end
     end
   end

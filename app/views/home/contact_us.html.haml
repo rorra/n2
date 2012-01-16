@@ -2,13 +2,13 @@
   #contactBox.clearfix
     %h1= t('.contact_title')
     %p= t('.contact_intro')
-    - semantic_form_for @message, :url => contact_us_path do |form|
-      - form.inputs do
+    = semantic_form_for @message, :url => contact_us_path do |form|
+      = form.inputs do
         = form.input :subject
         = form.input :email
         = form.input :body
       -# = form.submit "Contact Us" :button_html => { :class => "btn" }
-      - form.buttons do
+      = form.buttons do
         = form.commit_button :button_html => { :class => "btn", :value => "Send Message" }
 
     %br

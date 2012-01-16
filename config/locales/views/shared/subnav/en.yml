@@ -14,20 +14,20 @@ en:
         my_ideas: "Your Ideas"
       idea_boards_subnav:
         home_ideas: "Back to Ideas"
-        browse_board_ideas: "{{name}} Ideas"
+        browse_board_ideas: "%{name} Ideas"
         suggest_board_idea: "Suggest an Idea"
-        my_ideas: "My {{name}} Ideas"
+        my_ideas: "My %{name} Ideas"
         browse_idea_boards: "Browse Topics"
       resources_subnav:
         browse_resources: "Browse Links"
         suggest_resource: "Suggest an Link"
         my_resources: "Your Links"
       resource_sections_subnav:
-        home_resource_sections: "Back to Directory"  
-        browse_section_resources: "{{name}} Links"
+        home_resource_sections: "Back to Directory"
+        browse_section_resources: "%{name} Links"
         browse_resource_sections: "Browse Categories"
         suggest_section_resource: "Add a new link"
-        my_resources: "My {{name}} Links"
+        my_resources: "My %{name} Links"
       events_subnav:
         browse_events: "Browse Calendar"
         suggest_event: "Add an Event"
@@ -36,4 +36,4 @@ en:
       news_subnav:
         new_article: "Compose an article"
         new_story: "Post a story"
-        
+

@@ -1,6 +1,6 @@
 class PredictionGuessesController < ApplicationController
   cache_sweeper :prediction_sweeper, :only => [:create, :update, :destroy]
-  
+
   access_control do
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
     # FIXME:: get admins switched over to using :admin role
@@ -18,7 +18,7 @@ class PredictionGuessesController < ApplicationController
           flash[:error] = "You already guessed on this question"
           redirect_to @prediction_question.prediction_group
         end
-    	  format.json { render(:partial => 'shared/prediction_question_stats.html', :locals => { :prediction_question => @prediction_question }) and return }
+        format.json { render(:partial => 'shared/prediction_question_stats.html', :locals => { :prediction_question => @prediction_question }) and return }
       end
     else
       # validate that user hasn't already guessed

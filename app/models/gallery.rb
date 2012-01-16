@@ -11,17 +11,17 @@ class Gallery < ActiveRecord::Base
   acts_as_featured_item
 
   belongs_to :user
-  has_many :comments, :as => :commentable  
+  has_many :comments, :as => :commentable
   has_many :gallery_items
   has_many :voices, :through => :gallery_items, :source => :user
 
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 3)} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["featured_at desc"], :limit => (args.first || 3)} }
 
   validates_presence_of :user
   validates_presence_of :title, :description
-  validates_format_of :tag_list, :with => /^([-a-zA-Z0-9_ ]+,?)+$/, :allow_blank => true, :message => "Invalid tags. Tags can be alphanumeric characters or -_ or a blank space."  
+  validates_format_of :tag_list, :with => /^([-a-zA-Z0-9_ ]+,?)+$/, :allow_blank => true, :message => "Invalid tags. Tags can be alphanumeric characters or -_ or a blank space."
 
 
   has_friendly_id :title, :use_slug => true
@@ -63,14 +63,14 @@ class Gallery < ActiveRecord::Base
   def is_owner? user
     user == self.user
   end
-  
+
   def self.build_from_youtube_playlist playlist, user = nil
     if playlist =~ %r{^https?://(?:www\.)?youtube.com\/view_play_list\?p=([^"&]+)}
       playlist_id = $1
     elsif playlist =~ /^([a-zA-Z0-9]+)$/
       playlist_id = $1
     else
-    	playlist_id = nil
+      playlist_id = nil
     end
     if playlist_id
       playlist_url = "http://gdata.youtube.com/feeds/api/playlists/#{playlist_id}?alt=json"
@@ -86,13 +86,13 @@ class Gallery < ActiveRecord::Base
         gallery.gallery_items.build(:item_url => url, :gallery => gallery)
       end
       if gallery.save
-      	gallery
+        gallery
       else
         raise gallery.errors.full_messages.inspect
-      	nil
+        nil
       end
     else
-    	return nil
+      return nil
     end
   end
 

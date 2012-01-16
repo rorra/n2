@@ -38,7 +38,7 @@ module Newscloud
         end
 
         def sorted_categories
-          self.categories.find(:all, :order => "name asc")
+          self.categories.order("name asc")
         end
 
         def subcategories
@@ -54,7 +54,7 @@ module Newscloud
         end
 
         def category_counts limit = 7
-          Categorization.find(:all, :conditions => ["categorizable_type = ?", self.name], :group => :category_id, :select => "count(*) count, category_id", :include => :category, :order => "count desc", :limit => limit)
+          Categorization.where(["categorizable_type = ?", self.name]).group(:category_id).select("count(*) count, category_id").includes(:category).order("count desc").limit(limit)
         end
       end
 

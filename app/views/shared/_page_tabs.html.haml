@@ -4,9 +4,9 @@
     - MenuItem.root_items.enabled.positioned.each do |menu_item|
       - if menu_item.name_slug == 'home'
         - if @current_tab == 'home'
-          %li{:class => tab_selected?(@current_tab, 'home')}= link_to image_tag('site/home-icon-selected.png'), home_index_path, :class => "tab #{tab_selected?(@current_tab, 'home')}"
+          %li{:class => tab_selected?(@current_tab, 'home')}= link_to image_tag('site/home-icon-selected.png'), root_url, :class => "tab #{tab_selected?(@current_tab, 'home')}"
         - else
-          %li= link_to image_tag('site/home-icon-off.png'), home_index_path
+          %li= link_to image_tag('site/home-icon-off.png'), root_url
       - else
         %li{:class => tab_selected?(@current_tab, menu_item.name_slug)}
           = link_to_menu_item menu_item

@@ -29,8 +29,8 @@ class QuestionsController < ApplicationController
     @question = Question.active.find(params[:id])
     @answer   = Answer.new
     if @question.is_blocked?
-    	flash[:error] = "This question has been blocked."
-    	redirect_to questions_path
+      flash[:error] = "This question has been blocked."
+      redirect_to questions_path
     end
     set_sponsor_zone('questions', @question.item_title.underscore)
     set_outbrain_item @question
@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
     if @question.valid? and current_user.questions.push @question
       if @question.post_wall?
         session[:post_wall] = @question
-      end      
+      end
       if get_setting('tweet_all_moderator_items').try(:value)
         if current_user.present? and current_user.is_moderator?
           @question.tweet
@@ -56,8 +56,8 @@ class QuestionsController < ApplicationController
       flash[:success] = "Successfully posted your question!"
       redirect_to question_path(@question)
     else
-    	flash[:error] = "Could not create your question. Please clear the errors and try again."
-    	render :new
+      flash[:error] = "Could not create your question. Please clear the errors and try again."
+      render :new
     end
   end
 
@@ -76,11 +76,11 @@ class QuestionsController < ApplicationController
     @answer = @question.answers.build(params[:answer])
     @answer.user = current_user
     if @answer.valid? and current_user.answers.push @answer
-    	flash[:success] = "Thank you for posting your answer!"
-    	redirect_to @question
+      flash[:success] = "Thank you for posting your answer!"
+      redirect_to @question
     else
-    	flash[:error] = "Could not create your question, please try again."
-    	redirect_to @question
+      flash[:error] = "Could not create your question, please try again."
+      redirect_to @question
     end
   end
 

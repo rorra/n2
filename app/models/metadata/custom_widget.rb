@@ -1,11 +1,10 @@
 class Metadata::CustomWidget < Metadata
+  metadata_keys :title, :custom_data, :content_type
 
-  named_scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
+  scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
   validates_format_of :title, :with => /^[A-Za-z _]+$/, :message => "Title must be present and may only contain letters and spaces"
-  # HACK:: emulate validate_presence_of
-  # these are dynamicly created attributes to they don't exist for the model
-  validates_format_of :custom_data, :with => /^.+$/, :message => "Custom Data can't be blank"
+  validates :custom_data, :presence => true
 
   validate :on_content_type
 
@@ -43,21 +42,6 @@ class Metadata::CustomWidget < Metadata
   def has_widget?
     self.metadatable.present?
   end
-
-  def method_missing(name, *args)
-    return self.send(name, *args) if self.respond_to? name, true
-    init_data
-    name = key_from_assign name
-    if data[name].present?
-      data[name] = args.first if args.present?
-      return data[name]
-    else
-    	data[name] = args.empty? ? nil : args.first
-    end
-  end
-
-  def custom_data() self.data[:custom_data] end
-  def custom_data=(val) self.data[:custom_data] = val end
 
   private
 
@@ -100,9 +84,9 @@ class Metadata::CustomWidget < Metadata
     return true unless valid_data? and metadatable.nil?
 
     @widget = Widget.create!({
-    	:name => key_name,
-    	:content_type => content_type,
-    	:partial => 'shared/custom_widget'
+      :name => key_name,
+      :content_type => content_type,
+      :partial => 'shared/custom_widget'
     })
     self.metadatable = @widget
 

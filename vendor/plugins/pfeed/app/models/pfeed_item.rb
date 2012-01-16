@@ -7,9 +7,6 @@ class PfeedItem < ActiveRecord::Base
   belongs_to :participant, :polymorphic => true
 
   has_many :pfeed_deliveries, :dependent => :destroy   
-
-  # Only show pfeed items newer than provided pfeed_item
-  named_scope :newer_than, lambda { |*args| { :conditions => ["pfeed_items.id > ?", args.first] } }
   
   attr_accessor :temp_references # this is an temporary Hash to hold references to temporary Objects 
   
@@ -29,7 +26,7 @@ class PfeedItem < ActiveRecord::Base
       temp_references = Hash.new
       temp_references[:originator] = ar_obj
       temp_references[:participant] = nil
-      temp_references[:participant] = args_supplied_to_method[0] if args_supplied_to_method &&  args_supplied_to_method.length >= 1 && args_supplied_to_method[0].class.superclass.to_s == "ActiveRecord::Base"
+      temp_references[:participant] = args_supplied_to_method[0] if args_supplied_to_method && args_supplied_to_method.length >= 1 && args_supplied_to_method[0].class < ActiveRecord::Base
 
       pfeed_class_name = "#{ar_obj.class.to_s.underscore}_#{method_name_in_past_tense}".camelize # may be I could use .classify
       constructor_options = { :originator_id => temp_references[:originator].id , :originator_type => temp_references[:originator].class.to_s , :participant_id => (temp_references[:participant] ? temp_references[:participant].id : nil) , :participant_type => (temp_references[:participant] ? temp_references[:participant].class.to_s : nil) } # there is a reason why I didnt use {:originator => temp_references[:originator]} , if originator is new record it might get saved here un intentionally
@@ -45,32 +42,20 @@ class PfeedItem < ActiveRecord::Base
   end  
   
   @@dj = (defined? Delayed) == "constant" && (instance_methods.include? 'send_later') #this means Delayed_job exists , so make use of asynchronous delivery of pfeed
-  #@@resque = (defined? Resque) == "constant" && (defined? PFEED_RESQUE_KLASS == "constant" and PFEED_RESQUE_KLASS.respond_to?(:perform)) #this means Resque exists, so make use of asynchronous delivery of pfeed. NOTE: Set PFEED_RESQUE_KLASS in your resque initializer to be the worker class you want to use
 
   def attempt_delivery (ar_obj,method_name_arr)
     return if method_name_arr.empty?
 
     if @@dj
       send_later(:deliver,ar_obj,method_name_arr)  
-    elsif self.class.use_resque
-      Resque.enqueue(PFEED_RESQUE_KLASS, self.id, ar_obj.class.name, ar_obj.id, method_name_arr)
     else  # regular instant delivery
       send(:deliver,ar_obj,method_name_arr)    
     end
   end
 
-  def self.use_resque
-    @@use_resque ||= (defined? Resque) == "constant" && (defined? PFEED_RESQUE_KLASS == "constant" and PFEED_RESQUE_KLASS.respond_to?(:perform)) #this means Resque exists, so make use of asynchronous delivery of pfeed. NOTE: Set PFEED_RESQUE_KLASS in your resque initializer to be the worker class you want to use
-  end
-
   def deliver(ar_obj,method_name_arr)
     method_name_arr.map { |method_name|
-      if method_name.to_s =~ /^participant_(.*)$/
-      	return nil unless self.participant
-      	self.participant.send($1)
-      else
-        ar_obj.send(method_name)
-      end
+      ar_obj.send(method_name)
     }.flatten.uniq.map {|o| deliver_to(o) }.compact
   end
 
@@ -117,7 +102,7 @@ class PfeedItem < ActiveRecord::Base
   
   IDENTIFICATIONS = {}
   def guess_identification(ar_obj)
-    if identifier = ar_obj.respond_to?(:pfeed_options) && ar_obj.pfeed_options[:identified_by]
+    if identifier = ar_obj.respond_to?(:pfeed_options) && ar_obj.pfeed_options[:pfeed_identification]
       return ar_obj.send(identifier)
     end
 
@@ -169,7 +154,7 @@ class PfeedItem < ActiveRecord::Base
           constructor_options.merge(:temp_references => temp_references))
       rescue NameError
         unless retried
-          CUSTOM_CLASSES[pfeed_class_name] = nil
+          CUSTOM_CLASSES[pfeed_class_name] = false
           retried = true
           pfeed_class_name = "Pfeeds::"+pfeed_class_name
           retry

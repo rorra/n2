@@ -11,13 +11,13 @@ class Content < ActiveRecord::Base
   acts_as_voteable
   acts_as_wall_postable
   acts_as_view_object
-  
+
   belongs_to :user
   belongs_to :article
   belongs_to :newswire
   belongs_to :source
   has_one :content_image
-  has_many :comments, :as => :commentable  
+  has_many :comments, :as => :commentable
   has_many :item_tweets, :as => :item
   has_many :primary_item_tweets, :as => :item, :class_name => "ItemTweet", :conditions => { :primary_item => true }
   has_many :tweets, :through => :item_tweets
@@ -25,15 +25,15 @@ class Content < ActiveRecord::Base
 
   has_friendly_id :title, :use_slug => true
 
-  named_scope :published, { :joins => "LEFT JOIN articles on contents.article_id = articles.id", :conditions => ["contents.is_blocked =0 and (article_id is NULL OR (article_id IS NOT NULL and articles.is_draft = 0))"] }
-  named_scope :unpublished, { :joins => "LEFT JOIN articles on contents.article_id = articles.id", :conditions => ["contents.is_blocked =0 and (article_id is NULL OR (article_id IS NOT NULL and articles.is_draft = 1))"] }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :commented, :conditions => ["comments_count > 0"]
-  named_scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
-  named_scope :newest_stories, lambda { |*args| { :conditions => ["article_id IS NULL"], :order => ["created_at desc"], :limit => (args.first || 5)} }
-  named_scope :articles, { :conditions => ["article_id is not null"] }
-  named_scope :stories, { :conditions => ["article_id IS NULL"], :order => ["created_at desc"]}
-  named_scope :featured, lambda { |*args| { :conditions => ["contents.is_featured = 1"], :limit  => (args.first || 5) } }
+  scope :published, { :joins => "LEFT JOIN articles on contents.article_id = articles.id", :conditions => ["contents.is_blocked =0 and (article_id is NULL OR (article_id IS NOT NULL and articles.is_draft = 0))"] }
+  scope :unpublished, { :joins => "LEFT JOIN articles on contents.article_id = articles.id", :conditions => ["contents.is_blocked =0 and (article_id is NULL OR (article_id IS NOT NULL and articles.is_draft = 1))"] }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :commented, :conditions => ["comments_count > 0"]
+  scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
+  scope :newest_stories, lambda { |*args| { :conditions => ["article_id IS NULL"], :order => ["created_at desc"], :limit => (args.first || 5)} }
+  scope :articles, { :conditions => ["article_id is not null"] }
+  scope :stories, { :conditions => ["article_id IS NULL"], :order => ["created_at desc"]}
+  scope :featured, lambda { |*args| { :conditions => ["contents.is_featured = 1"], :limit  => (args.first || 5) } }
 
   attr_accessor :image_url, :tags_string, :is_draft
 
@@ -50,18 +50,18 @@ class Content < ActiveRecord::Base
     return true unless source_id.nil?
     begin
       domain = URI.parse(self.url).host.gsub("www.","")
-      self.source = Source.find_by_url(domain)      
+      self.source = Source.find_by_url(domain)
       unless source
         self.source = Source.create({
             :name => domain,
             :url => domain
         })
       end
-    rescue 
+    rescue
     end
     return true
   end
-  
+
   def set_published
     return false unless self.is_newswire?
 
@@ -95,7 +95,7 @@ class Content < ActiveRecord::Base
 
   def toggle_featured
     if is_article?
-    	self.article.toggle_featured
+      self.article.toggle_featured
     else
       self.is_featured = ! self.is_featured
       self.featured_at = Time.now if self.respond_to? 'featured_at'
@@ -134,7 +134,7 @@ class Content < ActiveRecord::Base
   def self.tweet_setting_group
     'stories'
   end
-  
+
   def expire
     self.class.sweeper.expire_story_all self
   end

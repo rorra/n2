@@ -10,13 +10,13 @@
         .provider-links
           - ['facebook', 'twitter'].each do |provider|
             = provider_image_link provider
-        
+
         %br/
         - if setting_enabled? 'allow_web_auth'
           %h2 Or, register as a new user below:
           - @user.password = @user.password_confirmation = nil
           = error_messages_for :user
-          - form_for :user, :url => users_path do |f|
+          = form_for :user, :url => users_path do |f|
             %p
               = label_tag 'login'
               %br/

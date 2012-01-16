@@ -2,10 +2,10 @@ class Admin::DashboardMessagesController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => DashboardMessage.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => DashboardMessage,
-    	:fields => [:message, :status, :created_at],
-    	:paginate => true
+      :items => DashboardMessage.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => DashboardMessage,
+      :fields => [:message, :status, :created_at],
+      :paginate => true
     }
   end
 
@@ -31,9 +31,9 @@ class Admin::DashboardMessagesController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => DashboardMessage.find(params[:id]),
-    	:model => DashboardMessage,
-    	:fields => [:message, :action_text, :action_url, :image_url, :status, :news_id],
+      :item => DashboardMessage.find(params[:id]),
+      :model => DashboardMessage,
+      :fields => [:message, :action_text, :action_url, :image_url, :status, :news_id],
     }
   end
 
@@ -59,21 +59,21 @@ class Admin::DashboardMessagesController < AdminController
     dashboardMessage ||= DashboardMessage.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => dashboardMessage,
-    	:model => DashboardMessage,
-    	:fields => [:message, :action_text, :action_url, :image_url]
+      :item => dashboardMessage,
+      :model => DashboardMessage,
+      :fields => [:message, :action_text, :action_url, :image_url]
       }
   end
-  
+
   def render_edit dashboardMessage
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => dashboardMessage,
-    	:model => DashboardMessage,
-    	:fields => [:message, :action_text, :action_url, :image_url]
+      :item => dashboardMessage,
+      :model => DashboardMessage,
+      :fields => [:message, :action_text, :action_url, :image_url]
     }
-  end  
+  end
 
-  def clear_global 
+  def clear_global
     if params[:id]
       @dashboardMessage = DashboardMessage.find(params[:id])
       unless @dashboardMessage
@@ -90,21 +90,21 @@ class Admin::DashboardMessagesController < AdminController
         dashboardMessage.set_draft! dashboardMessage.news_id
       end
     end
-    
+
     User.find_in_batches(:batch_size => 100) do |users|
       Facebooker::User.multi_clear_news users.inject({}) {|arr,u| arr[u.fb_user_id.to_s] = []; arr}
       Facebooker::User.dashboard_multi_set_count users.inject({}) {|arr,u| arr[u.fb_user_id.to_s] = 0; arr}
     end
-         
+
 #    if result =~ /^[0-9]+$/
       flash[:success] = "Successfully cleared the message(s)"
       redirect_to admin_dashboard_messages_path
 #    else
-#    	flash[:error] = "Could not clear the message(s)"
+#      flash[:error] = "Could not clear the message(s)"
 #      redirect_to admin_dashboard_messages_path
 #    end
   end
-  
+
   def send_global
     @dashboardMessage = DashboardMessage.find(params[:id])
     unless @dashboardMessage
@@ -118,7 +118,7 @@ class Admin::DashboardMessagesController < AdminController
       flash[:success] = "Successfully sent your message"
       redirect_to admin_dashboard_messages_path
     else
-    	flash[:error] = "Could not send your message"
+      flash[:error] = "Could not send your message"
       redirect_to admin_dashboard_messages_path
     end
   end

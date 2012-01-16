@@ -30,12 +30,12 @@
                   .item-block
                     %h2= link_to content.title, story_path(content)
                     %p= linked_story_caption content
-                  
+
                     .profile-pic= local_linked_profile_pic content.user
                     .meta-data
                       %h3= generic_posted_by content
                       %span== #{like_link content} #{content.votes_tally}
-                      %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count} 
+                      %span== #{link_to t('comments'), story_path(content, :anchor => "commentListTop")} #{content.comments_count}
     .clearfix
     %p= link_to t('read_more'), stories_path, :class => "float-right"
     %br

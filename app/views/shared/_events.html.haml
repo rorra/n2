@@ -24,7 +24,7 @@
                 .content
                   %h4
                     -# %span.tag
-                    -# could be used to show type of event e.g. Lecture, Party, etc.                    
+                    -# could be used to show type of event e.g. Lecture, Party, etc.
                     = link_to event.name, event_path(event)
                   .meta-profile
                     .profile-pic= local_linked_profile_pic event.user, :size => :square
@@ -45,7 +45,7 @@
                       == Start: #{event.start_time.to_s :short_time}
                     %p
                       - unless event.end_time.nil?
-                        == End: #{event.end_time.to_s :short_time} 
+                        == End: #{event.end_time.to_s :short_time}
 
     - if paginate
       .panel-2

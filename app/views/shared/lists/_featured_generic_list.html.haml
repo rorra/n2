@@ -10,7 +10,7 @@
             - case item.class.name.underscore
               - when "event"
                 %li
-                  = render :partial => 'shared/items/featured_event', :locals => { :item => item, :index => index }            
+                  = render :partial => 'shared/items/featured_event', :locals => { :item => item, :index => index }
               - when "comment"
                 %li
                   = render :partial => 'shared/items/featured_comment', :locals => { :item => item }
@@ -31,5 +31,5 @@
           %li= t('no_features')
     - unless item_list.empty? or model_name == 'comment'
       .itemActions
-        %a{:href => model_home}= t('more_features') 
-          
+        %a{:href => model_home}= t('more_features')
+

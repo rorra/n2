@@ -3,4 +3,4 @@
 - cache :newest_answers_html do
   - newest_answers ||= Answer.active.newest 5
   - unless newest_answers.empty?
-    = render :partial => 'shared/lists/small_answers_list', :locals => { :list_title => t('answers.newest_title'), :item_list => newest_answers }                  
+    = render :partial => 'shared/lists/small_answers_list', :locals => { :list_title => t('answers.newest_title'), :item_list => newest_answers }

@@ -13,9 +13,9 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :answer
 
-  named_scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
+  scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 10)} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
 
   def voices
     Answer.find(:all, :include => :user, :group => :user_id, :conditions => {:question_id => self.question_id}).map(&:user)
@@ -30,9 +30,9 @@ class Answer < ActiveRecord::Base
 
   def self.get_top
     self.tally({
-    	:at_least => 1,
-    	:limit    => 10,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 10,
+      :order    => "vote_count desc"
     })
   end
 

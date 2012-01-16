@@ -6,11 +6,11 @@
         var url = $(this).attr('action').replace(/html/, 'js');
         var td_ele = $(this).parent().parent();
         $.post(url, $(this).serialize(), function(data) {
-        	if (typeof(data.success) != 'undefined') {
-          	$(td_ele).html(data.success);
+          if (typeof(data.success) != 'undefined') {
+            $(td_ele).html(data.success);
             $(td_ele).parent().effect('pulsate', {times: 3});
           } else {
-          	if (typeof(data.error) != 'undefined') {
+            if (typeof(data.error) != 'undefined') {
               $(td_ele).parent().effect('pulsate', {times: 3});
               $(td_ele).html(data.error);
             } else {
@@ -50,7 +50,7 @@
         <td><%=h translation.raw_key %></td>
         <td>
           <div style="display: inline">
-          <% form_for([:admin, @locale, translation]) do |f|%>
+          <%= form_for(admin_locale_translation_path(@locale, translation)) do |f|%>
             <%= f.text_field :value %>
             <%= f.submit "Update" %>
           <% end %>

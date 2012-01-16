@@ -9,7 +9,7 @@
       .subtitle
         %span= t('galleries.featured_description', :gallery_description => gallery.description, :gallery_url => gallery_path(gallery))
       .list_media
-        %ul          
+        %ul
           -# gallery.gallery_items.find(:all, :limit => 8).each do |gallery_item|
           - count = 0
           - gallery.gallery_items.each do |gallery_item|

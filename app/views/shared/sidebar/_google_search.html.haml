@@ -6,8 +6,8 @@
       %h2= t('google_search_title')
       - if search_engine_id and search_engine_id != "your-google-search-engine-id"
         #cse
-          %p= t('loading') 
-        %script{:type => "text/javascript", :src => "http://www.google.com/jsapi"}  
+          %p= t('loading')
+        %script{:type => "text/javascript", :src => "http://www.google.com/jsapi"}
         :javascript
           var masonryCallback = function() {
             $('#full-col').masonry({
@@ -24,10 +24,10 @@
             customSearchControl.setSearchCompleteCallback(this, masonryCallback);
             //var searchForm = new google.search.SearchForm(true, document.getElementById('searchcontrol'));
             //searchForm.setOnClearCallback(customSearchControl, masonryCallback);
-          }, true);              
+          }, true);
         = stylesheet_link_tag 'http://www.google.com/cse/style/look/default.css'
       - else
         #cse
-          %p= t('no_search_engine_id') 
+          %p= t('no_search_engine_id')
           %p= link_to t('learn_more'), "http://support.newscloud.com/faqs/configuring-your-application/adding-a-google-search-widget-to-your-home-page"
-        
+

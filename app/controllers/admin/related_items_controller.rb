@@ -2,11 +2,11 @@ class Admin::RelatedItemsController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => RelatedItem.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => RelatedItem,
-    	:fields => [:title, :url, :is_blocked, :created_at],
-    	:associations => { :belongs_to => { :user => :user_id } },
-    	:paginate => true
+      :items => RelatedItem.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => RelatedItem,
+      :fields => [:title, :url, :is_blocked, :created_at],
+      :associations => { :belongs_to => { :user => :user_id } },
+      :paginate => true
     }
   end
 
@@ -23,7 +23,7 @@ class Admin::RelatedItemsController < AdminController
   def update
     @related_item = RelatedItem.find(params[:id])
     if @related_item.update_attributes(params[:related_item])
-    	@related_item.expire
+      @related_item.expire
       flash[:success] = "Successfully updated your RelatedItem."
       redirect_to [:admin, @related_item]
     else
@@ -34,10 +34,10 @@ class Admin::RelatedItemsController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => RelatedItem.find(params[:id]),
-    	:model => RelatedItem,
-    	:fields => [:title, :url, :notes, :is_blocked, :user_id,:relatable_id, :created_at],
-    	:associations => { :belongs_to => { :user => :user_id, :relatable => :relatable_id } }
+      :item => RelatedItem.find(params[:id]),
+      :model => RelatedItem,
+      :fields => [:title, :url, :notes, :is_blocked, :user_id,:relatable_id, :created_at],
+      :associations => { :belongs_to => { :user => :user_id, :relatable => :relatable_id } }
     }
   end
 
@@ -65,19 +65,19 @@ class Admin::RelatedItemsController < AdminController
     related_item ||= RelatedItem.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => @related_item,
-    	:model => RelatedItem,
-    	:fields => [:title, :url, :notes, :user_id, :relatable_type, :relatable_id, :is_blocked],
-    	:associations => { :belongs_to => { :user => :user_id } },
+      :item => @related_item,
+      :model => RelatedItem,
+      :fields => [:title, :url, :notes, :user_id, :relatable_type, :relatable_id, :is_blocked],
+      :associations => { :belongs_to => { :user => :user_id } },
     }
   end
 
   def render_edit related_item
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => related_item,
-    	:model => RelatedItem,
-    	:fields => [:title, :url, :notes, :user_id, :is_blocked ],
-    	:associations => { :belongs_to => { :user => :user_id, :relatable => :relatable_id } }
+      :item => related_item,
+      :model => RelatedItem,
+      :fields => [:title, :url, :notes, :user_id, :is_blocked ],
+      :associations => { :belongs_to => { :user => :user_id, :relatable => :relatable_id } }
     }
   end
 

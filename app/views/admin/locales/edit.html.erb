@@ -1,6 +1,6 @@
 <h1>Editing locale</h1>
 
-<% form_for [:admin, @locale] do |f| %>
+<%= form_for admin_locale_path(@locale) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -16,5 +16,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', [:admin, @locale] %> |
+<%= link_to 'Show', admin_locale_path(@locale) %> |
 <%= link_to 'Back', admin_locales_path %>

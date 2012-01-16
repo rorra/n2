@@ -23,6 +23,6 @@
         %span.pipe
           |
         - if content.article.preamble_complete
-          %span== #{link_to t('articles.permalink'), story_path(content)} 
+          %span== #{link_to t('articles.permalink'), story_path(content)}
         - else
-          %span== #{link_to t('articles.read_full'), story_path(content)} 
+          %span== #{link_to t('articles.read_full'), story_path(content)}

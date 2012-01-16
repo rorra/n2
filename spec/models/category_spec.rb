@@ -26,13 +26,13 @@ describe Category do
       end
 
       it "should create a valid category within the model scope" do
-        category = Category.add_default_category_for Classified, Faker::Company.bs
+        category = Category.add_default_category_for Classified, random_string
         Category.default_categories_on(Classified).should include(category)
         Category.default_categories.should_not include(category)
       end
 
       it "should create a valid subcategory within the model scope" do
-        subcategory = @category.add_subcategory! Faker::Company.bs
+        subcategory = @category.add_subcategory! random_string
         Category.default_subcategories.should_not include(subcategory)
         Category.default_subcategories_on(Classified).should include(subcategory)
       end
@@ -45,20 +45,20 @@ describe Category do
     end
 
     it "should create a valid category within the model scope" do
-      category = Classified.add_category Faker::Company.bs
+      category = Classified.add_category random_string
       Classified.categories.should include(category)
       Category.default_categories.should_not include(category)
     end
 
     it "should create a valid subcategory within the model scope" do
-      category = Category.add_default_category_for Classified, Faker::Company.bs
-      subcategory = category.add_subcategory! Faker::Company.bs
+      category = Category.add_default_category_for Classified, random_string
+      subcategory = category.add_subcategory! random_string
       Classified.subcategories.should include(subcategory)
       Category.default_subcategories.should_not include(subcategory)
     end
 
     it "should add a category to a classified" do
-      category = Classified.add_category Faker::Company.bs
+      category = Classified.add_category random_string
       classified = Factory(:classified)
       classified.add_category category
       classified.categories.should include(category)

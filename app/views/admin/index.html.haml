@@ -18,7 +18,7 @@
 
     - if @enabled_configs[:basic_site_settings]
       - display_setting_group.call :basic_site_config
-  
+
     - if @enabled_configs[:welcome_panel]
       - display_setting_group.call :welcome_panel_config
 
@@ -34,7 +34,7 @@
 
     - if @enabled_configs[:google_sitemap]
       - display_setting_group.call :sitemap_seo_config
-    
+
     - if @enabled_configs[:google_search_engine]
       - display_setting_group.call :google_custom_search_engine_config
 
@@ -78,8 +78,8 @@
       %a= link_to 'blog','http://opensource.newscloud.com',:target=>'_blank'
     %p
       %i
-        %b Note: 
-        Preferred browsers for the administration area are 
+        %b Note:
+        Preferred browsers for the administration area are
         %b
           %a= link_to 'Google Chrome', 'http://www.google.com/chrome', :target=>'_blank'
         ,
@@ -93,4 +93,4 @@
   %h1 Welcome
   %p Your initial configuration is complete. Use the menus above to update settings.
   %p A moderation dashboard is coming soon...
-    
+

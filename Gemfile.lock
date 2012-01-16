@@ -1,281 +1,330 @@
 GIT
-  remote: git://github.com/bmabey/database_cleaner.git
-  revision: e8607e504eca348520260ccbfc2bdff85832e911
+  remote: git://github.com/chriseppstein/compass.git
+  revision: 297c0b24260a554876a7926d135cc5d96e8eec37
   specs:
-    database_cleaner (0.6.7)
+    compass (0.12.alpha.4.297c0b2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
 
 GIT
-  remote: git://github.com/chewbranca/feedzirra.git
-  revision: 48476ebcc6008f33e54a6705497de101c2107f0b
+  remote: git://github.com/defunkt/resque.git
+  revision: af5a9a8e501c3732100b4ec768f7b2a4ec2aec2e
   specs:
-    feedzirra (0.0.24)
-      activesupport (>= 2.3.4)
-      builder (>= 2.1.2)
-      curb (>= 0.2.3)
-      loofah (>= 0.3.1)
-      nokogiri (> 0.0.0)
-      sax-machine (>= 0.0.12)
+    resque (1.19.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.0.2)
+      sinatra (>= 0.9.2)
+      vegas (~> 0.1.2)
 
 GIT
-  remote: git://github.com/jnicklas/capybara.git
-  revision: 774ee9cfe3b8a74318c56aa923082d9b276f1eab
+  remote: git://github.com/joevandyk/i18n_backend_database.git
+  revision: 3bdb0b77f7ba9e78f19e7c95285de5dd01423fa4
   specs:
-    capybara (1.0.0.beta1)
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      selenium-webdriver (~> 0.2.0)
-      xpath (~> 0.1.4)
+    i18n_backend_database (0.0.1)
+      rails (>= 3)
+
+GIT
+  remote: git://github.com/mkdynamic/omniauth-facebook.git
+  revision: 0a878f3520d21672772b6085442e13445e6e4784
+  specs:
+    omniauth-facebook (1.2.0)
+      omniauth-oauth2 (~> 1.0.0)
 
 GIT
   remote: git://github.com/pauldix/sax-machine.git
-  revision: 1e39f35c1bb727dcf1e3aeee356dcb9f719d39d8
+  revision: 41cae0195263b97da3029147d7214bfe3d24d0e4
   specs:
-    sax-machine (0.0.16)
+    sax-machine (0.1.0)
       nokogiri (> 0.0.0)
 
 GIT
   remote: git://github.com/taf2/curb.git
-  revision: a47439ae72397f5cf14a028c82cbb8878e21f1db
+  revision: bf3556058c76846305f4e84fe0882270ae13b287
   specs:
-    curb (0.7.15)
+    curb (0.7.17)
+
+GIT
+  remote: https://github.com/jnunemaker/twitter.git
+  revision: 5956ebfa491a2742c1491dc5e3e0db342cc66290
+  specs:
+    twitter (2.0.2)
+      activesupport (>= 2.3.9, < 4)
+      faraday (~> 0.7)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.1)
 
 GEM
   remote: http://rubygems.org/
-  remote: http://gems.github.com/
   specs:
     SystemTimer (1.2.3)
     ZenTest (4.5.0)
-    aasm (2.2.0)
+    aasm (3.0.1)
+      activerecord
     acl9 (0.12.0)
-    actionmailer (2.3.11)
-      actionpack (= 2.3.11)
-    actionpack (2.3.11)
-      activesupport (= 2.3.11)
-      rack (~> 1.1.0)
-    activerecord (2.3.11)
-      activesupport (= 2.3.11)
-    activeresource (2.3.11)
-      activesupport (= 2.3.11)
-    activesupport (2.3.11)
-    acts-as-taggable-on (2.0.0.rc1)
-    addressable (2.2.4)
-    amazon-ecs (2.2.1)
-      nokogiri (>= 1.4.0)
-      ruby-hmac (>= 0.3.2)
-    awesome_print (0.3.2)
+    actionmailer (3.1.3)
+      actionpack (= 3.1.3)
+      mail (~> 2.3.0)
+    actionpack (3.1.3)
+      activemodel (= 3.1.3)
+      activesupport (= 3.1.3)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      i18n (~> 0.6)
+      rack (~> 1.3.5)
+      rack-cache (~> 1.1)
+      rack-mount (~> 0.8.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.0.3)
+    activemodel (3.1.3)
+      activesupport (= 3.1.3)
+      builder (~> 3.0.0)
+      i18n (~> 0.6)
+    activerecord (3.1.3)
+      activemodel (= 3.1.3)
+      activesupport (= 3.1.3)
+      arel (~> 2.2.1)
+      tzinfo (~> 0.3.29)
+    activeresource (3.1.3)
+      activemodel (= 3.1.3)
+      activesupport (= 3.1.3)
+    activesupport (3.1.3)
+      multi_json (~> 1.0)
+    acts-as-taggable-on (2.2.2)
+      rails (~> 3.0)
+    acts_as_tree (0.1.1)
+    addressable (2.2.6)
+    amazon-ecs (2.2.4)
+      nokogiri (~> 1.4)
+      ruby-hmac (~> 0.3)
+    arel (2.2.1)
+    awesome_print (1.0.2)
     aws-s3 (0.6.2)
       builder
       mime-types
       xml-simple
-    bitly (0.6.1)
+    babosa (0.3.5)
+    bitly (0.7.0)
       crack (>= 0.1.4)
-      httparty (>= 0.5.2)
-      oauth2 (>= 0.1.1)
-    builder (2.1.2)
-    capistrano (2.5.10)
+      httparty (>= 0.7.6)
+      oauth2 (~> 0.5.0)
+    builder (3.0.0)
+    capistrano (2.9.0)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.0.0)
+      net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    childprocess (0.1.8)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.3.0)
       ffi (~> 1.0.6)
     chunky_png (1.2.5)
-    compass (0.11.5)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-    compass-960-plugin (0.10.3)
+    cocaine (0.2.1)
+    compass-960-plugin (0.10.4)
       compass (>= 0.10.0)
-    configuration (1.2.0)
-    crack (0.1.8)
-    cucumber (0.10.2)
+    crack (0.3.1)
+    cucumber (1.1.4)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
-      gherkin (>= 2.3.5)
+      gherkin (~> 2.7.1)
       json (>= 1.4.6)
-      term-ansicolor (>= 1.0.5)
-    cucumber-rails (0.3.2)
-      cucumber (>= 0.8.0)
-    diff-lcs (1.1.2)
+      term-ansicolor (>= 1.0.6)
+    cucumber-rails (1.2.1)
+      capybara (>= 1.1.2)
+      cucumber (>= 1.1.3)
+      nokogiri (>= 1.5.0)
+    database_cleaner (0.7.0)
+    diff-lcs (1.1.3)
     erubis (2.7.0)
-    factory_girl (1.3.3)
-    faker (0.9.5)
-      i18n (~> 0.4)
-    faraday (0.6.1)
-      addressable (~> 2.2.4)
-      multipart-post (~> 1.1.0)
+    factory_girl (2.4.0)
+      activesupport
+    faraday (0.7.5)
+      addressable (~> 2.2.6)
+      multipart-post (~> 1.1.3)
       rack (>= 1.1.0, < 2)
-    faraday_middleware (0.6.5)
-      faraday (~> 0.6.0)
-    ffi (1.0.7)
-      rake (>= 0.8.7)
-    formtastic (1.1.0)
-      actionpack (>= 2.3.0)
-      activesupport (>= 2.3.0)
-      i18n (>= 0.4.0)
-    friendly_id (2.2.7)
-      activerecord (>= 2.2.3)
-      activesupport (>= 2.2.3)
-    fssm (0.2.7)
-    gherkin (2.3.7)
+    ffi (1.0.11)
+    formtastic (2.0.2)
+      rails (~> 3.0)
+    friendly_id (3.3.1)
+      babosa (~> 0.3.0)
+    fssm (0.2.8.1)
+    gherkin (2.7.3)
       json (>= 1.4.6)
-    haml (3.1.3)
-    hashie (1.0.0)
-    highline (1.6.1)
-    hoptoad_notifier (2.4.9)
+    haml (3.1.4)
+    hashie (1.2.0)
+    highline (1.6.9)
+    hike (1.2.1)
+    hoptoad_notifier (2.4.11)
       activesupport
       builder
-    httparty (0.7.8)
-      crack (= 0.1.8)
-    i18n (0.5.0)
-    json (1.4.6)
-    json_pure (1.5.1)
-    kgio (2.4.0)
-    launchy (0.4.0)
-      configuration (>= 0.0.5)
-      rake (>= 0.8.1)
-    loofah (0.4.7)
-      nokogiri (>= 1.3.3)
-    mime-types (1.16)
+    httparty (0.8.1)
+      multi_json
+      multi_xml
+    i18n (0.6.0)
+    json (1.6.4)
+    kgio (2.7.2)
+    launchy (2.0.5)
+      addressable (~> 2.2.6)
+    loofah (1.2.0)
+      nokogiri (>= 1.4.4)
+    mail (2.3.0)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.17.2)
     mogli (0.0.28)
       httparty (>= 0.4.3)
-    multi_json (1.0.3)
-    multi_xml (0.2.2)
-    multipart-post (1.1.0)
+    multi_json (1.0.4)
+    multi_xml (0.4.1)
+    multipart-post (1.1.4)
     mysql (2.8.1)
-    net-ldap (0.2.2)
-    net-scp (1.0.2)
+    net-scp (1.0.4)
       net-ssh (>= 1.99.1)
-    net-sftp (2.0.2)
+    net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.0.15)
-    net-ssh-gateway (1.0.1)
+    net-ssh (2.3.0)
+    net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (2.14.1)
-    nokogiri (1.4.7)
-    oa-basic (0.2.6)
-      oa-core (= 0.2.6)
-      rest-client (~> 1.6.0)
-    oa-core (0.2.6)
-    oa-enterprise (0.2.6)
-      addressable (= 2.2.4)
-      net-ldap (~> 0.2.2)
-      nokogiri (~> 1.4.2)
-      oa-core (= 0.2.6)
-      pyu-ruby-sasl (~> 0.0.3.1)
-      rubyntlm (~> 0.1.1)
-    oa-more (0.2.6)
-      multi_json (~> 1.0.0)
-      oa-core (= 0.2.6)
-      rest-client (~> 1.6.0)
-    oa-oauth (0.2.6)
-      faraday (~> 0.6.1)
-      multi_json (~> 1.0.0)
-      multi_xml (~> 0.2.2)
-      oa-core (= 0.2.6)
-      oauth (~> 0.4.0)
-      oauth2 (~> 0.4.1)
-    oa-openid (0.2.6)
-      oa-core (= 0.2.6)
-      rack-openid (~> 1.3.1)
-      ruby-openid-apps-discovery (~> 1.2.0)
+    newrelic_rpm (3.3.1)
+    nokogiri (1.5.0)
     oauth (0.4.5)
-    oauth2 (0.4.1)
-      faraday (~> 0.6.1)
-      multi_json (>= 0.0.5)
-    omniauth (0.2.6)
-      oa-basic (= 0.2.6)
-      oa-core (= 0.2.6)
-      oa-enterprise (= 0.2.6)
-      oa-more (= 0.2.6)
-      oa-oauth (= 0.2.6)
-      oa-openid (= 0.2.6)
-    paperclip (2.3.11)
+    oauth-plugin (0.4.0.rc2)
+      multi_json
+      oauth (~> 0.4.4)
+      oauth2
+      rack
+    oauth2 (0.5.2)
+      faraday (~> 0.7)
+      multi_json (~> 1.0)
+    omniauth (1.0.1)
+      hashie (~> 1.2)
+      rack
+    omniauth-oauth (1.0.0)
+      oauth
+      omniauth (~> 1.0)
+    omniauth-oauth2 (1.0.0)
+      oauth2 (~> 0.5.0)
+      omniauth (~> 1.0)
+    omniauth-twitter (0.0.7)
+      omniauth-oauth (~> 1.0)
+    paperclip (2.5.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
-    pickle (0.4.7)
+      cocaine (>= 0.0.2)
+      mime-types
+    pickle (0.4.10)
       cucumber (>= 0.8)
       rake
-    pyu-ruby-sasl (0.0.3.3)
-    rack (1.1.0)
-    rack-openid (1.3.1)
-      rack (>= 1.1.0)
-      ruby-openid (>= 2.1.8)
-    rack-test (0.6.0)
+    polyglot (0.3.3)
+    rack (1.3.5)
+    rack-cache (1.1)
+      rack (>= 0.4)
+    rack-mount (0.8.3)
+      rack (>= 1.0.0)
+    rack-protection (1.2.0)
+      rack
+    rack-ssl (1.3.2)
+      rack
+    rack-test (0.6.1)
       rack (>= 1.0)
-    rails (2.3.11)
-      actionmailer (= 2.3.11)
-      actionpack (= 2.3.11)
-      activerecord (= 2.3.11)
-      activeresource (= 2.3.11)
-      activesupport (= 2.3.11)
-      rake (>= 0.8.3)
-    rake (0.8.7)
-    rcov (0.9.9)
-    redis (2.2.0)
-    redis-namespace (0.10.0)
+    rails (3.1.3)
+      actionmailer (= 3.1.3)
+      actionpack (= 3.1.3)
+      activerecord (= 3.1.3)
+      activeresource (= 3.1.3)
+      activesupport (= 3.1.3)
+      bundler (~> 1.0)
+      railties (= 3.1.3)
+    rails-dev-tweaks (0.5.2)
+      rails (~> 3.1.0)
+    railties (3.1.3)
+      actionpack (= 3.1.3)
+      activesupport (= 3.1.3)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (~> 0.14.6)
+    raindrops (0.8.0)
+    rake (0.9.2.2)
+    rcov (0.9.11)
+    rdoc (3.12)
+      json (~> 1.4)
+    redis (2.2.2)
+    redis-namespace (1.0.3)
       redis (< 3.0.0)
-    redis-store (1.0.0.beta5)
-      redis (>= 2.0.0)
-      redis (~> 2.2.0)
-    resque (1.15.0)
-      json (~> 1.4.6)
-      redis-namespace (>= 0.10.0)
-      sinatra (>= 0.9.2)
-      vegas (~> 0.1.2)
+    redis-store (1.0.0.1)
+      redis (~> 2.2.1)
     resque-scheduler (1.9.9)
       redis (>= 2.0.1)
       resque (>= 1.8.0)
       rufus-scheduler
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
-    rr (1.0.2)
-    rspec (1.3.0)
-    rspec-rails (1.3.2)
-      rack (>= 1.0.0)
-      rspec (>= 1.3.0)
+    routing-filter (0.3.0)
+      actionpack
+    rr (1.0.4)
+    rspec (2.8.0)
+      rspec-core (~> 2.8.0)
+      rspec-expectations (~> 2.8.0)
+      rspec-mocks (~> 2.8.0)
+    rspec-core (2.8.0)
+    rspec-expectations (2.8.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.8.0)
+    rspec-rails (2.8.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.8.0)
     ruby-hmac (0.4.0)
-    ruby-openid (2.1.8)
-    ruby-openid-apps-discovery (1.2.0)
-      ruby-openid (>= 2.1.7)
-    rubyntlm (0.1.1)
-    rubyzip (0.9.4)
-    rufus-scheduler (2.0.9)
+    rubyzip (0.9.5)
+    rufus-scheduler (2.0.16)
       tzinfo (>= 0.3.23)
-    sass (3.1.10)
-    selenium-webdriver (0.2.0)
-      childprocess (>= 0.1.7)
-      ffi (>= 1.0.7)
-      json_pure
+    sass (3.1.12)
+    sass-rails (3.1.5)
+      actionpack (~> 3.1.0)
+      railties (~> 3.1.0)
+      sass (~> 3.1.10)
+      tilt (~> 1.3.2)
+    selenium-webdriver (2.16.0)
+      childprocess (>= 0.2.5)
+      ffi (~> 1.0.9)
+      multi_json (~> 1.0.4)
       rubyzip
     simple_oauth (0.1.5)
-    sinatra (1.2.6)
-      rack (~> 1.1)
-      tilt (>= 1.2.2, < 2.0)
-    sitemap_generator (1.5.2)
-    term-ansicolor (1.0.5)
-    tilt (1.3)
-    twitter (1.6.0)
-      faraday (~> 0.6.1)
-      faraday_middleware (~> 0.6.3)
-      hashie (~> 1.0.0)
-      multi_json (~> 1.0.0)
-      multi_xml (~> 0.2.0)
-      simple_oauth (~> 0.1.5)
-    tzinfo (0.3.23)
-    unicorn (3.6.2)
-      kgio (~> 2.3)
+    sinatra (1.3.1)
+      rack (~> 1.3, >= 1.3.4)
+      rack-protection (~> 1.1, >= 1.1.2)
+      tilt (~> 1.3, >= 1.3.3)
+    sitemap_generator (2.2.1)
+    sprockets (2.0.3)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    term-ansicolor (1.0.7)
+    thor (0.14.6)
+    thumbs_up (0.4.6)
+      activerecord
+    tilt (1.3.3)
+    treetop (1.4.10)
+      polyglot
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.31)
+    unicorn (4.1.1)
+      kgio (~> 2.4)
       rack
+      raindrops (~> 0.6)
     vegas (0.1.8)
       rack (>= 1.0.0)
-    will_paginate (2.3.15)
+    will_paginate (3.0.2)
     wirble (0.1.3)
-    xml-simple (1.0.12)
+    xml-simple (1.1.1)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -284,59 +333,60 @@ PLATFORMS
 
 DEPENDENCIES
   SystemTimer
-  ZenTest
+  ZenTest (= 4.5.0)
   aasm
   acl9
-  acts-as-taggable-on (= 2.0.0.rc1)
+  acts-as-taggable-on
+  acts_as_tree
   amazon-ecs
   awesome_print
   aws-s3
   bitly
-  builder (= 2.1.2)
   capistrano
   capistrano-ext
-  capybara!
-  compass (= 0.11.5)
+  capybara (= 1.1.2)
+  compass!
   compass-960-plugin
   cucumber
-  cucumber-rails (= 0.3.2)
+  cucumber-rails
   curb!
-  database_cleaner!
-  erubis
+  database_cleaner (= 0.7.0)
   factory_girl
-  faker
-  feedzirra!
-  formtastic (= 1.1.0)
-  friendly_id (= 2.2.7)
-  haml (= 3.1.3)
+  formtastic
+  friendly_id (= 3.3.1)
+  haml
   hoptoad_notifier
-  json (= 1.4.6)
-  json_pure (= 1.5.1)
+  i18n_backend_database!
+  json
   launchy
-  loofah (= 0.4.7)
+  loofah
   mogli
   mysql
   newrelic_rpm
   nokogiri
-  oauth
-  omniauth (~> 0.2.6)
+  oauth-plugin (>= 0.4.0.pre1)
+  omniauth (= 1.0.1)
+  omniauth-facebook!
+  omniauth-twitter
   paperclip
   pickle
-  rack (= 1.1.0)
-  rails (= 2.3.11)
+  rails (= 3.1.3)
+  rails-dev-tweaks
   rcov
   redis
   redis-namespace
-  redis-store (= 1.0.0.beta5)
-  resque
+  redis-store
+  resque!
   resque-scheduler
+  routing-filter
   rr
-  rspec (= 1.3.0)
-  rspec-rails (= 1.3.2)
+  rspec
+  rspec-rails
+  sass-rails
   sax-machine!
   sitemap_generator
-  twitter
-  tzinfo (= 0.3.23)
+  thumbs_up
+  twitter!
   unicorn
-  will_paginate (~> 2.3.11)
+  will_paginate
   wirble

@@ -2,10 +2,10 @@ class Admin::TopicsController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Topic.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Topic,
-    	:fields => [:title, :comments_count, :created_at],
-    	:paginate => true
+      :items => Topic.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Topic,
+      :fields => [:title, :comments_count, :created_at],
+      :paginate => true
     }
   end
 
@@ -22,7 +22,7 @@ class Admin::TopicsController < AdminController
   def update
     @topic = Topic.find(params[:id])
     if @topic.update_attributes(params[:topic])
-    	@topic.expire
+      @topic.expire
       flash[:success] = "Successfully updated your Topic."
       redirect_to [:admin, @topic]
     else
@@ -33,9 +33,9 @@ class Admin::TopicsController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => Topic.find(params[:id]),
-    	:model => Topic,
-    	:fields => [:title, :comments_count, :created_at],
+      :item => Topic.find(params[:id]),
+      :model => Topic,
+      :fields => [:title, :comments_count, :created_at],
     }
   end
 
@@ -63,19 +63,19 @@ class Admin::TopicsController < AdminController
     topic ||= Topic.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => @topic,
-    	:model => Topic,
-    	:fields => [:title, :forum_id],
-    	:associations => { :belongs_to => { :user => :user_id , :forum => :forum_id }  }
+      :item => @topic,
+      :model => Topic,
+      :fields => [:title, :forum_id],
+      :associations => { :belongs_to => { :user => :user_id , :forum => :forum_id }  }
     }
   end
 
   def render_edit topic
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => topic,
-    	:model => Topic,
-    	:fields => [:title],
-    	:associations => { :belongs_to => { :user => :user_id , :forum => :forum_id }  }
+      :item => topic,
+      :model => Topic,
+      :fields => [:title],
+      :associations => { :belongs_to => { :user => :user_id , :forum => :forum_id }  }
     }
   end
 

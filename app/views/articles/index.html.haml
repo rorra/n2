@@ -1,12 +1,12 @@
 - content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
-  
+
 #left-col
   = render_ad(:banner, @ad_layout, @ad_banner)
   - if @article_images.present?
     = render_media_items @article_images
   = render :partial => 'shared/articles', :locals => { :contents => @articles, :paginate => @paginate, :page => @page , :refine => @refine }
-  
+
 #right-col
   = render :partial => 'shared/sidebar/post_article'
   - if @custom_sidebar_widget

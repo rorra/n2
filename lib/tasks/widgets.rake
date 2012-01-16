@@ -11,8 +11,8 @@ namespace :n2 do
         puts "Creating #{type} widgets."
         widgets.each do |name, fields|
           if widget_exists? name
-          	puts "\tWidget #{name} exists, skipping..."
-          	next
+            puts "\tWidget #{name} exists, skipping..."
+            next
           end
           puts "\tBuilding #{name} widget."
 
@@ -44,8 +44,8 @@ namespace :n2 do
 end
 
 def load_widgets
-  return false unless FileTest.exists?("#{RAILS_ROOT}/config/widgets.yml")
-  YAML.load_file("#{RAILS_ROOT}/config/widgets.yml")['widgets']
+  return false unless FileTest.exists?("#{Rails.root}/config/widgets.yml")
+  YAML.load_file("#{Rails.root}/config/widgets.yml")['widgets']
 end
 
 def widget_exists? widget_name

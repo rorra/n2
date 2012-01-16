@@ -1,9 +1,8 @@
 class Metadata::SponsorZone < Metadata
+  metadata_keys :sponsor_zone_name, :sponsor_zone_topic, :sponsor_zone_code
 
-  named_scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
+  scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
-  # HACK:: emulate validate_presence_of
-  # these are dynamicly created attributes so they don't exist for the model
   validates_format_of :sponsor_zone_name, :with => /^.+$/, :message => "Name can't be blank"
   validates_format_of :sponsor_zone_topic, :with => /^[A-Za-z _]+$/, :message => "Topic may only contain letters and spaces", :allow_blank => true
   validates_format_of :sponsor_zone_code, :with => /^.+$/, :message => "Code can't be blank"

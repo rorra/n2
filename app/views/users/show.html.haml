@@ -8,7 +8,7 @@
       .profile
         .profile-pic.large
           -#= local_linked_profile_pic @user, :destination => fb_profile_link(@user), :width => '180', :size => 'normal', :target => '_top'
-          = local_linked_profile_pic @user, :destination => '#', :width => '180', :size => 'normal', :target => '_top'        
+          = local_linked_profile_pic @user, :destination => '#', :width => '180', :size => 'normal', :target => '_top'
         %h2= external_linked_profile_name(@user)
         %h6= link_to 'RSS', user_path(@user, :format => :atom), :class => 'rss_link', :target => "_blank"
     .panel-1.last
@@ -47,8 +47,8 @@
               %tr
                 %td.bold
                 %td
-              -# TODO:: add challenges  
-       
+              -# TODO:: add challenges
+
   =# render_ad(:banner, @ad_layout, @ad_banner)
   .panel-2
     .feature-panel
@@ -61,7 +61,7 @@
         .single-item-wrap
           .bio-wrap= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
 
-    
+
   =# render_ad(:banner, @ad_layout, @ad_banner)
   .panel-2
     .panel-bar
@@ -69,11 +69,11 @@
     - unless @articles.empty?
       .item-list-wrap
         .item-list
-          %ul  
+          %ul
             - @articles.each do |article|
               - content = article.is_a?(Article) ? article.content : article
               %li{'data-id' => content.cache_key}
-                = render :partial => 'shared/items/article', :locals => { :article => article} 
+                = render :partial => 'shared/items/article', :locals => { :article => article}
       - if @paginate
         .panel-2
           = will_paginate @articles

@@ -1,18 +1,22 @@
-# Settings specified here will take precedence over those in config/environment.rb
+N2::Application.configure do
+  config.cache_classes = false
+  config.whiny_nils = true
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
+  config.action_mailer.raise_delivery_errors = false
+  config.active_support.deprecation = :log
+  config.action_dispatch.best_standards_support = :builtin
+  config.assets.compress = false
+  config.assets.compile = true
+  config.assets.debug = true
 
-# In the development environment your application's code is reloaded on
-# every request.  This slows down response time but is perfect for development
-# since you don't have to restart the webserver when you make code changes.
-config.cache_classes = false
+  config.dev_tweaks.autoload_rules do
+    keep :all
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+    skip '/favicon.ico'
+    skip :assets
+    skip :xhr
+    keep :forced
+  end
 
-# Show full error reports and disable caching
-config.action_controller.consider_all_requests_local = true
-config.action_view.debug_rjs                         = true
-config.action_controller.perform_caching             = false
-config.action_controller.cache_store = :file_store, RAILS_ROOT + "/public/cache"
-
-# Don't care if the mailer can't send
-config.action_mailer.raise_delivery_errors = false
+end

@@ -2,7 +2,7 @@ require 'open-uri'
 require 'timeout'
 
 class Image < ActiveRecord::Base
-  
+
   if File.exist?(File.join(Rails.root, "config", "s3.yml"))
     PAPERCLIP_STORAGE_OPTIONS = {
       :storage        => :s3,
@@ -24,8 +24,8 @@ class Image < ActiveRecord::Base
   belongs_to :imageable, :polymorphic => true
   belongs_to :source
 
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 8)} }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 8)} }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1"],:order => ["created_at desc"], :limit => (args.first || 3)} }
 
 =begin
   has_attached_file :image,
@@ -95,7 +95,7 @@ class Image < ActiveRecord::Base
   def override_image= bool
     @override_image = !! bool
   end
-  
+
   def expire
     self.class.sweeper.expire_image_all self
   end

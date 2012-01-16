@@ -23,7 +23,7 @@ class Audio < ActiveRecord::Base
   end
 
   private
-    
+
     def validate_url_or_embed
       unless url.present? or embed_code.present?
         errors.add(:url, "URL or Embed Code must be present")

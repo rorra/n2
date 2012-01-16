@@ -5,11 +5,11 @@
     $(function() {
 
       $('.card_link').click(function(event) {
-      	event.preventDefault();
-      	var url = $(this).attr('href').replace(/^(.*?cards\/[0-9]+)(\.[a-z]+)/, "$1/get_card_form.json");
-      	$.get(url, function(data) {
-      		document.getElementById('card-request-box').innerHTML = data;
-      		rebuild_facebook_dom();
+        event.preventDefault();
+        var url = $(this).attr('href').replace(/^(.*?cards\/[0-9]+)(\.[a-z]+)/, "$1/get_card_form.json");
+        $.get(url, function(data) {
+          document.getElementById('card-request-box').innerHTML = data;
+          rebuild_facebook_dom();
         });
       });
 

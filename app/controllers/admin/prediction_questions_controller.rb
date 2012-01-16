@@ -1,14 +1,14 @@
 class Admin::PredictionQuestionsController < AdminController
 
-  before_filter :set_prediction_types 
-  
+  before_filter :set_prediction_types
+
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => PredictionQuestion.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => PredictionQuestion,
-    	:fields => [:title, :prediction_type, :status, :created_at],
-    	:associations => { :belongs_to => { :user => :user_id } },
-    	:paginate => true
+      :items => PredictionQuestion.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => PredictionQuestion,
+      :fields => [:title, :prediction_type, :status, :created_at],
+      :associations => { :belongs_to => { :user => :user_id } },
+      :paginate => true
     }
   end
 
@@ -35,10 +35,10 @@ class Admin::PredictionQuestionsController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => PredictionQuestion.find(params[:id]),
-    	:model => PredictionQuestion,
-    	:fields => [:title, :prediction_type, :status, :is_approved, :is_blocked, :user_id, :prediction_group_id],
-    	:associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
+      :item => PredictionQuestion.find(params[:id]),
+      :model => PredictionQuestion,
+      :fields => [:title, :prediction_type, :status, :is_approved, :is_blocked, :user_id, :prediction_group_id],
+      :associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
     }
   end
 
@@ -64,7 +64,7 @@ class Admin::PredictionQuestionsController < AdminController
       flash[:success] = "Successfully approved this topic"
       redirect_to admin_prediction_questions_path
     else
-    	flash[:error] = "Could not approve this topic"
+      flash[:error] = "Could not approve this topic"
       redirect_to admin_prediction_questions_path
     end
   end
@@ -82,26 +82,26 @@ class Admin::PredictionQuestionsController < AdminController
     prediction_question ||= PredictionQuestion.new
 
     render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => prediction_question,
-    	:model => PredictionQuestion,
-    	:fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],
-    	:associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
+      :item => prediction_question,
+      :model => PredictionQuestion,
+      :fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],
+      :associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
     }
   end
 
   def render_edit prediction_question
     render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => prediction_question,
-    	:model => PredictionQuestion,
+      :item => prediction_question,
+      :model => PredictionQuestion,
       :fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],
-    	:associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
+      :associations => { :belongs_to => { :user => :user_id , :prediction_group => :prediction_group_id } }
     }
   end
 
   def set_prediction_types
     @type_list = { t('predictions.types.yes_no') => 'yesno', t('predictions.types.multi') => 'multi',  t('predictions.types.numeric') => 'numeric', t('predictions.types.text') => 'text', t('predictions.types.year') => 'year' }
   end
-  
+
   def set_current_tab
     @current_tab = 'prediction_questions';
   end

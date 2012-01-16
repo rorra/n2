@@ -2,7 +2,7 @@
   .sponsor
     %a
   .headerTitle
-    %a{:title => "Front Page - #{get_setting('site_title').try(:value)}", :href => "#{home_index_path(:only_path => false)}"}
+    %a{:title => "Front Page - #{get_setting('site_title').try(:value)}", :href => root_url}
       %h1= get_setting('site_title').try(:value)
   .meta-links
     = text_field_tag 'search-bar',  nil, :class =>'meta-search', :placeholder => 'Search Site'
@@ -13,7 +13,7 @@
         = link_to t('header.account'), account_menu_path, :class => "account-toggle"
         .account-links{:style => 'display:none'}
       = pipe_spacer
-      = link_to t('header.contact'), contact_us_path        
+      = link_to t('header.contact'), contact_us_path
       %span.admin-links
         = pipe_spacer
         - if iframe_facebook_request?

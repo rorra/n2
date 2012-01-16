@@ -2,7 +2,7 @@ class ItemTweet < ActiveRecord::Base
   belongs_to :item, :polymorphic => true
   belongs_to :tweet
 
-  named_scope :primary_items, :conditions => { :primary_item => true }
+  scope :primary_items, :conditions => { :primary_item => true }
 
   after_save :expire
 

@@ -46,17 +46,17 @@ class ResourcesController < ApplicationController
     if @resource.valid? and current_user.resources.push @resource
       if @resource.post_wall?
         session[:post_wall] = @resource
-      end      
+      end
       if get_setting('tweet_all_moderator_items').try(:value)
         if current_user.present? and current_user.is_moderator?
           @resource.tweet
         end
       end
-    	flash[:success] = "Thank you for adding to our directory!"
-    	redirect_to resource_path(@resource)
+      flash[:success] = "Thank you for adding to our directory!"
+      redirect_to resource_path(@resource)
     else
       @resources = Resource.active.newest
-    	render :new
+      render :new
     end
   end
 
@@ -87,7 +87,7 @@ class ResourcesController < ApplicationController
   def set_resource_section
      @resource_section = params[:resource_section_id].present? ? ResourceSection.active.find(params[:resource_section_id]) : nil
   end
-   
+
   def set_current_tab
     @current_tab = 'resources'
   end

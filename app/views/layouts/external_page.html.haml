@@ -1,4 +1,3 @@
-!!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xmlns:fb" => "http://www.facebook.com/2008/fbml"}
   %head
     - title = (out = yield(:title)) ? "#{out} - #{get_setting('site_title').try(:value)}" : get_setting('site_title').try(:value)
@@ -6,12 +5,12 @@
     %meta{:name => 'title', :content => title}
     %meta{:name => 'description', :content => (out = yield(:meta_description)) ? out : ""}
     %meta{:name => 'medium', :content => 'news'}
-  
+
     - if iframe_facebook_request?
-      = stylesheet_link_tag 'compiled/fb_grid.css', :media => 'screen, projection'
+      = stylesheet_link_tag 'fb_grid.css', :media => 'screen, projection'
     - else
-      = stylesheet_link_tag 'compiled/grid.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/text.css', :media => 'print'
+      = stylesheet_link_tag 'grid.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'text.css', :media => 'print'
     = stylesheet_link_tag 'cards'
     = stylesheet_link_tag 'tablesorter'
     = stylesheet_link_tag 'jquery.jgrowl'
@@ -22,14 +21,14 @@
         = javascript_include_tag "http://use.typekit.com/#{typekit}.js"
         :javascript
           try{Typekit.load();}catch(e){}
-        
+
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', 'jquery.jcarousel.pack', 'jquery.quicksand.min', "http://platform.twitter.com/anywhere.js?id=#{get_setting('oauth_key').value}&v=1",'application', 'jquery.jgrowl','scrollable.min.js','scrollable.autoscroll.min.js'
     = javascript_include_tag '/users/current'
 
     = auto_discovery_link_tag(:atom, stories_path(:format => :atom))
 
     = yield :head_content
-            
+
     - stream_post = build_app_stream_post
     :javascript
       $(function() {
@@ -65,4 +64,4 @@
     -# HACK:: non floating div eliminates webkit resizing issues with facebook javascript
     %div{:style => "clear: both;"}
     %iframe{:src => 'http://yahoo.com', :frameborder => 0, :style => "margin: 0px 5px 0px 0px; padding: 0px; width: 110%; height: 3000px;"}
-  
+

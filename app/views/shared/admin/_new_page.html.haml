@@ -1,8 +1,8 @@
 %h2== New #{item.class.name.titleize}
 - associations ||= {}
 - include_media_form ||= false
-- semantic_form_for [:admin, item], :html => { :multipart => (!! include_media_form) } do |form|
-  - form.inputs do
+= semantic_form_for [:admin, item], :html => { :multipart => (!! include_media_form) } do |form|
+  = form.inputs do
     - fields.each do |field|
       - if field.is_a? Proc
         = field.call(form)
@@ -12,5 +12,5 @@
         = form.input field
     - if include_media_form and item.media_item?
       = render :partial => 'shared/forms/media_items', :locals => { :form => form, :item => item }
-  - form.buttons do
+  = form.buttons do
     = form.commit_button

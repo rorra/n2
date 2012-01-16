@@ -4,9 +4,9 @@ class Mobile::HomeController < ApplicationController
   def index
     @stories = Content.active.find(:all, :limit => 10, :order => "created_at desc")
     @top_stories = Content.active.tally({
-    	:at_least => 1,
-    	:limit    => 10,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 10,
+      :order    => "vote_count desc"
     })
     @comments = Comment.newest(10)
     @likes = Vote.newest(10)

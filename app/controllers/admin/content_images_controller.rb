@@ -2,11 +2,11 @@ class Admin::ContentImagesController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => ContentImage.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => ContentImage,
-    	:fields => [:url, :content_id, :created_at],
-    	:associations => { :belongs_to => { :content => :content_id } },
-    	:paginate => true
+      :items => ContentImage.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => ContentImage,
+      :fields => [:url, :content_id, :created_at],
+      :associations => { :belongs_to => { :content => :content_id } },
+      :paginate => true
     }
   end
 
@@ -31,10 +31,10 @@ class Admin::ContentImagesController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => ContentImage.find(params[:id]),
-    	:model => ContentImage,
-    	:fields => [:url, :content_id, :created_at],
-    	:associations => { :belongs_to => { :content => :content_id } },
+      :item => ContentImage.find(params[:id]),
+      :model => ContentImage,
+      :fields => [:url, :content_id, :created_at],
+      :associations => { :belongs_to => { :content => :content_id } },
     }
   end
 

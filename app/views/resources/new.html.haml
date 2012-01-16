@@ -2,12 +2,12 @@
   :javascript
     $(function() {
       var wizard = $('#wizard');
-    	$("ul.arrows", wizard).tabs("div.panes > div", function(event, index) {
-    		if (index > 0) {
-    			var url = $("#resource_url");
-    			if (url.val() == '') {
-    				url.siblings("label").addClass("wizard-errors")
-    				return false;
+      $("ul.arrows", wizard).tabs("div.panes > div", function(event, index) {
+        if (index > 0) {
+          var url = $("#resource_url");
+          if (url.val() == '') {
+            url.siblings("label").addClass("wizard-errors")
+            return false;
           }
           url.siblings("label").removeClass("wizard-errors");
         }
@@ -16,33 +16,33 @@
 
       // "next tab" button
       $("input.button-input.next", wizard).click(function(event) {
-      	event.preventDefault();
+        event.preventDefault();
         api.next();
       });
 
       // "previous tab" button
       $("input.button-input.prev", wizard).click(function() {
-      	event.preventDefault();
+        event.preventDefault();
         api.prev();
       });
       $('.toggle-embed-video').click(function(event) {
-      	event.preventDefault();
-      	$('textarea.embed-video', $(this).parents('fieldset.inputs')).removeClass('hide').show();
-      	$(this).remove();
+        event.preventDefault();
+        $('textarea.embed-video', $(this).parents('fieldset.inputs')).removeClass('hide').show();
+        $(this).remove();
       });
       $('.toggle-embed-audio').click(function(event) {
-      	event.preventDefault();
-      	$('textarea.embed-audio', $(this).parents('fieldset.inputs')).removeClass('hide').show();
-      	$(this).remove();
+        event.preventDefault();
+        $('textarea.embed-audio', $(this).parents('fieldset.inputs')).removeClass('hide').show();
+        $(this).remove();
       });
-    });   
+    });
 - content_for :sub_nav do
   = render :partial => 'subnav'
 
 #full-col
   .panel-3
     .panel-bar
-      %h2= t('resources.add_new')           
+      %h2= t('resources.add_new')
     .formBox
       #wizard
         #flowplayer-block
@@ -52,29 +52,29 @@
             %li
               %a{:href => "#"}= t('wizard.details')
             %li
-              %a{:href => "#"}= t('wizard.images') 
+              %a{:href => "#"}= t('wizard.images')
             %li
-              %a{:href => "#"}= t('wizard.more') 
+              %a{:href => "#"}= t('wizard.more')
 
-          - semantic_form_for @resource, :url => resources_path, :html => { :multipart => true, :class => "post_resource" } do |form|
+          = semantic_form_for @resource, :url => resources_path, :html => { :multipart => true, :class => "post_resource" } do |form|
             .panes
               .panel1
                 %fieldset
                   %h4.title= t('resources.add_link_title')
-                - form.inputs do
+                = form.inputs do
                   = form.input :url, :label => t('.label_url'), :hint =>t('.hint_url')
                   = form.input :title, :label => t('.label_title'),:hint =>t('.hint_title')
                   = form.input :resource_section, :required => true, :include_blank => false,:label => t('.label_section'),:hint => t('.hint_section')
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
               .panel2
-                - form.inputs do
+                = form.inputs do
                   = form.input :details, :input_html => { :rows => 5 },:required => false, :label => t('.label_details'),:hint =>t('.hint_details')
                   = form.input :tags_string, :required => false, :label => t('tags'),:hint => t('tags_hint')
                   = form.input :mapUrl, :label => t('.label_map'), :hint =>t('.hint_map'),:required => false
                   = form.input :twitterName, :label => t('.label_twitter'), :hint=>t('.hint_twitter'), :required => false
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
                   = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
@@ -86,13 +86,13 @@
                   .scrollable
                     .items
                   %a.next.browse.right_scroll
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
                   = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
 
               .panel4
                 = render :partial => 'shared/forms/media_items_simple', :locals => { :form => form, :item => @resource }
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.post_now'), :class => 'float_right', :button_html => { :class => 'form-btn' }
                   = form.commit_button t('wizard.back'), :class => 'float_left', :button_html => { :class => 'form-btn prev' }

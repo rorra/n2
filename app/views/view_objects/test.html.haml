@@ -1,11 +1,11 @@
 - content_for :head_content do
   :javascript
     $(function() {
-    	$('ul.view-objects a').click(function(event) {
-    		event.preventDefault();
+      $('ul.view-objects a').click(function(event) {
+        event.preventDefault();
 
-    		console.log("Loading view object at: "+$(this).attr('href'));
-    		$("#output").load($(this).attr('href'));
+        console.log("Loading view object at: "+$(this).attr('href'));
+        $("#output").load($(this).attr('href'));
       });
     });
 

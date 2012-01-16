@@ -10,8 +10,8 @@ class Source < ActiveRecord::Base
 
   validate :validate_filter_type
 
-  named_scope :white_listed, :condition => { :white_list => true, :black_list => false }
-  named_scope :black_listed, :condition => { :white_list => false, :black_list => true }
+  scope :white_listed, :condition => { :white_list => true, :black_list => false }
+  scope :black_listed, :condition => { :white_list => false, :black_list => true }
 
   has_many :contents
   has_many :audios
@@ -49,7 +49,7 @@ class Source < ActiveRecord::Base
   end
 
   private
-    
+
     def validate_filter_type
       if white_list? and black_list?
         [:white_list, :black_list].each do |list_type|
@@ -65,5 +65,5 @@ class Source < ActiveRecord::Base
         self.url = host_uri.host
       end
     end
-  
+
 end

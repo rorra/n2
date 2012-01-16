@@ -3,7 +3,7 @@ class Mobile::StoriesController < ApplicationController
 
   before_filter :set_current_tab
 
-    
+
   access_control do
     allow all, :to => [:index, :show, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
@@ -37,8 +37,8 @@ class Mobile::StoriesController < ApplicationController
       flash[:success] = "Successfully posted your story!"
       redirect_to story_path(@story)
     else
-    	flash[:error] = @story.errors.full_messages
-    	render :new
+      flash[:error] = @story.errors.full_messages
+      render :new
     end
   end
 

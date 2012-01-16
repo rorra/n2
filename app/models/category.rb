@@ -3,10 +3,10 @@ class Category < ActiveRecord::Base
   belongs_to :parent, :class_name => "Category"
   has_many :subcategories, :class_name => "Category", :foreign_key => :parent_id
 
-  named_scope :default_categories, { :conditions => { :parent_id => nil, :categorizable_type => nil } }
-  named_scope :default_categories_on, lambda {|klass| { :conditions => { :parent_id => nil, :categorizable_type => klass.name } } }
-  named_scope :default_subcategories, { :conditions => ["parent_id IS NOT NULL AND categorizable_type IS NULL"] }
-  named_scope :default_subcategories_on, lambda {|klass| { :conditions => ["parent_id IS NOT NULL AND categorizable_type = ?", klass.name] } }
+  scope :default_categories, { :conditions => { :parent_id => nil, :categorizable_type => nil } }
+  scope :default_categories_on, lambda {|klass| { :conditions => { :parent_id => nil, :categorizable_type => klass.name } } }
+  scope :default_subcategories, { :conditions => ["parent_id IS NOT NULL AND categorizable_type IS NULL"] }
+  scope :default_subcategories_on, lambda {|klass| { :conditions => ["parent_id IS NOT NULL AND categorizable_type = ?", klass.name] } }
 
   def subcategory?() not parent.nil? end
   def category?() parent.nil? end

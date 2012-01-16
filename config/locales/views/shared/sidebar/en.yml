@@ -2,17 +2,17 @@ en:
   shared:
     sidebar:
       bio:
-        posted_by: "Posted by {{fb_name}}"
+        posted_by: "Posted by %{fb_name}"
 
       other_posts:
-        other_posts_by: "Other posts by {{fb_name}}"
+        other_posts_by: "Other posts by %{fb_name}"
 
       top_discussed_stories:
         top_discussed_title: "Most Discussed Stories"
 
       top_stories:
         top_stories_title: "Top Stories"
-      
+
       newest_stories:
         newest_stories_title: "Latest Stories"
 
@@ -66,7 +66,7 @@ en:
       events_whatisthis:
         events_whatis_title: "Welcome to our event calendar!"
         events_whatis_details: "What's happening in your area? Find upcoming events or post or share your own. You can also import events from Facebook."
-      
+
       questions_whatisthis:
         questions_whatis_title: "Have a question?"
         questions_whatis_details: "Post your question here for other readers to answer. Help other readers by answering their questions."
@@ -79,7 +79,7 @@ en:
       resources_whatisthis:
         resources_whatis_title: "Welcome to the Directory"
         resources_whatis_details: "Find useful links related to your community. Add your favorites as well."
-        
+
       resource_sections_list:
         title: "Categories"
 
@@ -91,11 +91,11 @@ en:
 
       newest_events:
         newest_events_title: "Upcoming Events"
-        
+
       fan_application:
         become_a_fan: "Become a Fan"
         fan_details: "Reasons why you should become a fan."
-        
+
       prompt_permissions:
         title: "Stay Connected"
         details: "Optimize your Facebook permissions for our community"
@@ -103,7 +103,7 @@ en:
 
       post_story:
         post_story_title: "Contribute links to our site"
-        post_story: "Post a Story"   
+        post_story: "Post a Story"
 
       welcome_panel:
         welcome_panel_headline: "Welcome to our site"

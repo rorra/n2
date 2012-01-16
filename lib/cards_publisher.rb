@@ -1,5 +1,5 @@
 class CardsPublisher < Facebooker::Rails::Publisher
-  
+
   def notification(to, from, message)
     send_as :notification
     self.recipients(to)

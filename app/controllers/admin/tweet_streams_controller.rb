@@ -30,9 +30,9 @@ class Admin::TweetStreamsController < AdminController
     ['key', 'secret', 'consumer_key', 'consumer_secret'].each do |key|
       val = instance_variable_get("@oauth_#{key}").try(:value)
       if not val or val.empty? or val == @base_consumer_key or val == @base_consumer_secret
-      	flash[:error] = "You must configure your twitter settings before adding tweet streams."
+        flash[:error] = "You must configure your twitter settings before adding tweet streams."
         redirect_to admin_twitter_settings_path and return
-      	break
+        break
       end
     end
   end

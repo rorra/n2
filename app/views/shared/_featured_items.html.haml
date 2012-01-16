@@ -49,10 +49,10 @@
             .feature_scrollable_items
               - final_items.each do |item|
                 .panel_items
-                  = render :partial => 'shared/featured_items/panel3', :locals => { :item => item }                
+                  = render :partial => 'shared/featured_items/panel3', :locals => { :item => item }
           :javascript
-            $(function() {          	
-            	$(".feature_scrollable_panel_3").scrollable({speed : #{animation_speed}, circular: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
+            $(function() {
+              $(".feature_scrollable_panel_3").scrollable({speed : #{animation_speed}, circular: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
             });
         - when 'template_32'
           - box_list = [0, 2, 4]
@@ -65,7 +65,7 @@
                   = render :partial => 'shared/featured_items/panel4', :locals => { :item => final_items[index] }
                   = render :partial => 'shared/featured_items/panel4', :locals => { :item => final_items[index+1] }
           :javascript
-            $(function() {            
+            $(function() {
               $(".feature_scrollable_panel_4").scrollable({speed : #{animation_speed}, circular: true, vertical: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
             });
         - when 'template_52'
@@ -80,6 +80,6 @@
                   = render :partial => 'shared/featured_items/panel5', :locals => { :item => final_items[index+1] }
                   = render :partial => 'shared/featured_items/panel5', :locals => { :item => final_items[index+2] }
           :javascript
-            $(function() {            
+            $(function() {
               $(".feature_scrollable_panel_5").scrollable({speed : #{animation_speed}, circular: true, vertical: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
             });

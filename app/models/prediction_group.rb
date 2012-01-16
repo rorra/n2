@@ -17,18 +17,18 @@ class PredictionGroup < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
   validates_presence_of :title, :user
 
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 7)} }
-  named_scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 7)} }
-  named_scope :approved, :conditions => { :is_approved => true }
-  named_scope :currently_open, lambda { |*args| { :conditions => ["prediction_questions_count > 0 and status = 'open'" ] } }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 7)} }
+  scope :top, lambda { |*args| { :order => ["votes_tally desc, created_at desc"], :limit => (args.first || 7)} }
+  scope :approved, :conditions => { :is_approved => true }
+  scope :currently_open, lambda { |*args| { :conditions => ["prediction_questions_count > 0 and status = 'open'" ] } }
 
   def to_s
     "Prediction Group: #{title}"
   end
-  
+
   def approve!
     @prediction_group.update_attribute(:is_approved, true)
-  end  
+  end
 
   def next
     if PredictionGroup.count > 0
@@ -37,7 +37,7 @@ class PredictionGroup < ActiveRecord::Base
       nil
     end
   end
-  
+
   def previous
     if PredictionGroup.count > 0
       PredictionGroup.approved.active.currently_open.find(:first, :conditions => ["id < ?", self.id ], :order => "id desc")
@@ -62,7 +62,7 @@ class PredictionGroup < ActiveRecord::Base
   def recipient_voices
     users = self.voices
     users << self.user
-    users.concat self.votes.map(&:voter) 
+    users.concat self.votes.map(&:voter)
     users.uniq
   end
 

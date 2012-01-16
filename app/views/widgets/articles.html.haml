@@ -20,5 +20,5 @@
             - @article_list.each do |item|
               %li
                 = render :partial => 'shared/items/widget_article', :locals => {:item => item, :canvas_preference => @canvas_preference}
-- if @fan              
-  = render :partial => 'shared/sidebar/fan_application'                    
+- if @fan
+  = render :partial => 'shared/sidebar/fan_application'

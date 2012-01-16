@@ -22,26 +22,26 @@
 
       // "next tab" button
       $("input.button-input.next", wizard).click(function(event) {
-      	event.preventDefault();
+        event.preventDefault();
         api.next();
       });
 
       // "previous tab" button
       $("input.button-input.prev", wizard).click(function() {
-      	event.preventDefault();
+        event.preventDefault();
         api.prev();
       });
       $('.toggle-embed-video').click(function(event) {
-      	event.preventDefault();
-      	$('textarea.embed-video', $(this).parents('fieldset.inputs')).removeClass('hide').show();
-      	$(this).remove();
+        event.preventDefault();
+        $('textarea.embed-video', $(this).parents('fieldset.inputs')).removeClass('hide').show();
+        $(this).remove();
       });
       $('.toggle-embed-audio').click(function(event) {
-      	event.preventDefault();
-      	$('textarea.embed-audio', $(this).parents('fieldset.inputs')).removeClass('hide').show();
-      	$(this).remove();
+        event.preventDefault();
+        $('textarea.embed-audio', $(this).parents('fieldset.inputs')).removeClass('hide').show();
+        $(this).remove();
       });
-    });      
+    });
 -# content_for :sub_nav do
   - if @classified_board.present?
     = render :partial => 'shared/subnav/classified_boards_subnav'
@@ -58,12 +58,12 @@
             %li
               %a{:href => "#"}= t('wizard.details')
             %li
-              %a{:href => "#"}= t('wizard.settings') 
+              %a{:href => "#"}= t('wizard.settings')
             %li
-              %a{:href => "#"}= t('wizard.images') 
+              %a{:href => "#"}= t('wizard.images')
             %li
-              %a{:href => "#"}= t('wizard.multimedia') 
-          - semantic_form_for @classified, :html => { :multipart => true, :class => "post_classified" } do |form|
+              %a{:href => "#"}= t('wizard.multimedia')
+          = semantic_form_for @classified, :html => { :multipart => true, :class => "post_classified" } do |form|
             .panes
               .panel1
                 -# %h1.title= t('classifieds.new.your_item')
@@ -71,17 +71,17 @@
                 %br
                 %h2= t('classifieds.new.enter_manually')
                 %fieldset
-                  - form.inputs do                
+                  = form.inputs do
                     = form.input :amazon_asin, :as => :hidden, :required => false
                     = form.input :title, :label => t('.title'), :hint => t('.hint_classified_title')
                     = form.input :details, :hint => t('.hint_classified_details')
                     = form.input :location_text, :label => 'Location', :hint => t('.hint_classified_location'), :required => false
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
               .panel2
                 %h1.title= t('classifieds.new.item_setting')
                 %fieldset
-                  - form.inputs do
+                  = form.inputs do
                     - if Classified.enable_sale_items?
                       = form.input :price, :hint => t('.hint_classified_price'), :required => false
                     %li
@@ -92,8 +92,8 @@
                       = form.select :allow, options_for_select(Classified.allow_types.map {|c| [t("classifieds.allow_type.#{c.to_s}"), c.to_s] }, @classified.allow)
                 - @classified.categorizations.build if @classified.categorizations.empty?
                 %fieldset
-                  - form.semantic_fields_for :categorizations do |category_form|
-                    - category_form.inputs do
+                  = form.semantic_fields_for :categorizations do |category_form|
+                    = category_form.inputs do
                       = category_form.input :category, :as => :select, :collection => @classified.class.sorted_categories.map {|c| [c.name, c.id]}, :include_blank => false
                     -# @classified.subcategories.build if @classified.subcategories.empty?
                     -# category_form.semantic_fields_for :subcategories do |subcategory_form|
@@ -104,7 +104,7 @@
                   .scrollable
                     .items
                   %a.next.browse.right_scroll
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
                   = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
@@ -115,12 +115,12 @@
                   .scrollable
                     .items
                   %a.next.browse.right_scroll
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.continue'), :class => 'float-right', :button_html => { :class => 'button-input next' }
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
                   = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }
               .panel4
                 = render :partial => 'shared/forms/media_items_simple', :locals => { :form => form, :item => @classified }
-                - form.buttons do
+                = form.buttons do
                   = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
                   = form.commit_button t('wizard.back'), :class => 'float-left', :button_html => { :class => 'button-input prev' }

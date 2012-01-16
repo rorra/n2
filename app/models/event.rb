@@ -8,10 +8,10 @@ class Event < ActiveRecord::Base
   acts_as_wall_postable
   acts_as_relatable
   acts_as_tweetable
- 
-  named_scope :newest, lambda { |*args| { :conditions => ["start_time > now()"], :order => ["created_at desc"], :limit => (args.first || 10)} }
-  named_scope :featured, lambda { |*args| { :conditions => ["is_featured=1 AND start_time > now()"],:order => ["created_at desc"], :limit => (args.first || 3)} }
-  named_scope :upcoming, lambda { |*args| { :conditions => ["start_time > now()"], :order => ["start_time asc"], :limit => (args.first || 10)} }
+
+  scope :newest, lambda { |*args| { :conditions => ["start_time > now()"], :order => ["created_at desc"], :limit => (args.first || 10)} }
+  scope :featured, lambda { |*args| { :conditions => ["is_featured=1 AND start_time > now()"],:order => ["created_at desc"], :limit => (args.first || 3)} }
+  scope :upcoming, lambda { |*args| { :conditions => ["start_time > now()"], :order => ["start_time asc"], :limit => (args.first || 10)} }
 
   belongs_to :user
 
@@ -24,18 +24,18 @@ class Event < ActiveRecord::Base
   validates_format_of :tags_string, :with => /^([-a-zA-Z0-9_ ]+,?)+$/, :allow_blank => true, :message => "Invalid tags. Tags can be alphanumeric characters or -_ or a blank space."
   validates_format_of :url, :with => /\A(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i, :message => "should look like a URL", :allow_blank => true
   validates_format_of :alt_url, :with => /\A(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/i, :message => "should look like a URL", :allow_blank => true
-  
-  
+
+
   def self.per_page; 10; end
 
   def self.top
     self.tally({
-    	:at_least => 1,
-    	:limit    => 10,
-    	:order    => "votes.count desc"
+      :at_least => 1,
+      :limit    => 10,
+      :order    => "vote_count desc"
     })
   end
-  
+
   def self.create_from_facebook_event(facebook_event, user)
     return nil if not facebook_event.is_a? Facebooker::Event
     check = Event.find_by_eid(facebook_event.eid)
@@ -100,7 +100,7 @@ class Event < ActiveRecord::Base
       :pic => image,
       :url => url,
       :alt_url => alt_url)
-      
+
       e.images.create(:remote_image_url=>image) if image
     end
   end

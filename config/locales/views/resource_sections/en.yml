@@ -12,7 +12,7 @@ en:
             top_resources: "Popular Links"
             newest_resources: "Recent Links"
         show:
-            asked_by: "Asked by {{fb_name}} {{date}} ago"
+            asked_by: "Asked by %{fb_name} %{date} ago"
             share: "Share it"
             like: "Like"
             comments: "Comment"

@@ -1,24 +1,22 @@
-require 'digest/sha1'
-
 class User < ActiveRecord::Base
 
-  acts_as_authorization_subject
+  acts_as_authorization_subject :join_table_name => 'roles_users'
   has_and_belongs_to_many :roles
 
   acts_as_voter
   acts_as_moderatable
 
-  #named_scope :top, lambda { |*args| { :order => ["karma_score desc"], :limit => (args.first || 5), :conditions => ["karma_score > 0 and is_admin = 0 and is_editor=0"]} }
-  named_scope :top, lambda { |*args| { :order => ["karma_score desc"], :limit => (args.first || 5), :conditions => ["karma_score > 0"]} }
-  named_scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 5), :conditions => ["created_at > ?", 2.months.ago]} }
-  named_scope :last_active, lambda { { :conditions => ["last_active > ?", 60.minutes.ago], :order => ["last_active desc"] } }
-  named_scope :recently_active, lambda { |*args| { :order => ["last_active desc"], :limit => (args.first || 21) } }
-  named_scope :admins, { :conditions => ["is_admin is true"] } 
-  named_scope :moderators, { :conditions => ["is_moderator is true"] }
-  named_scope :members, { :conditions => ["is_moderator is false and is_admin is false and is_editor is false and is_host is false"] }
-  named_scope :real_users, { :conditions => ["system_user is false"] }
-  named_scope :twitter_users, { :conditions => ["twitter_user is true"] }
-  named_scope :system_users, { :conditions => ["system_user is true"] }
+  #scope :top, lambda { |*args| { :order => ["karma_score desc"], :limit => (args.first || 5), :conditions => ["karma_score > 0 and is_admin = 0 and is_editor=0"]} }
+  scope :top, lambda { |*args| { :order => ["karma_score desc"], :limit => (args.first || 5), :conditions => ["karma_score > 0"]} }
+  scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 5), :conditions => ["created_at > ?", 2.months.ago]} }
+  scope :last_active, lambda { { :conditions => ["last_active > ?", 60.minutes.ago], :order => ["last_active desc"] } }
+  scope :recently_active, lambda { |*args| { :order => ["last_active desc"], :limit => (args.first || 21) } }
+  scope :admins, { :conditions => ["is_admin is true"] }
+  scope :moderators, { :conditions => ["is_moderator is true"] }
+  scope :members, { :conditions => ["is_moderator is false and is_admin is false and is_editor is false and is_host is false"] }
+  scope :real_users, { :conditions => ["system_user is false"] }
+  scope :twitter_users, { :conditions => ["twitter_user is true"] }
+  scope :system_users, { :conditions => ["system_user is true"] }
 
   validates_presence_of     :login, :if => :password_required?
   validates_length_of       :login,    :within => 3..40, :if => :password_required?
@@ -34,11 +32,11 @@ class User < ActiveRecord::Base
   validates_format_of       :email,    :with => Newscloud::Util.email_regex, :message => Newscloud::Util.bad_email_message, :if => :password_required?
   validates_presence_of     :name
   validates_presence_of     :name
-  
+
   # TODO::HACK:: fb registration errors
   # TODO::REMOVE:: deprecated: http://developers.facebook.com/docs/reference/rest/connect.registerusers/
   before_save :check_profile
-  
+
   has_many :contents, :after_add => :trigger_story
   has_many :articles, :foreign_key => :author_id, :after_add => :trigger_article
   has_many :comments
@@ -74,7 +72,7 @@ class User < ActiveRecord::Base
   belongs_to :last_delivered_feed_item, :class_name => "PfeedItem", :foreign_key => "last_delivered_feed_item_id"
 
   has_many :tweet_accounts
-  
+
   has_karma :contents
 
   # HACK HACK HACK -- how to do attr_accessible from here?
@@ -90,7 +88,7 @@ class User < ActiveRecord::Base
   # friendly_id uses attr_protected!!!
   # and you can't use both attr_accessible and attr_protected
   # so... this line MUST be located beneath attr_accessible or your get runtime errors
-  has_friendly_id :name, :use_slug => true, :reserved => RESERVED_NAMES
+  has_friendly_id :name, :use_slug => true
 
 
   # FB Graph API settings
@@ -113,7 +111,7 @@ class User < ActiveRecord::Base
   def trigger_chirp(chirp) end
   def trigger_gallery(gallery) end
   #def trigger_accepted_prediction_question(prediction_question) end
-  
+
   def pfeed_trigger_delivery_callback(pfeed_item)
     self.update_attribute(:last_delivered_feed_item, pfeed_item)
   end
@@ -140,6 +138,8 @@ class User < ActiveRecord::Base
     self.update_attribute(:last_viewed_feed_item, last_delivered_feed_item)
   end
 
+=begin
+# TODO RAILS3
   emits_pfeeds :on => [:trigger_story], :for => [:friends], :identified_by => :name
   emits_pfeeds :on => [:trigger_article], :for => [:friends], :identified_by => :name
   #emits_pfeeds :on => [:trigger_topic], :for => [:friends], :identified_by => :name
@@ -155,11 +155,12 @@ class User < ActiveRecord::Base
   emits_pfeeds :on => [:trigger_chirp], :for => [:participant_recipient], :identified_by => :name
   #emits_pfeeds :on => [:trigger_accepted_prediction_question], :for => [:participant_recipient_voices, :friends], :identified_by => :name
   receives_pfeed
+=end
 
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
-  # uff.  this is really an authorization, not authentication routine.  
+  # uff.  this is really an authorization, not authentication routine.
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
@@ -219,7 +220,7 @@ class User < ActiveRecord::Base
   def tweet_account
     tweet_accounts.first
   end
-  
+
 # TODO:: Update this
   def friends
     []
@@ -266,7 +267,7 @@ class User < ActiveRecord::Base
   def other_posts
     self.contents.find(:all, :conditions => ["article_id is null"], :limit => 7, :order => "created_at desc")
   end
-  
+
   def other_stories curr_story
     self.contents.find(:all, :conditions => ["id != ?", curr_story.id], :limit => 7, :order => "created_at desc")
   end
@@ -287,7 +288,7 @@ class User < ActiveRecord::Base
   def is_host?
     self.is_host == true
   end
-  
+
   def is_established?
     # returning user after two weeks
     (self.created_at < 2.week.ago) == true
@@ -334,7 +335,7 @@ class User < ActiveRecord::Base
   def combined_score
     self.activity_score + self.karma_score
   end
-  
+
   def add_score! score
     case score.score_type
       when "participation"
@@ -346,11 +347,11 @@ class User < ActiveRecord::Base
     end
     increment!(field, score.value) unless field.nil?
   end
-  
+
   def is_blogger?
     self.articles.count > 0
   end
-  
+
   def count_daily_posts
     self.contents.find(:all, :conditions => ["created_at > ?", 24.hours.ago]).count
   end
@@ -385,7 +386,7 @@ class User < ActiveRecord::Base
     return nil unless authentications.for_facebook.any?
     @mogli_user ||= Mogli::User.find("me", mogli_client)
   end
-  
+
   def mogli_friends
     return [] unless mogli_user
 
@@ -401,13 +402,13 @@ class User < ActiveRecord::Base
 
     mogli_friends.map {|f| User.find_by_fb_user_id(f.id) }.compact
   end
-  
+
   def facebook_friend_ids
     return [] unless mogli_user
 
     mogli_friends.map {|f| User.find_by_fb_user_id(f.id, :select => "id").try(:id) }.compact
   end
-  
+
   # Overload has_role? from ACL9 to delegate access to given model
   def has_role?(role_name, object = nil)
     method = "is_#{role_name.to_s}?".to_sym
@@ -419,7 +420,7 @@ class User < ActiveRecord::Base
     elsif method == :is_moderator?
       self.is_moderator?
     elsif object.respond_to?(method)
-    	  object.send(method, self)
+        object.send(method, self)
     else
       role = get_role(role_name, object)
       role && self.roles.exists?(role.id)
@@ -460,7 +461,7 @@ class User < ActiveRecord::Base
       nil
     end
   end
-  
+
   def self.get_welcome_host
     host_id = Metadata::Setting.get_setting('welcome_host').try(:value).try(:to_i)
     return nil unless host_id and not host_id.zero?
@@ -468,25 +469,24 @@ class User < ActiveRecord::Base
     User.active.find_by_id(host_id) || User.active.find_by_fb_user_id(host_id) || UserProfile.active.find_by_facebook_user_id(host_id).try(:user) || nil
   end
 
-  def self.build_from_omniauth(omniauth)
-    user = self.new
-    user.name = omniauth['user_info']['name']
+  def self.build_from_omniauth(omniauth_auth_hash)
+    user = User.new
+    user.name = omniauth_auth_hash.info.name
     user.twitter_user = true
-    
     user.build_profile
-    user.profile.profile_image = omniauth['user_info']['image']
-    user.build_authentication_from_omniauth(omniauth)
+    user.profile.profile_image = omniauth_auth_hash.info.image
+    user.build_authentication_from_omniauth(omniauth_auth_hash)
     user
   end
 
   def build_authentication_from_omniauth(omniauth)
     self.authentications.build({
-                                 :provider           => omniauth['provider'],
-                                 :uid                => omniauth['uid'],
-                                 :credentials_token  => omniauth['credentials']['token'],
-                                 :credentials_secret => omniauth['credentials']['secret'],
-                                 :nickname           => omniauth['user_info']['nickname'],
-                                 :description        => omniauth['user_info']['description'],
+                                 :provider           => omniauth.provider,
+                                 :uid                => omniauth.uid,
+                                 :credentials_token  => omniauth.credentials.token,
+                                 :credentials_secret => omniauth.credentials.secret,
+                                 :nickname           => omniauth.info.nickname,
+                                 :description        => omniauth.info.description,
                                  :raw_output         => omniauth.except('extra').to_json
                                })
   end
@@ -494,7 +494,7 @@ class User < ActiveRecord::Base
   def build_authentication_from_omniauth!(omniauth)
     self.build_authentication_from_omniauth(omniauth) and self.save!
   end
-    
+
   def self.find_facebook_user(fb_user_id)
     User.find_by_fb_user_id(fb_user_id) || UserProfile.find_by_facebook_user_id(fb_user_id, :include => :user).try(:user)
   end
@@ -502,7 +502,7 @@ class User < ActiveRecord::Base
   def is_identity_user? user
     self == user
   end
-  
+
   private
 
   def mogli_client
@@ -516,7 +516,7 @@ class User < ActiveRecord::Base
   end
 
   protected
-    
+
 
 
 end

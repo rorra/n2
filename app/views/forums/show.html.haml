@@ -1,7 +1,7 @@
 -# content_for :sub_nav do
   = render_ad(:leaderboard, @ad_layout, @ad_leaderboard)
-  -# move topics breadcrumbs to here and test 
-  
+  -# move topics breadcrumbs to here and test
+
 #left-col
   = render :partial => 'shared/topics', :locals => { :forum => @forum, :topics => @topics, :page => @page, :paginate => @paginate }
 

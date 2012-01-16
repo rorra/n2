@@ -36,7 +36,7 @@ class Notifier < ActionMailer::Base
     body          :message => message
     content_type  "text/html"
   end
-  
+
   def contact_us_message(message)
     subject       "Contact Us: #{message.subject}"
     from          message[:email]
@@ -45,7 +45,7 @@ class Notifier < ActionMailer::Base
     body          :message => message
     content_type  "text/html"
   end
-  
+
   def chirp_message(message)
     subject       I18n.translate('message.chirped_at', :name => message[:originator].name, :site_title => Metadata::Setting.get_setting('site_title').value)
     from          message[:email]

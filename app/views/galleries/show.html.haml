@@ -24,7 +24,7 @@
         - if @tags.present?
           %h6== Tags: #{tag_list(@tags, @gallery)}
       %p= sanitize @gallery.description
-   
+
     .panel-2
       %ul.gallery-content.clearfix
         - @gallery.gallery_items.each do |item|

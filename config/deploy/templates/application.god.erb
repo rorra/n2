@@ -2,7 +2,7 @@
  
 application = "<%= application %>"
 rails_env = ENV['RAILS_ENV'] || 'production'
-rails_root = ENV['RAILS_ROOT'] || "<%= deploy_to %>/current"
+Rails.root = ENV['Rails.root'] || "<%= deploy_to %>/current"
  
 #God::Contacts::Email.message_settings = {
 #  :from => 'god@example.com'
@@ -41,17 +41,17 @@ rails_root = ENV['RAILS_ROOT'] || "<%= deploy_to %>/current"
     w.interval = 30.seconds # default
    
     # unicorn needs to be run from the rails root
-    w.start = "cd #{rails_root} && bundle exec unicorn_rails -c #{rails_root}/config/unicorn.conf.rb -E #{rails_env} -D"
+    w.start = "cd #{Rails.root} && bundle exec unicorn_rails -c #{Rails.root}/config/unicorn.conf.rb -E #{rails_env} -D"
    
     # QUIT gracefully shuts down workers
-    w.stop = "kill -QUIT `cat #{rails_root}/tmp/pids/unicorn.pid`"
+    w.stop = "kill -QUIT `cat #{Rails.root}/tmp/pids/unicorn.pid`"
    
     # USR2 causes the master to re-create itself and spawn a new worker pool
-    w.restart = "kill -USR2 `cat #{rails_root}/tmp/pids/unicorn.pid`"
+    w.restart = "kill -USR2 `cat #{Rails.root}/tmp/pids/unicorn.pid`"
    
     w.start_grace = 10.seconds
     w.restart_grace = 10.seconds
-    w.pid_file = "#{rails_root}/tmp/pids/unicorn.pid"
+    w.pid_file = "#{Rails.root}/tmp/pids/unicorn.pid"
    
     #w.uid = 'deploy'
     #w.gid = 'deploy'
@@ -140,7 +140,7 @@ rails_root = ENV['RAILS_ROOT'] || "<%= deploy_to %>/current"
       w.group = "#{application}_workers"
       w.interval = 30.seconds
       #w.env      = {"QUEUE"=>"*", "RAILS_ENV"=>rails_env}
-      w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} QUEUE=* bundle exec rake resque:work"
+      w.start    = "cd #{Rails.root} && RAILS_ENV=#{rails_env} QUEUE=* bundle exec rake resque:work"
 
       #w.uid = 'deploy'
       #w.gid = 'deploy'
@@ -188,9 +188,9 @@ rails_root = ENV['RAILS_ROOT'] || "<%= deploy_to %>/current"
     w.name     = "resque-scheduler-#{application}"
     w.group = "#{application}_workers"
     w.interval = 30.seconds
-    #w.env      = {"INITIALIZER_PATH"=>"#{rails_root}/config/initializers/resque.rb", "RAILS_ENV"=>rails_env}
-    w.start    = "cd #{rails_root} && RAILS_ENV=#{rails_env} INITIALIZER_PATH=#{rails_root}/config/initializers/resque.rb bundle exec rake resque:scheduler"
-    #w.pid_file = "#{rails_root}/tmp/pids/resque_worker_#{num}.pid"
+    #w.env      = {"INITIALIZER_PATH"=>"#{Rails.root}/config/initializers/resque.rb", "RAILS_ENV"=>rails_env}
+    w.start    = "cd #{Rails.root} && RAILS_ENV=#{rails_env} INITIALIZER_PATH=#{Rails.root}/config/initializers/resque.rb bundle exec rake resque:scheduler"
+    #w.pid_file = "#{Rails.root}/tmp/pids/resque_worker_#{num}.pid"
 
     #w.behavior(:clean_pid_file)
 

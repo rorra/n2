@@ -1,8 +1,8 @@
 - from_groups ||= false
 .formBox
   .vote-opt-list
-    - semantic_form_for [prediction_question, PredictionGuess.new] do |form|
-      - form.inputs do
+    = semantic_form_for [prediction_question, PredictionGuess.new] do |form|
+      = form.inputs do
         = hidden_field_tag 'from_groups', from_groups
         - case prediction_question.prediction_type
           - when 'multi'
@@ -15,7 +15,7 @@
             = form.input :guess
           - when 'text'
             = form.input :guess
-      - form.buttons do
-        = form.commit_button t('predictions.submit_guess'), :button_html => { :class => 'btn float_right'   }      
+      = form.buttons do
+        = form.commit_button t('predictions.submit_guess'), :button_html => { :class => 'btn float_right'   }
         %p.vote-meta
           = link_to "Is this question out of date?", new_prediction_question_prediction_result_path(prediction_question)

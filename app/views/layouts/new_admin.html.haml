@@ -15,12 +15,12 @@
     = javascript_include_tag 'jquery.ui.nestedSortable'
     = javascript_include_tag 'admin.js'
 
-    -# IE Debugging 
+    -# IE Debugging
     =# javascript_include_tag 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'
 
-    = stylesheet_link_tag 'compiled/admin'
-    = stylesheet_link_tag 'compiled/admin_grid.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/text.css', :media => 'print'
+    = stylesheet_link_tag 'admin'
+    = stylesheet_link_tag 'admin_grid', :media => 'screen, projection'
+    = stylesheet_link_tag 'text', :media => 'print'
 
     = stylesheet_link_tag 'superfish'
     = stylesheet_link_tag 'tablesorter'
@@ -137,13 +137,13 @@
               %li
                 %a{:href => "#module-settings-wizards"} Wizards
                 %ul
-                  %li= link_to 'Bit.ly Shortcuts', edit_admin_setting_group_path(:id => :bitly_config)                 
+                  %li= link_to 'Bit.ly Shortcuts', edit_admin_setting_group_path(:id => :bitly_config)
                   %li= link_to 'Google Analytics', edit_admin_setting_group_path(:id => :analytics_config)
-                  %li= link_to 'Google Search', edit_admin_setting_group_path(:id => :google_custom_search_engine_config)                
-                  %li= link_to 'Site Description', edit_admin_setting_group_path(:id => :basic_site_config)                
+                  %li= link_to 'Google Search', edit_admin_setting_group_path(:id => :google_custom_search_engine_config)
+                  %li= link_to 'Site Description', edit_admin_setting_group_path(:id => :basic_site_config)
                   %li= link_to 'Site Maps (SEO)', edit_admin_setting_group_path(:id => :sitemap_seo_config)
                   %li= link_to 'Twitter Integration', admin_twitter_settings_path
-                  %li= link_to 'Welcome Panel', edit_admin_setting_group_path(:id => :welcome_panel_config)                
+                  %li= link_to 'Welcome Panel', edit_admin_setting_group_path(:id => :welcome_panel_config)
               %li
                 %a{:href => "#modules-metadata"} General
                 %ul
@@ -170,7 +170,7 @@
           %li
             %a{:href => "#links"} Your Site
             %ul
-              %li= link_to 'Facebook Connect', home_index_path, :target => "_fbc"
+              %li= link_to 'Facebook Connect', root_url, :target => "_fbc"
               %li= link_to 'Facebook Application', "http://apps.facebook.com/#{ENV['FACEBOOKER_RELATIVE_URL_ROOT']}", :target => "_fbapp"
               %li= link_to 'Facebook Directory Page', "http://www.facebook.com/apps/application.php?id=#{APP_CONFIG['facebook_application_id']}", :target => "_facebook"
               %li= link_to 'Facebook Statistics', "http://www.facebook.com/business/insights/app.php?id=#{APP_CONFIG['facebook_application_id']}", :target => "_facebook"

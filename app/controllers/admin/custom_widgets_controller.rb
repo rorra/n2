@@ -2,10 +2,10 @@ class Admin::CustomWidgetsController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Metadata.meta_type('custom_widget').paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Metadata,
-    	:fields => [:meta_type, :key_name, :created_at],
-    	:paginate => true
+      :items => Metadata.meta_type('custom_widget').paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Metadata,
+      :fields => [:meta_type, :key_name, :created_at],
+      :paginate => true
     }
   end
 
@@ -30,9 +30,9 @@ class Admin::CustomWidgetsController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => Metadata.find(params[:id]),
-    	:model => Metadata,
-    	:fields => [:metadatable_type, :metadatable_id, :data, :created_at],
+      :item => Metadata.find(params[:id]),
+      :model => Metadata,
+      :fields => [:metadatable_type, :metadatable_id, :data, :created_at],
     }
   end
 
@@ -47,16 +47,16 @@ class Admin::CustomWidgetsController < AdminController
       return false
     end
     @metadata.data = {
-    	:custom_data  => @metadata.custom_data,
-    	:title        => @metadata.title,
-    	:content_type => @metadata.content_type
+      :custom_data  => @metadata.custom_data,
+      :title        => @metadata.title,
+      :content_type => @metadata.content_type
     }
     @metadata.meta_type = "custom_widget"
     @metadata.key_name  = @metadata.title.parameterize
     @widget = Widget.new({
-    	:name         => @metadata.title.parameterize,
-    	:content_type => @metadata.content_type,
-    	:partial      => 'shared/custom_widget'
+      :name         => @metadata.title.parameterize,
+      :content_type => @metadata.content_type,
+      :partial      => 'shared/custom_widget'
     })
     @widget.metadatas << @metadata
     if @widget.save

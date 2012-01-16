@@ -6,7 +6,7 @@
   - else
     - auto_feature ||= Image.active.user_items.find(:all, :conditions => "imageable_type = 'Content'", :limit => 15, :order => ["created_at desc"], :include => 'imageable').map(&:imageable).uniq
   - unless auto_feature.empty? or auto_feature.count < 4
-    -# todo: choose template based on setting  
+    -# todo: choose template based on setting
     -# took out template_9 for now
     - template_list = ['template_52', 'template_32']
     - auto_template = template_list[rand(2)]
@@ -18,10 +18,10 @@
             .feature_scrollable_items
               - auto_feature.each do |item|
                 .panel_items
-                  = render :partial => 'shared/featured_items/panel3', :locals => { :item => item }                
+                  = render :partial => 'shared/featured_items/panel3', :locals => { :item => item }
           :javascript
-            $(function() {          	
-            	$(".feature_scrollable_panel_3").scrollable({speed : #{animation_speed}, circular: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
+            $(function() {
+              $(".feature_scrollable_panel_3").scrollable({speed : #{animation_speed}, circular: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
             });
 
         - when 'template_32'
@@ -35,12 +35,12 @@
                     = render :partial => 'shared/featured_items/panel4', :locals => { :item => auto_feature[index] }
                     = render :partial => 'shared/featured_items/panel4', :locals => { :item => auto_feature[index+1] }
           :javascript
-            $(function() {            
+            $(function() {
               $(".feature_scrollable_panel_4").scrollable({speed : #{animation_speed}, circular: true, vertical: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
             });
 
         - when 'template_52'
-          - box_list = [0, 3, 6, 9 ]        
+          - box_list = [0, 3, 6, 9 ]
           = render :partial => 'shared/featured_items/panelbar'
           .feature_scrollable_panel_5.vertical
             .feature_vertical_scrollable_items
@@ -51,6 +51,6 @@
                     = render :partial => 'shared/featured_items/panel5', :locals => { :item => auto_feature[index+1] }
                     = render :partial => 'shared/featured_items/panel5', :locals => { :item => auto_feature[index+2] }
           :javascript
-            $(function() {            
+            $(function() {
               $(".feature_scrollable_panel_5").scrollable({speed : #{animation_speed}, circular: true, vertical: true, mousewheel: false}).autoscroll({ interval : #{animation_interval}, autoplay: true});
             });

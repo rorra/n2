@@ -52,7 +52,7 @@ namespace :n2 do
         elsif answer.question.nil?
           answer.destroy and count += 1
         else
-        	next
+          next
         end
       end
       puts "Deleted #{count} floating questions_and_answers"
@@ -128,7 +128,7 @@ namespace :n2 do
         if content.save
           count += 1
         else
-        	puts "\t\tFailed to download image."
+          puts "\t\tFailed to download image."
         end
       end
       puts "Finished converting #{count} images"
@@ -141,26 +141,26 @@ namespace :n2 do
 
       item_count = ENV['item_count'] || 20
       model_generators = {
-      	:content => Proc.new { {
-      		:caption  => Faker::Lorem.paragraphs,
-      		:url      => "http://#{Faker::Internet.domain_name}/articles/#{Faker::Company.catch_phrase}",
-      		:title    => "#{Faker::Company.bs}",
-      		:user     => user
+        :content => Proc.new { {
+          :caption  => Faker::Lorem.paragraphs,
+          :url      => "http://#{Faker::Internet.domain_name}/articles/#{Faker::Company.catch_phrase}",
+          :title    => "#{Faker::Company.bs}",
+          :user     => user
         } },
-      	:question => Proc.new { {
-      		:question => "Do we need to #{Faker::Company.bs}?",
-      		:details  => Faker::Lorem.paragraphs,
-      		:user     => user
+        :question => Proc.new { {
+          :question => "Do we need to #{Faker::Company.bs}?",
+          :details  => Faker::Lorem.paragraphs,
+          :user     => user
         } },
-      	:answer => Proc.new { {
-      		:answer   => "Perhaps, but what if we #{Faker::Company.bs}",
-      		:question => Question.find(:first, :order => "RAND()"),
-      		:user     => user
+        :answer => Proc.new { {
+          :answer   => "Perhaps, but what if we #{Faker::Company.bs}",
+          :question => Question.find(:first, :order => "RAND()"),
+          :user     => user
         } },
-      	:comment => Proc.new { {
-      		:comments => "I prefer #{Faker::Company.catch_phrase}.",
-      		:commentable => Answer.find(:first, :order => "RAND()"),
-      		:user     => user
+        :comment => Proc.new { {
+          :comments => "I prefer #{Faker::Company.catch_phrase}.",
+          :commentable => Answer.find(:first, :order => "RAND()"),
+          :user     => user
         } }
       }
       model_generators.each do |model_name, model_generator|
@@ -175,13 +175,13 @@ namespace :n2 do
     task :update_metadata_types => :environment do
       Metadata.find(:all, :conditions => "type IS NULL").each do |metadata|
         if metadata.meta_type == 'config' and metadata.key_type == 'ads'
-        	puts "Converting #{metadata.inspect} to Metadata::Ad type"
-        	metadata.update_attribute(:type, 'Metadata::Ad')
+          puts "Converting #{metadata.inspect} to Metadata::Ad type"
+          metadata.update_attribute(:type, 'Metadata::Ad')
         elsif (metadata.meta_type == 'custom' and metadata.key_type == 'widget') or metadata.meta_type == 'custom_widget'
-        	puts "Converting #{metadata.inspect} to Metadata::CustomWidget type"
-        	metadata.update_attribute(:type, 'Metadata::CustomWidget')
+          puts "Converting #{metadata.inspect} to Metadata::CustomWidget type"
+          metadata.update_attribute(:type, 'Metadata::CustomWidget')
         else
-        	next
+          next
         end
       end
     end
@@ -211,8 +211,8 @@ namespace :n2 do
 
     desc "Backup an existing N2 application, rebuild the app settings and merge back in the data"
     task :backup_and_rebuild => :environment do
-      dump_file = "#{RAILS_ROOT}/db/backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.sql"
-      full_dump_file = "#{RAILS_ROOT}/db/full_backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.sql"
+      dump_file = "#{Rails.root}/db/backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.sql"
+      full_dump_file = "#{Rails.root}/db/full_backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.sql"
       config = ActiveRecord::Base.configurations[RAILS_ENV]
       raise "Invalid adapter, this only works with mysql." unless config["adapter"] == 'mysql'
 

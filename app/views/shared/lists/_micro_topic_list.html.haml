@@ -4,7 +4,7 @@
 - external_widget ||= external_widget
 - hide_titlebar =  (not @hide_titlebar.nil? and @hide_titlebar ) || false
 - canvas_preference ||= false
-- item_type ||= "topic" 
+- item_type ||= "topic"
 %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
   = render :partial => 'widgets/titlebar', :locals => {:hide_titlebar => hide_titlebar, :title => list_title}
   .item-list-wrap

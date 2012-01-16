@@ -13,7 +13,7 @@ fr:
       no_comments_msg: "Il n'y a actuellement aucun commentaire. Ajouter un nouveau commentaire!"
 
     comment:
-      posted_by: "Créé par {{fb_name}} {{date}} il ya"
+      posted_by: "Créé par %{fb_name} %{date} il ya"
 
     comment_form:
       post_comment: "Créer un commentaire"
@@ -24,7 +24,7 @@ fr:
       sign_in: "Identifiez-vous"
       register: "Inscrivez-vous"
       invite_friends: "Inviter des amis"
-      resources: "{{site_topic}} Ressources"
+      resources: "%{site_topic} Ressources"
       contact_us: "Contactez-nous"
 
     footer:
@@ -45,4 +45,4 @@ fr:
       stories_like: "Comme"
       stories_comments: "Commentaire"
       stories_share: "Partagez cet article"
-      stories_posted_by: "Créé par {{fb_name}} {{date}} il ya"
+      stories_posted_by: "Créé par %{fb_name} %{date} il ya"

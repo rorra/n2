@@ -19,7 +19,7 @@ module MediaHelper
     end
   end
 
-  
+
   def thumb_image_or_default image
     url = nil
     case image.class.name
@@ -40,7 +40,7 @@ module MediaHelper
       when Resource.name
         url = image.images.first.try(:thumb_url)
       else
-      	url = nil
+        url = nil
     end
     if url.nil?
       if image.respond_to?(:images) and image.images.any?
@@ -70,7 +70,7 @@ module MediaHelper
       when Resource.name
         url = image.images.first.try(:medium_url)
       else
-      	url = nil
+        url = nil
     end
     if url.nil?
       if image.respond_to?(:images) and image.images.any?
@@ -79,5 +79,5 @@ module MediaHelper
     end
     url || default_medium_image
   end
-  
+
 end

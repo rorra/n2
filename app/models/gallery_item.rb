@@ -8,7 +8,7 @@ class GalleryItem < ActiveRecord::Base
 
   default_scope :order => "created_at desc"
 
-  named_scope :positioned, :order => "position desc, created_at desc"
+  scope :positioned, :order => "position desc, created_at desc"
   #validates_presence_of :user, :gallery, :title
   #validates_presence_of :item_url
   before_validation :gallery_user
@@ -57,7 +57,7 @@ class GalleryItem < ActiveRecord::Base
     errors.add(:item_url, "item url must be present") if self.new_record? and item_url.nil?
 
     if Image.image_url? item_url
-    	self.galleryable = Image.new(:remote_image_url => item_url, :user => user)
+      self.galleryable = Image.new(:remote_image_url => item_url, :user => user)
     elsif Video.youtube_url? item_url
       self.galleryable = Video.new(:remote_video_url => item_url, :user => user)
     elsif Video.vimeo_url? item_url

@@ -2,20 +2,20 @@ class Admin::ForumsController < AdminController
 
   def index
     render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-    	:items => Forum.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-    	:model => Forum,
-    	:fields => [:name, :description, :topics_count, :comments_count, :created_at],
-    	:paginate => true
+      :items => Forum.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :model => Forum,
+      :fields => [:name, :description, :topics_count, :comments_count, :created_at],
+      :paginate => true
     }
   end
 
   def reorder
     if request.post?
-    	begin
+      begin
         params[:forums].map {|f| f.sub(/^forum-([0-9]+)$/, '\1') }.reverse.each_with_index do |forum_id, position|
           Forum.find_by_id(forum_id).update_attribute(:position, position + 1)
         end
-        Forum.expire_all 
+        Forum.expire_all
         render :json => {:success => "Success!"}.to_json and return
       rescue
         render :json => {:success => "Could not save your new order!"}.to_json and return
@@ -36,7 +36,7 @@ class Admin::ForumsController < AdminController
   def update
     @forum = Forum.find(params[:id])
     if @forum.update_attributes(params[:forum])
-    	@forum.expire
+      @forum.expire
       flash[:success] = "Successfully updated your Forum."
       redirect_to [:admin, @forum]
     else
@@ -47,16 +47,16 @@ class Admin::ForumsController < AdminController
 
   def show
     render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-    	:item => Forum.find(params[:id]),
-    	:model => Forum,
-    	:fields => [:name, :description, :topics_count, :comments_count, :created_at],
+      :item => Forum.find(params[:id]),
+      :model => Forum,
+      :fields => [:name, :description, :topics_count, :comments_count, :created_at],
     }
   end
 
   def create
     @forum = Forum.new(params[:forum])
     if @forum.save
-    	ForumSweeper.expire_forum_all @forum
+      ForumSweeper.expire_forum_all @forum
       flash[:success] = "Successfully created your new Forum!"
       redirect_to [:admin, @forum]
     else
@@ -77,21 +77,21 @@ class Admin::ForumsController < AdminController
   def render_new forum = nil
     forum ||= Forum.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-    	:item => forum,
-    	:model => Forum,
-    	:fields => [:name, :description],
-    	:include_media_form => true
+    render 'shared/admin/_new_page', :layout => 'new_admin', :locals => {
+      :item => forum,
+      :model => Forum,
+      :fields => [:name, :description],
+      :include_media_form => true
     }
   end
 
   def render_edit forum
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-    	:item => forum,
-    	:model => Forum,
-    	:fields => [:name, :description],
-    	:include_media_form => true,
-    	:associations => { :belongs_to => { :user => :user_id } }
+    render 'shared/admin/_edit_page', :layout => 'new_admin', :locals => {
+      :item => forum,
+      :model => Forum,
+      :fields => [:name, :description],
+      :include_media_form => true,
+      :associations => { :belongs_to => { :user => :user_id } }
     }
   end
 

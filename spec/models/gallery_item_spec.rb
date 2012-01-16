@@ -21,10 +21,10 @@ describe GalleryItem do
   it "should require an item_url" do
     gallery_item = Factory.build(:gallery_item, :item_url => nil)
     gallery_item.should_not be_valid
-    gallery_item.errors.on(:item_url).should_not be_nil
+    gallery_item.errors[:item_url].should be_present
     gallery_item.item_url = "foo.jpg"
     gallery_item.should_not be_valid
-    gallery_item.errors.on(:item_url).should_not be_nil
+    gallery_item.errors[:item_url].should be_present
     gallery_item.item_url = "http://example.com/foo.jpg"
     gallery_item.should be_valid
   end
@@ -32,8 +32,8 @@ describe GalleryItem do
   it "should not require a caption" do
     gallery_item = Factory.build(:gallery_item, :caption => nil)
     gallery_item.should be_valid
-    gallery_item.errors.on(:caption).should be_nil
-    gallery_item.caption = Faker::Lorem.paragraph
+    gallery_item.errors[:caption].should be_blank
+    gallery_item.caption = random_string
     gallery_item.should be_valid
   end
 

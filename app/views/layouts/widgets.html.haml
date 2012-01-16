@@ -6,10 +6,10 @@
     %meta{:name => 'title', :content => title}
     %meta{:name => 'description', :content => (out = yield(:meta_description)) ? out : ""}
     %meta{:name => 'medium', :content => 'news'}
-  
-    = stylesheet_link_tag 'compiled/grid.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'compiled/text.css', :media => 'print'
-    = raw stylesheet_link_merged :base
+
+    = stylesheet_link_tag 'grid.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'text.css', :media => 'print'
+    = stylesheet_link_tag :base
 
     - if get_setting('typekit').present?
       - typekit = get_setting('typekit').value
@@ -27,12 +27,12 @@
 
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js'
 
-    = raw javascript_include_merged :base
+    = javascript_include_tag :base
 
     = javascript_include_tag 'widgets'
 
     = yield :head_content
-              
+
   %body#widgets
     #bodyWrapper
       = render :partial => 'widgets/header'
