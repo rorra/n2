@@ -4,8 +4,8 @@ namespace :n2 do
     task :after do
       Rake::Task['n2:util:compass:compile_css'].invoke
       Rake::Task['n2:widgets:update'].invoke
-      Rake::Task['i18n:populate:update_from_rails'].invoke
-      Rake::Task['i18n:populate:synchronize_translations'].invoke
+      #Rake::Task['i18n:populate:update_from_rails'].invoke
+      #Rake::Task['i18n:populate:synchronize_translations'].invoke
     end
 
     desc "Run misc upgrade scritps after a deploy upgrade"

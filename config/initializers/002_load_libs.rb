@@ -66,3 +66,5 @@ require "#{Rails.root}/lib/zvent_gem_addon.rb"
 require "#{Rails.root}/lib/string_extensions.rb"
 require "#{Rails.root}/lib/feed_parser.rb"
 require "#{Rails.root}/lib/tweeter.rb"
+
+require "#{Rails.root}/lib/locale_extensions.rb"
