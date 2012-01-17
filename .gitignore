@@ -2,6 +2,7 @@
 public/maintenance.*
 public/sitemap*
 public/uploads
+public/assets
 public/cache/*
 !public/cache/.gitignore
 tmp

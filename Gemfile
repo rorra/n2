@@ -6,6 +6,7 @@ gem 'haml'
 gem "sass-rails"
 gem 'compass', :git => 'git://github.com/chriseppstein/compass.git'
 gem 'compass-960-plugin'
+gem "uglifier"
 gem 'json'
 gem 'mogli'
 gem "thumbs_up"
