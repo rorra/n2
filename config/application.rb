@@ -15,7 +15,10 @@ module N2
     config.assets.version = '1.0'
     config.active_record.schema_format = :sql
 
+    config.assets.precompile << 'base.css'
     config.assets.precompile << 'grid.css'
+    config.assets.precompile << 'fb_grid.css'
+    config.assets.precompile << 'text.css'
 
     Dir[Rails.root.join('config/routes/*.rb')].each do |route_file|
       config.paths["config/routes"] << route_file
