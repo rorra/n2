@@ -82,3 +82,7 @@ group :production do
   gem "unicorn"
   gem "newrelic_rpm"
 end
+
+group :assets do
+  gem 'uglifier'
+end
