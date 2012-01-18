@@ -83,6 +83,6 @@ group :production do
   gem "newrelic_rpm"
 end
 
-group :assets do
-  gem 'uglifier'
-end
+#group :assets do
+  #gem 'uglifier'
+#end
