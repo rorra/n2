@@ -14,8 +14,8 @@
 
     = csrf_meta_tag
 
-    %link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : icon_fan_app_url}
-    %link{:rel  => "icon", :href => icon_fan_app_url}
+    -#%link{:rel  => "image_src", :content => (out = yield(:meta_image)) ? out : icon_fan_app_url}
+    -#%link{:rel  => "icon", :href => icon_fan_app_url}
 
     - if iframe_facebook_request?
       = stylesheet_link_tag 'fb_grid', :media => 'screen, projection'
