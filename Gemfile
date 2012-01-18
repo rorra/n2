@@ -6,7 +6,6 @@ gem 'haml'
 gem "sass-rails"
 gem 'compass', :git => 'git://github.com/chriseppstein/compass.git'
 gem 'compass-960-plugin'
-gem "uglifier"
 gem 'json'
 gem 'mogli'
 gem "thumbs_up"
@@ -83,4 +82,10 @@ end
 group :production do
   gem "unicorn"
   gem "newrelic_rpm"
+end
+
+group :assets do
+  gem "uglifier"
+  gem "execjs"
+  gem "therubyracer"
 end
