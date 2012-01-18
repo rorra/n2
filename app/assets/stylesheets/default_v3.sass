@@ -298,7 +298,7 @@ p
 // Content ----------------------------------------------- //
 #home-content
   .panel-1, .panel-2, .panel-3
-    min-height: 100px 
+    min-height: 100px
 
 // breadcrumbs
 .breadcrumbs
@@ -322,7 +322,7 @@ p
   // panel margin removal for feature panels
   .feature-panel
     .first, &.first
-      +alpha() 
+      +alpha()
     .last, &.last
       +omega()
 
@@ -390,7 +390,7 @@ p
   background-color: $tertiary-bg-color
   border: 1px solid scale-color($tertiary-bg-color, $lightness: -20%)
   color: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
-  padding: 8px 
+  padding: 8px
 
 // Single Item
 .item-single-wrap
@@ -443,12 +443,12 @@ p
   margin-bottom: $ninesixty_gutter_width
   &.xlarge
     > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
-      min-height: $feature-item-large-height 
+      min-height: $feature-item-large-height
       .item-list-wrap
         min-height: $feature-item-large-height - 26px
   &.large
     > .feature-item-small, .feature-item-medium, .feature-item-large, .feature-item-xlarge
-      min-height: $feature-item-large-height 
+      min-height: $feature-item-large-height
       .item-list-wrap
         min-height: $feature-item-large-height - 26px
   &.medium
@@ -464,7 +464,7 @@ p
     overflow: hidden
   .feature-item-xlarge
     +grid(6)
-    height: $feature-item-large-height 
+    height: $feature-item-large-height
   .feature-item-large
     +grid(5)
   .feature-item-medium
@@ -594,7 +594,7 @@ p
         input
           height: 18px
           width: 75%
-  // two column item list 
+  // two column item list
   .item-list-wrap
     .item-list
       li
@@ -745,7 +745,7 @@ p
       float: left
       margin-right: 10px
       margin-bottom: 10px
-  
+
 
 // Info Widget (Welcome Panel, What is this? panel, etc...)
 .info-widget
@@ -777,7 +777,7 @@ p
 
 // Bookmarklet Styles //
 .bookmarklet
-  padding: $ninesixty_gutter_width / 2 $ninesixty_gutter_width /2 0 
+  padding: $ninesixty_gutter_width / 2 $ninesixty_gutter_width /2 0
   border-bottom: 1px solid scale-color($tertiary-bg-color, $lightness: -30%)
   background: $tertiary-bg-color
   > h2
@@ -878,13 +878,13 @@ p
   margin-right: 2px
 .thumb-up, .thumb-down
   background-color: $primary-bg-color
-  background-position: center 
+  background-position: center
   background-repeat: no-repeat
   width: 24px
   &:hover
     background-color: scale-color($tertiary-bg-color, $lightness: -10%)
 .thumb-up
-  background-image: image_url("site/thumb-up.gif") 
+  background-image: image_url("site/thumb-up.gif")
 .thumb-down
   background-image: image_url("site/thumb-down.gif")
 .likes-tally
@@ -1036,7 +1036,7 @@ p
       padding-bottom: $ninesixty_gutter_width / 2
 
 
-// refine search 
+// refine search
 .refine-search-wrap
   font-size: 11px
   float: right
@@ -1127,7 +1127,7 @@ p
     text-align: center
 
 // predictions
-.prediction-details 
+.prediction-details
   .item-details
     margin-bottom: $ninesixty_gutter_width * .5
   .vote-options
@@ -1137,7 +1137,7 @@ p
     ul
       display: inline-block
       width: 100%
-      margin: 0 
+      margin: 0
       padding: 0
     li
       background-color: #999
@@ -1184,13 +1184,13 @@ p
     display: inline-block
     width: 100%
     margin-bottom: 10px
-    
+
     a
       color: $primary-link-color
       display: inline-block
       font-weight: bold
       padding: 0 5px
-      
+
       &.previous
         float: left
       &.next
@@ -1286,13 +1286,13 @@ p
 
 /* Clear Floats and Fixes */
 
-// floats 
+// floats
 .float-left
   float: left
 .float-right
   float: right
 // clear
-.clear 
+.clear
   clear: both
   display: block
   overflow: hidden
@@ -1300,7 +1300,7 @@ p
   width: 0
   height: 0
 // clearfix
-.clearfix:after 
+.clearfix:after
   clear: both
   content: ' '
   display: block
@@ -1310,13 +1310,13 @@ p
   width: 0
   height: 0
 
-* html .clearfix, *:first-child+html .clearfix 
+* html .clearfix, *:first-child+html .clearfix
   zoom: 1
 
 
 // root element for the scrollable.
 // when scrolling occurs this element stays still.
-.scrollable 
+.scrollable
   // required settings
   position: relative
   overflow: hidden
@@ -1335,7 +1335,7 @@ p
       float: left
       width: 100%
   // single scrollable item
-  img 
+  img
     float: left
     margin: 15px 10px
     background-color: #888
@@ -1345,7 +1345,7 @@ p
     -moz-border-radius: 4px
     -webkit-border-radius: 4px
   // active item
-  .active 
+  .active
     border: 2px solid #000
     position: relative
     cursor: default
@@ -1362,15 +1362,15 @@ p
   margin: 25px
   width: 300px
   height: 200px
-  .items 
-    div 
+  .items
+    div
       float: left
       width: 300px
       height: 300px
       margin-right: 30px
 
 /* prev, next, prevPage and nextPage buttons */
-a.browse 
+a.browse
   display: block
   width: 20px
   height: 40px
@@ -1387,10 +1387,10 @@ a.right_scroll
   background: url(/images/arrow/right.png) no-repeat
   clear: right
   margin-right: 0px
-  
+
   &:hover
     background-position: 0px -40px
-  
+
   &:active
     background-position: 0px -40px
 
@@ -1408,29 +1408,29 @@ a.left_scroll
     background-position: 0px -40px
 
 /* up and down */
-a.up_scroll		
+a.up_scroll
   background: url(/images/arrow/up.png) no-repeat
   float: none
   margin: 10px 50px
-	
+
   &:hover
     background-position: -30px 0
   &:active
     background-position: -60px 0
-    
+
 a.down_scroll
   background: url(/images/arrow/down.png) no-repeat
   float: none
   margin: 10px 50px
   background-position: 0 -30px
-  
+
   &:hover
     background-position: -30px -30px
   &:active
     background-position: -60px -30px
 
 /* disabled navigational button */
-a.disabled 
+a.disabled
   visibility: hidden !important
 
 .selected-image
@@ -1438,26 +1438,26 @@ a.disabled
 
 #image_box
 
-  .scrollable_popup 
+  .scrollable_popup
 
     /* required settings */
     position: relative
     overflow: hidden
     width: 300px
     height: 300px
-    
-    .items 
+
+    .items
       /* this cannot be too large */
       width: 20000em
       position: absolute
       clear: both
-      
-    img 
+
+    img
       float: left
       margin: 20px 5px 20px 21px
       background-color: #fff
       padding: 2px
-      
+
 
   .navi
     position: absolute
@@ -1466,11 +1466,11 @@ a.disabled
     display: block
     width: 30px
     height: 20px
-  
+
   .next
     left: 450px
     background: url(/images/arrow/right.png) no-repeat
-  
+
   .prev
     background: url(/images/arrow/left.png) no-repeat
 
@@ -1516,7 +1516,7 @@ body div.jGrowl div.jGrowl-notification div.user-wrapper
   p
     font-size: 12px
     color: #666
-  
+
 body div.jGrowl div.jGrowl-notification div.jGrowl-close
   z-index: 99
   float: right
@@ -1537,7 +1537,7 @@ body div.jGrowl div.jGrowl-closer
   clear: both
   float: left
   width: 100%
-#wall_post_label  
+#wall_post_label
   padding-left: 0
 #article_status
   clear: both
@@ -1566,7 +1566,7 @@ body div.jGrowl div.jGrowl-closer
     width: 15px
     top: $ninesixty_gutter_width / 2
     right: $ninesixty_gutter_width / 2
-    
+
 // Simple Posting Widget
 .simple-post
   .media-link
