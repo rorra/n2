@@ -15,10 +15,24 @@ module N2
     config.assets.version = '1.0'
     config.active_record.schema_format = :sql
 
-    config.assets.precompile << 'base.css'
-    config.assets.precompile << 'grid.css'
-    config.assets.precompile << 'fb_grid.css'
-    config.assets.precompile << 'text.css'
+    # These should be included in the application.sass or application.js file, instead
+    # of each page requesting them.  Then the below would go away.
+    css = %w( grid
+              text
+              anytimec
+              tablesorter
+              fb_grid
+              admin
+              cards
+              base
+              scaffold
+              m/jqt/theme
+              ui-lightness/jquery-ui-1.7.2.custom
+              m/jqtouch
+              jquery.wysiwyg ).map { |f| "#{f}.css" }
+    config.assets.precompile += css
+
+    config.assets.precompile << '*.js'
 
     Dir[Rails.root.join('config/routes/*.rb')].each do |route_file|
       config.paths["config/routes"] << route_file
