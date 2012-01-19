@@ -2,7 +2,7 @@ class Admin::AnnouncementsController < AdminController
   cache_sweeper :announcement_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Announcement.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Announcement,
       :fields => [:prefix, :title, :url, :created_at],
@@ -11,7 +11,7 @@ class Admin::AnnouncementsController < AdminController
   end
 
   def new
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :model => Announcement,
       :fields => [:prefix, :title, :details, :url, :type]
     }
@@ -19,7 +19,7 @@ class Admin::AnnouncementsController < AdminController
 
   def edit
     @announcement = Announcement.find(params[:id])
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => @announcement,
       :model => Announcement,
       :fields => [:prefix, :title, :details, :url, :type]
@@ -39,7 +39,7 @@ class Admin::AnnouncementsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Announcement.find(params[:id]),
       :model => Announcement,
       :fields => [:prefix, :title, :details, :url, :type,:created_at]

@@ -1,7 +1,7 @@
 class Admin::PredictionGuessesController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => PredictionGuess.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => PredictionGuess,
       :fields => [:prediction_question, :user, :guess, :guess_numeric, :guess_date, :created_at],
@@ -32,7 +32,7 @@ class Admin::PredictionGuessesController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => PredictionGuess.find(params[:id]),
       :model => PredictionGuess,
       :fields => [:prediction_question, :user, :guess, :guess_numeric, :guess_date],
@@ -63,7 +63,7 @@ class Admin::PredictionGuessesController < AdminController
   def render_new prediction_guess = nil
     prediction_guess ||= PredictionGuess.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => @prediction_guess,
       :model => PredictionGuess,
       :fields => [:prediction_question, :user, :guess, :guess_numeric, :guess_date],
@@ -72,7 +72,7 @@ class Admin::PredictionGuessesController < AdminController
   end
 
   def render_edit prediction_guess
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => prediction_guess,
       :model => PredictionGuess,
       :fields => [:prediction_question, :user, :guess, :guess_numeric, :guess_date],

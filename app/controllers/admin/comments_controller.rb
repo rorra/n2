@@ -1,7 +1,7 @@
 class Admin::CommentsController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Comment.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Comment,
       :fields => [:comments, :user_id, :created_at],
@@ -11,7 +11,7 @@ class Admin::CommentsController < AdminController
   end
 
   def new
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :model => Comment,
       :fields => [:comments, :created_at],
     }
@@ -19,7 +19,7 @@ class Admin::CommentsController < AdminController
 
   def edit
     @comment = Comment.find(params[:id])
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => @comment,
       :model => Comment,
       :fields => [:comments],
@@ -39,7 +39,7 @@ class Admin::CommentsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Comment.find(params[:id]),
       :model => Comment,
       :fields => [:comments, :postedByName, :created_at, :is_blocked],

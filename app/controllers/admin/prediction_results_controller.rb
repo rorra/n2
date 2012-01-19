@@ -1,7 +1,7 @@
 class Admin::PredictionResultsController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => PredictionResult.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => PredictionResult,
       :fields => [:result, :prediction_question_id, :created_at],
@@ -32,7 +32,7 @@ class Admin::PredictionResultsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => PredictionResult.find(params[:id]),
       :model => PredictionResult,
       :fields => [:result, :alternate_result, :url, :details, :is_accepted, :user_id, :prediction_question_id, :created_at],
@@ -79,7 +79,7 @@ class Admin::PredictionResultsController < AdminController
   def render_new prediction_result = nil
     prediction_result ||= PredictionResult.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => @prediction_result,
       :model => PredictionResult,
       :fields => [:result, lambda {|f| f.input :details, :required => false }, :url, :is_accepted, :user_id, :prediction_question_id],
@@ -88,7 +88,7 @@ class Admin::PredictionResultsController < AdminController
   end
 
   def render_edit prediction_result
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => prediction_result,
       :model => PredictionResult,
       :fields => [:result, lambda {|f| f.input :details, :required => false }, :url, :is_accepted, :user_id, :prediction_question_id],

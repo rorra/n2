@@ -3,7 +3,7 @@ class Admin::ContentsController < AdminController
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Content.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Content,
       :fields => [:title, :user_id, :score, :comments_count, :is_blocked, :created_at],
@@ -35,7 +35,7 @@ class Admin::ContentsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Content.find(params[:id]),
       :model => Content,
       :fields => [:title, :user_id, :url, :caption, :content_image, :source, :score, :comments_count, :is_blocked, :created_at],
@@ -60,7 +60,7 @@ class Admin::ContentsController < AdminController
   end
 
   def render_edit content
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => content,
       :model => Content,
       :fields => [:title, :user_id, :url, :caption, :source, :score, :comments_count, :is_blocked, :created_at],

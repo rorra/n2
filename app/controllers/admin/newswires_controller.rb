@@ -1,7 +1,7 @@
 class Admin::NewswiresController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Newswire.newest.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Newswire,
       :fields => [:title, :feed_id, :created_at],
@@ -33,7 +33,7 @@ class Admin::NewswiresController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Newswire.find(params[:id]),
       :model => Newswire,
       :fields => [:title, :feed_id, :caption, :created_at],
@@ -65,7 +65,7 @@ class Admin::NewswiresController < AdminController
   def render_new newswire = nil
     newswire ||= Newswire.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => newswire,
       :model => Newswire,
       :fields => [:title, :caption, :feed],
@@ -75,7 +75,7 @@ class Admin::NewswiresController < AdminController
   end
 
   def render_edit newswire
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => newswire,
       :model => Newswire,
       :fields => [:title, :caption],

@@ -1,7 +1,7 @@
 class Admin::Metadata::TitleFiltersController < Admin::MetadataController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Metadata::TitleFilter.paginate(:page => params[:page], :per_page => 25, :order => "created_at desc"),
       :model => Metadata::TitleFilter,
       :fields => [:keyword],
@@ -31,7 +31,7 @@ class Admin::Metadata::TitleFiltersController < Admin::MetadataController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::TitleFilter.find(params[:id]),
       :model => Metadata::TitleFilter,
       :fields => [:keyword, :created_at],
@@ -61,7 +61,7 @@ class Admin::Metadata::TitleFiltersController < Admin::MetadataController
   def render_new title_filter = nil
     title_filter ||= Metadata::TitleFilter.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => title_filter,
       :model => Metadata::TitleFilter,
       :fields => [:keyword]
@@ -71,7 +71,7 @@ class Admin::Metadata::TitleFiltersController < Admin::MetadataController
   def render_edit title_filter
     title_filter ||= Metadata::TitleFilter.new
 
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => title_filter,
       :model => Metadata::TitleFilter,
       :fields => [:keyword]

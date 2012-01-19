@@ -1,7 +1,7 @@
 class Admin::Metadata::ActivityScoresController < Admin::MetadataController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Metadata::ActivityScore.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Metadata::ActivityScore,
       :fields => [:activity_score_name, :activity_score_sub_type_name, :activity_score_value],
@@ -36,7 +36,7 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::ActivityScore.find(params[:id]),
       :model => Metadata::ActivityScore,
       :fields => [:activity_score_name, :activity_score_sub_type_name, :activity_score_value, :activity_score_hint, :created_at],
@@ -66,7 +66,7 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
   def render_new activity_score = nil
     activity_score ||= Metadata::ActivityScore.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => activity_score,
       :model => Metadata::ActivityScore,
       :fields => [:activity_score_name, :activity_score_hint, lambda {|f| f.input :activity_score_sub_type_name, :required => false }, :activity_score_value]
@@ -76,7 +76,7 @@ class Admin::Metadata::ActivityScoresController < Admin::MetadataController
   def render_edit activity_score
     activity_score ||= Metadata::ActivityScore.new
 
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => activity_score,
       :model => Metadata::ActivityScore,
       :fields => [lambda {|f| f.input :activity_score_value, :label => t('score_for', :activity => activity_score.activity_score_name), :hint => activity_score.activity_score_hint },]

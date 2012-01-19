@@ -27,7 +27,7 @@ class Admin::ImagesController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Image.find(params[:id]),
       :model => Image,
       :fields => [:title, :url, :rss, :created_at],
@@ -68,7 +68,7 @@ class Admin::ImagesController < AdminController
   def render_new image = nil
     image ||= Image.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => image,
       :model => Image,
       :fields => [:title, :url, :rss, :user_id],
@@ -77,7 +77,7 @@ class Admin::ImagesController < AdminController
   end
 
   def render_edit image
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => image,
       :model => Image,
       :fields => [:title, :url, :rss, :user_id],

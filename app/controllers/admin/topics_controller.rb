@@ -1,7 +1,7 @@
 class Admin::TopicsController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Topic.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Topic,
       :fields => [:title, :comments_count, :created_at],
@@ -32,7 +32,7 @@ class Admin::TopicsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Topic.find(params[:id]),
       :model => Topic,
       :fields => [:title, :comments_count, :created_at],
@@ -62,7 +62,7 @@ class Admin::TopicsController < AdminController
   def render_new topic = nil
     topic ||= Topic.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => @topic,
       :model => Topic,
       :fields => [:title, :forum_id],
@@ -71,7 +71,7 @@ class Admin::TopicsController < AdminController
   end
 
   def render_edit topic
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => topic,
       :model => Topic,
       :fields => [:title],

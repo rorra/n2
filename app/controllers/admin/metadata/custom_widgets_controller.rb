@@ -1,7 +1,7 @@
 class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Metadata::CustomWidget.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => Metadata::CustomWidget,
       :fields => [:title, :content_type, :key_sub_type, :created_at],
@@ -32,7 +32,7 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::CustomWidget.find(params[:id]),
       :model => Metadata::CustomWidget,
       :fields => [:title, :key_name, :content_type, :key_sub_type, :created_at, :custom_data]
@@ -62,7 +62,7 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
   def render_new custom_widget = nil
     custom_widget ||= Metadata::CustomWidget.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => custom_widget,
       :model => Metadata::CustomWidget,
       :fields => [
@@ -74,7 +74,7 @@ class Admin::Metadata::CustomWidgetsController < Admin::MetadataController
   end
 
   def render_edit custom_widget
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => custom_widget,
       :model => Metadata::CustomWidget,
       :fields => [

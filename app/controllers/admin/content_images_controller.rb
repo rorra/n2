@@ -1,7 +1,7 @@
 class Admin::ContentImagesController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => ContentImage.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => ContentImage,
       :fields => [:url, :content_id, :created_at],
@@ -30,7 +30,7 @@ class Admin::ContentImagesController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => ContentImage.find(params[:id]),
       :model => ContentImage,
       :fields => [:url, :content_id, :created_at],
