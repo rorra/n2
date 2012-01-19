@@ -1,7 +1,7 @@
 class Admin::Metadata::SponsorZonesController < Admin::MetadataController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Metadata::SponsorZone.paginate(:page => params[:page], :per_page => 30, :order => "key_sub_type asc"),
       :model => Metadata::SponsorZone,
       :fields => [:sponsor_zone_name, :sponsor_zone_topic, :sponsor_zone_code],
@@ -31,7 +31,7 @@ class Admin::Metadata::SponsorZonesController < Admin::MetadataController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::SponsorZone.find(params[:id]),
       :model => Metadata::SponsorZone,
       :fields => [:sponsor_zone_name, :sponsor_zone_topic, :sponsor_zone_code]
@@ -61,7 +61,7 @@ class Admin::Metadata::SponsorZonesController < Admin::MetadataController
   def render_new sponsor_zone = nil
     sponsor_zone ||= Metadata::SponsorZone.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => sponsor_zone,
       :model => Metadata::SponsorZone,
       :fields => [:sponsor_zone_name, :sponsor_zone_topic, :sponsor_zone_code]
@@ -72,7 +72,7 @@ class Admin::Metadata::SponsorZonesController < Admin::MetadataController
     sponsor_zone ||= Metadata::SponsorZone.new
 =begin
     if sponsor_zone.name == 'site_notification_user'
-      render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+      render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
         :item => sponsor_zone,
         :model => Metadata::SponsorZone,
       :fields => [:sponsor_zone_name, :sponsor_zone_topic, :sponsor_zone_code]
@@ -80,7 +80,7 @@ class Admin::Metadata::SponsorZonesController < Admin::MetadataController
     else
     end
 =end
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => sponsor_zone,
       :model => Metadata::SponsorZone,
       :fields => [:sponsor_zone_name, :sponsor_zone_topic, :sponsor_zone_code]

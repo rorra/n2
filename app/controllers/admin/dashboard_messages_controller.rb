@@ -1,7 +1,7 @@
 class Admin::DashboardMessagesController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => DashboardMessage.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => DashboardMessage,
       :fields => [:message, :status, :created_at],
@@ -30,7 +30,7 @@ class Admin::DashboardMessagesController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => DashboardMessage.find(params[:id]),
       :model => DashboardMessage,
       :fields => [:message, :action_text, :action_url, :image_url, :status, :news_id],
@@ -58,7 +58,7 @@ class Admin::DashboardMessagesController < AdminController
   def render_new dashboardMessage = nil
     dashboardMessage ||= DashboardMessage.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => dashboardMessage,
       :model => DashboardMessage,
       :fields => [:message, :action_text, :action_url, :image_url]
@@ -66,7 +66,7 @@ class Admin::DashboardMessagesController < AdminController
   end
 
   def render_edit dashboardMessage
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => dashboardMessage,
       :model => DashboardMessage,
       :fields => [:message, :action_text, :action_url, :image_url]

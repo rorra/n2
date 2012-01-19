@@ -1,7 +1,7 @@
 class Admin::PredictionGroupsController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => PredictionGroup.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => PredictionGroup,
       :fields => [:title, :created_at],
@@ -32,7 +32,7 @@ class Admin::PredictionGroupsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => PredictionGroup.find(params[:id]),
       :model => PredictionGroup,
       :fields => [:title, :section, :description, :status, :is_approved, :is_blocked, :user_id, :created_at],
@@ -80,7 +80,7 @@ class Admin::PredictionGroupsController < AdminController
   def render_new prediction_group = nil
     prediction_group ||= PredictionGroup.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => prediction_group,
       :model => PredictionGroup,
       :fields => [:title, lambda {|f| f.input :description, :required => false }, :status, :is_approved, :is_blocked, :user_id],
@@ -89,7 +89,7 @@ class Admin::PredictionGroupsController < AdminController
   end
 
   def render_edit prediction_group
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => prediction_group,
       :model => PredictionGroup,
       :fields => [:title, :section,  lambda {|f| f.input :description, :required => false }, :status, :is_approved, :is_blocked, :user_id],

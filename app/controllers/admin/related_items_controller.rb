@@ -1,7 +1,7 @@
 class Admin::RelatedItemsController < AdminController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => RelatedItem.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => RelatedItem,
       :fields => [:title, :url, :is_blocked, :created_at],
@@ -33,7 +33,7 @@ class Admin::RelatedItemsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => RelatedItem.find(params[:id]),
       :model => RelatedItem,
       :fields => [:title, :url, :notes, :is_blocked, :user_id,:relatable_id, :created_at],
@@ -64,7 +64,7 @@ class Admin::RelatedItemsController < AdminController
   def render_new related_item = nil
     related_item ||= RelatedItem.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => @related_item,
       :model => RelatedItem,
       :fields => [:title, :url, :notes, :user_id, :relatable_type, :relatable_id, :is_blocked],
@@ -73,7 +73,7 @@ class Admin::RelatedItemsController < AdminController
   end
 
   def render_edit related_item
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => related_item,
       :model => RelatedItem,
       :fields => [:title, :url, :notes, :user_id, :is_blocked ],

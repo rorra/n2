@@ -3,7 +3,7 @@ class Admin::PredictionQuestionsController < AdminController
   before_filter :set_prediction_types
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => PredictionQuestion.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
       :model => PredictionQuestion,
       :fields => [:title, :prediction_type, :status, :created_at],
@@ -34,7 +34,7 @@ class Admin::PredictionQuestionsController < AdminController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => PredictionQuestion.find(params[:id]),
       :model => PredictionQuestion,
       :fields => [:title, :prediction_type, :status, :is_approved, :is_blocked, :user_id, :prediction_group_id],
@@ -81,7 +81,7 @@ class Admin::PredictionQuestionsController < AdminController
   def render_new prediction_question = nil
     prediction_question ||= PredictionQuestion.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => prediction_question,
       :model => PredictionQuestion,
       :fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],
@@ -90,7 +90,7 @@ class Admin::PredictionQuestionsController < AdminController
   end
 
   def render_edit prediction_question
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => prediction_question,
       :model => PredictionQuestion,
       :fields => [:title, :is_approved, :is_blocked, :user_id, :prediction_group_id],

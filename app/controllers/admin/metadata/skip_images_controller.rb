@@ -1,7 +1,7 @@
 class Admin::Metadata::SkipImagesController < Admin::MetadataController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Metadata::SkipImage.paginate(:page => params[:page], :per_page => 25, :order => "created_at desc"),
       :model => Metadata::SkipImage,
       :fields => [:image_url],
@@ -31,7 +31,7 @@ class Admin::Metadata::SkipImagesController < Admin::MetadataController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::SkipImage.find(params[:id]),
       :model => Metadata::SkipImage,
       :fields => [:skip_image_name, :skip_image_sub_type_name, :skip_image_value, :created_at],
@@ -61,7 +61,7 @@ class Admin::Metadata::SkipImagesController < Admin::MetadataController
   def render_new skip_image = nil
     skip_image ||= Metadata::SkipImage.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => skip_image,
       :model => Metadata::SkipImage,
       :fields => [:image_url]
@@ -71,7 +71,7 @@ class Admin::Metadata::SkipImagesController < Admin::MetadataController
   def render_edit skip_image
     skip_image ||= Metadata::SkipImage.new
 
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => skip_image,
       :model => Metadata::SkipImage,
       :fields => [:image_url]

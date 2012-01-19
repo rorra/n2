@@ -1,7 +1,7 @@
 class Admin::Metadata::AdLayoutsController < Admin::MetadataController
 
   def index
-    render :partial => 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
       :items => Metadata::AdLayout.paginate(:page => params[:page], :per_page => 25, :order => "created_at desc"),
       :model => Metadata::AdLayout,
       :fields => [:ad_layout_name, :ad_layout_layout],
@@ -31,7 +31,7 @@ class Admin::Metadata::AdLayoutsController < Admin::MetadataController
   end
 
   def show
-    render :partial => 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
       :item => Metadata::AdLayout.find(params[:id]),
       :model => Metadata::AdLayout,
       :fields => [:ad_layout_name, :ad_layout_layout, :created_at],
@@ -61,7 +61,7 @@ class Admin::Metadata::AdLayoutsController < Admin::MetadataController
   def render_new ad_layout = nil
     ad_layout ||= Metadata::AdLayout.new
 
-    render :partial => 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => ad_layout,
       :model => Metadata::AdLayout,
       :fields => [:ad_layout_name, :ad_layout_layout]
@@ -71,7 +71,7 @@ class Admin::Metadata::AdLayoutsController < Admin::MetadataController
   def render_edit ad_layout
     ad_layout ||= Metadata::AdLayout.new
 
-    render :partial => 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => ad_layout,
       :model => Metadata::AdLayout,
       :fields => [:ad_layout_name, :ad_layout_layout]
