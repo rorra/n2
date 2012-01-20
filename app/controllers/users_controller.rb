@@ -113,7 +113,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.active.find(params[:id])
-    @activities = @user.activities.active.find(:all, :limit => 7, :order => "created_at desc")
+    @activities = ItemAction.newest_for_user(@user, 10)
     @articles = @user.articles.active.published.paginate :page => params[:page], :per_page => 10, :order => "created_at desc"
     @paginate = true
     @is_owner = current_user && (@user.id == current_user.id)

@@ -61,43 +61,17 @@
         .single-item-wrap
           .bio-wrap= raw (@user.bio.present?) ? @user.bio : default_bio(@user)
 
+  - unless @articles.empty?
+    = panel2 do
+      = panel_bar t('.action_feeds')
+      = double_col_item_list @articles
 
-  =# render_ad(:banner, @ad_layout, @ad_banner)
-  .panel-2
-    .panel-bar
-      %h2= t('articles.my_articles')
-    - unless @articles.empty?
-      .item-list-wrap
-        .item-list
-          %ul
-            - @articles.each do |article|
-              - content = article.is_a?(Article) ? article.content : article
-              %li{'data-id' => content.cache_key}
-                = render :partial => 'shared/items/article', :locals => { :article => article}
-      - if @paginate
-        .panel-2
-          = will_paginate @articles
-    - else
-      .subtitle
-        = t('articles.user_none')
-/ #left-col
+  = panel2 do
+    = panel_bar t('.action_feeds')
+    = double_col_item_list @activities
 
 #right-col
-  =# render_ad(:small_square, @ad_layout, @ad_small_square)
-  .panel-1
-    .panel-bar
-      %h2= t('.action_feeds')
-    #actionFeed
-      #feedList.item-list-wrap
-        .item-list
-          - unless @activities.any?
-            %p= t('.action_feed_empty')
-          - else
-            %ul
-              - @activities.each do |activity|
-                -#%li.actionFeedItem
-                %li.pfeed_container= pfeed_content(activity)
+
   = render :partial => 'shared/sidebar/user_posts', :locals => { :user => @user }
   = render :partial => 'shared/sidebar/top_tags', :locals => { :klass => @user.articles , :locale_var => 'popular_tags' }
   = render_ad(:skyscraper, @ad_layout, @ad_skyscraper)
-/ #right-col
