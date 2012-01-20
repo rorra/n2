@@ -103,6 +103,15 @@ We provide .sample files for the majority of these config files to facilitate ea
 
 As mentioned above, when you set your config options, **remember to use** http://my.site.com and **not** http://my.site.com/iframe/
 
+Internationalization (Locales)
+------------------------------
+
+For every language you add in the file config/locales.yml (there is a sample file named config/locales.yml.sample), you
+should be sure that you check all the files under /config/locales and create the right locale file for it.
+In example, if you add the language "Spanish" with the code "es", you should make sure that under the directory
+/config/locales, in each subdirectory, there is a file names es.yml with the right translation.
+
+
 Install dependencies and setup the framework
 --------------------------------------------
 
@@ -113,7 +122,8 @@ Now that we got the hard part out of the way, there are just a few commands left
         # Install the required gems
         bundle install
         # Run the newscloud setup process, this will create your database along with configuring your application
-        rake n2:setup
+        LOCALE_FILE=./config/locales.yml rake n2:setup
+
 
 Post Installation
 -----------------
