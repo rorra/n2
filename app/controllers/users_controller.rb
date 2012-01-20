@@ -162,7 +162,7 @@ class UsersController < ApplicationController
   def update_bio
     if request.post?
       @profile = current_user_profile
-      @profile.bio = @template.linkify @template.sanitize_user_bio params['bio']
+      @profile.bio = view_context.linkify view_context.sanitize_user_bio params['bio']
       if @profile.save
         flash[:success] = "Successfully edited your bio."
         redirect_to user_path(@profile.user)
