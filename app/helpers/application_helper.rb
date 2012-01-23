@@ -402,6 +402,8 @@ module ApplicationHelper
       tagged_forum_path(item.forum, :tag => tag_name)
     elsif item.class.name == 'Gallery'
       tagged_galleries_path(:tag => tag_name)
+    elsif item.class.name == 'Resource'
+      resource_tag_path(:tag => tag_name)
     elsif item.class.name == 'PredictionQuestion'
       tagged_prediction_questions_path(:tag => tag_name)
     elsif item.class.name == 'PredictionGroup'
