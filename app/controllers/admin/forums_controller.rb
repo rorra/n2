@@ -77,7 +77,7 @@ class Admin::ForumsController < AdminController
   def render_new forum = nil
     forum ||= Forum.new
 
-    render 'shared/admin/_new_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
       :item => forum,
       :model => Forum,
       :fields => [:name, :description],
@@ -86,7 +86,7 @@ class Admin::ForumsController < AdminController
   end
 
   def render_edit forum
-    render 'shared/admin/_edit_page', :layout => 'new_admin', :locals => {
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
       :item => forum,
       :model => Forum,
       :fields => [:name, :description],

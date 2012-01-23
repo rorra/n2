@@ -14,14 +14,14 @@ class CommentsController < ApplicationController
     @commentable = find_commentable
     @comment = @commentable.comments.build(params[:comment])
     @comment.user = current_user
-    @comment.comments = @template.sanitize_user_content @comment.comments
+    @comment.comments = view_context.sanitize_user_content @comment.comments
     if @comment.save
       # to do doesn't work for topic replies
       if @comment.post_wall?
         session[:post_wall] = @comment
       end
       if @comment.user.post_comments?
-        image_url = (@comment.commentable.respond_to?(:images) and @comment.commentable.images.any?) ? @template.base_url(@comment.commentable.images.first.url(:thumb)) : nil
+        image_url = (@comment.commentable.respond_to?(:images) and @comment.commentable.images.any?) ? view_context.base_url(@comment.commentable.images.first.url(:thumb)) : nil
         app_caption = t('app.facebook.comment_caption', :title => get_setting('site_title').try(:value))
         @comment.async_comment_messenger polymorphic_path(@commentable.item_link, :only_path => false, :canvas => iframe_facebook_request?, :format => 'html'), app_caption, image_url
       end

@@ -38,6 +38,7 @@ N2::Application.routes.draw do
 
   match '/robots.txt' => 'home#robots', :as => :robots
 
+  match '/test_design' => 'home#test_design', :as => :test_design
   match '/test_design.:format' => 'home#test_design', :as => :test_design
 
   match '/block.:format' => 'flags#block', :as => :toggle_blocked

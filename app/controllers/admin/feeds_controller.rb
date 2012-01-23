@@ -8,7 +8,7 @@ class Admin::FeedsController < AdminController
     config.edit_fields = [:title, :url, :rss, :user_id, :enabled, :load_all]
     config.actions = [:index, :new, :create, :update, :show, :edit]
     config.associations = { :belongs_to => { :user => :user_id } }
-    config.index_links = [lambda { link_to 'Add Default Feeds', news_topics_admin_content_dashboard_path }]
+    #config.index_links = [lambda { link_to 'Add Default Feeds', news_topics_admin_content_dashboard_path }]
   end
 
   def fetch_new

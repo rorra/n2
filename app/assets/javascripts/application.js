@@ -86,7 +86,7 @@ function rebuild_facebook_dom() {
   	event.preventDefault();
   	var url = change_url_format($(this).attr('href')).replace(/json/, 'js');
 	if ($(this).next().children().length==0) {
-		$(this).next().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		$(this).next().html("<img src=\"/assets/default/spinner-tiny.gif\" />");
   	$(this).next().toggle(); // after spinner appears, toggle it
  		$(this).next().load(url, function() {
   			rebuild_facebook_dom();
@@ -181,7 +181,7 @@ function rebuild_facebook_dom() {
   	var submitBtn = $('input[type=submit]', this);
   	submitBtn.attr('disabled', 'disabled');
   	submitBtn.hide();
-  	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
+  	submitBtn.parent().append('<img style="float: left;" src="/assets/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
 
   	var url = change_url_format($(this).attr('action'));
   	var parentForm = $(this).parents('.postComment');
@@ -226,7 +226,7 @@ function rebuild_facebook_dom() {
 		var flag_form = $(this);
  		var flag_parent = flag_form.parent().parent().parent();
     if ( $('[name=flag_type]', this).val() != 'choose_flag') {
-		  $(this).parent().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		  $(this).parent().html("<img src=\"/assets/default/spinner-tiny.gif\" />");
       var url = change_url_format(flag_form.attr('action'));
       $.post(url, flag_form.serialize(), function(data) {
 				flag_parent.html('<span class="flag-toggle btnComment">'+data.msg+'</span>').fadeIn("normal");
@@ -237,7 +237,7 @@ function rebuild_facebook_dom() {
 	$('.voteLink, .voteUp, .voteDown, .thumb-up, .thumb-down').live('click', function(event) {
 		event.preventDefault();
 		var span = $(this).parent();
-		$(this).parent().html("<img src=\"/images/default/spinner-tiny.gif\" />");
+		$(this).parent().html("<img src=\"/assets/default/spinner-tiny.gif\" />");
 		var url = $(this).attr("href");
     url = url.replace(/\?return_to=.*$/, '');
     if (url.substring(url.length - 5) == '.html') {
@@ -256,7 +256,6 @@ function rebuild_facebook_dom() {
 			// chrome sends this xml if both contentType and data are not set
 			// and as a result rails flips out
 			contentType: 'application/json',
-			data: "foo", // data has to be set to explicitly set the content type
 			dataType: "json",
 			success: function(data, status) {
               span.fadeOut("normal", function() {
@@ -286,7 +285,7 @@ function rebuild_facebook_dom() {
 		event.preventDefault();
 		var span = $(this).parent();
     var $li_parent = $(this).parents().filter('li').first();
-		$(this).parent().html("<img src=\"/images/default/spinner.gif\" />");
+		$(this).parent().html("<img src=\"/assets/default/spinner.gif\" />");
 		var url = $(this).attr("href");
     url = url.replace(/\?return_to=.*$/, '');
     if (url.substring(url.length - 5) == '.html') {
@@ -304,7 +303,6 @@ function rebuild_facebook_dom() {
 			// chrome sends this xml if both contentType and data are not set
 			// and as a result rails flips out
 			contentType: 'application/json',
-			data: "foo", // data has to be set to explicitly set the content type
 			dataType: "json",
 			success: function(data, status) {
 				span.fadeOut("normal", function() {
@@ -361,7 +359,7 @@ function rebuild_facebook_dom() {
   	var submitBtn = $('input[type=submit]', this);
   	submitBtn.attr('disabled', 'disabled');
   	submitBtn.hide();
-  	submitBtn.parent().append('<img style="float: left;" src="/images/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your guess...</p>');
+  	submitBtn.parent().append('<img style="float: left;" src="/assets/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your guess...</p>');
 
   	var url = change_url_format($(this).attr('action'));
   	var parentForm = $(this).parents('.prediction_question_wrapper');

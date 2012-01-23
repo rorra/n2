@@ -4,6 +4,7 @@ class ItemAction < ActiveRecord::Base
 
   scope :for_item, lambda {|item| { :conditions => ["actionable_type = ? and actionable_id = ?", item.class.name, item.id] } }
   scope :for_class, lambda {|item| { :conditions => ["actionable_type = ?", item.name] } }
+  scope :for_user, lambda {|user| { :conditions => ["user_id = ?", user.id] } }
   scope :within, lambda {|timeframe| { :conditions => ["created_at > ?", timeframe] } }
   scope :active, { :conditions => {:is_blocked => false} }
   scope :newest, lambda { |*args| { :order => ["created_at desc"], :limit => (args.first || 10)} }
@@ -16,6 +17,10 @@ class ItemAction < ActiveRecord::Base
     item_actions = self.fetch_items opts.merge({:item => item})
 
     item_actions ? item_actions.item_count.to_i : 0
+  end
+
+  def self.newest_for_user user, limit = 5
+    for_user(user).active.newest(limit).map(&:actionable)
   end
 
   def self.top_items opts = {}
