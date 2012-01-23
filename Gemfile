@@ -80,7 +80,7 @@ group :test, :cucumber do
 end
 
 group :production do
-  gem "unicorn"
+  gem "thin"
   gem "newrelic_rpm"
 end
 
