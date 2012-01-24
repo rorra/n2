@@ -216,7 +216,7 @@ N2::Application.routes.draw do
       get :my_items
     end
     resources :comments
-    resources :fags
+    resources :flags
     resources :related_items
   end
 
