@@ -15,7 +15,7 @@ gem "friendly_id", '3.3.1'
 gem 'will_paginate'
 gem "oauth-plugin", ">= 0.4.0.pre1"
 gem "twitter", :git => "https://github.com/jnunemaker/twitter.git"
-gem "mysql"
+gem "mysql2"
 gem "bitly"
 gem "redis"
 gem "redis-namespace"
