@@ -25,6 +25,10 @@ class ItemScore < ActiveRecord::Base
     self.find_or_create(item).score
   end
 
+  def self.top_for_class klass, limit = nil
+    ItemScore.for_class(klass).active.top(limit).map(&:scorable)
+  end
+
   def self.calc_item_score item
     positive_actions_count = ItemAction.tally_for_item(item) + 1
     negative_actions_count = 0 # Eventually change this
