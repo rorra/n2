@@ -27,6 +27,10 @@ module Newscloud
       end
 
       def top_story_items(limit = 100, within_last_week = false)
+        # HACK ALERT
+        # This will return an ordered set of results based on number of votes and time since posting
+        # RAILS3 TODO
+        return self.order('created_at desc').limit(limit)
         table = self.name.tableize
         now = Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")
         if !within_last_week
