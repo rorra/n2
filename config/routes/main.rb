@@ -296,7 +296,10 @@ N2::Application.routes.draw do
 
   end
 
-  resources :idea_boards
+  resources :idea_boards do
+    resources :ideas
+  end
+  
   resources :ideas do
     collection do
       get :index
