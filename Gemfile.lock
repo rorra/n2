@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/chewbranca/i18n_backend_database.git
+  revision: 3c5be2c7b79ec9e0c3283de82d913e840e06c9c5
+  specs:
+    i18n_backend_database (0.0.1)
+      rails (>= 3)
+
+GIT
   remote: git://github.com/chriseppstein/compass.git
   revision: 297c0b24260a554876a7926d135cc5d96e8eec37
   specs:
@@ -16,13 +23,6 @@ GIT
       redis-namespace (~> 1.0.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
-
-GIT
-  remote: git://github.com/joevandyk/i18n_backend_database.git
-  revision: 3bdb0b77f7ba9e78f19e7c95285de5dd01423fa4
-  specs:
-    i18n_backend_database (0.0.1)
-      rails (>= 3)
 
 GIT
   remote: git://github.com/mkdynamic/omniauth-facebook.git
