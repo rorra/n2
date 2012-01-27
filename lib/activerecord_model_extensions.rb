@@ -17,7 +17,7 @@ module Newscloud
 
       def rankable_classes
         #["Image", "PredictionGuess", "Question",  "Idea", "Forum", "Event", "PredictionGroup", "IdeaBoard", "Video", "Url", "Gallery", "Resource", "Comment", "Audio", "Classified", "GalleryItem", "PredictionQuestion", "Feed", "Card", "Content", "ResourceSection", "Article", "Topic", "Answer"].map(&:constantize)
-        ["PredictionGuess", "Question",  "Idea", "Forum", "Event", "PredictionGroup", "IdeaBoard", "Gallery", "Resource", "Classified", "PredictionQuestion", "Card", "Content", "ResourceSection", "Article", "Topic", "Answer"].map(&:constantize)
+        ["PredictionGuess", "Question",  "Idea", "Event", "PredictionGroup", "Gallery", "Resource", "Classified", "PredictionQuestion", "Content", "Article", "Topic", "Answer"].map(&:constantize)
       end
 
       def top_article_items limit = 100
@@ -182,7 +182,7 @@ module Newscloud
         [:user, :author].each do |method|
           return self.send(method) if self.respond_to?(method) and self.send(method).present?
         end
-        User.new
+        nil
       end
 
       # Breadcrumb parents method
