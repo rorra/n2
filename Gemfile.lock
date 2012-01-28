@@ -39,13 +39,6 @@ GIT
       nokogiri (> 0.0.0)
 
 GIT
-  remote: git://github.com/rorra/i18n_backend_database.git
-  revision: f55d9e1d30d6e94147103b187cbc2466eab5b1c2
-  specs:
-    i18n_backend_database (0.0.1)
-      rails (>= 3)
-
-GIT
   remote: git://github.com/taf2/curb.git
   revision: 2c9f36da6d2332b8ced99c6d0bfc03b4e7f76946
   specs:
