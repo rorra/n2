@@ -22,7 +22,7 @@ SitemapGenerator::Sitemap.add_links do |sitemap|
 
   # Examples:
 
-  sitemap.add home_index_path, :priority => 0.8, :changefreq => 'daily'
+  sitemap.add root_path, :priority => 0.8, :changefreq => 'daily'
   sitemap.add stories_path, :priority => 0.7, :changefreq => 'daily'
   sitemap.add events_path, :priority => 0.6, :changefreq => 'daily'
   sitemap.add forums_path, :priority => 0.6, :changefreq => 'daily'
@@ -34,48 +34,48 @@ SitemapGenerator::Sitemap.add_links do |sitemap|
   sitemap.add prediction_groups_path, :priority => 0.5, :changefreq => 'daily'
   # to do  add classified_ tag sections path
   
-  Content.active.find(:all).each do |a|
+  Content.active.all.each do |a|
     sitemap.add story_path(a), :lastmod => a.updated_at, :priority => 0.6
   end
 
-  Idea.active.find(:all).each do |a|
+  Idea.active.all.each do |a|
     sitemap.add idea_path(a), :lastmod => a.updated_at
   end
 
-  IdeaBoard.active.find(:all).each do |a|
+  IdeaBoard.active.all.each do |a|
     sitemap.add idea_board_path(a), :lastmod => a.updated_at, :priority => 0.4
   end
 
-  Event.active.find(:all).each do |a|
+  Event.active.all.each do |a|
     sitemap.add event_path(a), :lastmod => a.updated_at
   end
 
-  Resource.find(:all).each do |a|
+  Resource.all.each do |a|
     sitemap.add resource_path(a), :lastmod => a.updated_at
   end
 
-  ResourceSection.active.find(:all).each do |a|
+  ResourceSection.active.all.each do |a|
     sitemap.add resource_section_path(a), :lastmod => a.updated_at, :priority => 0.4
   end
 
-  Question.find(:all).each do |a|
+  Question.all.each do |a|
     sitemap.add question_path(a), :lastmod => a.updated_at
   end
 
-  Forum.find(:all).each do |a|
+  Forum.all.each do |a|
     sitemap.add forum_path(a), :lastmod => a.updated_at
   end
 
-  PredictionGroup.active.find(:all).each do |a|
+  PredictionGroup.active.all.each do |a|
     sitemap.add prediction_group_path(a), :lastmod => a.updated_at, :priority => 0.4
   end
 
-  PredictionQuestion.active.find(:all).each do |a|
+  PredictionQuestion.active.all.each do |a|
     sitemap.add prediction_question_path(a), :lastmod => a.updated_at, :priority => 0.4
   end
   
   #todo add classified section pages
-  Classified.active.find(:all).each do |a|
+  Classified.active.all.each do |a|
     sitemap.add classified_path(a), :lastmod => a.updated_at, :priority => 0.4
   end
 
