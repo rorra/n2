@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/chewbranca/i18n_backend_database.git
+  revision: 3c5be2c7b79ec9e0c3283de82d913e840e06c9c5
+  specs:
+    i18n_backend_database (0.0.1)
+      rails (>= 3)
+
+GIT
   remote: git://github.com/chriseppstein/compass.git
   revision: 8c84869b0b6bc5396e264fea15c71d4e346ac5d0
   specs:
@@ -190,7 +197,7 @@ GEM
     multi_json (1.0.4)
     multi_xml (0.4.1)
     multipart-post (1.1.4)
-    mysql (2.8.1)
+    mysql2 (0.3.11)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -368,7 +375,7 @@ DEPENDENCIES
   launchy
   loofah
   mogli
-  mysql
+  mysql2
   newrelic_rpm
   nokogiri
   oauth-plugin (>= 0.4.0.pre1)

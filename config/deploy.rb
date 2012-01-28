@@ -24,7 +24,7 @@ set :skin_dir, "/data/config/n2_sites"
 
 after("deploy:symlink") do
   # setup shared files
-  %w{/config/unicorn.conf.rb /tmp/sockets /config/database.yml
+  %w{/config/thin.yml /tmp/sockets /config/database.yml
     /config/facebooker.yml /config/application_settings.yml /config/providers.yml
     /config/application.god /config/newrelic.yml /config/s3.yml
     /config/smtp.yml /config/resque_schedule.yml /config/menu.yml}.each do |file|
@@ -50,7 +50,7 @@ end
 after("deploy:update_code") do
   unless exists?(:skip_post_deploy) and skip_post_deploy
     deploy.load_skin
-    deploy.server_post_deploy
+    #deploy.server_post_deploy
     set :rake_post_path, release_path
     deploy.rake_post_deploy
   end
@@ -109,16 +109,16 @@ namespace :deploy do
   namespace :resque do
     desc "Restart Resque workers"
     task :restart_workers, :roles => :workers do
-      run "cd #{current_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
-      run "cd #{current_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
+      run "cd #{release_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
+      run "cd #{release_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
     end
 
     desc "Stop Resque workers"
     task :stop_workers, :roles => :workers do
       # TODO:: switch this to god.stop_workers
       deploy.god.stop
-      run "cd #{current_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
-      run "cd #{current_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
+      run "cd #{release_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
+      run "cd #{release_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
     end
 
     desc "Start Resque workers"
@@ -135,19 +135,22 @@ namespace :deploy do
 
   desc "Restart application"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
+    #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
+    run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml restart"
   end
 
   desc "Start application"
   task :start, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
-    deploy.god.start
+    #run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    #deploy.god.start
+    run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml start"
   end
 
   desc "Stop application"
   task :stop, :roles => :app do
     deploy.god.stop
-    run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
+    #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
+    run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml stop"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
   end
@@ -184,7 +187,8 @@ namespace :deploy do
   desc "Run rake after deploy tasks"
   task :rake_post_deploy, :roles => :app do
     path = rake_post_path || release_path
-    run "cd #{path} && bundle exec rake n2:deploy:after RAILS_ENV=#{rails_env}"
+    #run "cd #{path} && bundle exec rake n2:deploy:after RAILS_ENV=#{rails_env}"
+    run "cd #{path} && bundle exec rake assets:precompile --trace"
   end
 
   desc "Run rake post upgrade after upgrade_newscloud"
@@ -198,8 +202,8 @@ namespace :deploy do
     if roles[:workers].any?
       resque.restart_workers
     else
-      run "cd #{current_path} && bundle exec rake n2:queue:restart_workers RAILS_ENV=#{rails_env}"
-      run "cd #{current_path} && bundle exec rake n2:queue:restart_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
+      run "cd #{release_path} && bundle exec rake n2:queue:restart_workers RAILS_ENV=#{rails_env}"
+      run "cd #{release_path} && bundle exec rake n2:queue:restart_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
     end
     deploy.god.start
     newrelic.notice_deployment
@@ -208,9 +212,9 @@ namespace :deploy do
   desc "Load the app skin if it exists"
   task :load_skin, :roles => :app do
     if skin_dir_exists? and skin_file_exists?
-    	run "ln -nfs /data/config/n2_sites/#{application}/app/stylesheets/skin.sass #{release_path}/app/stylesheets/skin.sass"
-    	run "rm -r #{release_path}/public/images/skin"
-    	run "ln -nfs /data/config/n2_sites/#{application}/public/images/skin #{release_path}/public/images/skin"
+    	run "ln -nfs /data/config/n2_sites/#{application}/app/stylesheets/skin.sass #{release_path}/app/assets/stylesheets/skin.sass"
+    	run "rm -r #{release_path}/app/assets/images/skin"
+    	run "ln -nfs /data/config/n2_sites/#{application}/public/images/skin #{release_path}/app/assets/images/skin"
     end
   end
 
@@ -241,7 +245,7 @@ namespace :bundler do
   end
 end
 
-begin
+=begin
   Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
     $: << File.join(vendored_notifier, 'lib')
   end
@@ -249,4 +253,4 @@ begin
   require 'hoptoad_notifier/capistrano'
 rescue Exception => e
   # puts "Error could not load hoptoad notifier: #{e}"
-end
+=end

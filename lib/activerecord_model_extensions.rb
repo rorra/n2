@@ -17,7 +17,7 @@ module Newscloud
 
       def rankable_classes
         #["Image", "PredictionGuess", "Question",  "Idea", "Forum", "Event", "PredictionGroup", "IdeaBoard", "Video", "Url", "Gallery", "Resource", "Comment", "Audio", "Classified", "GalleryItem", "PredictionQuestion", "Feed", "Card", "Content", "ResourceSection", "Article", "Topic", "Answer"].map(&:constantize)
-        ["PredictionGuess", "Question",  "Idea", "Forum", "Event", "PredictionGroup", "IdeaBoard", "Gallery", "Resource", "Classified", "PredictionQuestion", "Card", "Content", "ResourceSection", "Article", "Topic", "Answer"].map(&:constantize)
+        ["PredictionGuess", "Question",  "Idea", "Event", "PredictionGroup", "Gallery", "Resource", "Classified", "PredictionQuestion", "Content", "Article", "Topic", "Answer"].map(&:constantize)
       end
 
       def top_article_items limit = 100
@@ -27,6 +27,10 @@ module Newscloud
       end
 
       def top_story_items(limit = 100, within_last_week = false)
+        # HACK ALERT
+        # This will return an ordered set of results based on number of votes and time since posting
+        # RAILS3 TODO
+        return self.order('created_at desc').limit(limit)
         table = self.name.tableize
         now = Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")
         if !within_last_week
@@ -178,7 +182,7 @@ module Newscloud
         [:user, :author].each do |method|
           return self.send(method) if self.respond_to?(method) and self.send(method).present?
         end
-        User.new
+        nil
       end
 
       # Breadcrumb parents method

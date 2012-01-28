@@ -194,6 +194,7 @@ N2::Application.routes.draw do
       post :index
       get :drafts
     end
+    resources :flags
   end
 
   resources :cards do
@@ -215,7 +216,7 @@ N2::Application.routes.draw do
       get :my_items
     end
     resources :comments
-    resources :fags
+    resources :flags
     resources :related_items
   end
 
@@ -250,11 +251,12 @@ N2::Application.routes.draw do
       get :my_events
       post :my_events
     end
-
+    resources :flags
   end
 
   resources :forums do
     resources :topics
+    resources :flags
   end
 
   resources :galleries do
@@ -294,7 +296,10 @@ N2::Application.routes.draw do
 
   end
 
-  resources :idea_boards
+  resources :idea_boards do
+    resources :ideas
+  end
+  
   resources :ideas do
     collection do
       get :index
@@ -366,6 +371,7 @@ N2::Application.routes.draw do
       get :index
       post :index
     end
+    resources :flags, :comments, :related_items
   end
 
   resources :questions do

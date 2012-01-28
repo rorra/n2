@@ -32,7 +32,7 @@
                       %span= t('forums.topics_count', :topics_count => forum.topics_count)
                       %span= t('forums.posts_count', :posts_count => forum.comments_count)
 
-.panel-2.mod-panel
+.panel-2.mod-panel.admin-links.hidden
   .subtitle.clearfix
     = link_to t('forums.new'), new_admin_forum_path(), :class => "float-right", :target => '_parent'
 

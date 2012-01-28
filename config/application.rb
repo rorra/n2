@@ -23,6 +23,8 @@ module N2
               tablesorter
               fb_grid
               admin
+              admin_grid
+              superfish
               cards
               base
               scaffold

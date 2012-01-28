@@ -11,7 +11,6 @@
       .refine-search-wrap
         = render :partial => 'shared/forms/refine_dropdown', :locals => { :select_options => Question.refineable_select_options }
       %h2= t('questions.my_list_title')
-      - if @questions.present? and @questions.first.refineable?
     .subtitle
       %span= t('questions.my_list_subtitle')
     - unless @questions.empty?
@@ -20,21 +19,22 @@
           %ul
             - @questions.each do |question|
               %li.askQuestionWrap{'data-id' => question.cache_key}
-                .item_1
+                .item-image
                   .thumb
                     - if question.images.present?
                       = image_tag question.images.first.url(:thumb)
                     - else
                       = image_tag ('skin/watermark.jpg')
-                  .item-block
-                    %h2= link_to question.question, question
+                  .content
+                    %h3= link_to question.question, question
                     %p= linked_item_details question
-                    .profile-pic= local_linked_profile_pic question.user
-                    .meta-data
-                      %h3= asked_by question
-                      %span== #{like_link question} #{question.votes.size}
-                      %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
-                      -#%span= fb_share_item_button question
+                    .meta-profile
+                      .profile-pic= local_linked_profile_pic question.user
+                      %h6= asked_by question
+                      %h6
+                        %span== #{like_link question} #{question.votes.size}
+                        = pipe_spacer
+                        %span== #{link_to answer_translate(question.answers.count), question_path(question, :anchor => "commentListTop")}
 
       - if @paginate
         .panel-2

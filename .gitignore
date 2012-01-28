@@ -33,6 +33,7 @@ config/deploy/*.json
 !config/deploy/example_site.rb
 *.pid
 ical
+log/*.db
 db/*.db
 db/*.sqlite3
 config/initializers/your_site_host.rb

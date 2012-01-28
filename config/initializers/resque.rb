@@ -15,7 +15,7 @@ resque_config = YAML.load_file(resque_file)
 Resque.redis = resque_config[rails_env]
 APP_CONFIG['redis'] = resque_config[rails_env]
 
-app_name = Rails.root =~ %r(/([^/]+)/(current|release)) ? $1 : nil
+app_name = Rails.root.to_s =~ %r(/([^/]+)/(current|release)) ? $1 : nil
 APP_CONFIG['namespace'] = app_name
 Resque.redis.namespace = "resque:#{app_name}" if app_name
 

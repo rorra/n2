@@ -82,7 +82,7 @@ Capistrano::Configuration.instance.load do
       say_headline("\nSetting up rails directory structure..\n")
       deploy.setup
       say_headline("\nBootstrapping newscloud rails framework..\n")
-      deploy.cold
+      deploy.cold_bootstrap
       say_headline("\nCongragulations, your server #{settings[:app_name]}(#{settings[:base_url]}) is up and running!!\n")
     end
 

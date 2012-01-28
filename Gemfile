@@ -15,7 +15,7 @@ gem "friendly_id", '3.3.1'
 gem 'will_paginate'
 gem "oauth-plugin", ">= 0.4.0.pre1"
 gem "twitter", :git => "https://github.com/jnunemaker/twitter.git"
-gem "mysql"
+gem "mysql2"
 gem "bitly"
 gem "redis"
 gem "redis-namespace"
@@ -33,7 +33,8 @@ gem 'routing-filter'
 
 # JVD: having problems getting this working with an empty database
 # The gem tries to load the locales table before it exists.
-gem 'i18n_backend_database', :git => "git://github.com/rorra/i18n_backend_database.git"
+# Patched this to fix issues with the Translation model
+gem 'i18n_backend_database', :git => "git://github.com/chewbranca/i18n_backend_database.git"
 # JVD: Use this when developing, checkout the i18n_backend_database to ../
 # gem 'i18n_backend_database', :path => "../i18n_backend_database"
 
