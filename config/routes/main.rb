@@ -191,7 +191,6 @@ N2::Application.routes.draw do
   resources :articles do
     collection do
       get :index
-      post :index
       get :drafts
     end
     resources :flags
