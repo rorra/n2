@@ -1,5 +1,13 @@
 require 'aws'
 
+class Rake::Task
+  def replace &block
+    @actions.clear
+    prerequisites.clear
+    enhance &block
+  end
+end
+
 namespace 'sitemap' do
   desc 'Upload the sitemap files to S3 (using your configuration in config/s3.yml)'
   task :upload_to_s3 => :environment do
@@ -36,4 +44,14 @@ end
 
 Rake::Task["sitemap:create"].enhance do
   Rake::Task["sitemap:upload_to_s3"].invoke
+end
+
+Rake::Task[:'sitemap:refresh'].replace do
+  if File.exist?(File.join(Rails.root, "config", "s3.yml"))
+    s3_options = YAML.load_file(File.join(Rails.root, "config", "s3.yml"))[Rails.env].symbolize_keys
+    bucket_name = s3_options[:bucket]
+    SitemapGenerator::Sitemap.ping_search_engines(:sitemap_index_url => "https://#{bucket_name}.s3.amazonaws.com/sitemaps/sitemap_index.xml.gz")
+  else
+    SitemapGenerator::Sitemap.ping_search_engines
+  end
 end
