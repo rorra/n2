@@ -7,78 +7,97 @@ if Metadata::Setting.find_setting('yahoo_app_id').present?
   SitemapGenerator::Sitemap.yahoo_app_id = Metadata::Setting.find_setting('yahoo_app_id').value
 end
 
-SitemapGenerator::Sitemap.add_links do |sitemap|
+SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically.
   # Links are added to the Sitemap in the order they are specified.
   #
-  # Usage: sitemap.add path, options
+  # Usage: add path, options
   #        (default options are used if you don't specify)
   #
   # Defaults: :priority => 0.5, :changefreq => 'weekly',
   #           :lastmod => Time.now, :host => default_host
 
 
-  # Examples:
-
-  sitemap.add root_path, :priority => 0.8, :changefreq => 'daily'
-  sitemap.add stories_path, :priority => 0.7, :changefreq => 'daily'
-  sitemap.add events_path, :priority => 0.6, :changefreq => 'daily'
-  sitemap.add forums_path, :priority => 0.6, :changefreq => 'daily'
-  sitemap.add questions_path, :priority => 0.6, :changefreq => 'daily'
-  sitemap.add ideas_path, :priority => 0.6, :changefreq => 'daily'
-  sitemap.add resources_path, :priority => 0.6, :changefreq => 'daily'
-  sitemap.add idea_boards_path, :priority => 0.5, :changefreq => 'daily'
-  sitemap.add resource_sections_path, :priority => 0.5, :changefreq => 'daily'
-  sitemap.add prediction_groups_path, :priority => 0.5, :changefreq => 'daily'
-  # to do  add classified_ tag sections path
+  add root_path(:format => 'html'), :priority => 0.8, :changefreq => 'daily'
+  add stories_path(:format => 'html'), :priority => 0.7, :changefreq => 'daily'
+  add newswires_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
+  add articles_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add users_path(:format => 'html'), :priority => 0.4, :changefreq => 'daily'
+  add events_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add forums_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add questions_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add ideas_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add resources_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add galleries_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
+  add idea_boards_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
+  add resource_sections_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
+  add prediction_groups_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
+  add classifieds_path(:format => 'html'), :priority => 0.7, :changefreq => 'daily'
+  add cards_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
   
   Content.active.all.each do |a|
-    sitemap.add story_path(a), :lastmod => a.updated_at, :priority => 0.6
+    add story_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.6
   end
 
   Idea.active.all.each do |a|
-    sitemap.add idea_path(a), :lastmod => a.updated_at
+    add idea_path(a, :format => 'html'), :lastmod => a.updated_at
   end
 
   IdeaBoard.active.all.each do |a|
-    sitemap.add idea_board_path(a), :lastmod => a.updated_at, :priority => 0.4
+    add idea_board_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
   end
 
   Event.active.all.each do |a|
-    sitemap.add event_path(a), :lastmod => a.updated_at
+    add event_path(a, :format => 'html'), :lastmod => a.updated_at
   end
 
   Resource.all.each do |a|
-    sitemap.add resource_path(a), :lastmod => a.updated_at
+    add resource_path(a, :format => 'html'), :lastmod => a.updated_at
   end
 
   ResourceSection.active.all.each do |a|
-    sitemap.add resource_section_path(a), :lastmod => a.updated_at, :priority => 0.4
+    add resource_section_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
   end
 
   Question.all.each do |a|
-    sitemap.add question_path(a), :lastmod => a.updated_at
+    add question_path(a, :format => 'html'), :lastmod => a.updated_at
   end
 
   Forum.all.each do |a|
-    sitemap.add forum_path(a), :lastmod => a.updated_at
+    add forum_path(a, :format => 'html'), :lastmod => a.updated_at
   end
 
   PredictionGroup.active.all.each do |a|
-    sitemap.add prediction_group_path(a), :lastmod => a.updated_at, :priority => 0.4
+    add prediction_group_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
   end
 
   PredictionQuestion.active.all.each do |a|
-    sitemap.add prediction_question_path(a), :lastmod => a.updated_at, :priority => 0.4
+    add prediction_question_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
   end
   
-  #todo add classified section pages
   Classified.active.all.each do |a|
-    sitemap.add classified_path(a), :lastmod => a.updated_at, :priority => 0.4
+    add classified_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
   end
 
+  Article.published.all.each do |a|
+    add article_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
+  end
+
+  Feed.active.all.each do |f|
+    add feed_newswire_path(f, :format => 'html'), :lastmod => f.updated_at, :priority => 0.4
+  end
+
+  Gallery.all.each do |g|
+    add gallery_path(g, :format => 'html'), :lastmod => g.updated_at, :priority => 0.4
+  end
+
+  # Static pages
+  add faq_path(:format => 'html'), :priority => 0.2, :changefreq => 'monthly'
+  add about_path(:format => 'html'), :priority => 0.2, :changefreq => 'monthly'
+  add terms_path(:format => 'html'), :priority => 0.2, :changefreq => 'monthly'
+  add contact_us_path(:format => 'html'), :priority => 0.2, :changefreq => 'monthly'
 end
 
 # Including Sitemaps from Rails Engines.
