@@ -113,9 +113,9 @@ Now that we got the hard part out of the way, there are just a few commands left
         # Install the required gems
         bundle install
         # Run the newscloud setup process, this will create your database along with configuring your application
-        rake n2:setup
+        bundle exec rake n2:setup
         # Load the default locales
-        bundle exec rake i18n:populate:load_default_locales LOCALE_FILE=config/locales.yml
+        bundle exec rake i18n:populate:update_from_rails
 
 Post Installation
 -----------------

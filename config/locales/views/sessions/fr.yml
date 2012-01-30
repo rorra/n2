@@ -1,8 +1,0 @@
-fr:
-  sessions:
-    new:
-      title: "Sign In"
-      login: "Login"
-      password: "Password"
-      submit: "Sign In"
-      use_fb_connect: "Use Facebook Connect"

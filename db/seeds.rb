@@ -824,13 +824,13 @@ view_objects = [
   	:name          => "Newest Univeral Items Double Column List",
   	:template_name => "v2_double_col_item_list",
   	:settings      => {
-  		:klass_name      => "PfeedItem",
-  		:locale_title    => "pfeeds.latest.title",
-  		:locale_subtitle => "pfeeds.latest.subtitle",
+  		:klass_name      => "ItemAction",
+  		:locale_title    => "generic.newest_items.title",
+  		:locale_subtitle => "generic.newest_items.subtitle",
   		:use_post_button => false,
   		:kommands        => [
   		  {
-          :method_name => "newest_items",
+          :method_name => "newest",
           :args        => [4]
         }
   		]
@@ -1035,14 +1035,14 @@ view_objects = [
   	:name          => "Newest Universal Items",
   	:template_name => "v2_single_col_list",
   	:settings      => {
-  		:klass_name      => "PfeedItem",
-  		:locale_title    => "pfeeds.latest.title",
+  		:klass_name      => "ItemAction",
+  		:locale_title    => "generic.newest_items.title",
   		:locale_subtitle => nil,
   		:use_post_button => false,
   		:css_class       => "active",
   		:kommands        => [
   		  {
-  		    :method_name => "newest_items",
+  		    :method_name => "newest",
           :args        => [5]
   		  }
   		]
