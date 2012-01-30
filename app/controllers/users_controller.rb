@@ -9,12 +9,12 @@ class UsersController < ApplicationController
   before_filter :set_meta_klass, :only => [:index]
 
   access_control do
-    allow all, :to => [:index, :show, :feed, :account_menu, :current]
+    allow all, :to => [:index, :show, :feed, :account_menu, :current, :new, :create]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
     # FIXME:: get admins switched over to using :admin role
     allow :admin, :of => :current_user
     allow :admin
-    allow logged_in, :to => [:new, :create, :update_bio, :dont_ask_me_for_email, :dont_ask_me_invite_friends, :invite]
+    allow logged_in, :to => [:update_bio, :dont_ask_me_for_email, :dont_ask_me_invite_friends, :invite]
     allow :identity_user, :of => :page_user, :to => [:edit, :update]
   end
 
