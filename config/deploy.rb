@@ -24,7 +24,7 @@ set :skin_dir, "/data/config/n2_sites"
 
 after("deploy:symlink") do
   # setup shared files
-  %w{/config/thin.yml /tmp/sockets /config/database.yml
+  %w{/tmp/sockets /config/database.yml /config/unicorn.conf.rb
     /config/facebooker.yml /config/application_settings.yml /config/providers.yml
     /config/application.god /config/newrelic.yml /config/s3.yml
     /config/smtp.yml /config/resque_schedule.yml /config/menu.yml}.each do |file|
@@ -135,28 +135,28 @@ namespace :deploy do
 
   desc "Restart application"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
-    run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml restart"
+    run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
+    #run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml restart"
   end
 
   desc "Start application"
   task :start, :roles => :app do
-    #run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
     #deploy.god.start
-    run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml start"
+    #run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml start"
   end
 
   desc "Stop application"
   task :stop, :roles => :app do
     deploy.god.stop
-    #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
-    run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml stop"
+    run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
+    #run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml stop"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
   end
 
   desc "Cold bootstrap initial app, setup database and start server"
-  task :cold do
+  task :cold_bootstrap do
     set :skip_post_deploy, true
     update
     setup_app_server
@@ -188,13 +188,14 @@ namespace :deploy do
   task :rake_post_deploy, :roles => :app do
     path = rake_post_path || release_path
     #run "cd #{path} && bundle exec rake n2:deploy:after RAILS_ENV=#{rails_env}"
-    run "cd #{path} && bundle exec rake assets:precompile --trace"
+    run "cd #{path} && bundle exec rake assets:precompile"
   end
 
   desc "Run rake post upgrade after upgrade_newscloud"
   task :rake_post_upgrade, :roles => :app do
     path = rake_post_path || release_path
     run "cd #{path} && bundle exec rake n2:deploy:post_upgrade RAILS_ENV=#{rails_env}"
+    run "cd #{path} && bundle exec rake i18n:populate:update_from_rails RAILS_ENV=#{rails_env}"
   end
 
   desc "Run server post deploy tasks to restart workers and reload god"
