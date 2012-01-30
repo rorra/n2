@@ -112,6 +112,9 @@ Now that we got the hard part out of the way, there are just a few commands left
         sudo gem install bundler
         # Install the required gems
         bundle install
+        # Temporary workaround for locales bootstrap issue
+        # This is strictly to initial the database so there is at least a locales table in existence to prevent i18n_backend_database from exploding while bootstrapping itself.
+        mysql -u mydbuser -p my_n2_db < db/development_structure.sql
         # Run the newscloud setup process, this will create your database along with configuring your application
         bundle exec rake n2:setup
         # Load the default locales
