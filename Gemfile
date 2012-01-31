@@ -1,6 +1,7 @@
 source :gemcutter
 
 gem "rails", "3.1.3"
+gem 'activeadmin', '0.3.4', :git => 'https://github.com/gregbell/active_admin.git'
 gem "acts_as_tree"
 gem 'haml'
 gem "sass-rails"
