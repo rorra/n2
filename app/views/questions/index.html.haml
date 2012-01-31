@@ -8,7 +8,7 @@
       %h2 Ask a question
     .form-wrap.clearfix
       - unless current_user.present?
-        %p== #{t 'questions.logged_in_error'} #{link_to 'Login now', login_path}
+        .subtitle== #{t 'questions.logged_in_error'} #{link_to 'Login now', login_path}
       - else
         - semantic_form_for Question.new do |form|
           - form.inputs do
@@ -18,7 +18,7 @@
               = form.input :details, :required => false, :label => t('please_elaborate')
               = form.input :tags_string, :label => t('tags'), :required => false, :hint => t('tags_hint')
             - form.buttons do
-              = form.commit_button :button_html => { :class => "btn" }
+              = form.commit_button :class => 'float-right', :button_html => { :class => "button-input create" }
 
   = render_ad(:banner, @ad_layout, @ad_banner)
   - cache "questions_list_#{@page}html" do

@@ -29,19 +29,19 @@ h5
       text-decoration: none
 h1
   font-size: $h1-size
-  font-weight: bold
+  font-weight: $primary-header-weight
 h2
   font-size: $h2-size
-  font-weight: bold
+  font-weight: $primary-header-weight
 h3
   font-size: $h3-size
-  font-weight: bold
+  font-weight: $primary-header-weight
 h4
   font-size: $h4-size
-  font-weight: normal
+  font-weight: $secondary-header-weight
 h5
   font-size: $h5-size
-  font-weight: normal
+  font-weight: $secondary-header-weight
 h6
   color: $tertiary-header-color
   font-family: $primary-body-font
@@ -1127,9 +1127,10 @@ p
     text-align: center
 
 // predictions
-.prediction-details 
+.prediction-details
+  // spacing wrappers
   .item-details
-    margin-bottom: $ninesixty_gutter_width * .5
+    margin-bottom: $ninesixty_gutter_width / 2
   .vote-options
     border: 1px solid #ccc
     padding: 10px 10px 0
@@ -1140,7 +1141,7 @@ p
       margin: 0 
       padding: 0
     li
-      background-color: #999
+      background-color: $tertiary-bg-color
       float: left
       width: 100%
       padding: 5px 0
@@ -1160,9 +1161,11 @@ p
           margin: $ninesixty_gutter_width * .5 0 $ninesixty_gutter_width * .5 $ninesixty_gutter_width * .25
     .results-list
       li.results-item
-        background-color: #999
+        background-color: $tertiary-bg-color
         &.user-choice
-          background-color: #666
+          border: 1px solid scale-color($tertiary-bg-color, $lightness: -10%)
+        .prediction-question
+          padding: 5px
         .numbers
           float: left
           width: 30%
