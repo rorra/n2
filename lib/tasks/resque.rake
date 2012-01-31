@@ -6,9 +6,9 @@ namespace :resque do
     # WARNING: HERE BE STUPID RAILS HACKS!!!
     # AVERT YOUR EYES!!!
     #Rails 3 specfic
-    #ActiveRecord::Base.send(:descendants).each { |klass|  klass.columns }
+    ActiveRecord::Base.send(:descendants).each { |klass|  klass.columns }
     # Yes... we are actually loading every model in the app..
-    klasses = Dir.glob("#{Rails.root}/app/models/*.rb").map {|f| f.sub(%r{^.*/(.*?).rb$}, '\1').pluralize.classify }.map(&:constantize)
+    #klasses = Dir.glob("#{Rails.root}/app/models/*.rb").map {|f| f.sub(%r{^.*/(.*?).rb$}, '\1').pluralize.classify }.map(&:constantize)
   end
 end
 
