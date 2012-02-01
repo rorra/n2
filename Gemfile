@@ -10,6 +10,7 @@ gem 'compass-960-plugin'
 gem 'json'
 gem 'mogli'
 gem "thumbs_up"
+gem "prototype-rails"
 
 gem "formtastic"
 gem "friendly_id", '3.3.1'
