@@ -11,6 +11,7 @@
   $('.user-present').removeClass('user-present');
   - if current_user.is_moderator?
     $('.moderator-links').removeClass('moderator-links').removeClass('hidden');
+    $('.mod-links').removeClass('mod-links').removeClass('hidden');
   - if current_user.is_admin?
     $('.admin-links').removeClass('admin-links').removeClass('hidden');
   $('.user-#{current_user.id}').removeClass('hidden').removeClass('moderator-links').removeClass('admin-links');

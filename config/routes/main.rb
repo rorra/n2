@@ -19,10 +19,6 @@ N2::Application.routes.draw do
       get :like
       post :like
     end
-    collection do
-      get :index
-      post :index
-    end
   end
 
   match '/overlays/tweet' => 'overlays#tweet', :as => :overlay_tweet
@@ -164,7 +160,7 @@ N2::Application.routes.draw do
   end
 
   resources :topics do
-    resources :comments
+    resources :flags, :comments, :related_items
   end
 
   match '/cards/received/:card_id/from/:user_id.:format' => 'cards#received', :as => :received_cards
@@ -183,18 +179,15 @@ N2::Application.routes.draw do
       get :like
       post :like
     end
-    resources :comments
     resources :answers
-    resources :flags
+    resources :flags, :comments, :related_items
   end
 
   resources :articles do
     collection do
-      get :index
-      post :index
       get :drafts
     end
-    resources :flags
+    resources :flags, :comments, :related_items
   end
 
   resources :cards do
@@ -208,6 +201,7 @@ N2::Application.routes.draw do
       get :get_card_form
       post :get_card_form
     end
+    resources :flags, :comments, :related_items
   end
 
   resources :classifieds do
@@ -215,9 +209,7 @@ N2::Application.routes.draw do
       get :borrowed_items
       get :my_items
     end
-    resources :comments
-    resources :flags
-    resources :related_items
+    resources :flags, :comments, :related_items
   end
 
   resources :comments do
@@ -241,8 +233,6 @@ N2::Application.routes.draw do
 
   resources :events do
     collection do
-      get :index
-      post :index
       get :import_facebook
       post :import_facebook
     end
@@ -252,12 +242,12 @@ N2::Application.routes.draw do
       get :my_events
       post :my_events
     end
-    resources :flags
+    resources :flags, :comments, :related_items
   end
 
   resources :forums do
     resources :topics
-    resources :flags
+    resources :flags, :comments, :related_items
   end
 
   resources :galleries do
@@ -273,8 +263,6 @@ N2::Application.routes.draw do
   resource :home, :controller => "home" do
     collection do
       get :about
-      get :index
-      post :index
       get :openx_ads
       get :contact_us
       post :contact_us
@@ -299,20 +287,17 @@ N2::Application.routes.draw do
 
   resources :idea_boards do
     resources :ideas
+    resources :flags, :comments, :related_items
   end
 
   resources :ideas do
-    collection do
-      get :index
-      post :index
-    end
     member do
       get :like
       post :like
       get :my_ideas
       post :my_ideas
     end
-
+    resources :flags, :comments, :related_items
   end
 
   resources :newswires do
@@ -321,13 +306,11 @@ N2::Application.routes.draw do
       get :quick_post
       post :quick_post
     end
-
+    resources :flags, :comments, :related_items
   end
 
   resources :prediction_groups do
     collection do
-      get :index
-      post :index
       get :play
       post :play
     end
@@ -335,30 +318,25 @@ N2::Application.routes.draw do
       get :like
       post :like
     end
-
+    resources :flags, :comments, :related_items
   end
 
   resources :prediction_questions do
-    collection do
-      get :index
-      post :index
-    end
     member do
       get :like
       post :like
     end
-
+    resources :flags, :comments, :related_items
   end
 
   resources :predictions do
     collection do
       get :my_predictions
       post :my_predictions
-      get :index
-      post :index
       get :scores
       post :scores
     end
+    resources :flags, :comments, :related_items
   end
 
   resources :resources do
@@ -368,17 +346,10 @@ N2::Application.routes.draw do
       get :my_resources
       post :my_resources
     end
-    collection do
-      get :index
-      post :index
-    end
     resources :flags, :comments, :related_items
   end
 
   resources :questions do
-    resources :comments
-    resources :answers
-    resources :flags
     member do
       get :like
       post :like
@@ -386,12 +357,7 @@ N2::Application.routes.draw do
       get :my_questions
       post :my_questions
     end
-
-    collection do
-      get :index
-      post :index
-
-    end
+    resources :flags, :comments, :related_items
   end
 
   # This will redirect /images/something.jpg to /assets/something.jpg
