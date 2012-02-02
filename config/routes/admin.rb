@@ -1,4 +1,6 @@
 N2::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
   namespace :admin do
     match '/block.:format' => 'misc#block', :as => :block
     match '/flag_item.:format' => 'misc#flag', :as => :flag_item

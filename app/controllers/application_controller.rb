@@ -549,4 +549,18 @@ class ApplicationController < ActionController::Base
     view_context.text_page_title title
   end
 
+  def check_admin_or_default_status
+    return true if current_user and current_user.is_admin?
+
+    if User.admins.empty?
+      flash[:error] = "WARNING:: NO ACTIVE ADMINS. Please set an admin"
+=begin
+      authenticate_or_request_with_http_basic do |username, password|
+        username == get_setting('default_admin_user').try(:value) and password == get_setting('default_admin_password').try(:value)
+      end
+=end
+    else
+      redirect_to root_url and return false
+    end
+  end
 end

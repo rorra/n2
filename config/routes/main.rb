@@ -232,6 +232,7 @@ N2::Application.routes.draw do
 
   # RAILS3 TODO
   resources :contents, :controller => :stories, :as => :stories
+  match '/stories/parse_page' => 'stories#parse_page'
 
   resources :contents do
     resources :flags, :comments, :related_items
@@ -299,7 +300,7 @@ N2::Application.routes.draw do
   resources :idea_boards do
     resources :ideas
   end
-  
+
   resources :ideas do
     collection do
       get :index

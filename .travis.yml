@@ -3,4 +3,4 @@ before_script:
   - "mysql -e 'create database n2_development'; mysql n2_development < db/development_structure.sql"
 
 script:
-  - "echo $PWD; ruby script/copy_configs.rb; bundle exec rake db:setup db:migrate db:test:clone_structure spec"
+  - "echo $PWD; ruby script/copy_configs.rb; bundle exec rake db:migrate db:setup db:test:clone_structure spec"
