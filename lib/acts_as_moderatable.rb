@@ -29,7 +29,7 @@ module Newscloud
 
       module InstanceMethods
         def rescore_item
-          ItemScore.find_or_create_and_score self
+          ItemScore.find_or_create_and_score(self) if self.class.rankable_classes.include?(self.class)
         end
 
         def moderatable?
