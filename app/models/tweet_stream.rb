@@ -19,8 +19,8 @@ class TweetStream < ActiveRecord::Base
 
   def set_list_info
     list_info = tweet_list
-    self.twitter_id_str = list_info["id_str"]
-    self.description = list_info["description"]
+    self.twitter_id_str = list_info["attrs"]["id_str"]
+    self.description = list_info["attrs"]["description"]
   end
 
   def fetch_new_tweets since_tweet_id = nil
