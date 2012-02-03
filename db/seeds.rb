@@ -827,7 +827,8 @@ view_objects = [
   		:klass_name      => "ItemAction",
   		:locale_title    => "generic.newest_items.title",
   		:locale_subtitle => "generic.newest_items.subtitle",
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :version => 2,
   		:kommands        => [
   		  {
           :method_name => "newest",
@@ -1039,7 +1040,8 @@ view_objects = [
   		:locale_title    => "generic.newest_items.title",
   		:locale_subtitle => nil,
   		:use_post_button => false,
-  		:css_class       => "active",
+                    :css_class       => "active",
+                    :version => 2,
   		:kommands        => [
   		  {
   		    :method_name => "newest",
