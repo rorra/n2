@@ -71,7 +71,7 @@ module Newscloud
     end
 
     def self.extract_raw_urls tweet
-      tweet["entities"]["urls"].map {|u| u["url"] }.flatten
+      tweet.attrs["entities"]["urls"].map {|u| u["url"] }.flatten
     end
 
     def self.fetch_real_url url_str
