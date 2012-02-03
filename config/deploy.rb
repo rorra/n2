@@ -136,21 +136,18 @@ namespace :deploy do
   desc "Restart application"
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
-    #run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml restart"
   end
 
   desc "Start application"
   task :start, :roles => :app do
     run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
-    #deploy.god.start
-    #run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml start"
+    deploy.god.start
   end
 
   desc "Stop application"
   task :stop, :roles => :app do
     deploy.god.stop
     run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
-    #run "cd #{current_path} && bundle exec thin -C #{current_path}/config/thin.yml stop"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
   end
