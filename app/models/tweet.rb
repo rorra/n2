@@ -52,6 +52,8 @@ class Tweet < ActiveRecord::Base
         if tweet_account.tags.any?
           content.tag_list = tweet_account.tag_list
         end
+
+        ItemAction.gen_user_posted_item! user, content, :tweeted_item
       end
       begin
         user.contents.push content
