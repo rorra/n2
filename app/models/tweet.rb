@@ -64,7 +64,8 @@ class Tweet < ActiveRecord::Base
     end
   end
 
-  def self.build_from_raw_tweet raw_tweet, stream
+  def self.build_from_raw_tweet tweet_object, stream
+    raw_tweet = tweet_object.attrs
     tweet = Tweet.find_by_twitter_id_str(raw_tweet["id_str"])
     return tweet if tweet
 
