@@ -831,7 +831,7 @@ view_objects = [
                     :version => 2,
   		:kommands        => [
   		  {
-          :method_name => "newest",
+          :method_name => "newest_items",
           :args        => [4]
         }
   		]
@@ -1044,7 +1044,7 @@ view_objects = [
                     :version => 2,
   		:kommands        => [
   		  {
-  		    :method_name => "newest",
+  		    :method_name => "newest_items",
           :args        => [5]
   		  }
   		]

@@ -4,6 +4,7 @@ class ItemAction < ActiveRecord::Base
 
   scope :for_item, lambda {|item| { :conditions => ["actionable_type = ? and actionable_id = ?", item.class.name, item.id] } }
   scope :for_class, lambda {|item| { :conditions => ["actionable_type = ?", item.name] } }
+  scope :for_action, lambda {|item| { :conditions => ["action_type = ?", item.name] } }
   scope :for_user, lambda {|user| { :conditions => ["user_id = ?", user.id] } }
   scope :within, lambda {|timeframe| { :conditions => ["created_at > ?", timeframe] } }
   scope :active, { :conditions => {:is_blocked => false} }
@@ -21,6 +22,10 @@ class ItemAction < ActiveRecord::Base
 
   def self.newest_for_user user, limit = 5
     for_user(user).active.newest(limit).map(&:actionable)
+  end
+
+  def self.newest_items limit = 5
+    active.newest(limit).find(:all, :conditions => ["action_type = ? or action_type = ?", :posted_item.to_s, :tweeted_item.to_s]).map(&:actionable)
   end
 
   def self.top_items opts = {}
