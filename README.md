@@ -121,6 +121,8 @@ Now that we got the hard part out of the way, there are just a few commands left
         sudo gem install bundler
         # Install the required gems
         bundle install
+        # Copy the locales file
+        cp config/locales.yml.sample config/locales.yml
         # Temporary workaround for locales bootstrap issue
         # This is strictly to initialize the database so there is at least a locales table in existence to
         # prevent i18n_backend_database from exploding while bootstrapping itself.
