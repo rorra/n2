@@ -40,6 +40,10 @@ class Article < ActiveRecord::Base
     content.item_title
   end
 
+  def name
+    item_title
+  end
+
   def item_description
     content.item_description
   end
