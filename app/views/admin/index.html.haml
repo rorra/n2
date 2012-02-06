@@ -39,7 +39,7 @@
       - display_setting_group.call :google_custom_search_engine_config
 
     - if @enabled_configs[:automated_feeds]
-      %h4= link_to 'Automated News Feeds', news_topics_admin_content_dashboard_path
+      %h4= link_to 'Automated News Feeds', news_topics_admin_content_dashboard_index_path
       %p Add feeds from various news sources to automatically populate your application.
 
     -# TODO: Not sure why this is here...
