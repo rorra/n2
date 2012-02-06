@@ -123,6 +123,16 @@ Now that we got the hard part out of the way, there are just a few commands left
         bundle install
         # Copy the locales file
         cp config/locales.yml.sample config/locales.yml
+        # Copy the application file
+        cp config/application.yml.sample config/application.yml
+        # Copy the providers file
+        # Edit the providers file and enter your Facebook app ID and secret key in the appropriate spots
+        cp config/providers.yml.sample config/providers.yml
+        # Copy the databas file
+        cp config/database.yml.sample config/database.yml
+        # Create the database
+        bundle exec rake db:create
+        # Create a database user
         # Temporary workaround for locales bootstrap issue
         # This is strictly to initialize the database so there is at least a locales table in existence to
         # prevent i18n_backend_database from exploding while bootstrapping itself.
@@ -137,7 +147,7 @@ Post Installation
 
 You can now run your application in the typical rails fashion by doing:
 
-       ruby script/server
+       rails server
 
 or by whatever means you normally use.
 
