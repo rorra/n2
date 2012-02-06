@@ -1559,6 +1559,8 @@ body div.jGrowl div.jGrowl-closer
   padding: 10px 10px 0 10px
   position: relative
   min-height: 140px
+  -moz-box-shadow: 0 0 90px 5px #000
+  -webkit-box-shadow: 0 0 90px #000
   .close-btn
     background: image_url("site/btn-close.gif") top left no-repeat
     position: absolute
@@ -1568,18 +1570,31 @@ body div.jGrowl div.jGrowl-closer
     right: $ninesixty_gutter_width / 2
 
 // Simple Posting Widget
-.simple-post
-  .media-link
-    display: inline-block
-    padding: 5px 10px
-  .active
-    background: scale-color($tertiary-bg-color, $lightness: -60%)
-    color: #fff
-  .panel-bar
-    width: auto
-  form.formtastic
-    padding: $ninesixty_gutter_width / 2 0 0 0
-    fieldset
+.simple_overlay
+  z-index: 10000
+  .simple-post
+    form
+      border: none
+    .media-link
+      display: inline-block
+      padding: 5px 10px
+    .active
+      background: scale-color($tertiary-bg-color, $lightness: -60%)
+      color: #fff
+    .panel-bar
+      width: auto
+    form.formtastic
+      padding: $ninesixty_gutter_width / 2 0 0 0
+      fieldset.form-desc
+    .loader
+      display: block
+      background: url('/images/site/spinner.gif')
+      height: 11px
+      width: 16px
+      float: right
+      margin-right: 12px
+      display: none
+    #sharing_box
       margin-bottom: $ninesixty_gutter_width / 2
       &.share-story-input
         +grid(6)
@@ -1594,20 +1609,37 @@ body div.jGrowl div.jGrowl-closer
       .post-input-wrap
         +grid(5)
         +omega()
-      .img-rotator-wrap
-        +grid(3)
-        +alpha()
-        .img-viewport-wrap, .no-img-input
-          +grid(3)
+    #media
+      fieldset.titles
+        float: right
+        width: 70%
+        input
+          float: left
+        #content_caption
+          width: 100%
+        #display_url
+          font-weight: bold
+          font-color: #666
+          font-size: 12px
+          margin-left: 6px
+      .media.inputs, .media_content
+        float: left
+        width: 100%
+      .hidden_image_form, .image-fieldset, .media_content h1, .toggle-embed-video, .media_content .label, .media_content fieldset p
+        display: none
+      #scrollbox
+        width: 30%
+        float:left
+        .img-rotator-wrap
+          width: 100%
           +alpha()
-          +omega()
-        .img-viewport-wrap
-          padding-top: 10px
-          position: relative
-          .img-viewport
-            min-height: 100px
-            background: #fff
-            margin-bottom: 30px
+          .scrollable
+            width: 130px
+            border: none
+            .items
+              background-color: $tertiary-bg-color
+              .selected-image
+                border: none
           .img-rotate-btn
             height: 20px
             width: 20px
