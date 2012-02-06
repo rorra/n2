@@ -14,7 +14,8 @@
 
       - if true or vo.setting.use_post_button
         .actions-wrap
-          = link_to "Post a Story!", new_story_path, :class => "button-link"
+          = link_to t('post_story_button'), '', :class => "button-link", :rel => "#flowplayer-block", :onclick => "return false;"
+          =render :partial => "shared/forms/simple_story_post"
     - else
       .content-profile
         .profile-pic
