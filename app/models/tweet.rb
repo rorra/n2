@@ -53,11 +53,11 @@ class Tweet < ActiveRecord::Base
           content.tag_list = tweet_account.tag_list
         end
 
-        ItemAction.gen_user_posted_item! user, content, :tweeted_item
       end
       begin
         user.contents.push content
         content.expire
+        ItemAction.gen_user_posted_item! user, content, :tweeted_item
       rescue Exception
         next
       end
