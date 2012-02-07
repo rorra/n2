@@ -47,6 +47,14 @@ before("deploy:migrations") do
   deploy.god.stop
 end
 
+after("deploy") do
+  deploy.god.start
+end
+
+after("deploy:migrations") do
+  deploy.god.start
+end
+
 after("deploy:update_code") do
   unless exists?(:skip_post_deploy) and skip_post_deploy
     deploy.load_skin
