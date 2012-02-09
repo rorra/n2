@@ -1,7 +1,8 @@
 !!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xmlns:fb" => "http://www.facebook.com/2008/fbml"}
   %head
-    - title = (out = yield(:title)) ? "#{out} - #{get_setting('site_title').try(:value)}" : get_setting('site_title').try(:value)
+    - caption = ((out = yield(:title)) && !out.blank?) ? "#{out}" : get_setting('site_topic').try(:value)
+    - title = !caption.blank? ? "#{caption} - #{get_setting('site_title').try(:value)}" : get_setting('site_title').try(:value)
     %title= title
     %meta{:name => 'title', :content => title}
     - if get_setting('google-site-verification').present?
