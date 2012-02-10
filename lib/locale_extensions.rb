@@ -11,6 +11,10 @@ I18nUtil.class_eval do
 
     # Create tanslation records from the YAML file.  Will create the required locales if they do not exist.
   def self.update_from_yml(file_name)
+    unless file_name.to_s =~ /en.yml$/
+      puts "Skipping non english locale file: #{file_name}"
+      return false
+    end
     puts "Loading #{file_name}"
     data = YAML::load(IO.read(file_name))
     data.each do |code, translations| 

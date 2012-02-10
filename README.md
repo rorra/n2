@@ -103,6 +103,15 @@ We provide .sample files for the majority of these config files to facilitate ea
 
 As mentioned above, when you set your config options, **remember to use** http://my.site.com and **not** http://my.site.com/iframe/
 
+Internationalization (Locales)
+------------------------------
+
+For every language you add in the file config/locales.yml (there is a sample file named config/locales.yml.sample), you
+should be sure that you check all the files under /config/locales and create the right locale file for it.
+In example, if you add the language "Spanish" with the code "es", you should make sure that under the directory
+/config/locales, in each subdirectory, there is a file names es.yml with the right translation.
+
+
 Install dependencies and setup the framework
 --------------------------------------------
 
@@ -112,10 +121,16 @@ Now that we got the hard part out of the way, there are just a few commands left
         sudo gem install bundler
         # Install the required gems
         bundle install
+        # Copy the locales file
+        cp config/locales.yml.sample config/locales.yml
+        # Temporary workaround for locales bootstrap issue
+        # This is strictly to initialize the database so there is at least a locales table in existence to
+        # prevent i18n_backend_database from exploding while bootstrapping itself.
+        mysql -u mydbuser -p my_n2_db < db/development_structure.sql
         # Run the newscloud setup process, this will create your database along with configuring your application
-        rake n2:setup
+        bundle exec rake n2:setup
         # Load the default locales
-        bundle exec rake i18n:populate:load_default_locales LOCALE_FILE=config/locales.yml
+        bundle exec rake i18n:populate:update_from_rails
 
 Post Installation
 -----------------

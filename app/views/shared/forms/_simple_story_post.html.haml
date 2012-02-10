@@ -1,0 +1,163 @@
+:javascript
+  $(function() {
+    $('#media .media_content').each(function(){
+      $(this).hide();
+    });
+    $('.toggle-video').click(function(event) {
+      $('#media .video').show();
+      $(this).remove();
+      return false;
+    });
+    $('.toggle-audio').click(function(event) {
+      $('#media .audio').show();
+      $(this).remove();
+      return false;
+    });
+
+    var index = 0;
+    var count = 0;
+
+    $('#content_url').unbind();
+    $('#content_url.form_url').unbind();
+    $('.parse_url_button').click(parse_url);
+    $('.reset_form_button').click(function(){
+      $('#content_url.form_url').val('');
+      $('#content_title').val('');
+      $('#content_caption').val('');
+      $('.scrollable .items').find('img').each(function(){$(this).remove()});
+      $('#scrollbox').hide();
+      $('#media').slideUp();
+      $('#sharing_box').slideDown();
+      return false;
+    })
+
+    $(".no-img-input input").click(function(event){
+      if(event.currentTarget.checked){
+        $('.image-url-input').each(function(){$(this).parent().find('.delete_image').click();})}
+      else
+        $($(".items img")[index]).click();
+    });
+    
+    $(".prev.img-rotate-btn").live('click', function(){
+      index = index == 0 ? 0 : index - 1;
+      $($(".items img")[index]).click();
+      return false;
+    });
+
+    $(".next.img-rotate-btn").live('click', function(){
+      index = index == count ? count : index + 1;
+      $($(".items img")[index]).click();
+      return false;
+    });
+
+    $('a[rel]').overlay();
+    
+    function parse_url  (event){
+      event.preventDefault();
+      url_bar = $('form.post_story #content_url');
+      if (url_bar.val() != '') {
+        url_bar.addClass('process');
+        $('#content_title').addClass('process');
+        $('.loader').show();
+        $.ajax({
+          type: "POST",
+          url: "/stories/parse_page", 
+          data: {url: url_bar.val()},
+          dataType: "json",
+          success: function(data, textStatus) {
+            $('#content_title').val(data.title);
+            if (data.description) {
+              $('#content_caption').val(data.description);
+            }else{
+              $('#content_caption').val('');
+            }
+            $('.scrollable .items').find('img').each(function(){$(this).remove()});
+            if (data.images.length > 0) {
+              // Hack to make this work in chrome..
+              // can't use your typical itemLoadCallback
+              $("#scrollbox").show();
+              count = data.images.length;
+              $(".scrollable").scrollable();
+              
+              var api = $(".scrollable").data("scrollable");
+              jQuery.each(data.images, function(i, url) {
+                api.addItem('<img src="'+url+'" width="75" height="75" />');
+              });
+              $(".items img").click(function() {
+                if($('.image-url-input').length != 0){
+                  $('.image-url-input').each(function(){$(this).parent().find('.delete_image').click();});}
+                $('#add_image').click();
+                $('.image-url-input').last().val($(this).attr('src'));
+                $('.image-url-input').last().parent().next().remove();
+                $('.image-url-input').last().next().remove();
+                $('.image-url-input').last().after($('.delete_image').last());
+              });
+              $($(".items img")[0]).click();
+            }else{
+              $('#media .titles').css({'width': '100%'});
+              $('#scrollbox').hide();
+            }
+            $('#content_url').removeClass('process');
+            $('#content_title').removeClass('process');
+            $('#content_url.process').val(url_bar.val());
+            $('#sharing_box').slideUp();
+            $('#media').slideDown();
+            $('.loader').hide();
+          },
+          error: function(xhr, status, errorThrown) {
+            var result = $.parseJSON(xhr.responseText);
+            alert(result.error);
+            $('#content_url').removeClass('process');
+            $('#content_title').removeClass('process');
+            $('.loader').hide();
+          }
+        });
+      }
+      return false;
+    }
+  });
+-story = story || Content.new
+.simple_overlay#flowplayer-block{:style => "display: none"}
+  .simple-post-wrap.clearfix
+    .close-btn.close
+    .simple-post
+      = semantic_form_for story, :url => stories_path, :html => { :multipart => true, :class => "post_story" } do |form|
+        .panel-bar
+          %h2 Simple Posting Widget
+        %form.formtastic
+          %fieldset.form-desc
+            %p Share a Story
+            #sharing_box
+              =form.inputs do
+                =form.input :url
+              .loader
+              =form.buttons do
+                = form.commit_button 'Look up!', :class => "float-right", :button_html => {:class => 'parse_url_button button-input next create' }
+            #media{:style => "display:none"}
+              = form.inputs :class => "inputs titles" do
+                = form.input :title
+                = form.input :url, :input_html => {:class => "form_url"}
+                = form.input :caption, :input_html => { :rows => '3', :cols => '20' }
+              .hidden_image_form
+                =add_image_simple(form)
+              #scrollbox
+                .img-rotator-wrap
+                  %a.prev.browse.img-rotate-btn
+                  .scrollable
+                    .items
+                  %a.next.browse.img-rotate-btn
+                  .no-img-input
+                    %label
+                      %input{ :type => 'checkbox', :id => "no_image"}
+                      No Image
+              .loader
+              %fieldset.media.inputs
+                %ol
+                  %li
+                    %a.media-link.toggle-video Add Video
+                  %li
+                    %a.media-link.toggle-audio Add Audio
+              = render :partial => 'shared/forms/media_items_simple', :locals => { :form => form, :item => story }
+              = form.buttons do
+                =form.commit_button 'Reset', :class => "float-left", :button_html => {:class => 'reset_form_button button-input prev create' }
+                = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input next' }

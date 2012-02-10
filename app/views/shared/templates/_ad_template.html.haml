@@ -1,6 +1,6 @@
 - slot_data = vo.dataset || Metadata.get_default_ad_slot
 - if slot_data.present?
-  - case slot_data['data'][:width]
+  - case slot_data.width
     - when "728px"
       - ad_class = "ad_728"
       - panel_id = "adspace"
@@ -34,22 +34,22 @@
       - if get_setting('platform','ads').try(:value)
         - case get_setting('platform','ads').try(:value)
           - when "default"
-            %iframe{:src => base_url(default_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(default_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
           - when "openx"
-            %iframe{:src => base_url(openx_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(openx_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
           - when "helios_alt4"
             -# boston
-            %iframe{:src => base_url(helios_alt4_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(helios_alt4_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
           - when "google"
-            %iframe{:src => base_url(google_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(google_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
           -# when "helios_alt2"
             -# kpcc
-            %iframe{:src => base_url(helios_alt2_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(helios_alt2_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
           -# when "helios"
             -# freep
-            %iframe{:src => base_url(helios_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(helios_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
           -# when "helios_alt3"
             -# wkyc
-            %iframe{:src => base_url(helios_alt3_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+            %iframe{:src => base_url(helios_alt3_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}
       - else
-        %iframe{:src => base_url(google_ads_home_path(:slot_name => slot_data['data'][:name],:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data['data'][:width]}; height: #{slot_data['data'][:height]};"}
+        %iframe{:src => base_url(google_ads_home_path(:slot_name => slot_data.name,:canvas => false)), :frameborder => 0, :scrolling => "no", :style => " background-color: #fff; width: #{slot_data.width}; height: #{slot_data.height};"}

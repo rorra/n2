@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/chriseppstein/compass.git
-  revision: 297c0b24260a554876a7926d135cc5d96e8eec37
+  revision: 8c84869b0b6bc5396e264fea15c71d4e346ac5d0
   specs:
-    compass (0.12.alpha.4.297c0b2)
+    compass (0.12.alpha.4.8c84869)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
@@ -25,6 +25,14 @@ GIT
       vegas (~> 0.1.2)
 
 GIT
+  remote: git://github.com/joevandyk/formtastic.git
+  revision: 90e58f782be8d62c9586a62bb3399d1784651d9c
+  ref: 90e58f7
+  specs:
+    formtastic (2.0.2)
+      rails (~> 3.0)
+
+GIT
   remote: git://github.com/mkdynamic/omniauth-facebook.git
   revision: 0a878f3520d21672772b6085442e13445e6e4784
   specs:
@@ -32,21 +40,8 @@ GIT
       omniauth-oauth2 (~> 1.0.0)
 
 GIT
-  remote: git://github.com/pauldix/sax-machine.git
-  revision: 41cae0195263b97da3029147d7214bfe3d24d0e4
-  specs:
-    sax-machine (0.1.0)
-      nokogiri (> 0.0.0)
-
-GIT
-  remote: git://github.com/taf2/curb.git
-  revision: bf3556058c76846305f4e84fe0882270ae13b287
-  specs:
-    curb (0.7.17)
-
-GIT
   remote: https://github.com/jnunemaker/twitter.git
-  revision: 5956ebfa491a2742c1491dc5e3e0db342cc66290
+  revision: 983be99d8af6cd0194271c0432f53075e01648be
   specs:
     twitter (2.0.2)
       activesupport (>= 2.3.9, < 4)
@@ -54,12 +49,27 @@ GIT
       multi_json (~> 1.0)
       simple_oauth (~> 0.1)
 
+GIT
+  remote: https://github.com/pauldix/feedzirra.git
+  revision: dee1454980e7b93022776cd047ad419da3999332
+  specs:
+    feedzirra (0.1.1)
+      activesupport (>= 3.0.8)
+      builder (>= 2.1.2)
+      curb (~> 0.7.15)
+      i18n (>= 0.5.0)
+      loofah (~> 1.2.0)
+      nokogiri (>= 1.4.4)
+      rake (>= 0.8.7)
+      rdoc (~> 3.8)
+      sax-machine (~> 0.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
     SystemTimer (1.2.3)
     ZenTest (4.5.0)
-    aasm (3.0.1)
+    aasm (3.0.2)
       activerecord
     acl9 (0.12.0)
     actionmailer (3.1.3)
@@ -76,6 +86,17 @@ GEM
       rack-mount (~> 0.8.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.0.3)
+    activeadmin (0.4.0)
+      bourbon (>= 1.0.0)
+      devise (>= 1.1.2)
+      fastercsv
+      formtastic (>= 2.0.0)
+      inherited_resources (< 1.3.0)
+      jquery-rails (>= 1.0.0)
+      kaminari (>= 0.13.0)
+      meta_search (>= 0.9.2)
+      rails (>= 3.0.0)
+      sass (>= 3.1.0)
     activemodel (3.1.3)
       activesupport (= 3.1.3)
       builder (~> 3.0.0)
@@ -103,16 +124,19 @@ GEM
       builder
       mime-types
       xml-simple
-    aws-sdk (1.2.6)
+    aws-sdk (1.3.2)
       httparty (~> 0.7)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     babosa (0.3.5)
+    bcrypt-ruby (3.0.1)
     bitly (0.7.0)
       crack (>= 0.1.4)
       httparty (>= 0.7.6)
       oauth2 (~> 0.5.0)
+    bourbon (1.3.6)
+      sass (>= 3.1)
     builder (3.0.0)
     capistrano (2.9.0)
       highline
@@ -146,24 +170,30 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.3)
       nokogiri (>= 1.5.0)
+    curb (0.7.18)
     database_cleaner (0.7.0)
+    devise (2.0.0)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.0.3)
+      railties (~> 3.1)
+      warden (~> 1.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    factory_girl (2.4.0)
+    factory_girl (2.4.2)
       activesupport
     faraday (0.7.5)
       addressable (~> 2.2.6)
       multipart-post (~> 1.1.3)
       rack (>= 1.1.0, < 2)
+    fastercsv (1.5.4)
     ffi (1.0.11)
-    formtastic (2.0.2)
-      rails (~> 3.0)
     friendly_id (3.3.1)
       babosa (~> 0.3.0)
     fssm (0.2.8.1)
     gherkin (2.7.3)
       json (>= 1.4.6)
     haml (3.1.4)
+    has_scope (0.5.1)
     hashie (1.2.0)
     highline (1.6.9)
     hike (1.2.1)
@@ -174,7 +204,17 @@ GEM
       multi_json
       multi_xml
     i18n (0.6.0)
-    json (1.6.4)
+    inherited_resources (1.2.2)
+      has_scope (~> 0.5.0)
+      responders (~> 0.6.0)
+    jquery-rails (1.0.19)
+      railties (~> 3.0)
+      thor (~> 0.14)
+    json (1.6.5)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     kgio (2.7.2)
     launchy (2.0.5)
       addressable (~> 2.2.6)
@@ -184,6 +224,11 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_search (1.1.3)
+      actionpack (~> 3.1)
+      activerecord (~> 3.1)
+      activesupport (~> 3.1)
+      polyamorous (~> 0.5.0)
     mime-types (1.17.2)
     mogli (0.0.28)
       httparty (>= 0.4.3)
@@ -220,6 +265,7 @@ GEM
       omniauth (~> 1.0)
     omniauth-twitter (0.0.7)
       omniauth-oauth (~> 1.0)
+    orm_adapter (0.0.6)
     paperclip (2.5.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -228,8 +274,12 @@ GEM
     pickle (0.4.10)
       cucumber (>= 0.8)
       rake
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
     polyglot (0.3.3)
-    rack (1.3.5)
+    prototype-rails (3.1.0)
+      rails (~> 3.1)
+    rack (1.3.6)
     rack-cache (1.1)
       rack (>= 0.4)
     rack-mount (0.8.3)
@@ -267,6 +317,7 @@ GEM
       redis (< 3.0.0)
     redis-store (1.0.0.1)
       redis (~> 2.2.1)
+    responders (0.6.5)
     resque-scheduler (1.9.9)
       redis (>= 2.0.1)
       resque (>= 1.8.0)
@@ -291,21 +342,23 @@ GEM
     rubyzip (0.9.5)
     rufus-scheduler (2.0.16)
       tzinfo (>= 0.3.23)
-    sass (3.1.12)
+    sass (3.1.13)
     sass-rails (3.1.5)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
-    selenium-webdriver (2.16.0)
+    sax-machine (0.1.0)
+      nokogiri (> 0.0.0)
+    selenium-webdriver (2.17.0)
       childprocess (>= 0.2.5)
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
     simple_oauth (0.1.5)
-    sinatra (1.3.1)
-      rack (~> 1.3, >= 1.3.4)
-      rack-protection (~> 1.1, >= 1.1.2)
+    sinatra (1.3.2)
+      rack (~> 1.3, >= 1.3.6)
+      rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
     sitemap_generator (2.2.1)
     sprockets (2.0.3)
@@ -328,6 +381,8 @@ GEM
     uuidtools (2.1.2)
     vegas (0.1.8)
       rack (>= 1.0.0)
+    warden (1.1.0)
+      rack (>= 1.0)
     will_paginate (3.0.2)
     wirble (0.1.3)
     xml-simple (1.1.1)
@@ -342,6 +397,7 @@ DEPENDENCIES
   ZenTest (= 4.5.0)
   aasm
   acl9
+  activeadmin (= 0.4.0)
   acts-as-taggable-on
   acts_as_tree
   amazon-ecs
@@ -356,10 +412,10 @@ DEPENDENCIES
   compass-960-plugin
   cucumber
   cucumber-rails
-  curb!
   database_cleaner (= 0.7.0)
   factory_girl
-  formtastic
+  feedzirra!
+  formtastic!
   friendly_id (= 3.3.1)
   haml
   hoptoad_notifier
@@ -377,6 +433,7 @@ DEPENDENCIES
   omniauth-twitter
   paperclip
   pickle
+  prototype-rails
   rails (= 3.1.3)
   rails-dev-tweaks
   rcov
@@ -390,7 +447,6 @@ DEPENDENCIES
   rspec
   rspec-rails
   sass-rails
-  sax-machine!
   sitemap_generator
   thumbs_up
   twitter!

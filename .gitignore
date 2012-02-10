@@ -57,3 +57,5 @@ auto-save-list
 tramp
 .\#*
 .rspec
+.rvmrc
+.idea

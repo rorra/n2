@@ -3,7 +3,9 @@
 .panel-1
   .panel-bar
     %h2= t('.other_posts_by', :fb_name => local_linked_profile_name(story.user)).html_safe
-  %ul
-    - story.user.other_stories(story).each do |other_story|
-      %li
-        %p= link_to other_story.title, story_path(other_story)
+  .item-list-wrap
+    .item-list
+      %ul
+      - story.user.other_stories(story).each do |other_story|
+        %li
+          %p= link_to other_story.title, story_path(other_story)

@@ -7,5 +7,5 @@
     .item-list
       %ul
       - user.other_posts.each do |other_story|
-        %li.pad-bottom
+        %li
           %h5= link_to other_story.title, story_path(other_story)

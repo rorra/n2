@@ -1,4 +1,6 @@
 N2::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
   namespace :admin do
     match '/block.:format' => 'misc#block', :as => :block
     match '/flag_item.:format' => 'misc#flag', :as => :flag_item
@@ -88,7 +90,12 @@ N2::Application.routes.draw do
       resources :translations
     end
 
-    resources :menu_items
+    resources :menu_items do
+      collection do
+        post :save
+      end
+    end
+    
     resources :newswires
     resources :prediction_groups do
       member do

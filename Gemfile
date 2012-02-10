@@ -1,6 +1,7 @@
 source :gemcutter
 
 gem "rails", "3.1.3"
+gem 'activeadmin', '0.4.0'
 gem "acts_as_tree"
 gem 'haml'
 gem "sass-rails"
@@ -9,8 +10,9 @@ gem 'compass-960-plugin'
 gem 'json'
 gem 'mogli'
 gem "thumbs_up"
+gem "prototype-rails"
 
-gem "formtastic"
+gem "formtastic", :git => "git://github.com/joevandyk/formtastic.git", :ref => "90e58f7"
 gem "friendly_id", '3.3.1'
 gem 'will_paginate'
 gem "oauth-plugin", ">= 0.4.0.pre1"
@@ -46,8 +48,9 @@ gem 'redis-store'
 # Feedzirra related
 gem 'nokogiri'
 gem 'loofah'
-gem 'curb', :git => 'git://github.com/taf2/curb.git'
-gem 'sax-machine', :git => 'git://github.com/pauldix/sax-machine.git'
+gem 'feedzirra', :git => 'https://github.com/pauldix/feedzirra.git'
+#gem 'curb', :git => 'git://github.com/taf2/curb.git'
+#gem 'sax-machine', :git => 'git://github.com/pauldix/sax-machine.git'
 
 gem "omniauth", '1.0.1'
 gem "omniauth-facebook", :git => "git://github.com/mkdynamic/omniauth-facebook.git"

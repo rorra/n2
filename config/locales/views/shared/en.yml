@@ -4,6 +4,8 @@ en:
       home: "Home"
       stories: "News"
       classifieds: "Classifieds"
+      classifieds_list: "Classifieds"
+      new_classified: "Post a Classified"
       stories_list: "Top Stories"
       new_story: "Post a Story"
       articles: "Community"
