@@ -2,14 +2,14 @@
 
 
 #full-col
-  = render :partial => 'shared/tests/old/predictions'
+  /= render :partial => 'shared/tests/old/predictions'
   /= render :partial => 'shared/tests/external_header'
-  /= render :partial => 'shared/tests/featured_3_col'
+  = render :partial => 'shared/tests/featured_3_col'
 #left-col
-  /= render :partial => 'shared/tests/featured_2_col'
-  /= render :partial => 'shared/tests/list_2_col'
+  = render :partial => 'shared/tests/featured_2_col'
+  = render :partial => 'shared/tests/list_2_col'
 #right-col
-  /= render :partial => 'shared/tests/featured_1_col'
+  = render :partial => 'shared/tests/featured_1_col'
 
 .test-shadow
-  /= render :partial => 'shared/tests/simple_posting'
+  = render :partial => 'shared/tests/simple_posting'

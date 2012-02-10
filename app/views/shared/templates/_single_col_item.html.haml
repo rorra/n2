@@ -17,4 +17,5 @@
       .single-item-wrap
         - if item
           %h4= link_to sanitize_title(item.item_title), item.item_link
-          %h6= posted_by_with_topic(item)
+          .meta-data
+            %h6= posted_by_with_topic(item)
