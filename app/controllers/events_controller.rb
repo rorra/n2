@@ -70,17 +70,17 @@ class EventsController < ApplicationController
 
   def import_facebook
     if request.post?
-      @events = current_user.mogli_user.events.collect{ |e| params[:fb_events].detect { |myid| myid == e.id}.nil? ? nil : e }.compact
+      @events = current_facebook_graph_user.events.collect{ |e| params[:fb_events].detect { |myid| myid == e.id}.nil? ? nil : e }.compact
       @events.each do |event|
         Event.create_from_facebook_event(event,current_user)
       end
       flash[:succes] = "Your events have successfully been imported."
       redirect_to events_path
     else
-      if current_user.mogli_user
-        @events_allowed = current_user.mogli_user.has_permission?(:user_events)
+      if current_facebook_graph_user
+        @events_allowed = current_facebook_graph_user.has_permission?(:user_events)
         @event = Event.new
-        @fb_events = current_user.mogli_user.events
+        @fb_events = current_facebook_graph_user.events
         current_events = Event.active.find(:all, :conditions=>["eid IN (?)", @fb_events.collect { |e| e.id }]).collect { |e| e.eid }
         @fb_events.delete_if {|x| current_events.include? x.eid.to_s }
       else
