@@ -119,7 +119,10 @@ module ViewObjectsHelper
 
   def post_something klass_name, css_class = nil
     klass = klass_name.constantize
-    link_to(I18n.translate("generic.post.#{klass_name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => css_class)
+    # Default to posting Content if non rankable model
+    klass = Content unless ActiveRecord::Base.rankable_classes.include?(klass)
+    
+    link_to(I18n.translate("generic.post.#{klass.name.underscore}".to_sym, :default => "generic.post_something".to_sym), send(klass.model_new_url_name), :class => css_class)
   end
 
   def publish_newswire item
