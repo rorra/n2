@@ -13,7 +13,8 @@ class ViewTree
     #@cache = true
     #@cache = Rails.env.development? and (not key_name =~ /--/) and key_name != 'Welcome Panel'
     #@cache = (not key_name.include?('--')) and key_name != 'Welcome Panel'
-    @cache = (@key_name.include?('--') or @key_name == 'Welcome Panel') ? false : true
+    #@cache = (@key_name.include?('--') or @key_name == 'Welcome Panel') ? false : true
+    @cache = @view_object and @view_object.cache_enabled?
     @cache = false unless Rails.env.production?
     # Initialize new view tree
     # add children view tree elements for each view object

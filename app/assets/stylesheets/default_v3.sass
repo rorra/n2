@@ -140,6 +140,9 @@ p
       &.selected
         > a
           height: 22px
+        &:hover
+          > a
+            background-color: $primary-tab-on
         > ul
           background-color: $primary-tab-on
           border: 1px solid scale-color($primary-tab-off, $lightness: $tab-border-lightness)
@@ -374,6 +377,10 @@ p
 // Meta Data containers
 .meta-data, .meta-profile
   padding-top: 5px
+  a
+    color: $secondary-link-color
+    &:hover
+      color: scale-color($secondary-link-color, $lightness: -20%)
 .meta-profile
   padding-left: 50px
   min-height: 40px
@@ -1063,14 +1070,28 @@ p
 
 // pagination
 .pagination
-  text-align: right
+  float: right
   margin-bottom: $ninesixty_gutter_width
   font-size: $primary-body-size
   a, span
-    display: inline-block
-    padding: 2px
+    text-align: center
+    display: block
+    float: left
+    padding: 4px
+    min-width: 12px
+    height: 14px
+    margin: 0 1px
   a
     color: $tertiary-link-color
+    &:hover
+      color: scale-color($tertiary-link-color, $lightness: 100%)
+      background: $tertiary-link-color
+      text-decoration: none
+      cursor: pointer
+    &.next_page:hover, .prev_page:hover
+      background: none
+      color: $tertiary-link-color
+      text-decoration: underline
   span
     &.disabled
       color: $tertiary-body-color
@@ -1079,9 +1100,12 @@ p
         text-decoration: none
         cursor: default
     &.current
-      color: scale-color($tertiary-link-color, $lightness: 100%)
-      background: $tertiary-link-color
+      color: $tertiary-link-color
+      background: scale-color($tertiary-link-color, $lightness: 100%)
       border: 1px solid $tertiary-link-color
+      height: 12px
+
+
 
 // Ads
 .ad_160, .ad_200, .ad_250, .ad_300, .ad_336, .ad_468, .ad_728, .sponsor_250

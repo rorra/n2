@@ -129,6 +129,10 @@ class ViewObject < ActiveRecord::Base
     setting ? setting.try(:version) : nil
   end
 
+  def cache_enabled?
+    setting and not setting.cache_disabled
+  end
+
   private
 
     def klass_method_key klass_name, method

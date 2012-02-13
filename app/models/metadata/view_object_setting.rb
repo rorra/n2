@@ -1,5 +1,5 @@
 class Metadata::ViewObjectSetting < Metadata
-  metadata_keys :view_object_name, :klass_name, :kommands
+  metadata_keys :view_object_name, :klass_name, :kommands, :cache_disabled
 
   scope :key_sub_type_name, lambda { |*args| { :conditions => ["key_sub_type = ? AND key_name = ?", args.first, args.second] } }
 
