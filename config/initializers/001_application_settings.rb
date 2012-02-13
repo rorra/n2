@@ -25,6 +25,11 @@ if APP_CONFIG[:omniauth].present?
       provider(*provider_arguments)
     end
   end
+
+  # HACK:: manually specify full_host for passenger standalone
+  # Cannot use passenger_set_cgi_param SERVER_HOST with standalone
+  OmniAuth.config.full_host = APP_CONFIG['base_site_url'] if APP_CONFIG['base_site_url']
+  
 end
 
 
