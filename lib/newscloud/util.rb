@@ -31,7 +31,7 @@ module Newscloud
     end
 
     def current_facebook_graph_user
-      (current_facebook_user and current_facebook_user.mogli_user) ? current_facebook_user.mogli_user : nil
+      (current_user and current_user.mogli_user) ? current_user.mogli_user : nil
     end
 
     def logged_in?
