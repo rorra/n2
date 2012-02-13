@@ -18,10 +18,10 @@ class Metadata < ActiveRecord::Base
     keys.each do |key|
       key = key.to_s
       define_method key do
-        data[key.to_s] || data[key.to_sym]
+        data[key.to_sym] || data[key.to_s]
       end
       define_method "#{key}=" do |value|
-        data[key] = value
+        data[key.to_sym] = value
       end
     end
   end

@@ -47,6 +47,14 @@ before("deploy:migrations") do
   deploy.god.stop
 end
 
+after("deploy") do
+  deploy.god.start
+end
+
+after("deploy:migrations") do
+  deploy.god.start
+end
+
 after("deploy:update_code") do
   unless exists?(:skip_post_deploy) and skip_post_deploy
     deploy.load_skin
@@ -135,19 +143,22 @@ namespace :deploy do
 
   desc "Restart application"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
+    #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
+    run "touch #{current_path}/tmp/restart.txt"
   end
 
   desc "Start application"
   task :start, :roles => :app do
-    run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    #run "cd #{current_path} && bundle exec unicorn_rails -c #{current_path}/config/unicorn.conf.rb -E #{rails_env} -D"
+    run "cd #{current_path} && bundle exec passenger start -d -e production -S #{current_path}/tmp/sockets/passenger.sock --pid-file #{current_path}/tmp/pids/passenger.pid"
     deploy.god.start
   end
 
   desc "Stop application"
   task :stop, :roles => :app do
     deploy.god.stop
-    run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
+    #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -QUIT"
+    run "cd #{current_path} && bundle exec passenger stop --pid-file #{current_path}/tmp/pids/passenger.pid"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_workers RAILS_ENV=#{rails_env}"
     run "cd #{current_path} && bundle exec rake n2:queue:stop_scheduler APP_NAME=#{application} RAILS_ENV=#{rails_env}"
   end
