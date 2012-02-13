@@ -82,7 +82,7 @@ class EventsController < ApplicationController
         @event = Event.new
         @fb_events = current_user.mogli_user.events
         current_events = Event.active.find(:all, :conditions=>["eid IN (?)", @fb_events.collect { |e| e.id }]).collect { |e| e.eid }
-        #@fb_events.delete_if {|x| current_events.include? x.eid.to_s }
+        @fb_events.delete_if {|x| current_events.include? x.eid.to_s }
       else
         flash[:info] = "You need to connect via Facebook."
         redirect_to events_path

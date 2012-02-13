@@ -38,7 +38,7 @@ class Event < ActiveRecord::Base
 
   def self.create_from_facebook_event(facebook_event, user)
     return nil if not facebook_event.is_a? Mogli::Event
-    check = nil #Event.find_by_eid(facebook_event.id)
+    check = nil Event.find_by_eid(facebook_event.id)
     if check
       return check
     else
