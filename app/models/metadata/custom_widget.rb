@@ -43,6 +43,8 @@ class Metadata::CustomWidget < Metadata
     self.metadatable.present?
   end
 
+  def cache_disabled() true end
+
   private
 
   def on_content_type
