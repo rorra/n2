@@ -1163,7 +1163,9 @@ view_objects = [
   		:klass_name      => "Metadata",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :cache_disabled => true,
+                    :version => 2,
   		:kommands        => [
   		  {
           :method_name => "get_ad_slot",
@@ -1179,7 +1181,9 @@ view_objects = [
   		:klass_name      => "Metadata",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :cache_disabled => true,
+                    :version => 2,
   		:kommands        => [
   		  {
           :method_name => "get_ad_slot",
@@ -1195,7 +1199,9 @@ view_objects = [
   		:klass_name      => "Metadata",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :cache_disabled => true,
+                    :version => 2,
   		:kommands        => [
   		  {
           :method_name => "get_ad_slot",
@@ -1211,7 +1217,9 @@ view_objects = [
   		:klass_name      => "Metadata",
   		:locale_title    => nil,
   		:locale_subtitle => nil,
-  		:use_post_button => false,
+                    :use_post_button => false,
+                    :cache_disabled => true,
+                    :version => 2,
   		:kommands        => [
   		  {
           :method_name => "get_ad_slot",
