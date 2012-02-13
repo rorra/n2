@@ -144,7 +144,9 @@ namespace :deploy do
   desc "Restart application"
   task :restart, :roles => :app, :except => { :no_release => true } do
     #run "cat #{current_path}/tmp/pids/unicorn.pid | xargs kill -USR2"
-    run "touch #{current_path}/tmp/restart.txt"
+    #run "touch #{current_path}/tmp/restart.txt"
+    deploy.stop
+    deploy.start
   end
 
   desc "Start application"
