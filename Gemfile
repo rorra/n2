@@ -3,9 +3,10 @@ source :gemcutter
 gem "rails", "3.1.3"
 gem 'activeadmin', '0.4.0'
 gem "acts_as_tree"
+gem "sprockets"
 gem 'haml'
 gem "sass-rails"
-gem 'compass', :git => 'git://github.com/chriseppstein/compass.git'
+gem 'compass', :git => 'git://github.com/chriseppstein/compass.git', :ref => "8c84869b0b6bc5396e264fea15c71d4e346ac5d0"
 gem 'compass-960-plugin'
 gem 'json'
 gem 'mogli', :git => 'git://github.com/adahmash/mogli.git'
