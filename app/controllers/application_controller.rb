@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   helper_method :base_site_url
   helper_method :base_site_domain
   helper_method :facebook_session
+  helper_method :current_facebook_graph_user
   helper_method :current_facebook_user
   helper_method :get_setting
   helper_method :get_setting_value

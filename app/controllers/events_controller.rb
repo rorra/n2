@@ -70,19 +70,20 @@ class EventsController < ApplicationController
 
   def import_facebook
     if request.post?
-      @events = current_facebook_user.events(:eids=>params[:fb_events].join(','))
+      @events = current_facebook_graph_user.events.collect{ |e| params[:fb_events].detect { |myid| myid == e.id}.nil? ? nil : e }.compact
       @events.each do |event|
         Event.create_from_facebook_event(event,current_user)
       end
       flash[:succes] = "Your events have successfully been imported."
       redirect_to events_path
     else
-      if current_facebook_user
-        @events_allowed = current_facebook_user.has_permission?('user_events')
+      if current_facebook_graph_user
+        @events_allowed = current_facebook_graph_user.has_permission?(:user_events)
         @event = Event.new
-        @fb_events = current_facebook_user.events(:start_time => Time.now, :end_time => 1.month.from_now)
-        current_events = Event.active.find(:all, :conditions=>["eid IN (?)", @fb_events.collect { |e| e.eid }]).collect { |e| e.eid }
-        @fb_events.delete_if {|x| current_events.include? x.eid.to_s }
+        @fb_events = current_facebook_graph_user.events
+        @fb_events.delete_if {|x| !x.start_time.nil?  and (Time.parse(x.start_time) < Time.now)}
+        current_events = Event.active.find(:all, :conditions=>["eid IN (?)", @fb_events.collect { |e| e.id }]).collect { |e| e.eid }
+        @fb_events.delete_if {|x| current_events.include? x.id.to_s }
       else
         flash[:info] = "You need to connect via Facebook."
         redirect_to events_path

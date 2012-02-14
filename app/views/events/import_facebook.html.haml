@@ -13,7 +13,7 @@
     .formBox
       - if not @events_allowed
         %br
-        = fb_prompt_permission('user_events', t('events.fb_prompt'), 'window.location.reload()');
+        -# = fb_prompt_permission('user_events', t('events.fb_prompt'), 'window.location.reload()');
       - elsif @fb_events.empty?
         %strong No Events to Import
       - else
@@ -38,7 +38,7 @@
                     %li
                       %b Event Details
                     %li== #{event.location}
-                    %li== #{Time.at(event.start_time.to_i).to_date}
+                    %li== #{Time.parse(event.start_time).strftime '%I:%M%p %m/%d/%Y' }
           %fieldset{:class=>"buttons"}
             = form.submit t('.import_events'), :class => 'btn'
 #right-col
