@@ -1,7 +1,6 @@
 source :gemcutter
 
 gem "rails", "3.1.3"
-gem 'activeadmin', '0.4.0'
 gem "acts_as_tree"
 gem "sprockets"
 gem 'haml'
