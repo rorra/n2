@@ -9,7 +9,7 @@ test:
   <<: *base
 
 production:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   reconnect: false
   database: <%= db_name || "#{application}_production" %>
