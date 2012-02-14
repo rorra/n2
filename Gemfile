@@ -8,7 +8,7 @@ gem "sass-rails"
 gem 'compass', :git => 'git://github.com/chriseppstein/compass.git'
 gem 'compass-960-plugin'
 gem 'json'
-gem 'mogli', :git => 'git@github.com:adahmash/mogli.git'
+gem 'mogli', :git => 'git://github.com/adahmash/mogli.git'
 gem "thumbs_up"
 gem "prototype-rails"
 

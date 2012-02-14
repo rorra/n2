@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/adahmash/mogli.git
+  revision: 90d2a14cd64f735cde729201762c8792d3f18847
+  specs:
+    mogli (0.0.36)
+      hashie (>= 1.1.0)
+      httmultiparty (>= 0.3.6)
+      httparty (>= 0.4.3)
+      multi_json (~> 1.0.3)
+
+GIT
   remote: git://github.com/chewbranca/i18n_backend_database.git
   revision: 3c5be2c7b79ec9e0c3283de82d913e840e06c9c5
   specs:
@@ -38,16 +48,6 @@ GIT
   specs:
     omniauth-facebook (1.2.0)
       omniauth-oauth2 (~> 1.0.0)
-
-GIT
-  remote: git@github.com:adahmash/mogli.git
-  revision: 90d2a14cd64f735cde729201762c8792d3f18847
-  specs:
-    mogli (0.0.36)
-      hashie (>= 1.1.0)
-      httmultiparty (>= 0.3.6)
-      httparty (>= 0.4.3)
-      multi_json (~> 1.0.3)
 
 GIT
   remote: https://github.com/jnunemaker/twitter.git
