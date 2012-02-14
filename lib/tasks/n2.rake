@@ -197,6 +197,7 @@ namespace :n2 do
       Rake::Task['n2:data:load_locale_data'].invoke
       Rake::Task['n2:data:generate_widgets'].invoke
       Rake::Task['n2:util:compass:compile_css'].invoke
+      Rake::Task['assets:precompile'].invoke
       puts "Finished setting up your application"
     end
 
