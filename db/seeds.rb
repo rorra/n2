@@ -503,6 +503,11 @@ view_object_templates =
      :template    => "shared/templates/single_col_list"
    },
    {
+     :name        => "v2_single_col_list_with_profile",
+     :pretty_name => "Version 2 Single Column List With Profile",
+     :template    => "shared/templates/single_col_list_with_profile"
+   },
+   {
      :name        => "v2_single_facebook_widget",
      :pretty_name => "Version 2 Single Column Facebook Widget",
      :template    => "shared/templates/single_col_facebook_widget"
@@ -1039,14 +1044,14 @@ view_objects = [
   },
   {
   	:name          => "Newest Universal Items",
-  	:template_name => "v2_single_col_list",
+  	:template_name => "v2_single_col_list_with_profile",
   	:settings      => {
   		:klass_name      => "ItemAction",
   		:locale_title    => "generic.newest_items.title",
   		:locale_subtitle => nil,
   		:use_post_button => false,
                     :css_class       => "active",
-                    :version => 2,
+                    :version => 3,
   		:kommands        => [
   		  {
   		    :method_name => "newest_items",
