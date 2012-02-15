@@ -14,7 +14,7 @@
 
       - if true or vo.setting.use_post_button
         .actions-wrap
-          = link_to t('post_story_button'), '', :class => "button-link", :rel => "#flowplayer-block", :onclick => "return false;"
+          = link_to t('post_story_button'), new_story_path, :class => "button-link", :rel => "#flowplayer-block", :onclick => "return false;"
           =render :partial => "shared/forms/simple_story_post"
     - else
       .content-profile
@@ -35,3 +35,10 @@
               = image_tag('skin/generic-profile-pic.jpg')
         %h3= vt.t('shared.sidebar.welcome_panel.welcome_panel_headline')
         %p= vt.t('shared.sidebar.welcome_panel.welcome_panel_message_fbml').html_safe
+        
+      .actions-wrap
+        - if current_user
+          = link_to t('post_story_button'), new_story_path, :class => "button-link", :rel => "#flowplayer-block", :onclick => "return false;"
+          =render :partial => "shared/forms/simple_story_post"
+        - else
+          = link_to t('post_story_button'), new_story_path, :class => "button-link"

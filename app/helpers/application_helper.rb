@@ -400,6 +400,8 @@ module ApplicationHelper
       tagged_articles_path(:tag => tag_name)
     elsif item.class.name == 'Topic'
       tagged_forum_path(item.forum, :tag => tag_name)
+    elsif item.class.name == 'Event'
+      tagged_events_path(item, :tag => tag_name)
     elsif item.class.name == 'Gallery'
       tagged_galleries_path(:tag => tag_name)
     elsif item.class.name == 'Resource'
