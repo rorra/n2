@@ -184,8 +184,8 @@ function rebuild_facebook_dom() {
   	submitBtn.parent().append('<img style="float: left;" src="/assets/default/spinner-tiny.gif" /><p style="float: left;">&nbsp; Processing your comment...</p>');
 
   	var url = change_url_format($(this).attr('action'));
-  	var parentForm = $(this).parents('.postComment');
-  	var commentThread = parentForm.siblings('.commentThread');
+  	var parentForm = $(this).parents('.comment-form');
+  	var commentThread = parentForm.siblings('.comment-list');
 
   	$.post(url, $(this).serialize(), function(data) {
       commentThread.fadeOut("normal", function() {
@@ -196,7 +196,7 @@ function rebuild_facebook_dom() {
 
         rebuild_facebook_dom();
         setTimeout(function() {
-          $('html,body').animate({ scrollTop: ($('.commentThread li').last().offset().top - 50) }, { duration: 'slow', easing: 'swing'});
+          $('html,body').animate({ scrollTop: ($('.comment-list li').last().offset().top - 50) }, 'slow', 'swing');
           $('li', commentThread).last().effect('highlight', {color: 'green'}, 3000);
           /*
           // TODO:: FIX THIS
