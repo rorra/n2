@@ -41,6 +41,15 @@
         $('textarea.embed-audio', $(this).parents('fieldset.inputs')).removeClass('hide').show();
         $(this).remove();
       });
+
+      $('#classified_listing_type').change(function() {
+        if ($('#classified_listing_type option:selected').val() == "sale") {
+          $('#classified_price_input').show();
+        } else {
+          $('#classified_price_input').hide();
+        }
+      }); 
+
     });
 -# content_for :sub_nav do
   - if @classified_board.present?
@@ -83,7 +92,7 @@
                 %fieldset
                   = form.inputs do
                     - if Classified.enable_sale_items?
-                      = form.input :price, :hint => t('.hint_classified_price'), :required => false
+                      = form.input :price, :hint => t('.hint_classified_price'), :required => false, :wrapper_html => {:style => 'display:none'}
                     %li
                       %label{:for => "classified_listing_type"}= t('classifieds.listing_type.title')
                       = form.select :listing_type, options_for_select(Classified.listing_types.map {|c| [t("classifieds.listing_type_strings.#{c.to_s}"), c.to_s] }, @classified.listing_type)
