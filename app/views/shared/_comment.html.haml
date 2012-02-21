@@ -1,7 +1,7 @@
 -# @expects: local 'comment' %>
 %li.comment-block
   .comment-bubble
-    .comment-quote= nl2br linkify(comment.comments)
+    .comment-quote= raw nl2br(linkify(comment.comments))
     .arrow
       .arrow-inner
   .comment-meta-data
