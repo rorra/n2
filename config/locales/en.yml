@@ -89,6 +89,8 @@ en:
   post_comment: "Post a comment"
   post_story_title: "Help us keep the community informed!"
   post_story_detail: "Post Stories on our site to help you and your community become better informed of the world around you."
+  post_popup_detail: "Paste the URL of a story below to begin adding it to our site."
+  post_popup_lookup: "Lookup"
   post_story_button: "Post a Story"
   post_article_title: "Welcome to our community blogosphere!"
   post_article_detail: "Start your own blog or follow posts by fellow readers. This is your soap box!"
