@@ -1,4 +1,8 @@
 require 'net/http'
+# Hacks to allow tweeter to use default_url_options and generate urls
+include ActionDispatch::Routing::UrlFor
+include Rails.application.routes.url_helpers
+
 
 module Newscloud
 
@@ -107,9 +111,6 @@ module Newscloud
       @base_oauth_key = "U6qjcn193333331AuA"
       @base_oauth_secret= "Heu0GGaRuzn762323gg0qFGWCp923viG8Haw"
 
-      @enabled = Metadata::Setting.find_setting('tweet_popular_items').try(:value)
-      raise Newscloud::TweeterDisabled.new("You must enable the setting 'tweet_popular_items' to use Tweeter.") unless @enabled
-
       @oauth_key = Metadata::Setting.find_setting('oauth_key').try(:value)
       @oauth_secret = Metadata::Setting.find_setting('oauth_secret').try(:value)
       @oauth_consumer_key = Metadata::Setting.find_setting('oauth_consumer_key').try(:value)
@@ -138,6 +139,9 @@ module Newscloud
     end
 
     def tweet_item item
+      enabled = Metadata::Setting.find_setting('tweet_popular_items').try(:value) || Metadata::Setting.find_setting('tweet_all_moderator_items').try(:value)
+      raise Newscloud::TweeterDisabled.new("You must enable the setting 'tweet_popular_items' to use Tweeter for all popular items, or enabled the setting 'tweet_all_moderator_items' to enable automatic tweeting of moderator items..") unless enabled
+
       # TODO:: setup facebook canvas url option
       status = tweet "#{item.item_title} #{self.class.shorten_url(polymorphic_path(item, :only_path => false))}"
       item.create_tweeted_item if status
@@ -153,6 +157,9 @@ module Newscloud
     end
 
     def tweet_hot_items
+      enabled = Metadata::Setting.find_setting('tweet_popular_items').try(:value)
+      raise Newscloud::TweeterDisabled.new("You must enable the setting 'tweet_popular_items' to use Tweeter.") unless enabled
+
       klasses = Dir.glob("#{Rails.root}/app/models/*.rb").map {|f| f.sub(%r{^.*/(.*?).rb$}, '\1').pluralize.classify }.map(&:constantize).select {|m| m.respond_to?(:tweetable?) and m.tweetable? }
       klasses.each do |klass|
         hot_items = klass.hot_items
