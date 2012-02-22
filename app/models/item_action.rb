@@ -68,7 +68,7 @@ class ItemAction < ActiveRecord::Base
       return results
     else
       results.map do |item|
-        include_item_count ? [item.actionable, item.item_count.to_i] : item.actionable
+        include_item_count ? [item.actionable.item_link, item.item_count.to_i] : item.actionable.item_link
       end
     end
   end

@@ -97,20 +97,20 @@ class User < ActiveRecord::Base
   delegate :post_items?, :to => :user_profile
 
   # NOTE:: must be above emits_pfeeds call
-  def trigger_comment(comment) end
-  def trigger_article(article) end
-  def trigger_story(story) end
-  #def trigger_topic(topic) end
-  def trigger_question(question) end
-  def trigger_answer(answer) end
-  def trigger_idea(idea) end
-  def trigger_classified(classified) end
-  def trigger_event(event) end
-  def trigger_resource(resource) end
-  def trigger_dashboard_message(dashboard_message) end
-  def trigger_chirp(chirp) end
-  def trigger_gallery(gallery) end
-  #def trigger_accepted_prediction_question(prediction_question) end
+  def trigger_comment(comment) ItemAction.gen_user_posted_item!(self, comment, :posted_comment) end
+  def trigger_article(article) ItemAction.gen_user_posted_item!(self, article, :posted_article) end
+  def trigger_story(story) ItemAction.gen_user_posted_item!(self, story, :posted_story) end
+  #def trigger_topic(topic) ItemAction.gen_user_posted_item!(self, topic, :posted_topic) end
+  def trigger_question(question) ItemAction.gen_user_posted_item!(self, question, :posted_question) end
+  def trigger_answer(answer) ItemAction.gen_user_posted_item!(self, answer, :posted_answer) end
+  def trigger_idea(idea) ItemAction.gen_user_posted_item!(self, idea, :posted_idea) end
+  def trigger_classified(classified) ItemAction.gen_user_posted_item!(self, classified, :posted_classified) end
+  def trigger_event(event) ItemAction.gen_user_posted_item!(self, event, :posted_event) end
+  def trigger_resource(resource) ItemAction.gen_user_posted_item!(self, resource, :posted_resource) end
+  def trigger_dashboard_message(dashboard_message) ItemAction.gen_user_posted_item!(self, dashboard_message, :posted_dashboard_message) end
+  def trigger_chirp(chirp) ItemAction.gen_user_posted_item!(self, chirp, :posted_chirp) end
+  def trigger_gallery(gallery) ItemAction.gen_user_posted_item!(self, gallery, :posted_gallery) end
+  #def trigger_accepted_prediction_question(prediction_question) ItemAction.gen_user_posted_item!(self, accepted_prediction_question, :posted_accepted_prediction_question) end
 
   def pfeed_trigger_delivery_callback(pfeed_item)
     self.update_attribute(:last_delivered_feed_item, pfeed_item)
