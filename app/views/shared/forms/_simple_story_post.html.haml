@@ -123,16 +123,16 @@
     .simple-post
       = semantic_form_for story, :url => stories_path, :html => { :multipart => true, :class => "post_story" } do |form|
         .panel-bar
-          %h2 Simple Posting Widget
+          %h2= t('generic.post.content')
         %form.formtastic
           %fieldset.form-desc
-            %p Share a Story
+            %p= t('post_popup_detail')
             #sharing_box
               =form.inputs do
                 =form.input :url
               .loader
               =form.buttons do
-                = form.commit_button 'Look up!', :class => "float-right", :button_html => {:class => 'parse_url_button button-input next create' }
+                = form.commit_button t('post_popup_lookup'), :class => "float-right", :button_html => {:class => 'parse_url_button button-input next create' }
             #media{:style => "display:none"}
               = form.inputs :class => "inputs titles" do
                 = form.input :title
