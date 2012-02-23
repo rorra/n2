@@ -1,8 +1,4 @@
 require 'net/http'
-# Hacks to allow tweeter to use default_url_options and generate urls
-include ActionDispatch::Routing::UrlFor
-include Rails.application.routes.url_helpers
-
 
 module Newscloud
 
