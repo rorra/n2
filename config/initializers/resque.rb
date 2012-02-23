@@ -1,5 +1,8 @@
 require 'yaml'
 require 'resque'
+require 'resque/failure/airbrake'
+require 'resque/failure/redis'
+require 'resque/failure/multiple'
 
 rails_root = (defined?(Rails) && Rails.root) || File.expand_path(File.dirname(__FILE__) + '/../..')
 rails_env = ENV['RAILS_ENV'] || (defined?(Rails) && Rails.env.to_s) || 'development'
@@ -29,3 +32,12 @@ resque_schedule_base_file = File.join(rails_root, 'config/resque_schedule.yml')
 resque_schedule_file = File.exists?(resque_schedule_base_file) ? resque_schedule_base_file : (resque_schedule_base_file.to_s + '.sample')
 resque_schedule_config = YAML.load_file(resque_schedule_file)
 Resque.schedule = resque_schedule_config
+
+
+# Failure Backends Setup
+Resque::Failure::Airbrake.configure do |config|
+  config.api_key = Airbrake.configuration.api_key
+end
+
+Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Airbrake]
+Resque::Failure.backend = Resque::Failure::Multiple
