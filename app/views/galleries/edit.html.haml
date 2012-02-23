@@ -21,7 +21,7 @@
         = form.inputs do
           = add_gallery_item_simple(form, true)
         = form.buttons do
-          = form.commit_button  :class => 'float-right', :button_html => { :class => "btn" }
+          = form.commit_button  :wrapper_html => { :class => 'float-right' }, :button_html => { :class => "btn" }
 
 #right-col
   = render :partial => 'shared/sidebar/newest_galleries'

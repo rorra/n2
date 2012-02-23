@@ -23,7 +23,7 @@
                   = image_form.input :image, :required => false, :as => :file, :label => false, :class => "browse-media-item"
               = add_gallery_item_simple(form)
           = form.buttons do
-            = form.commit_button  :class => 'float-right', :button_html => { :class => "btn" }
+            = form.commit_button  :wrapper_html => { :class => 'float-right' }, :button_html => { :class => "btn" }
 
 #right-col
   = render :partial => 'shared/sidebar/newest_galleries'

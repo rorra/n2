@@ -16,6 +16,6 @@
           - when 'text'
             = form.input :guess
       = form.buttons do
-        = form.commit_button t('predictions.submit_guess'), :button_html => { :class => 'btn float_right'   }
+        = form.commit_button t('predictions.submit_guess'), :button_html => { :class => 'btn float-right'   }
         %p.vote-meta
           = link_to "Is this question out of date?", new_prediction_question_prediction_result_path(prediction_question)

@@ -132,7 +132,7 @@
                 =form.input :url
               .loader
               =form.buttons do
-                = form.commit_button t('post_popup_lookup'), :class => "float-right", :button_html => {:class => 'parse_url_button button-input next create' }
+                = form.commit_button t('post_popup_lookup'), :wrapper_html => { :class => 'float-right' }, :button_html => {:class => 'parse_url_button button-input next create' }
             #media{:style => "display:none"}
               = form.inputs :class => "inputs titles" do
                 = form.input :title
@@ -159,5 +159,5 @@
                     %a.media-link.toggle-audio Add Audio
               = render :partial => 'shared/forms/media_items_simple', :locals => { :form => form, :item => story }
               = form.buttons do
-                =form.commit_button 'Reset', :class => "float-left", :button_html => {:class => 'reset_form_button button-input prev create' }
-                = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input next' }
+                =form.commit_button 'Reset', :wrapper_html => { :class => 'float-left' }, :button_html => {:class => 'reset_form_button button-input prev create' }
+                = form.commit_button t('wizard.post_now'), :wrapper_html => { :class => 'float-right' }, :button_html => { :class => 'button-input next' }

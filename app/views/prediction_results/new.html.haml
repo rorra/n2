@@ -28,4 +28,4 @@
                     = form.input :url, :required => false, :hint => t('predictions.new.hint.url')
                     = form.input :details, :required => false, :input_html => { :rows => 5 }
                 = form.buttons do
-                  = form.commit_button t('wizard.post_now'), :class => 'float-right', :button_html => { :class => 'button-input' }
+                  = form.commit_button t('wizard.post_now'), :wrapper_html => { :class => 'float-right' }, :button_html => { :class => 'button-input' }
