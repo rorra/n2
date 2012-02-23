@@ -115,6 +115,9 @@ GEM
       rails (~> 3.0)
     acts_as_tree (0.1.1)
     addressable (2.2.6)
+    airbrake (3.0.9)
+      activesupport
+      builder
     amazon-ecs (2.2.4)
       nokogiri (~> 1.4)
       ruby-hmac (~> 0.3)
@@ -189,9 +192,6 @@ GEM
     hashie (1.2.0)
     highline (1.6.11)
     hike (1.2.1)
-    hoptoad_notifier (2.4.11)
-      activesupport
-      builder
     httmultiparty (0.3.6)
       httparty (>= 0.7.3)
       multipart-post
@@ -296,6 +296,10 @@ GEM
       redis (< 3.0.0)
     redis-store (1.0.0.1)
       redis (~> 2.2.1)
+    resque-retry (0.2.2)
+      rake
+      resque (>= 1.8.0)
+      resque-scheduler (>= 1.8.0)
     resque-scheduler (1.9.9)
       redis (>= 2.0.1)
       resque (>= 1.8.0)
@@ -372,6 +376,7 @@ DEPENDENCIES
   acl9
   acts-as-taggable-on
   acts_as_tree
+  airbrake
   amazon-ecs
   awesome_print
   aws-s3
@@ -390,7 +395,6 @@ DEPENDENCIES
   formtastic!
   friendly_id (= 3.3.1)
   haml
-  hoptoad_notifier
   i18n_backend_database!
   json
   launchy
@@ -414,6 +418,7 @@ DEPENDENCIES
   redis-namespace
   redis-store
   resque!
+  resque-retry
   resque-scheduler
   routing-filter
   rr
