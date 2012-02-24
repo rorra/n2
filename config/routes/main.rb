@@ -365,6 +365,8 @@ N2::Application.routes.draw do
     resources :flags, :comments, :related_items
   end
 
+  match "/galleries/show_item/:gallery_id/:item_id" => "galleries#show_item"
+
   # This will redirect /images/something.jpg to /assets/something.jpg
   # Should be removed once all the code uses the Rails asset pipeline
   match "/images/*path.:format" => redirect { |params| "/assets/#{ params[:path] }.#{ params[:format]}" }

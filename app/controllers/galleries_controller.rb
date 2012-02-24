@@ -6,7 +6,7 @@ class GalleriesController < ApplicationController
   before_filter :set_meta_klass, :only => [:index]
 
   access_control do
-    allow all, :to => [:index, :show, :tags]
+    allow all, :to => [:index, :show,:show_item, :tags]
     # HACK:: use current_user.is_admin? rather than current_user.has_role?(:admin)
     # FIXME:: get admins switched over to using :admin role
     allow :admin, :of => :current_user
@@ -29,6 +29,12 @@ class GalleriesController < ApplicationController
 
   def new
     @gallery = Gallery.new
+  end
+
+  def show_item
+    @gallery = Gallery.find params[:gallery_id]
+    @item = GalleryItem.find params[:item_id]
+    render :show_item
   end
 
   def create
