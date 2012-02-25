@@ -310,7 +310,7 @@ class ApplicationController < ActionController::Base
     last_active = current_user.last_active
     current_user.touch(:last_active)
     begin
-      if current_facebook_user
+      if current_facebook_user and current_facebook_user.has_facebook_auth?
         unless not Rails.env.development? and last_active and current_user.last_active < last_active + 1.hour
           redis_friends = $redis.smembers "#{current_user.cache_id}:friends"
           unless redis_friends.any? and last_active and current_user.last_active < last_active + 4.hours
@@ -325,6 +325,13 @@ class ApplicationController < ActionController::Base
       end
     rescue Mogli::Client::HTTPException => e
       # Just move on if facebook friends request fails
+    rescue Mogli::Client::OAuthException => e
+      #set_current_user(nil)
+      #reset_session
+      current_user.destroy_facebook_authentication!
+      flash[:error] = "Your facebook session has expired. Please login again with facebook."
+      store_location
+      redirect_to new_session_path
     end
   end
 
