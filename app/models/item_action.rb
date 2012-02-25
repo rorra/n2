@@ -25,7 +25,7 @@ class ItemAction < ActiveRecord::Base
   end
 
   def self.newest_items limit = 5
-    active.newest(limit).find(:all, :conditions => ["action_type = ? or action_type = ?", :posted_item.to_s, :tweeted_item.to_s]).map(&:actionable)
+    active.newest(limit).find(:all, :conditions => ["action_type LIKE ? or action_type = ?", "posted_%", :tweeted_item.to_s]).map(&:actionable)
   end
 
   def self.top_items opts = {}
