@@ -50,7 +50,24 @@
       return false;
     });
 
-    $('a[rel]').overlay();
+    $.tools.overlay.addEffect('newscloud', function(css,done) {
+      var conf = this.getConf(),
+        overlay = this.getOverlay();           
+      // determine initial position for the overlay
+      css.position = 'fixed';
+      css.top = '200px';
+      css.left = '390px';
+     
+      // position the overlay and show it
+      overlay.css(css).show();
+      }, function(done) {
+        this.getOverlay().hide();
+    });
+
+    $('a[rel]').overlay({
+      effect: 'newscloud'
+    });
+
     
     function parse_url  (event){
       event.preventDefault();
