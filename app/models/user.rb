@@ -213,6 +213,10 @@ class User < ActiveRecord::Base
     return !fb_user_id.nil? && fb_user_id > 0
   end
 
+  def has_facebook_auth?
+    authentications.for_facebook.any?
+  end
+
   def accepts_email_notifications?
     self.email.present? and self.user_profile.receive_email_notifications == true and !self.system_user?
   end
@@ -501,6 +505,10 @@ class User < ActiveRecord::Base
 
   def is_identity_user? user
     self == user
+  end
+
+  def destroy_facebook_authentication!
+    authentications.for_facebook.map(&:destroy)
   end
 
   private

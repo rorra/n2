@@ -22,7 +22,7 @@ SitemapGenerator::Sitemap.create do
 
   add root_path(:format => 'html'), :priority => 0.8, :changefreq => 'daily'
   add stories_path(:format => 'html'), :priority => 0.7, :changefreq => 'daily'
-  add newswires_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
+  #add newswires_path(:format => 'html'), :priority => 0.5, :changefreq => 'daily'
   add articles_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
   add users_path(:format => 'html'), :priority => 0.4, :changefreq => 'daily'
   add events_path(:format => 'html'), :priority => 0.6, :changefreq => 'daily'
@@ -85,9 +85,11 @@ SitemapGenerator::Sitemap.create do
     add article_path(a, :format => 'html'), :lastmod => a.updated_at, :priority => 0.4
   end
 
+=begin
   Feed.active.all.each do |f|
     add feed_newswire_path(f, :format => 'html'), :lastmod => f.updated_at, :priority => 0.4
   end
+=end
 
   Gallery.all.each do |g|
     add gallery_path(g, :format => 'html'), :lastmod => g.updated_at, :priority => 0.4
