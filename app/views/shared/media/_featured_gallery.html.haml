@@ -1,5 +1,4 @@
 -# @expects: local 'gallery'
-
 - cache :featured_gallery_html do
   - gallery ||= Gallery.featured.first || Gallery.top.first
   - if gallery
@@ -15,6 +14,6 @@
           - gallery.gallery_items.each do |gallery_item|
             - count += 1
             - if count > 8
-              %li.hide-strong= link_to image_tag(gallery_item.thumb_url, :alt => gallery_item.item_title), gallery_item.full_url, :rel => "gallery[#{gallery.title.parameterize}]", :title => gallery_item.item_description
+              %li.hide-strong= link_to image_tag(gallery_item.thumb_url, :alt => gallery_item.item_title), gallery_item_path(gallery_item), :title => gallery_item.item_description
             - else
-              %li.gallery-item= link_to image_tag(gallery_item.thumb_url, :alt => gallery_item.item_title), gallery_item.full_url, :rel => "gallery[#{gallery.title.parameterize}]", :title => gallery_item.item_description
+              %li.gallery-item= link_to image_tag(gallery_item.thumb_url, :alt => gallery_item.item_title), gallery_item_path(gallery_item), :title => gallery_item.item_description

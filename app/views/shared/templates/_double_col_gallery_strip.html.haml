@@ -20,6 +20,6 @@
     %ul.gallery-content.clearfix
       - gallery.gallery_items.each_with_index do |gallery_item, index|
         - if index >= 8
-          %li.hide-strong= link_to image_tag(gallery_item.thumb_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item.full_url, :rel => "gallery[small-image-#{gallery.title.parameterize}]", :title => gallery_item.item_description
+          %li.hide-strong= link_to image_tag(gallery_item.thumb_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item_path(gallery_item), :title => gallery_item.item_description
         - else
-          %li{:class => (index == 0 ? "first" : index == 3 ? "last" : index == 4 ? "first" : index == 7 ? "last" : "")}= link_to image_tag(gallery_item.thumb_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item.full_url, :rel => "gallery[small-image-#{gallery.title.parameterize}]", :title => gallery_item.item_description
+          %li{:class => (index == 0 ? "first" : index == 3 ? "last" : index == 4 ? "first" : index == 7 ? "last" : "")}= link_to image_tag(gallery_item.thumb_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item_path(gallery_item), :title => gallery_item.item_description

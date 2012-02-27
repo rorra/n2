@@ -1,5 +1,4 @@
 -# @expects: local 'newest_images'
-
 - cache :gallery_images_html, :expires_in => 60.minutes do
   - newest_images ||= Image.active.newest
   - unless newest_images.empty? or newest_images.count < 8

@@ -23,4 +23,4 @@
         %ul
           - gallery.gallery_items.pop
           - gallery.gallery_items.slice(0,9).each do |gallery_item|
-            %li.hide-strong= link_to image_tag(gallery_item.medium_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item.full_url, :rel => "gallery[big-image-#{gallery.title.parameterize}]", :title => gallery_item.item_description
+            %li.hide-strong= link_to image_tag(gallery_item.medium_url, :alt => sanitize_title(gallery_item.item_title)), gallery_item_path(gallery_item), :rel => "gallery[big-image-#{gallery.title.parameterize}]", :title => gallery_item.item_description
