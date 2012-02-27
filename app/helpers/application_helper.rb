@@ -268,10 +268,10 @@ module ApplicationHelper
   end
 
   def external_linked_profile_name user, opts = {}
-    if user.twitter_user?
-      link_to user.twitter_name, twitter_url(user)
-    elsif user.facebook_user?
+    if user.facebook_user?
       link_to user.public_name, facebook_profile_url(user)
+    elsif user.twitter_user?
+      link_to user.twitter_name, twitter_url(user)
     else
       link_to user.public_name, user
     end

@@ -210,7 +210,8 @@ class User < ActiveRecord::Base
   end
 
   def facebook_user?
-    return !fb_user_id.nil? && fb_user_id > 0
+    fb_user = self.mogli_user
+    return !fb_user.nil? && fb_user.id.to_i > 0
   end
 
   def has_facebook_auth?
@@ -476,7 +477,7 @@ class User < ActiveRecord::Base
   def self.build_from_omniauth(omniauth_auth_hash)
     user = User.new
     user.name = omniauth_auth_hash.info.name
-    user.twitter_user = true
+    user.twitter_user = true unless !omniauth_auth_hash.info.provider.equals? "twitter"
     user.build_profile
     user.profile.profile_image = omniauth_auth_hash.info.image
     user.build_authentication_from_omniauth(omniauth_auth_hash)
