@@ -573,10 +573,25 @@ view_object_templates =
      :template    => "shared/templates/double_col_feature_triple_item"
    },
    {
-     :name        => "old_twitter_standard_list",
-     :pretty_name => "Old Twitter Standard List",
+     :name        => "twitter_standard_list",
+     :pretty_name => "Twitter Standard List",
      :template    => "shared/sidebar/twitter_standard_list"
    },
+   {
+     :name        => "twitter_standard_favorites",
+     :pretty_name => "Twitter Standard Favorites",
+     :template    => "shared/sidebar/twitter_standard_favorites"
+   },
+   {
+     :name        => "twitter_standard_profile",
+     :pretty_name => "Twitter Standard Profile",
+     :template    => "shared/sidebar/twitter_standard_profile"
+   },
+   {
+     :name        => "twitter_standard_search",
+     :pretty_name => "Twitter Standard Search",
+     :template    => "shared/sidebar/twitter_standard_search"
+   },   
    {
      :name        => "v2_ad_template",
      :pretty_name => "Version 2 Ad Template",
@@ -1147,8 +1162,8 @@ view_objects = [
   	}
   },
   {
-  	:name          => "Old Twitter Standard List",
-  	:template_name => "old_twitter_standard_list",
+  	:name          => "Twitter Standard List",
+  	:template_name => "twitter_standard_list",
   	:settings      => {
   		:klass_name      => "Content",
   		:locale_title    => nil,
@@ -1160,7 +1175,52 @@ view_objects = [
   		:kommands        => [
   		]
   	}
-  },
+                },
+  {
+  	:name          => "Twitter Standard Favorites",
+  	:template_name => "twitter_standard_favorites",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => nil,
+  		:locale_subtitle => nil,
+  		:use_post_button => false,
+                    :cache_disabled   => true,
+                    :version => 2,
+      :old_widget      => true,
+  		:kommands        => [
+  		]
+  	}
+                },
+  {
+  	:name          => "Twitter Standard Profile",
+  	:template_name => "twitter_standard_profile",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => nil,
+  		:locale_subtitle => nil,
+  		:use_post_button => false,
+                    :cache_disabled   => true,
+                    :version => 2,
+      :old_widget      => true,
+  		:kommands        => [
+  		]
+  	}
+                },
+  {
+  	:name          => "Twitter Standard Search",
+  	:template_name => "twitter_standard_search",
+  	:settings      => {
+  		:klass_name      => "Content",
+  		:locale_title    => nil,
+  		:locale_subtitle => nil,
+  		:use_post_button => false,
+                    :cache_disabled   => true,
+                    :version => 2,
+      :old_widget      => true,
+  		:kommands        => [
+  		]
+  	}
+  },                
   {
   	:name          => "Default Ad Small Square",
   	:template_name => "v2_ad_template",
