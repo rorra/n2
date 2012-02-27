@@ -53,7 +53,3 @@
     = render :partial => 'shared/sidebar/gallery_voices', :locals => { :gallery => @gallery }
   = render :partial => 'shared/sidebar/related_items', :locals => { :relatable => @item, :related_items => @item.related_items }
   = render_ad(:skyscraper, @ad_layout, @ad_skyscraper)
-  - if current_user
-    - if @gallery.is_public? or @gallery.user == current_user or current_user.is_moderator?
-      .panel-1
-        = link_to t('galleries.add_new_item'), add_gallery_item_gallery_path(@gallery), {:class => 'button-link'}

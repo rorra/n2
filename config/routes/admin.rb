@@ -77,6 +77,7 @@ N2::Application.routes.draw do
       end
     end
     resources :galleries
+    resources :gallery_items
     resources :gos
     resources :idea_boards
     resources :ideas

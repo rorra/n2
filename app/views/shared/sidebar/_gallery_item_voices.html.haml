@@ -1,0 +1,14 @@
+- cache "#{gallery_item.cache_key}_voices" do
+  %div{:class => "panel-1 #{defined?(widget_page) ? widget_page.css_class : ''}"}
+    .panel-bar
+      %h2= t('gallery_items.voices_title')
+    .subtitle
+      %span= t('gallery_items.voices_subtitle')
+    .item-list-wrap
+      .item-list
+        %ul
+          - gallery_item.user_voices.uniq.each do |user|
+            %li
+              .meta-profile
+                .profile-pic= local_linked_profile_pic user
+                %h3== #{local_linked_profile_name(user)}

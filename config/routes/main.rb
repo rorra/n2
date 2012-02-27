@@ -263,6 +263,10 @@ N2::Application.routes.draw do
     resources :comments, :flags, :related_items
   end
 
+  resources :gallery_items, :format => false do
+    resources :comments, :flags, :related_items
+  end
+
   resources :go, :only => :show
 
   resource :home, :controller => "home" do
@@ -364,8 +368,6 @@ N2::Application.routes.draw do
     end
     resources :flags, :comments, :related_items
   end
-
-  match "/galleries/show_item/:gallery_id/:item_id" => "galleries#show_item"
 
   # This will redirect /images/something.jpg to /assets/something.jpg
   # Should be removed once all the code uses the Rails asset pipeline
