@@ -56,6 +56,7 @@ class Admin::ImagesController < AdminController
       @imageable.expire
       WidgetSweeper.expire_features
     end
+    NewscloudSweeper.expire_instance(@imageable) if @imageable
 
     respond_to do |format|
       format.html { redirect_to admin_images_path }
