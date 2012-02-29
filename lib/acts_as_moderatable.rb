@@ -84,7 +84,7 @@ module Newscloud
           return self.save ? true : false
         end
 
-        def cascade_block blocked = nil
+        def zcascade_block blocked = nil
           [self.class.reflect_on_all_associations(:has_many), self.class.reflect_on_all_associations(:has_one)].flatten.each do |association|
             if not association.options.include?(:through)
               items = Array(self.send(association.name)).flatten.compact

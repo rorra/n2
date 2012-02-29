@@ -51,7 +51,6 @@ class Newswire < ActiveRecord::Base
 
     begin
       if @user.contents << @content
-        ItemAction.gen_user_posted_item!(@user, @content)
         set_published
         NewswireSweeper.expire_newswires
         @content.expire

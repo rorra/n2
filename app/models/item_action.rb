@@ -2,6 +2,8 @@ class ItemAction < ActiveRecord::Base
   belongs_to :user
   belongs_to :actionable, :polymorphic => true
 
+  acts_as_moderatable
+
   scope :for_item, lambda {|item| { :conditions => ["actionable_type = ? and actionable_id = ?", item.class.name, item.id] } }
   scope :for_class, lambda {|item| { :conditions => ["actionable_type = ?", item.name] } }
   scope :for_action, lambda {|item| { :conditions => ["action_type = ?", item.name] } }
