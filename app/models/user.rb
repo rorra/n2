@@ -210,8 +210,7 @@ class User < ActiveRecord::Base
   end
 
   def facebook_user?
-    fb_user = self.mogli_user
-    return !fb_user.nil? && fb_user.id.to_i > 0
+    return (!fb_user_id.nil? && fb_user_id > 0) || has_facebook_auth?
   end
 
   def has_facebook_auth?
