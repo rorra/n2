@@ -8,6 +8,8 @@ class ItemScore < ActiveRecord::Base
 
   belongs_to :scorable, :polymorphic => true
 
+  acts_as_moderatable
+
   scope :for_item, lambda {|item| { :conditions => ["scorable_type = ? and scorable_id = ?", item.class.name, item.id] } }
   scope :for_class, lambda {|item| { :conditions => ["scorable_type = ?", item.name] } }
   scope :active, { :conditions => {:is_blocked => false} }

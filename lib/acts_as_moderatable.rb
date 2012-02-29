@@ -13,6 +13,7 @@ module Newscloud
           has_many :flags, :as => :flaggable
           # HACK:: move this out to its own location
           has_many :item_actions, :as => :actionable
+          has_many :item_scores, :as => :scorable
 
           after_save :rescore_item
 
@@ -84,7 +85,7 @@ module Newscloud
           return self.save ? true : false
         end
 
-        def zcascade_block blocked = nil
+        def cascade_block blocked = nil
           [self.class.reflect_on_all_associations(:has_many), self.class.reflect_on_all_associations(:has_one)].flatten.each do |association|
             if not association.options.include?(:through)
               items = Array(self.send(association.name)).flatten.compact
