@@ -105,8 +105,8 @@ function rebuild_facebook_dom() {
 	
   $('.update-bio').click(function(event) {
   	event.preventDefault();
-  	$('.current-bio').toggle();
-  	$(this).parent().next().toggle();
+  	$('.bio-box').toggle();
+  	$('.bio-box').next().toggle();
   });
 
   $('form#new_question #question_question').focus(function(event) {
