@@ -476,7 +476,11 @@ class User < ActiveRecord::Base
   def self.build_from_omniauth(omniauth_auth_hash)
     user = User.new
     user.name = omniauth_auth_hash.info.name
-    user.twitter_user = true unless !omniauth_auth_hash.info.provider.equals? "twitter"
+    if omniauth_auth_hash[:provider] == "twitter"
+      user.twitter_user = true  
+    else
+      user.twitter_user = false  
+    end
     user.build_profile
     user.profile.profile_image = omniauth_auth_hash.info.image
     user.build_authentication_from_omniauth(omniauth_auth_hash)
