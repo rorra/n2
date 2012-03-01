@@ -64,7 +64,7 @@
   - unless @articles.empty?
     = panel2 do
       = panel_bar t('.action_feeds')
-      = double_col_item_list @articles
+      = double_col_item_list @articles, :raw => true
 
   = panel2 do
     = panel_bar t('.action_feeds')
