@@ -193,7 +193,7 @@ module TemplateHelper
       content_tag(:div, :class => 'item-image') do
         item_image_content = content_tag(:div, link_to(image_tag(medium_image_or_default(item)), item.item_link), :class => 'thumb')
         item_image_content << content_tag(:div, :class => 'content') do
-          description = options[:raw] ? raw(item.item_description) : item.item_description
+          description = (options[:raw] || item.is_a?(Article)) ? raw(item.item_description) : item.item_description # yuck...
           content = content_tag(options[:title_tag], link_to(item.item_title, item.item_link))
           content << content_tag(:p, description)
           content << item_meta_profile(item)
