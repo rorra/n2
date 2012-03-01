@@ -210,11 +210,12 @@ class User < ActiveRecord::Base
   end
 
   def facebook_user?
-    return (!fb_user_id.nil? && fb_user_id > 0) || has_facebook_auth?
+    (!fb_user_id.nil? && fb_user_id > 0) or has_facebook_auth?
   end
 
   def has_facebook_auth?
-    authentications.for_facebook.any?
+    # Note: When the user is registering, the authentication was not yet saved into the database
+    authentications.for_facebook.any? || authentications.detect {|a| a.provider == 'facebook'}
   end
 
   def accepts_email_notifications?
