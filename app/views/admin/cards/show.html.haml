@@ -20,6 +20,12 @@
   %dt Not Sendable:
   %dd= dd_data @card.not_sendable
 
+  %dt Creation Date:
+  %dd= dd_data @question.created_at.strftime("%m/%d/%Y %H:%M")
+
+  %dt Update Date:
+  %dd= dd_data @question.updated_at.strftime("%m/%d/%Y %H:%M")
+
   .clear
 
 %ul.admin_show_links

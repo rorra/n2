@@ -1,50 +1,62 @@
 class Admin::QuestionsController < AdminController
-  skip_before_filter :admin_user_required
+  before_filter :find_question, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @questions = Question.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    respond_to do |format|
+      format.html do
+        search = {"meta_sort" => "id.desc"}.merge(params[:search] || {})
+        @search = Question.search(search)
+        @questions = @search.paginate(:page => params[:page])
+      end
+    end
+  end
+
+  def show
   end
 
   def new
     @question = Question.new
   end
 
+  def create
+    @question = Question.new(params[:question])
+
+    if @question.save
+      flash[:success] = "Successfully created your new Question!"
+      redirect_to admin_question_path(@question)
+    else
+      flash[:error] = "Could not create your Question, please try again"
+      render :action => :new
+    end
+  end
+
   def edit
-    @question = Question.find(params[:id])
   end
 
   def update
-    @question = Question.find(params[:id])
     if @question.update_attributes(params[:question])
-      @question.expire
-      flash[:success] = "Successfully updated your Question ."
-      redirect_to [:admin, @question]
+      flash[:success] = "Successfully updated your Question."
+      redirect_to admin_question_path(@question)
     else
-      flash[:error] = "Could not update your Question  as requested. Please try again."
-      render :edit
+      flash[:error] = "Could not update your Question as requested. Please try again."
+      render :action => :edit
     end
   end
 
-  def show
-    @question = Question.find(params[:id])
-  end
-
-  def create
-    @question = Question.new(params[:question])
-    @question.user = current_user
-    if @question.save
-      flash[:success] = "Successfully created your new Question !"
-      redirect_to [:admin, @question]
+  def destroy
+    if @question.destroy
+      flash[:success] = "Successfully deleted your Question."
     else
-      flash[:error] = "Could not create your Question , please try again"
-      render :new
+      flash[:error] = "Could not delete your Question as requested. Please try again."
     end
+
+    redirect_to :action => :index
   end
 
   private
 
-  def set_current_tab
-    @current_tab = 'questions';
+  def find_question
+    @question = Question.find(params[:id])
   end
 
 end

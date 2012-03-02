@@ -1,1 +1,38 @@
-= gen_show_page @question, [:question, :user_id, :details, :votes_tally, :comments_count, :created_at], :associations => { :belongs_to => {  :user => :user_id } }
+%h1= "Question"
+%hr
+%dl.clearfix
+  %dt User:
+  %dd= dd_data link_to(@question.user.try(:name), admin_user_path(@question.user))
+
+  %dt Question:
+  %dd= dd_data @question.question
+
+  %dt Details:
+  %dd= dd_data @question.details
+
+  %dt Votes Tally:
+  %dd= dd_data @question.votes_tally
+
+  %dt Comments Count:
+  %dd= dd_data @question.comments_count
+
+  %dt Answers Count:
+  %dd= dd_data @question.answers_count
+
+  %dt Blocked:
+  %dd= dd_data @question.blocked
+
+  %dt Featured:
+  %dd= dd_data @question.featured
+
+  %dt Creation Date:
+  %dd= dd_data @question.created_at.strftime("%m/%d/%Y %H:%M")
+
+  %dt Update Date:
+  %dd= dd_data @question.updated_at.strftime("%m/%d/%Y %H:%M")
+
+  .clear
+
+%ul.admin_show_links
+  %li= link_to 'Edit', edit_admin_question_path(@question)
+  %li= link_to 'Back to List', admin_questions_path

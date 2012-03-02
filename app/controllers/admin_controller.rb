@@ -2,7 +2,6 @@ class AdminController < ApplicationController
   layout proc {|c| c.request.xhr? ? false : "new_admin" }
 
   before_filter :check_admin_or_default_status
-  before_filter :set_current_tab
   before_filter :check_iframe
 
   self.class_eval do
@@ -147,10 +146,6 @@ class AdminController < ApplicationController
   end
 
   private
-
-  def set_current_tab
-    @current_tab = 'dashboard'
-  end
 
   def find_moderatable_item
     params.each do |name, value|

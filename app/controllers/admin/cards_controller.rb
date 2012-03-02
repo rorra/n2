@@ -58,6 +58,4 @@ class Admin::CardsController < AdminController
   def find_card
     @card = Card.find(params[:id])
   end
-
-
 end

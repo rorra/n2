@@ -1,1 +1,56 @@
-= gen_index_page @answers, Answer, [ :answer, :user_id, :votes_tally, :comments_count, :created_at, :question_id], :associations => { :belongs_to => { :question => :question_id, :user => :user_id } }, :paginate => true
+%h1 Answer List
+
+= form_for(@search, :url => admin_answers_path, :html => {:method => :get, :id => 'filter_form', :class => 'admin_form'}) do |f|
+  %fieldset
+    .row
+      = f.label :user_name_contains, 'User'
+      = f.text_field :user_name_contains
+    .row
+      = f.label :question_id_equals, 'Question'
+      = f.select :question_id_equals, Question.order(:question).all.collect {|q| [q.question, q.id]}
+    .row
+      = f.label :answer_contains, 'Answer'
+      = f.text_field :answer_contains
+    .row
+      = f.label :is_featured_equals, 'Featured'
+      = f.select :is_featured_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_featured_equals)
+    .row
+      = f.label :is_blocked_equals, 'Blocked'
+      = f.select :is_blocked_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_blocked_equals)
+    .row.buttons
+      %button{:type => 'submit'}
+        %span Search
+      %button{:class => 'reset'}
+        %span Reset
+      %button{:class => 'button_link', :href => new_admin_answer_path}
+        %span New Answer
+
+%table
+  %thead
+    %tr
+      %th= sort_link(@search, :user_name, 'User')
+      %th= sort_link(@search, :question_question, 'Question')
+      %td= sort_link(@search, :answer)
+      %th= sort_link(@search, :votes_tally)
+      %th= sort_link(@search, :comments_count)
+      %th= sort_link(@search, :is_featured)
+      %th= sort_link(@search, :is_blocked)
+      %th Actions
+  %tbody
+    - @answers.all.each do |answer|
+      %tr{:class => cycle('odd', 'even')}
+        %td= link_to(answer.user.try(:name), admin_user_path(answer.user))
+        %td= link_to(answer.question.try(:question), admin_question_path(answer.question))
+        %td= answer.votes_tally
+        %td= answer.comments_count
+        %td= answer.is_featured
+        %td= answer.is_blocked
+        %td
+          = link_to(image_tag('icon_view.gif'), admin_answer_path(answer))
+          = link_to(image_tag('icon_edit.gif'), edit_admin_answer_path(answer))
+          = link_to(image_tag('icon_delete.gif'), admin_answer_path(answer), :confirm => 'Are you sure?', :method => :delete)
+
+= will_paginate @answers
+
+
+

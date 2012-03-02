@@ -1,1 +1,52 @@
-= gen_index_page @questions, Question, [:question, :details, :user_id, :votes_tally, :comments_count, :created_at], :associations => { :belongs_to => { :user => :user_id } }, :paginate => true
+%h1 Question List
+
+= form_for(@search, :url => admin_questions_path, :html => {:method => :get, :id => 'filter_form', :class => 'admin_form'}) do |f|
+  %fieldset
+    .row
+      = f.label :user_name_contains, 'User'
+      = f.text_field :user_name_contains
+    .row
+      = f.label :question_contains, 'Question'
+      = f.text_field :question_contains
+    .row
+      = f.label :is_featured_equals, 'Featured'
+      = f.select :is_featured_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_featured_equals)
+    .row
+      = f.label :is_blocked_equals, 'Blocked'
+      = f.select :is_blocked_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_blocked_equals)
+    .row.buttons
+      %button{:type => 'submit'}
+        %span Search
+      %button{:class => 'reset'}
+        %span Reset
+      %button{:class => 'button_link', :href => new_admin_question_path}
+        %span New Question
+
+%table
+  %thead
+    %tr
+      %th= sort_link(@search, :user)
+      %th= sort_link(@search, :question)
+      %th= sort_link(@search, :votes_tally)
+      %th= sort_link(@search, :comments_count)
+      %th= sort_link(@search, :is_featured)
+      %th= sort_link(@search, :is_blocked)
+      %th Actions
+  %tbody
+    - @questions.all.each do |question|
+      %tr{:class => cycle('odd', 'even')}
+        %td= link_to(question.user.try(:name), admin_user_path(question.user))
+        %td= question.question
+        %td= question.votes_tally
+        %td= question.comments_count
+        %td= question.is_featured
+        %td= question.is_blocked
+        %td
+          = link_to(image_tag('icon_view.gif'), admin_question_path(question))
+          = link_to(image_tag('icon_edit.gif'), edit_admin_question_path(question))
+          = link_to(image_tag('icon_delete.gif'), admin_question_path(question), :confirm => 'Are you sure?', :method => :delete)
+
+= will_paginate @questions
+
+
+
