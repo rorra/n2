@@ -152,4 +152,8 @@ module AdminHelper
     end
   end
 
+  def dd_data(data)
+    data.blank? ? '&nbsp;'.html_safe : data
+  end
+
 end

@@ -2,14 +2,7 @@ class Admin::FlagsController < AdminController
   layout 'new_admin'
 
   def index
-    @flags = Flag.find(:all, :order => 'created_at desc')
-#    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-#      :items => Flag.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-#      :model => Flag,
-#      :fields => [:item_title, :item_description, :user_id, :created_at, :flaggable],
-#      :associations => { :belongs_to => { :user => :user_id, :flaggable => :flaggable_id } },
-#      :paginate => true
-#    }
+    @flags = Flag.order('created_at desc').all
   end
 
   def new

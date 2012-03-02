@@ -1,0 +1,45 @@
+%h1 Card List
+
+= form_for(@search, :url => admin_contents_path, :html => {:method => :get, :id => 'filter_form'}) do |f|
+  %fieldset
+    .row
+      = f.label :name_contains, 'Name'
+      = f.text_field :name_contains
+    .row
+      = f.label :short_caption_contains, 'Short Caption'
+      = f.text_field :short_caption_contains
+    .row
+      = f.label :long_caption_contains, 'Long Caption'
+      = f.text_field :long_caption_contains
+    .row
+      = f.label :is_featured_equals, 'Featured'
+      = f.select :is_featured_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_featured_equals)
+    .row
+    .row
+      = f.label :is_blocked_equals, 'Blocked'
+      = f.select :is_blocked_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_blocked_equals)
+
+%table
+  %thead
+    %tr
+      %th= sort_link(@search, :name)
+      %th= sort_link(@search, :points)
+      %th= sort_link(@search, :is_featured)
+      %th= sort_link(@search, :is_blocked)
+      %th Actions
+  %tbody
+    - @cards.all.each do |card|
+      %tr{:class => cycle('odd', 'even')}
+        %td= card.name
+        %td= card.points
+        %td= card.is_featured
+        %td= card.is_blocked
+        %td
+          = link_to(image_tag('icon_view.gif'), admin_card_path(card))
+          = link_to(image_tag('icon_edit.gif'), edit_admin_card_path(card))
+          = link_to(image_tag('icon_delete.gif'), admin_card_path(card), :confirm => 'Are you sure?', :method => :delete)
+
+= will_paginate @cards
+
+
+

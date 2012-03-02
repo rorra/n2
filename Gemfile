@@ -33,6 +33,7 @@ gem "acl9"
 gem "paperclip"
 gem 'amazon-ecs'
 gem 'routing-filter'
+gem 'meta_search'    # For column sort and search of tables
 
 # JVD: having problems getting this working with an empty database
 # The gem tries to load the locales table before it exists.

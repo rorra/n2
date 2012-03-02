@@ -46,10 +46,11 @@ class Admin::ContentsController < AdminController
   def create
     @content = Content.new(params[:content])
     @content.user = current_user
-    @story.tag_list = params[:content][:tags_string]
-    if params[:content][:image_url].present?
-      @story.build_content_image({:url => params[:content][:image_url]})
-    end
+    # TODO: Check this code because I think that story is not used anymore for Content
+    #@story.tag_list = params[:content][:tags_string]
+    #if params[:content][:image_url].present?
+    #  @story.build_content_image({:url => params[:content][:image_url]})
+    #end
     if @content.save
       flash[:success] = "Successfully created your new Content!"
       redirect_to [:admin, @content]
