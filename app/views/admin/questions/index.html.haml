@@ -25,6 +25,7 @@
 %table
   %thead
     %tr
+      %th= sort_link(@search, :id)
       %th= sort_link(@search, :user)
       %th= sort_link(@search, :question)
       %th= sort_link(@search, :votes_tally)
@@ -35,6 +36,7 @@
   %tbody
     - @questions.all.each do |question|
       %tr{:class => cycle('odd', 'even')}
+        %td= question.id
         %td= link_to(question.user.try(:name), admin_user_path(question.user))
         %td= question.question
         %td= question.votes_tally

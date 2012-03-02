@@ -1,0 +1,49 @@
+%h1 Classifieds List
+
+= form_for(@search, :url => admin_classifieds_path, :html => {:method => :get, :id => 'filter_form', :class => 'admin_form'}) do |f|
+  %fieldset
+    .row
+      = f.label :title_contains, 'Title'
+      = f.text_field :title_contains
+    .row
+      = f.label :details_contains, 'Details'
+      = f.text_field :details_contains
+    .row
+      = f.label :listing_type_equals, 'Listing Type'
+      = f.select :listing_type_equals, [[nil, ''], ['sale', 'Sale'], ['loan', 'Loan'], ['wanted', 'Wanted'], ['free', 'Free']]
+    .row
+      = f.label :is_featured_equals, 'Featured'
+      = f.select :is_featured_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_featured_equals)
+    .row
+      = f.label :is_blocked_equals, 'Blocked'
+      = f.select :is_blocked_equals, options_for_select([[nil, nil], ['Yes', true], ['No', false]], @search.is_blocked_equals)
+    .row.buttons
+      %button{:type => 'submit'}
+        %span Search
+      %button{:class => 'reset'}
+        %span Reset
+
+%table
+  %thead
+    %tr
+      %th= sort_link(@search, :id)
+      %th= sort_link(@search, :title)
+      %th= sort_link(@search, :user_name)
+      %th= sort_link(@search, :is_featured)
+      %th= sort_link(@search, :is_blocked)
+      %th Actions
+  %tbody
+    - @classifieds.all.each do |classified|
+      %tr{:class => cycle('odd', 'even')}
+        %td= classified.id
+        %td= truncate(classified.title, :length => 50)
+        %td= classified.user.try(:name)
+        %td= classified.is_featured
+        %td= classified.is_blocked
+        %td
+          = link_to(image_tag('icon_view.gif'), admin_classified_path(classified))
+
+= will_paginate @classifieds
+
+
+

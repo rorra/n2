@@ -13,7 +13,7 @@ N2::Application.routes.draw do
     resources :announcements
     resources :answers
     resources :cards
-    resources :classifieds
+    resources :classifieds, :only => [:index, :show]
     resources :comments
     resources :content_dashboard do
       collection do

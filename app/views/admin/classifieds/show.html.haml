@@ -1,0 +1,58 @@
+%h1= "Classified"
+%hr
+%dl.clearfix
+  %dt User:
+  %dd= dd_data link_to(@classified.user.try(:name), admin_user_path(@classified.user))
+
+  %dt Title:
+  %dd= dd_data @classified.title
+
+  %dt Detail:
+  %dd= dd_data @classified.detail
+
+  %dt AASM State:
+  %dd= dd_data @classified.aasm_state
+
+  %dt Listing Type:
+  %dd= dd_data @classified.listing_type
+
+  %dt Allow:
+  %dd= dd_data @classified.allow
+
+  %dt Amazon Asin:
+  %dd= dd_data @classified.amazon_asin
+
+  %dt Expires At:
+  %dd= dd_data @classified.expires_at.strftime("%m/%d/%Y %H:%M")
+
+  %dt Price:
+  %dd= dd_data sprintf("%.02f", @classified.price.to_f)
+
+  %dt Location Text:
+  %dd= dd_data @classified.location_text
+
+  %dt Votes Tally:
+  %dd= dd_data @classified.votes_tally
+
+  %dt Comments Count:
+  %dd= dd_data @classified.comments_count
+
+  %dt Flags Count:
+  %dd= dd_data @classified.flags_count
+
+  %dt Blocked:
+  %dd= dd_data @classified.blocked
+
+  %dt Featured:
+  %dd= dd_data @classified.featured
+
+  %dt Creation Date:
+  %dd= dd_data @classified.created_at.strftime("%m/%d/%Y %H:%M")
+
+  %dt Update Date:
+  %dd= dd_data @classified.updated_at.strftime("%m/%d/%Y %H:%M")
+
+  .clear
+
+%ul.admin_show_links
+  %li= link_to 'Back to List', admin_classifieds_path

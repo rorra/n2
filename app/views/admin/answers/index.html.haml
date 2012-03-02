@@ -28,6 +28,7 @@
 %table
   %thead
     %tr
+      %th= sort_link(@search, :id)
       %th= sort_link(@search, :user_name, 'User')
       %th= sort_link(@search, :question_question, 'Question')
       %td= sort_link(@search, :answer)
@@ -39,8 +40,10 @@
   %tbody
     - @answers.all.each do |answer|
       %tr{:class => cycle('odd', 'even')}
+        %td= answer.id
         %td= link_to(answer.user.try(:name), admin_user_path(answer.user))
-        %td= link_to(answer.question.try(:question), admin_question_path(answer.question))
+        %td= link_to(truncate(answer.question.try(:question)), admin_question_path(answer.question))
+        %td= truncate(answer.answer)
         %td= answer.votes_tally
         %td= answer.comments_count
         %td= answer.is_featured

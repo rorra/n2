@@ -28,6 +28,7 @@
 %table
   %thead
     %tr
+      %th= sort_link(@search, :id)
       %th= sort_link(@search, :name)
       %th= sort_link(@search, :points)
       %th= sort_link(@search, :is_featured)
@@ -36,6 +37,7 @@
   %tbody
     - @cards.all.each do |card|
       %tr{:class => cycle('odd', 'even')}
+        %td= card.id
         %td= card.name
         %td= card.points
         %td= card.is_featured
