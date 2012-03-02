@@ -1,0 +1,6 @@
+%h2 Create a new Card
+= semantic_form_for [:admin, @card], :html => { :multipart => true } do |form|
+  = render :partial => 'form', :locals => { :form => form }
+  = form.buttons do
+    = form.commit_button 'Create'
+    = form.commit_button 'Cancel', :button_html => {:class => 'follow_link', :href => admin_cards_path}

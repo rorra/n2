@@ -4,7 +4,7 @@ class Admin::CardsController < AdminController
   def index
     respond_to do |format|
       format.html do
-        search = {"meta_sort" => "name.desc"}.merge(params[:search] || {})
+        search = {"meta_sort" => "name.asc"}.merge(params[:search] || {})
         @search = Card.search(search)
         @cards = @search.paginate(:page => params[:page])
       end
@@ -23,7 +23,7 @@ class Admin::CardsController < AdminController
 
     if @card.save
       flash[:success] = "Successfully created your new Card!"
-      redirect_to [:admin, @card]
+      redirect_to admin_card_path(@card)
     else
       flash[:error] = "Could not create your Card, please try again"
       render :action => :new
@@ -36,7 +36,7 @@ class Admin::CardsController < AdminController
   def update
     if @card.update_attributes(params[:card])
       flash[:success] = "Successfully updated your Card."
-      redirect_to [:admin, @card]
+      redirect_to admin_card_path(@card)
     else
       flash[:error] = "Could not update your Card as requested. Please try again."
       render :action => :edit

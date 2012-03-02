@@ -95,7 +95,21 @@ $(function() {
     });
 
   }, 1000);
-  
 
 })(jQuery);
+
+$(document).ready(function() {
+  // Link buttons
+  $('.follow_link, .button_link').click(function(e) {
+    e.preventDefault();
+    document.location = $(this).attr('href');
+  });
+
+  // Reset buttons on filters
+  $('#filter_form button.reset').click(function(e) {
+    e.preventDefault();
+    $(':input','#filter_form').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
+    $('#filter_form').submit();
+  });
+});
 

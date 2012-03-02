@@ -13,8 +13,9 @@
   %dt Points:
   %dd= dd_data @card.points
 
-  %dt Slug Name:
-  %dd= dd_data @card.slug_name
+  /
+    %dt Slug Name:
+    %dd= dd_data @card.slug_name
 
   %dt Not Sendable:
   %dd= dd_data @card.not_sendable
@@ -22,6 +23,6 @@
   .clear
 
 %ul.admin_show_links
-  %li= link_to 'Edit', admin_card_path(@card)
+  %li= link_to 'Edit', edit_admin_card_path(@card)
   %li= link_to 'Back to List', admin_cards_path
 

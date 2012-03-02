@@ -253,7 +253,7 @@ ul.forums
   width: 100%
   height: 100%
 
-/* This dd, dt and dl is for showing data in the admin */
+// This dd, dt and dl is for showing data in the admin
 #admin-content
   dl dt
     display: block
@@ -272,7 +272,7 @@ ul.forums
     padding: 0.2em
     clear: right
 
-/* Navigation links when showing a model */
+// Navigation links when showing a model
 ul.admin_show_links
   list-style-type: none
   list-style-image: none
@@ -280,3 +280,47 @@ ul.admin_show_links
   li
     display: inline
     margin: 0 6px 0 0
+
+// Filter Forms
+#filter_form
+  display: inline-block
+  margin: 0
+  padding: 0
+  width: 100%
+
+  .row
+    min-height: 25px
+
+  .buttons
+    margin-left: 130px
+
+  label
+    float: left
+    padding: 4px 0 0 0
+    font-size: 12px
+    color: #002e68
+    font-weight: bold
+    cursor: text
+    width: 130px
+
+  input
+    display: inline-block
+    outline: 0
+    margin: 0
+    font-size: 12px
+    color: #002e68
+    *cursor: text
+    line-height: 1.2em
+    height: 15px
+    &:hover, &:focus
+      background-position: left bottom
+      color: #5a5a5a
+
+// Form buttons
+form.formtastic fieldset ol > li
+  display: inline
+
+
+
+
+

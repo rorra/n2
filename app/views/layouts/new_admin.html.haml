@@ -8,7 +8,13 @@
     = csrf_meta_tag
 
     =# javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js', 'http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js', 'jquery.jcarousel.pack', 'jquery.quicksand.min', 'jquery.ThreeDots.min.js', 'application', 'jquery.masonry.js'
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js', 'jquery.jcarousel.pack.js', 'jquery.quicksand.min.js', 'jquery.ThreeDots.min.js', 'jquery.masonry.js'
+    = javascript_include_tag 'jquery'
+    = javascript_include_tag 'jquery_ujs'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js'
+    = javascript_include_tag 'jquery.jcarousel.pack.js'
+    = javascript_include_tag 'jquery.quicksand.min.js'
+    = javascript_include_tag 'jquery.ThreeDots.min.js'
+    = javascript_include_tag 'jquery.masonry.js'
     = javascript_include_tag 'hoverIntent.js'
     = javascript_include_tag 'superfish.js'
     = javascript_include_tag 'jquery.tablesorter.min.js'
@@ -18,7 +24,7 @@
     -# IE Debugging
     =# javascript_include_tag 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'
 
-    = stylesheet_link_tag 'admin'
+    =# stylesheet_link_tag 'admin'
     = stylesheet_link_tag 'admin_grid', :media => 'screen, projection'
     = stylesheet_link_tag 'text', :media => 'print'
 
@@ -43,8 +49,6 @@
         });
 
       });
-
-
 
     = yield :head
     = yield :extra_javascript
