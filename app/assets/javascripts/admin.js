@@ -1,4 +1,15 @@
-// Place your application-specific jQuery JavaScript functions and classes here
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require jquery.jcarousel.pack
+//= require jquery.quicksand.min
+//= require jquery.ThreeDots.min
+//= require jquery.masonry
+//= require hoverIntent
+//= require superfish
+//= require jquery.tablesorter.min
+//= require jquery.ui.nestedSortable
+
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");
