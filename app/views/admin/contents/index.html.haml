@@ -1,1 +1,58 @@
-= gen_index_page @contents, Content, [ :title, :caption, :source, :url, :permalink, :user_id, :votes_tally, :comments_count, :created_at], :associations => { :belongs_to => {  :user => :user_id } }, :paginate => true
+%h1 Content List
+
+= form_for(@search, :url => admin_contents_path, :html => {:method => :get, :id => 'filter_form', :class => 'admin_form'}) do |f|
+  %fieldset
+    .row
+      = f.label :title_contains, 'Title'
+      = f.text_field :title_contains
+    .row
+      = f.label :caption_contains, 'Caption'
+      = f.text_field :caption_contains
+    .row
+      = f.label :url_contains, 'URL'
+      = f.text_field :url_contains
+    .row
+      = f.label :user_id_equals, 'User'
+      = f.select :user_id_equals, User.order('name').all.collect {|u| [u.name, u.id]}.unshift([nil, nil])
+    .row.buttons
+      %button{:type => 'submit'}
+        %span Search
+      %button{:class => 'reset'}
+        %span Reset
+      %button{:class => 'button_link', :href => new_admin_content_path}
+        %span New Content
+
+%table
+  %thead
+    %tr
+      %th= sort_link(@search, :id)
+      %th= sort_link(@search, :title)
+      %th= sort_link(@search, :caption)
+      %th= sort_link(@search, :source_name)
+      %th= sort_link(@search, :url)
+      %th= sort_link(@search, :user_name, 'User')
+      %th= sort_link(@search, :votes_tally)
+      %th= sort_link(@search, :comments_count)
+      %th= sort_link(@search, :created_at)
+      %th Actions
+  %tbody
+    - @contents.all.each do |content|
+      %tr{:class => cycle('odd', 'even')}
+        %td= content.id
+        %td= content.title
+        %td= content.caption
+        %td= truncate "#{content.source.try(:name)} - #{content.source.try(:url)}"
+        %td= content.url
+        %td= link_to(content.user.try(:name), admin_user_path(content.user))
+        %td= content.votes_tally
+        %td= content.comments_count
+        %td= content.created_at.strftime("%m/%d/%Y %H:%M")
+        %td
+          = link_to(image_tag('icon_view.gif'), admin_content_path(content))
+          = link_to(image_tag('icon_edit.gif'), edit_admin_content_path(content))
+          = link_to(image_tag('icon_delete.gif'), admin_content_path(content), :confirm => 'Are you sure?', :method => :delete)
+
+= will_paginate @contents
+
+
+

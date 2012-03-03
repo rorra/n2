@@ -1,5 +1,7 @@
-%h2 Update Answer
+%h2 Update Content
 = semantic_form_for [:admin, @content], :html => { :multipart => true } do |form|
-  = render :partial => 'content_form', :locals => { :form => form }
+  = render :partial => 'form', :locals => { :form => form }
   = form.buttons do
-    = form.commit_button
+    = form.commit_button 'Update'
+    = form.commit_button 'Cancel', :button_html => {:class => 'follow_link', :href => admin_contents_path}
+
