@@ -69,7 +69,7 @@ N2::Application.routes.draw do
         get :fetch_new
       end
     end
-    resources :flags
+    resources :flags, :only => [:index, :show, :destroy]
     resources :forums do
       collection do
         get :reorder

@@ -1,30 +1,35 @@
-%br
 %h1 Flagged Items
 
-- if @flags.empty?
-  %p No flagged items
-- else
-  %table.admin-table
-    %thead
-      %tr
-        %th Item Title
-        %th Item Description
-        %th Item Type
-        %th Flag Type
-        %th Flagged By
-        %th Flagged At
-        %th Flags Count
-        %th Blocked?
-        %th Actions
-    %tbody
-      - @flags.each do |flag|
-        %tr{:class => cycle('odd', 'even')}
-          %td= link_to flag.item_title, [:admin, flag.flaggable]
-          %td= flag.item_description
-          %td= flag.flaggable.class.name.humanize
-          %td= flag.flag_type
-          %td= link_to flag.user.name, [:admin, flag.user]
-          %td= flag.created_at
-          %td= flag.flaggable.respond_to?(:flags_count) ? flag.flaggable.flags_count : flag.flaggable.flags.count
-          %td= flag.is_blocked
-          %td= link_to 'View Flags', [:admin, flag]
+%table
+  %thead
+    %tr
+      %th= sort_link(@search, :id)
+      %th= sort_link(@search, :item_title)
+      %th= sort_link(@search, :item_description)
+      %th Item Type
+      %th= sort_link(@search, :flag_type)
+      %th= sort_link(@search, :user_name, 'Flagged By')
+      %th= sort_link(@search, :created_at, 'Flagged At')
+      %th= sort_link(@search, :flaggable_flags_count)
+      %th= sort_link(@search, :is_blocked)
+      %th Actions
+  %tbody
+    - @flags.all.each do |flag|
+      %tr{:class => cycle('odd', 'even')}
+        %td= flag.id
+        %td= link_to flag.item_title, [:admin, flag.flaggable]
+        %td= flag.item_description
+        %td= flag.flaggable.class.name.humanize
+        %td= flag.flag_type
+        %td= link_to flag.user.try(:name), [:admin, flag.user]
+        %td= flag.created_at
+        %td= flag.flaggable.respond_to?(:flags_count) ? flag.flaggable.flags_count : flag.flaggable.flags.count
+        %td= flag.is_blocked
+        %td
+          = link_to(image_tag('icon_view.gif'), admin_flag_path(flag))
+          = link_to(image_tag('icon_delete.gif'), admin_flag_path(flag), :confirm => 'Are you sure?', :method => :delete)
+
+= will_paginate @flags
+
+
+
