@@ -168,13 +168,14 @@ module TemplateHelper
       :title_tag => :h3,
       :class     => nil,
       :title     => nil,
-      :panel_bar => true
+      :panel_bar => true,
+      :raw => false
     }.merge(extra_options)
 
     content_tag(:div, :class => "item-list-wrap") do
       content_tag(:div, :class => "item-list") do
         content_tag(:ul) do
-          content = items.map {|i| double_col_item_list_item(i) }
+          content = items.map {|i| double_col_item_list_item(i, options) }
           content.join.html_safe
         end
       end
@@ -184,15 +185,17 @@ module TemplateHelper
   def double_col_item_list_item item, extra_options = {}
     options = {
       :class => nil,
-      :title_tag => :h3
+      :title_tag => :h3,
+      :raw => false
     }.merge(extra_options)
 
     content_tag(:li, :class => options[:class]) do
       content_tag(:div, :class => 'item-image') do
         item_image_content = content_tag(:div, link_to(image_tag(medium_image_or_default(item)), item.item_link), :class => 'thumb')
         item_image_content << content_tag(:div, :class => 'content') do
+          description = (options[:raw] || item.is_a?(Article)) ? raw(item.item_description) : item.item_description # yuck...
           content = content_tag(options[:title_tag], link_to(item.item_title, item.item_link))
-          content << content_tag(:p, item.item_description)
+          content << content_tag(:p, description)
           content << item_meta_profile(item)
         end
       end

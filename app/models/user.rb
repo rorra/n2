@@ -245,6 +245,9 @@ class User < ActiveRecord::Base
     return nil unless self.user_profile.present?
     return self.user_profile.facebook_user_id unless self.user_profile.facebook_user_id.nil? or self.user_profile.facebook_user_id.zero?
 
+    fb_auth = authentications.for_facebook.first
+    return fb_auth.uid.to_i if fb_auth
+
     nil
   end
 
