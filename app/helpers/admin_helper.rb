@@ -58,7 +58,7 @@ module AdminHelper
       html << "<table id='#{model_id}-table' class='admin-table'>"
       html << "<thead>"
       html << "<tr>"
-      fields.each {|field| html << "<th>#{field.to_s.titleize}</th>" }
+      fields.each {|field| html << "<th>#{sort_link(@search, field)}</th>" }
       html << "<th>Actions</th>"
       html << "</tr>"
       html << "</thead>"

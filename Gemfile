@@ -36,6 +36,8 @@ gem "paperclip"
 gem 'amazon-ecs'
 gem 'routing-filter'
 
+gem 'ransack'    # Admin filters and pagination
+
 # JVD: having problems getting this working with an empty database
 # The gem tries to load the locales table before it exists.
 # Patched this to fix issues with the Translation model
