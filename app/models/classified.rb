@@ -230,19 +230,19 @@ class Classified < ActiveRecord::Base
       end
     end
 
-    results.find(:all, :conditions => ["id IN (?)", $redis.sunion(*user_sets)])
+    results.find(:all, :conditions => ["id IN (?)", Newscloud::Redcloud.redis.sunion(*user_sets)])
   end
 
   def self.for_user user = nil
     sets = sets_for_user(user)
-    self.available.active.where(["id IN (?)", $redis.sunion(*sets)]).order("created_at desc")
+    self.available.active.where(["id IN (?)", Newscloud::Redcloud.redis.sunion(*sets)]).order("created_at desc")
   end
 
   def self.sets_for_user user = nil
     sets = ["items:classifieds:public:free", "items:classifieds:public:sale", "items:classifieds:public:loan"]
     if user
       #sets.push "items:classifieds:public:loan"
-      sets = sets | $redis.smembers("#{user.cache_id}:friends").map {|f| "user:#{f}:items:classifieds:friends"}
+      sets = sets | Newscloud::Redcloud.redis.smembers("#{user.cache_id}:friends").map {|f| "user:#{f}:items:classifieds:friends"}
     end
     sets
   end
@@ -359,7 +359,7 @@ class Classified < ActiveRecord::Base
     end
 
     def save_to_redis
-      $redis.sadd "user:#{user_id}:items:classifieds:#{allow}", id
-      $redis.sadd "items:classifieds:public:#{listing_type}", id if allow == 'all'
+      Newscloud::Redcloud.redis.sadd "user:#{user_id}:items:classifieds:#{allow}", id
+      Newscloud::Redcloud.redis.sadd "items:classifieds:public:#{listing_type}", id if allow == 'all'
     end
 end

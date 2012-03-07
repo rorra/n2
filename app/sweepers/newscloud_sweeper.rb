@@ -11,11 +11,11 @@ class NewscloudSweeper < ActionController::Caching::Sweeper
   def self.expire_class klass, namespace = nil
     namespace ||= '*'
     key = "#{klass.name.downcase}:view_object_namespace_deps:#{namespace}"
-    keys = $redis.keys(key)
+    keys = Newscloud::Redcloud.redis.keys(key)
 
-    #return $redis.sunion(*($redis.keys(key))).map {|vo_name| vo_name.split(/:/).inject(nil) {|m,id| m.nil? ? id.classify.constantize : m.find(id) } }
+    #return Newscloud::Redcloud.redis.sunion(*(Newscloud::Redcloud.redis.keys(key))).map {|vo_name| vo_name.split(/:/).inject(nil) {|m,id| m.nil? ? id.classify.constantize : m.find(id) } }
     if keys.any?
-      $redis.sunion(*(keys)).each do |key_name|
+      Newscloud::Redcloud.redis.sunion(*(keys)).each do |key_name|
         if key_name =~ /^view_object:([0-9]+)$/
           view_object = ViewObject.find_by_id($1)
           view_object.uncache_deps if view_object
@@ -31,9 +31,9 @@ class NewscloudSweeper < ActionController::Caching::Sweeper
   end
 
   def self.expire_instance item
-    keys = $redis.keys(item.model_deps_key)
+    keys = Newscloud::Redcloud.redis.keys(item.model_deps_key)
     if keys.any?
-      $redis.sunion(item.model_deps_key).each do |key_name|
+      Newscloud::Redcloud.redis.sunion(item.model_deps_key).each do |key_name|
         if key_name =~ /^view_object:([0-9]+)$/
           view_object = ViewObject.find_by_id($1)
           view_object.uncache_deps if view_object

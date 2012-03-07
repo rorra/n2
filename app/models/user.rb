@@ -440,18 +440,18 @@ class User < ActiveRecord::Base
   #
   def redis_update_friends friends_string
     friends = redis_friends friends_string.split(',')
-    $redis.multi do
-      friends.each {|f| $redis.sadd "#{self.cache_id}:friends", f.id }
+    Newscloud::Redcloud.redis.multi do
+      friends.each {|f| Newscloud::Redcloud.redis.sadd "#{self.cache_id}:friends", f.id }
     end
   end
 
   def redis_friends friends_array = nil
-    friends_array ||= $redis.smembers "#{self.cache_id}:friends"
+    friends_array ||= Newscloud::Redcloud.redis.smembers "#{self.cache_id}:friends"
     User.find(:all, :conditions => ["ID IN (?)", friends_array])
   end
 
   def redis_friend_ids
-    $redis.smembers "#{self.cache_id}:friends"
+    Newscloud::Redcloud.redis.smembers "#{self.cache_id}:friends"
   end
 
   def friend_ids friends_array = []

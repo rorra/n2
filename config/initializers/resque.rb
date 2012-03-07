@@ -23,9 +23,9 @@ APP_CONFIG['namespace'] = app_name
 Resque.redis.namespace = "resque:#{app_name}" if app_name
 
 # If we're in rails, set the global redis connection
-if defined?(Newscloud)
-  $redis = Newscloud::Redcloud.create
-end
+#if defined?(Newscloud)
+#  $redis = Newscloud::Redcloud.create
+#end
 
 require 'resque_scheduler'
 resque_schedule_base_file = File.join(rails_root, 'config/resque_schedule.yml')

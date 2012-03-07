@@ -14,13 +14,13 @@ class Go < ActiveRecord::Base
 
   def viewed!
     Go.increment_counter(:views_count, self.id)
-    $redis.incr "gos:views:#{self.cache_id}"
+    Newscloud::Redcloud.redis.incr "gos:views:#{self.cache_id}"
   end
 
   private
 
     def set_in_redis
-      $redis.set "gos:views:#{self.cache_id}", 0
+      Newscloud::Redcloud.redis.set "gos:views:#{self.cache_id}", 0
     end
 
 end

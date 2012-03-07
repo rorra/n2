@@ -29,7 +29,7 @@ class ViewTree
   def cache_it output
     if @cache and @view_object
       @view_object.cache_deps
-      $redis.set("#{@cache_key_name}", output)
+      Newscloud::Redcloud.redis.set("#{@cache_key_name}", output)
     end
     output
   end
@@ -37,7 +37,7 @@ class ViewTree
   def uncache_it
     if @cache and @view_object
       @view_object.uncache_deps
-      $redis.del("#{@cache_key_name}", @output)
+      Newscloud::Redcloud.redis.del("#{@cache_key_name}", @output)
     end
   end
 
@@ -69,7 +69,7 @@ class ViewTree
   end
 
   def render
-    if @cache and out = $redis.get(@cache_key_name) and out.present?
+    if @cache and out = Newscloud::Redcloud.redis.get(@cache_key_name) and out.present?
       return out
     else
       load_view_object
