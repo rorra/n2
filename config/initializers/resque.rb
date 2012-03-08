@@ -6,6 +6,7 @@ require 'resque/failure/multiple'
 
 rails_root = (defined?(Rails) && Rails.root) || File.expand_path(File.dirname(__FILE__) + '/../..')
 rails_env = ENV['RAILS_ENV'] || (defined?(Rails) && Rails.env.to_s) || 'development'
+ENV['RAILS_ENV'] ||= rails_env
 
 # HACK for when we use this initializer to spawn workers shedulers and resque web
 unless defined?(APP_CONFIG)
