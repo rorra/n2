@@ -9,6 +9,12 @@
 
     = javascript_include_tag 'admin.js'
 
+    :javascript
+      $(function() {
+        #{yield(:document_ready)}
+      });
+
+
     -# IE Debugging
     =# javascript_include_tag 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'
 

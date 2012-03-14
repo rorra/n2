@@ -53,6 +53,7 @@ class AdminController < ApplicationController
               else
                 @search = @config.model_klass.search(params[:q])
               end
+              @search.build_grouping unless @search.groupings.any?
               @items = @search.result.paginate(:page => params[:page], :per_page => 20)
               render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
                 # TODO:: handle active
@@ -145,6 +146,11 @@ class AdminController < ApplicationController
     # Loads dashboard
     check_dashboard_settings
     @setting_groups = Newscloud::SettingGroups.groups
+  end
+
+  def search
+    index
+    #render :action => :index
   end
 
   private

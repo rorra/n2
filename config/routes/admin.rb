@@ -68,6 +68,10 @@ N2::Application.routes.draw do
       member do
         get :fetch_new
       end
+      collection do
+        get :search
+        post :search
+      end
     end
     resources :flags
     resources :forums do

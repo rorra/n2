@@ -55,10 +55,26 @@ module AdminHelper
       html << "<p>No items found</p>"
     else
       html << will_paginate(collection) if options[:paginate]
+
+      unless @search.nil?
+        # This is the filtering for the table
+        html << search_form_for(@search, :url => [:search, :admin, @model_id], :html => {:method => :post, :id => 'form_filter'}) do |f|
+          setup_search_form(f)
+          output = "<fieldset>"
+          output << f.grouping_fields do |g|
+            render_search_grouping_fields(g, [])
+          end
+          output << button_to_add_fields('Add Condition Group', f, :grouping)
+          output << "</fieldset>"
+          output << f.submit
+          output.html_safe
+        end
+      end
+
       html << "<table id='#{model_id}-table' class='admin-table'>"
       html << "<thead>"
       html << "<tr>"
-      fields.each {|field| html << "<th>#{sort_link(@search, field)}</th>" }
+      fields.each { |field| html << "<th>#{@search.nil? ? field.to_s.titleize : sort_link(@search, field)}</th>" }
       html << "<th>Actions</th>"
       html << "</tr>"
       html << "</thead>"
@@ -82,7 +98,7 @@ module AdminHelper
 
   def admin_links item
     links = [
-      link_to_unless_current('View', [:admin, item]) {link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url"))},
+      link_to_unless_current('View', [:admin, item]) { link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url")) },
       link_to('Edit', edit_polymorphic_path([:admin, item]))
     ]
 
@@ -126,9 +142,9 @@ module AdminHelper
   end
 
   def set_model_vars model
-    @model_list_name  ||= model.name.tableize.titleize
-    @model_name       ||= model.name.titleize
-    @model_id         ||= model.name.tableize.dasherize
+    @model_list_name ||= model.name.tableize.titleize
+    @model_name ||= model.name.titleize
+    @model_id ||= model.name.tableize.dasherize
   end
 
   def association_exists? field, associations
@@ -151,5 +167,106 @@ module AdminHelper
       item.send(field).to_s
     end
   end
+
+
+
+  def setup_search_form(builder)
+    fields = builder.grouping_fields builder.object.new_grouping, :object_name => 'new_object_name', :child_index => 'new_grouping' do |f|
+      render_search_grouping_fields(f)
+    end
+
+    content_for :document_ready, %Q{
+    var search = new Search({grouping: '#{escape_javascript(fields)}'});
+    $('button.add_fields').live('click', function() {
+      search.add_fields(this, $(this).data('fieldType'), $(this).data('content'));
+      return false;
+    });
+    $('button.remove_fields').live('click', function() {
+      search.remove_fields(this);
+      return false;
+    });
+    $('button.nest_fields').live('click', function() {
+      search.nest_fields(this, $(this).data('fieldType'));
+      return false;
+    });
+  }.html_safe
+  end
+
+  def render_grouping_fields(f)
+    output = ''
+    f.grouping_fields do |g|
+      g.condition_fields do |c|
+        c.attribute_fields do |a|
+          output << a.attribute_select
+          output << f.predicate_select
+          a.value_fields do |v|
+            output << f.text_field(:value)
+          end
+        end
+      end
+    end
+    output
+  end
+
+  def render_search_grouping_fields(f, associations = [])
+    output = "<fieldset class='fields' data-object-name='#{ f.object_name }'>"
+    output << "<legend>Match #{ f.combinator_select } conditions #{ button_to_remove_fields('remove', f) }</legend>"
+
+    output << f.condition_fields do |c|
+      render_search_condition_fields(c, associations)
+    end
+    output << button_to_add_fields('Add Condition', f, :condition)
+
+    f.grouping_fields.each do |g|
+      output << render_search_grouping_fields(g, conditions)
+    end
+    output << button_to_nest_fields("Add Condition Group", :grouping)
+
+    output << "</fieldset>"
+    output.html_safe
+  end
+
+  def render_search_condition_fields(f, associations = [])
+    output = "<fieldset class='fields condition' data-object-name='#{ f.object_name }'>"
+    output << "<legend>Condition #{ button_to_remove_fields 'remove', f }</legend>"
+    output << f.attribute_fields do |a|
+      render_search_attribute_fields(a, associations)
+    end
+    output += f.predicate_select
+    output << f.value_fields do |v|
+      render_search_value_fields(v)
+    end
+    output << button_to_add_fields('Add Value', f, :value)
+    output << '</fieldset>'
+    output.html_safe
+  end
+
+  def render_search_attribute_fields(f, associations = [])
+    f.attribute_select :associations => associations
+  end
+
+  def render_search_value_fields(f)
+    "<span class='fields value' data-object-name='#{f.object_name}'>#{f.text_field :value}</span>".html_safe
+  end
+
+
+  def button_to_remove_fields(name, f)
+    content_tag :button, name, :class => 'remove_fields'
+  end
+
+  def button_to_add_fields(name, f, type)
+    new_object = f.object.send "build_#{type}"
+    fields = f.send("#{type}_fields", new_object, :child_index => "new_#{type}") do |builder|
+      m = self.method("render_search_#{type.to_s}_fields")
+      m.call builder
+    end
+
+    content_tag :button, name, :class => 'add_fields', 'data-field-type' => type, 'data-content' => "#{fields}"
+  end
+
+  def button_to_nest_fields(name, type)
+    content_tag :button, name, :class => 'nest_fields', 'data-field-type' => type
+  end
+
 
 end

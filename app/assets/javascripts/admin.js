@@ -9,6 +9,7 @@
 //= require superfish
 //= require jquery.tablesorter.min
 //= require jquery.ui.nestedSortable
+//= require admin_search
 
 
 $(document).ajaxSend(function(e, xhr, options) {
