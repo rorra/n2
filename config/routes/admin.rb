@@ -205,7 +205,12 @@ N2::Application.routes.draw do
     end
     resources :sponsor_zones
     resources :title_filters
-    resources :topics
+    resources :topics do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :tweet_streams do
       member do
         get :fetch_new_tweets
