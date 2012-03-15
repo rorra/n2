@@ -1,7 +1,18 @@
 class Admin::IdeasController < AdminController
 
   def index
-    @ideas = Idea.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    meta_search = {:s => "created_at desc"}.merge(params[:q] || {})
+    @search = Idea.search(meta_search)
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
+
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+      :items => @items,
+      :model => Idea,
+      :fields => [:title, :user_id, :votes_tally, :comments_count, :created_at, :idea_board_id],
+      :associations => { :belongs_to => { :idea_board => :idea_board_id, :user => :user_id } },
+      :paginate => true
+    }
   end
 
   def new
@@ -25,8 +36,12 @@ class Admin::IdeasController < AdminController
   end
 
   def show
-    @idea = Idea.find(params[:id])
-  end
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+      :item => Idea.find(params[:id]),
+      :model => Idea,
+      :fields => [:title, :user_id, :details, :votes_tally, :comments_count, :created_at, :idea_board_id],
+      :associations => { :belongs_to => { :idea_board => :idea_board_id, :user => :user_id } }
+    }  end
 
   def create
     @idea = Idea.new(params[:idea])

@@ -128,7 +128,12 @@ N2::Application.routes.draw do
       end
     end
     resources :idea_boards
-    resources :ideas
+    resources :ideas do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :images
     resources :locales do
       collection do
