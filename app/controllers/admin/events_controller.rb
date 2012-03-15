@@ -36,7 +36,12 @@ class Admin::EventsController < AdminController
   end
 
   def show
-    @event = Event.find(params[:id])
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+      :item => Event.find(params[:id]),
+      :model => Event,
+      :fields => [:name, :user_id, :tagline, :votes_tally, :comments_count, :created_at],
+      :associations => { :belongs_to => { :user => :user_id } }
+    }
   end
 
   def create
