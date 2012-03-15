@@ -1,42 +1,9 @@
 class Admin::UsersController < AdminController
-
-  def index
-    @users = User.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
-  end
-
-  def new
-    @user = User.new
-  end
-
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      @user.expire
-      flash[:success] = "Successfully updated your User."
-      redirect_to [:admin, @user]
-    else
-      flash[:error] = "Could not update your User as requested. Please try again."
-      render :edit
-    end
-  end
-
-  def show
-    @user = User.find(params[:id])
-  end
-
-  def create
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:success] = "Successfully created your new User!"
-      redirect_to [:admin, @user]
-    else
-      flash[:error] = "Could not create your User, please try again"
-      render :new
-    end
+  admin_scaffold :user do |config|
+    config.index_fields = [:name, :fb_user_id, :email, :is_admin, :is_blocked, :cached_slug, :karma_score]
+    config.new_fields   = [:name, :email, :is_admin, :is_editor, :is_moderator, :is_host, :is_blocked, :cached_slug, :karma_score ]
+    config.edit_fields  = [:name, :email, :is_admin, :is_editor, :is_moderator, :is_host, :is_blocked, :cached_slug, :karma_score ]
+    config.actions      = [:index, :show, :edit, :new, :create, :update]
   end
 
   private

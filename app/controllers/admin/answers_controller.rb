@@ -30,7 +30,8 @@ class Admin::AnswersController < AdminController
       :item => @item,
       :model => Answer,
       :fields => [:answer]
-    }  end
+    }
+  end
 
   def update
     @item = Answer.find(params[:id])

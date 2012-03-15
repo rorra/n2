@@ -114,6 +114,7 @@ class AdminController < ApplicationController
             when :update
               @config = self.admin_scaffold_config
               @item = @config.model_klass.find(params[:id])
+              @item.try(:expire) # Most of the controllers expire the model after it was updated
               if @item.update_attributes(params[@config.form_name])
                 flash[:success] = "Successfully updated your #{@config.model_title}"
                 redirect_to [:admin, @item]

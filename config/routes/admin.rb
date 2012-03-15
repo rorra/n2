@@ -278,7 +278,12 @@ N2::Application.routes.draw do
       end
     end
     resources :user_profiles,      :active_scaffold => true
-    resources :users,           :active_scaffold => true
+    resources :users, :active_scaffold => true do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :view_objects do
       collection do
         get :search
