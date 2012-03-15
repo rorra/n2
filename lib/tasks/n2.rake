@@ -186,6 +186,13 @@ namespace :n2 do
       end
     end
 
+
+    desc "Fix flags table by dropping flags on items that doesn't exist anymore'"
+    task :fix_flags_table => :environment do
+      Flag.all.each do |flag|
+        flag.destroy unless flag.flaggable
+      end
+    end
   end
 
   namespace :setup do
