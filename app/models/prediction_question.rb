@@ -217,4 +217,8 @@ class PredictionQuestion < ActiveRecord::Base
   def get_accepted_result
     self.prediction_results.find(:first, :conditions => "is_accepted = 1")
   end
+
+  def to_s
+    self.title.size > 26 ? "#{self.title[0,22]}..." : self.title
+  end
 end

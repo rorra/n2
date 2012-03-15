@@ -164,12 +164,25 @@ N2::Application.routes.draw do
         get :approve
         post :approve
       end
+      collection do
+        get :search
+        post :search
+      end
     end
-    resources :prediction_guesses
+    resources :prediction_guesses do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :prediction_questions do
       member do
         get :approve
         post :approve
+      end
+      collection do
+        get :search
+        post :search
       end
     end
 
@@ -177,6 +190,10 @@ N2::Application.routes.draw do
       member do
         get :accept
         post :accept
+      end
+      collection do
+        get :search
+        post :search
       end
     end
     resources :prediction_scores do
