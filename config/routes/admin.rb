@@ -64,6 +64,8 @@ N2::Application.routes.draw do
       collection do
         get :import_zvents
         post :import_zvents
+        get :search
+        post :search
       end
     end
 
