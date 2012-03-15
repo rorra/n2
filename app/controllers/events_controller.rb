@@ -54,11 +54,12 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.active.find(params[:id])
-    tag_cloud @event
-    set_sponsor_zone('events', @event.item_title.underscore)
-    set_outbrain_item @event
-    set_current_meta_item @event
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+      :item => Event.active.find(params[:id]),
+      :model => Event,
+      :fields => [:name, :user_id, :tagline, :votes_tally, :comments_count, :created_at],
+      :associations => { :belongs_to => { :user => :user_id } },
+
   end
 
   def my_events
