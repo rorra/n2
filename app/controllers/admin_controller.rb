@@ -23,7 +23,7 @@ class AdminController < ApplicationController
       @config.model_id = model_id
       @config.klass_name = self.to_s.split('::').last.sub(/Controller$/, '')
       @config.model_klass = @config.model_id.to_s.classify.constantize
-      @config.actions = [:index, :show, :new, :create, :edit, :update, :destroy]
+      @config.actions = [:index, :show, :new, :create, :edit, :update]
       @config.fields = @config.model_klass.columns
       @config.form_name = @config.model_klass.name.underscore
       @config.model_title = @config.model_klass.name.titleize
@@ -129,6 +129,16 @@ class AdminController < ApplicationController
                   :config => @config
                 }
               end
+            when :destroy
+              @config = self.admin_scaffold_config
+              redirect_to :action => :index unless @config.actions.include?(:destroy)
+              @item = @config.model_klass.find(params[:id])
+              if @item.destroy
+                flash[:success] = "Successfully destroyed your #{@config.model_title}"
+              else
+                flash[:error] = "Couldn't delete your #{@config.model_title}"
+              end
+              redirect_to :action => :index
             else
               render :text => "Implement: #{action}", :layout => 'new_admin'
           end

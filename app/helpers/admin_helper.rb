@@ -144,6 +144,8 @@ module AdminHelper
       links << link_to(item.flaggable.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.flaggable.class.name.foreign_key.to_sym => item.flaggable, :back_path => url_for([:admin, item])))
     end
 
+    links << link_to("Delete", polymorphic_url([:admin, item]), :confirm => 'Are you sure?', :method => :delete) if config.actions && config.actions.include?(:destroy)
+
     links.join ' | '
   end
 

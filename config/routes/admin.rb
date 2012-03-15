@@ -10,7 +10,12 @@ N2::Application.routes.draw do
     resources :activity_scores
     resources :ad_layouts
     resources :ads
-    resources :announcements
+    resources :announcements do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :answers do
       collection do
         get :search

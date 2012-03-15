@@ -1,67 +1,12 @@
 class Admin::AnnouncementsController < AdminController
   cache_sweeper :announcement_sweeper, :only => [:create, :update, :destroy]
 
-  def index
-    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-      :items => Announcement.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
-      :model => Announcement,
-      :fields => [:prefix, :title, :url, :created_at],
-      :paginate => true
-    }
-  end
-
-  def new
-    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
-      :model => Announcement,
-      :fields => [:prefix, :title, :details, :url, :type]
-    }
-  end
-
-  def edit
-    @announcement = Announcement.find(params[:id])
-    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-      :item => @announcement,
-      :model => Announcement,
-      :fields => [:prefix, :title, :details, :url, :type]
-    }
-  end
-
-  def update
-    @announcement = Announcement.find(params[:id])
-    if @announcement.update_attributes(params[:announcement])
-      @announcement.expire
-      flash[:success] = "Successfully updated your Announcement."
-      redirect_to [:admin, @announcement]
-    else
-      flash[:error] = "Could not update your Announcement as requested. Please try again."
-      render :edit
-    end
-  end
-
-  def show
-    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
-      :item => Announcement.find(params[:id]),
-      :model => Announcement,
-      :fields => [:prefix, :title, :details, :url, :type,:created_at]
-    }
-  end
-
-  def create
-    @announcement = Announcement.new(params[:announcement])
-    if @announcement.save
-      flash[:success] = "Successfully created your new Announcement!"
-      redirect_to [:admin, @announcement]
-    else
-      flash[:error] = "Could not create your Announcement, please try again. The prefix must be less than 15 characters and the message must be less than 80 characters."
-      redirect_to new_admin_announcement_path
-    end
-  end
-
-  def destroy
-    @announcement = Announcement.find(params[:id])
-    @announcement.destroy
-
-    redirect_to admin_announcements_path
+  admin_scaffold :announcements do |config|
+    config.index_fields = [:prefix, :title, :url, :created_at]
+    config.show_fields = [:prefix, :title, :details, :url, :created_at]
+    config.new_fields   = [:prefix, :title, :details, :url]
+    config.edit_fields  = [:prefix, :title, :details, :url]
+    config.actions = [:index, :show, :new, :create, :edit, :update, :destroy]
   end
 
   private
