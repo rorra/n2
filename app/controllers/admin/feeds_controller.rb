@@ -7,7 +7,7 @@ class Admin::FeedsController < AdminController
     config.new_fields = [:title, :url, :rss, :user_id, :load_all]
     config.edit_fields = [:title, :url, :rss, :user_id, :enabled, :load_all]
     config.actions = [:index, :new, :create, :update, :show, :edit]
-    config.associations = { :belongs_to => { :user => :user_id } }
+    config.associations = {:belongs_to => {:user => :user_id}}
     #config.index_links = [lambda { link_to 'Add Default Feeds', news_topics_admin_content_dashboard_path }]
   end
 
@@ -24,8 +24,8 @@ class Admin::FeedsController < AdminController
 
   private
 
-    def set_current_tab
-      @current_tab = 'feeds';
-    end
+  def set_current_tab
+    @current_tab = 'feeds';
+  end
 
 end

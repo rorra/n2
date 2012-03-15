@@ -10,7 +10,7 @@ module AdminHelper
     html << "<br /><h1>#{@model_list_name} List</h1"
     html << "<br />"
 
-    html << "<h2>#{gen_new_link model}</h2>"
+    html << "<h2>#{gen_new_link model}</h2>" if options[:config].actions.include?(:new)
     if config.index_links and config.index_links.any?
       config.index_links.each do |lambda_link|
         html << "<h2>" + self.instance_exec(&lambda_link) + "</h2>"
@@ -28,10 +28,10 @@ module AdminHelper
     html << "<h1>#{@model_name} Details</h1>"
     html << "<hr />"
     fields.each do |field|
-      html << "<p>#{field.to_s.titleize}: #{field_value item, field, options[:associations]}</p>"
+      html << "<p>#{field.to_s.titleize}: #{field_value(item, field, options[:associations])}</p>"
     end
     html << "<br />"
-    html << "<p>Actions: #{admin_links item}</p>"
+    html << "<p>Actions: #{admin_links(item, options)}</p>"
     html << "<br />"
 
     html.join.html_safe
@@ -74,7 +74,7 @@ module AdminHelper
       html << "<table id='#{model_id}-table' class='admin-table'>"
       html << "<thead>"
       html << "<tr>"
-      fields.each { |field| html << "<th>#{@search.nil? ? field.to_s.titleize : sort_link(@search, field)}</th>" }
+      fields.each { |field| html << "<th>#{@search.nil? ? field.to_s.titleize : (sort_link(@search, field) rescue field.to_s.titleize)}</th>" }
       html << "<th>Actions</th>"
       html << "</tr>"
       html << "</thead>"
@@ -83,9 +83,9 @@ module AdminHelper
         class_name = (item.moderatable? and item.blocked?) ? 'admin-blocked' : ''
         html << "<tr class='#{class_name} #{cycle('odd', 'even')}'>"
         fields.each do |field|
-          html << "<td>#{field_value item, field, options[:associations]}</td>"
+          html << "<td>#{field_value(item, field, options[:associations])}</td>"
         end
-        html << "<td>#{admin_links item}</td>"
+        html << "<td>#{admin_links(item, options)}</td>"
         html << "</tr>"
       end
       html << "</tbody>"
@@ -96,11 +96,10 @@ module AdminHelper
     html.join.html_safe
   end
 
-  def admin_links item
-    links = [
-      link_to_unless_current('View', [:admin, item]) { link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url")) },
-      link_to('Edit', edit_polymorphic_path([:admin, item]))
-    ]
+  def admin_links(item, options)
+    links = []
+    links << link_to_unless_current('View', [:admin, item]) { link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url")) } if options[:config].actions.include?(:show)
+    links << link_to('Edit', edit_polymorphic_path([:admin, item])) if options[:config].actions.include?(:edit)
 
     if item.moderatable?
       links << link_to(item.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.class.name.foreign_key.to_sym => item))
@@ -138,6 +137,11 @@ module AdminHelper
       #links << link_to('Destroy', [:admin, item], :confirm => 'Are you sure?', :method => :delete)
       links << link_to('Fetch New items', fetch_new_admin_feed_path(item))
     end
+
+    if item.class.name == 'Flag'
+      links << link_to(item.flaggable.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.flaggable.class.name.foreign_key.to_sym => item.flaggable, :back_path => url_for([:admin, item])))
+    end
+
     links.join ' | '
   end
 
@@ -147,7 +151,7 @@ module AdminHelper
     @model_id ||= model.name.tableize.dasherize
   end
 
-  def association_exists? field, associations
+  def association_exists?(field, associations)
     [:belongs_to, :has_one].each do |association|
       if associations[association].present?
         associations[association].each do |name, field_name|
@@ -158,9 +162,9 @@ module AdminHelper
     return false
   end
 
-  def field_value item, field, associations = nil
+  def field_value(item, field, associations = nil)
     return item.send(field).to_s unless associations.present?
-    association = association_exists? field, associations
+    association = association_exists?(field, associations)
     if association and item.send(association).present?
       "#{link_to h(item.send(association).to_s), [:admin, item.send(association)]}"
     else

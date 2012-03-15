@@ -21,10 +21,18 @@ class Admin::MiscController < AdminController
       @item.expire
       flash[:success] = "Successfully #{@item.is_blocked? ? 'blocked' : 'unblocked'} your item."
       #redirect_to [:admin, :contents]
-      redirect_to [:admin, @item]
+      if params[:back_path]
+        redirect_to params[:back_path]
+      else
+        redirect_to [:admin, @item]
+      end
     else
       flash[:error] = "Could not block this item. #{@item.errors.full_messages.join '. '}"
-      redirect_to [:admin, @item]
+      if params[:back_path]
+        redirect_to params[:back_path]
+      else
+        redirect_to [:admin, @item]
+      end
     end
   end
 

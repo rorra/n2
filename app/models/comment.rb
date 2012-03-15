@@ -76,6 +76,10 @@ class Comment < ActiveRecord::Base
 #    StorySweeper
 #  end
 
+  def to_s
+    comments.size > 26 ? "#{comments[0..22]}..." : comments
+  end
+
   private
 
   def custom_callback
