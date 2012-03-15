@@ -58,7 +58,7 @@ module AdminHelper
 
       unless @search.nil?
         # This is the filtering for the table
-        html << search_form_for(@search, :url => [:search, :admin, @model_id], :html => {:method => :post, :id => 'form_filter'}) do |f|
+        html << search_form_for(@search, :url => [:search, :admin, @model_id.sub('-', '_')], :html => {:method => :post, :id => 'form_filter'}) do |f|
           setup_search_form(f)
           output = "<fieldset>"
           output << f.grouping_fields do |g|

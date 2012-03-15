@@ -1,8 +1,13 @@
 class Admin::RelatedItemsController < AdminController
 
   def index
+    meta_search = {:s => "created_at desc"}.merge(params[:q] || {})
+    @search = RelatedItem.search(meta_search)
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
+
     render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-      :items => RelatedItem.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :items => @items,
       :model => RelatedItem,
       :fields => [:title, :url, :is_blocked, :created_at],
       :associations => { :belongs_to => { :user => :user_id } },

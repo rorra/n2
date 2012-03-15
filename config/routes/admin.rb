@@ -172,7 +172,12 @@ N2::Application.routes.draw do
       end
     end
     resources :questions
-    resources :related_items
+    resources :related_items do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :resource_sections
     resources :resources
     resources :settings
