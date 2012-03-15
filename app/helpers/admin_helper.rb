@@ -101,7 +101,7 @@ module AdminHelper
 
     links = []
     links << link_to_unless_current('View', [:admin, item]) { link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url")) } if !config.actions || config.actions.include?(:show)
-    links << link_to('Edit', edit_polymorphic_path([:admin, item])) if !config.actions || config.include?(:edit)
+    links << link_to('Edit', edit_polymorphic_path([:admin, item])) if !config.actions || config.actions.include?(:edit)
 
     if item.moderatable?
       links << link_to(item.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.class.name.foreign_key.to_sym => item))
