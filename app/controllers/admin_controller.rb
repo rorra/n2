@@ -74,16 +74,6 @@ class AdminController < ApplicationController
                 :fields => @config.show_fields || @config.fields.map(&:name),
                 :config => @config
               }
-            when :edit
-              @config = self.admin_scaffold_config
-              render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
-                :item => @config.model_klass.find(params[:id]),
-                :model => @config.model_klass,
-                :include_media_form => @config.media_form,
-                :associations => @config.associations,
-                :fields => @config.edit_fields || @config.edit_fields.map(&:name),
-                :config => @config
-              }
             when :new
               @config = self.admin_scaffold_config
               render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
@@ -111,6 +101,16 @@ class AdminController < ApplicationController
                   :config => @config
                 }
               end
+            when :edit
+              @config = self.admin_scaffold_config
+              render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+                :item => @config.model_klass.find(params[:id]),
+                :model => @config.model_klass,
+                :include_media_form => @config.media_form,
+                :associations => @config.associations,
+                :fields => @config.edit_fields || @config.edit_fields.map(&:name),
+                :config => @config
+              }
             when :update
               @config = self.admin_scaffold_config
               @item = @config.model_klass.find(params[:id])

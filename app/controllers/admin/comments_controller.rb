@@ -16,9 +16,11 @@ class Admin::CommentsController < AdminController
   end
 
   def new
+    @comment = Comment.new
     render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+      :item => @comment,
       :model => Comment,
-      :fields => [:comments, :created_at],
+      :fields => [:comments, :created_at]
     }
   end
 

@@ -180,7 +180,12 @@ N2::Application.routes.draw do
         post :search
       end
     end
-    resources :resource_sections
+    resources :resource_sections do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :resources do
       collection do
         get :search
