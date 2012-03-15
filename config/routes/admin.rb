@@ -12,8 +12,18 @@ N2::Application.routes.draw do
     resources :ads
     resources :announcements
     resources :answers
-    resources :cards
-    resources :classifieds
+    resources :cards do
+      collection do
+        get :search
+        post :search
+      end
+    end
+    resources :classifieds do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :comments
     resources :content_dashboard do
       collection do
@@ -73,16 +83,36 @@ N2::Application.routes.draw do
         post :search
       end
     end
-    resources :flags
+    resources :flags do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :forums do
       collection do
         get :reorder
         post :reorder
       end
     end
-    resources :galleries
-    resources :gallery_items
-    resources :gos
+    resources :galleries do
+      collection do
+        get :search
+        post :search
+      end
+    end
+    resources :gallery_items do
+      collection do
+        get :search
+        post :search
+      end
+    end
+    resources :gos do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :idea_boards
     resources :ideas
     resources :images
@@ -133,7 +163,12 @@ N2::Application.routes.draw do
     resources :settings
     resources :setting_groups
     resources :skip_images
-    resources :sources
+    resources :sources do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :sponsor_zones
     resources :title_filters
     resources :topics
@@ -141,10 +176,24 @@ N2::Application.routes.draw do
       member do
         get :fetch_new_tweets
       end
+      collection do
+        get :search
+        post :search
+      end
     end
 
-    resources :tweets
-    resources :tweet_accounts
+    resources :tweets do
+      collection do
+        get :search
+        post :search
+      end
+    end
+    resources :tweet_accounts do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :twitter_settings do
       collection do
         post :update_keys
@@ -154,8 +203,18 @@ N2::Application.routes.draw do
     end
     resources :user_profiles,      :active_scaffold => true
     resources :users,           :active_scaffold => true
-    resources :view_objects
-    resources :view_object_templates
+    resources :view_objects do
+      collection do
+        get :search
+        post :search
+      end
+    end
+    resources :view_object_templates do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :votes,           :active_scaffold => true
 
     resources :widgets do
