@@ -1,8 +1,13 @@
 class Admin::ForumsController < AdminController
 
   def index
+    meta_search = {:s => "created_at desc"}.merge(params[:q] || {})
+    @search = Forum.search(meta_search)
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
+
     render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-      :items => Forum.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :items => @items,
       :model => Forum,
       :fields => [:name, :description, :topics_count, :comments_count, :created_at],
       :paginate => true

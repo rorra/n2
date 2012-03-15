@@ -105,6 +105,8 @@ N2::Application.routes.draw do
       collection do
         get :reorder
         post :reorder
+        get :search
+        post :search
       end
     end
     resources :galleries do
