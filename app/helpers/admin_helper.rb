@@ -10,7 +10,7 @@ module AdminHelper
     html << "<br /><h1>#{@model_list_name} List</h1"
     html << "<br />"
 
-    html << "<h2>#{gen_new_link model}</h2>" if options[:config].actions.include?(:new)
+    html << "<h2>#{gen_new_link model}</h2>" if !config.actions || config.actions.include?(:new)
     if config.index_links and config.index_links.any?
       config.index_links.each do |lambda_link|
         html << "<h2>" + self.instance_exec(&lambda_link) + "</h2>"
@@ -97,9 +97,11 @@ module AdminHelper
   end
 
   def admin_links(item, options)
+    config = options[:config] || OpenStruct.new
+
     links = []
-    links << link_to_unless_current('View', [:admin, item]) { link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url")) } if options[:config].actions.include?(:show)
-    links << link_to('Edit', edit_polymorphic_path([:admin, item])) if options[:config].actions.include?(:edit)
+    links << link_to_unless_current('View', [:admin, item]) { link_to "Back", url_for(send("admin_#{item.class.name.tableize.gsub(/\//, '_')}_url")) } if !config.actions || config.actions.include?(:show)
+    links << link_to('Edit', edit_polymorphic_path([:admin, item])) if !config.actions || config.include?(:edit)
 
     if item.moderatable?
       links << link_to(item.blocked? ? 'UnBlock' : 'Block', admin_block_path(item.class.name.foreign_key.to_sym => item))
