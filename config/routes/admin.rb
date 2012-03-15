@@ -24,7 +24,12 @@ N2::Application.routes.draw do
         post :search
       end
     end
-    resources :comments
+    resources :comments do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :content_dashboard do
       collection do
         get :news_topics
