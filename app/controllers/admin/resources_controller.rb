@@ -3,7 +3,17 @@ class Admin::ResourcesController < AdminController
   cache_sweeper :resource_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    @resources = Resource.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    meta_search = {:s => "created_at desc"}.merge(params[:q] || {})
+    @search = Resource.search(meta_search)
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+      :items => @items,
+      :model => Resource,
+      :fields => [:title, :user_id, :votes_tally, :comments_count, :created_at, :resource_section_id],
+      :associations => { :belongs_to => { :resource_section => :resource_section_id, :user => :user_id } },
+      :paginate => true
+    }
   end
 
   def new
@@ -27,7 +37,12 @@ class Admin::ResourcesController < AdminController
   end
 
   def show
-    @resource = Resource.find(params[:id])
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+      :item => Resource.find(params[:id]),
+      :model => Resource,
+      :fields => [:title, :user_id, :details, :votes_tally, :comments_count, :created_at, :resource_section_id],
+      :associations => { :belongs_to => { :resource_section => :resource_section_id, :user => :user_id } },
+    }
   end
 
   def create

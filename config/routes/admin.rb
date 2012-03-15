@@ -181,7 +181,12 @@ N2::Application.routes.draw do
       end
     end
     resources :resource_sections
-    resources :resources
+    resources :resources do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :settings
     resources :setting_groups
     resources :skip_images
