@@ -139,7 +139,12 @@ N2::Application.routes.draw do
       end
     end
     
-    resources :newswires
+    resources :newswires do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :prediction_groups do
       member do
         get :approve

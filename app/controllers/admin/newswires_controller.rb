@@ -1,8 +1,13 @@
 class Admin::NewswiresController < AdminController
 
   def index
+    meta_search = {:s => "created_at desc"}.merge(params[:q] || {})
+    @search = Newswire.newest.search(meta_search)
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
+
     render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-      :items => Newswire.newest.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :items => @items,
       :model => Newswire,
       :fields => [:title, :feed_id, :created_at],
       :associations => { :belongs_to => { :feed => :feed_id } },
