@@ -36,7 +36,7 @@ class Admin::ResourceSectionsController < AdminController
 
   def update
     @item = ResrouceSection.find(params[:id])
-    if @resource_section.update_attributes(params[:resource_section])
+    if @item.update_attributes(params[:resource_section])
       flash[:success] = "Successfully updated your Resource Section"
       redirect_to [:admin, @item]
     else

@@ -73,4 +73,8 @@ class Question < ActiveRecord::Base
     links
   end
 
+  def to_s
+    question.size > 26 ? "#{question[0,22]}..." : question
+  end
+
 end

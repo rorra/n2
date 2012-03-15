@@ -2,42 +2,73 @@ class Admin::AnswersController < AdminController
   skip_before_filter :admin_user_required
 
   def index
-    @answers = Answer.paginate :page => params[:page], :per_page => 20, :order => "created_at desc"
+    meta_search = {:s => "created_at desc"}.merge(params[:q] || {})
+    @search = Answer.search(meta_search)
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
+    render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
+      :items => @items,
+      :model => Answer,
+      :fields => [:answer, :user_id, :votes_tally, :comments_count, :created_at, :question_id],
+      :associations => { :belongs_to => { :question => :question_id, :user => :user_id } },
+      :paginate => true
+    }
   end
 
   def new
-    @answer = Answer.new
+    @item = Answer.new
+    render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+      :item => @item,
+      :model => Answer,
+      :fields => [:answer]
+    }
   end
 
   def edit
-    @answer = Answer.find(params[:id])
-  end
+    @item = Answer.find(params[:id])
+    render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+      :item => @item,
+      :model => Answer,
+      :fields => [:answer]
+    }  end
 
   def update
-    @answer = Answer.find(params[:id])
-    if @answer.update_attributes(params[:answer])
-      @answer.expire
-      flash[:success] = "Successfully updated your Answer ."
-      redirect_to [:admin, @answer]
+    @item = Answer.find(params[:id])
+    if @item.update_attributes(params[:answer])
+      @item.expire
+      flash[:success] = "Successfully updated your Answer"
+      redirect_to [:admin, @item]
     else
-      flash[:error] = "Could not update your Answer  as requested. Please try again."
-      render :edit
+      flash[:error] = "Please clear any errors and try again"
+      render 'shared/admin/edit_page', :layout => 'new_admin', :locals => {
+        :item => @item,
+        :model => Answer,
+        :fields => [:answer]
+      }
     end
   end
 
   def show
-    @answer = Answer.find(params[:id])
+    render 'shared/admin/show_page', :layout => 'new_admin', :locals => {
+      :item => Answer.find(params[:id]),
+      :model => Answer,
+      :fields => [:answer, :question_id, :user_id, :votes_tally, :comments_count, :created_at],
+      :associations => { :belongs_to => {  :question => :question_id, :user => :user_id } }
+    }
   end
 
   def create
-    @answer = Answer.new(params[:answer])
-    @answer.user = current_user
-    if @answer.save
-      flash[:success] = "Successfully created your new Answer !"
-      redirect_to [:admin, @answer]
+    @item = Answer.new(params[:answer])
+    if @item.save
+      flash[:success] = "Successfully created your new Answer!"
+      redirect_to [:admin, @item]
     else
-      flash[:error] = "Could not create your Answer , please try again"
-      render :new
+      flash[:error] = "Please clear any errors and try again"
+      render 'shared/admin/new_page', :layout => 'new_admin', :locals => {
+        :item => @item,
+        :model => Answer,
+        :fields => [:answer]
+      }
     end
   end
 

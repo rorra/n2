@@ -11,7 +11,12 @@ N2::Application.routes.draw do
     resources :ad_layouts
     resources :ads
     resources :announcements
-    resources :answers
+    resources :answers do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :cards do
       collection do
         get :search
@@ -202,7 +207,12 @@ N2::Application.routes.draw do
         post :refresh_all
       end
     end
-    resources :questions
+    resources :questions do
+      collection do
+        get :search
+        post :search
+      end
+    end
     resources :related_items do
       collection do
         get :search
