@@ -3,8 +3,11 @@ class Admin::ContentsController < AdminController
   cache_sweeper :story_sweeper, :only => [:create, :update, :destroy]
 
   def index
+    @search = Content.search(params[:q])
+    @search.build_grouping unless @search.groupings.any?
+    @items = @search.result.paginate(:page => params[:page], :per_page => 20)
     render 'shared/admin/index_page', :layout => 'new_admin', :locals => {
-      :items => Content.paginate(:page => params[:page], :per_page => 20, :order => "created_at desc"),
+      :items => @items,
       :model => Content,
       :fields => [:title, :user_id, :score, :comments_count, :is_blocked, :created_at],
       :associations => { :belongs_to => { :user => :user_id, :source => :source } },

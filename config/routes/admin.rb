@@ -34,7 +34,12 @@ N2::Application.routes.draw do
     end
 
     resources :content_images
-    resources :contents
+    resources :contents do
+      collection do
+        get :search
+        post :search
+      end
+    end
 
     resources :dashboard_messages do
       member do
